@@ -48,6 +48,18 @@ st.markdown("""
         color: #F1F5F9 !important;
     }
 
+    /* ضبط صناديق التنبيه الافتراضية لكي لا تظهر بيضاء أبداً */
+    div[data-testid="stAlert"] {
+        background: rgba(10, 32, 64, 0.92) !important;
+        border: 1px solid rgba(56, 189, 248, 0.45) !important;
+        border-right: 5px solid #38BDF8 !important;
+        border-radius: 14px !important;
+        color: #F8FAFC !important;
+    }
+    div[data-testid="stAlert"] * {
+        color: #F8FAFC !important;
+    }
+
     /* الترويسة العلوية للمنصة */
     .top-navbar {
         background: rgba(8, 25, 48, 0.85);
@@ -79,7 +91,6 @@ st.markdown("""
         color: #FFFFFF;
         box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
     }
-    /* اسم المشروع بنفس خط الشعار تماماً (Lobster / Pacifico Script) */
     .brand-title {
         font-family: 'Lobster', 'Pacifico', cursive !important;
         font-size: 2.65rem !important;
@@ -132,6 +143,20 @@ st.markdown("""
         color: #E2E8F0 !important;
         line-height: 1.9;
         margin-bottom: 0;
+    }
+
+    /* بانر الدعوة لاتخاذ إجراء في أسفل الصفحة (CTA Banner) */
+    .cta-banner {
+        background: linear-gradient(135deg, rgba(2, 132, 199, 0.28) 0%, rgba(15, 38, 72, 0.92) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.5);
+        border-right: 6px solid #38BDF8;
+        border-radius: 18px;
+        padding: 22px 28px;
+        margin-top: 24px;
+        box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
+        color: #F8FAFC !important;
+        font-size: 1.02rem;
+        line-height: 1.75;
     }
 
     /* البطاقات المعلوماتية */
@@ -461,7 +486,7 @@ else:
 
 
 # ==========================================
-# 4. الترويسة العلوية للمنصة بنفس خط الشعار (Lobster Script)
+# 4. الترويسة العلوية للمنصة بنفس خط الشعار
 # ==========================================
 st.markdown(f"""
 <div class="top-navbar">
@@ -614,8 +639,13 @@ with main_tabs[0]:
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.info("🚀 **دعوتك لطلب استشارة:** انتقل إلى تبويب **«📅 اطلب خدمة / استشارة»** في أعلى الشاشة لبدء مرافقتك البحثية أو المؤسسية الآن.")
+    # بانر الدعوة لاتخاذ إجراء بلون كحلي وخط أبيض واضح تماماً
+    st.markdown("""
+    <div class="cta-banner">
+        🚀 <b style="color:#38BDF8;">دعوتك لطلب استشارة أو خدمة بحثية:</b>
+        انتقل إلى تبويب <b style="color:#7DD3FC;">«📅 اطلب خدمة / استشارة»</b> في أعلى الشاشة لملء بياناتك وإرفاق ملفاتك، وسيتواصل معك فريق <b>Socio Lab</b> خلال 24 ساعة.
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # ==========================================
