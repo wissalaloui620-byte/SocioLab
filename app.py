@@ -1,7 +1,7 @@
+import math
 import streamlit as st
-import streamlit.components.v1 as components
 
-# اعدادات الصفحة في Streamlit
+# 1. إعدادات الصفحة الأساسية
 st.set_page_config(
     page_title="Socio Lab | المختبر الاستشاري للبحث السوسيولوجي والتحليل الاحصائي",
     page_icon="📊",
@@ -9,413 +9,670 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# اخفاء الهوامش والقوائم الافتراضية لـ Streamlit لتظهر المنصة كأنها موقع مستقل
+# 2. التصميم المدمج الكامل (Pure CSS) لضمان ثبات الألوان وأحجام الخطوط الهادئة
 st.markdown(
     """
-    <style>
-        #MainMenu {visibility: hidden;}
-        header {visibility: hidden;}
-        footer {visibility: hidden;}
-        .block-container {
-            padding: 0rem !important;
-            max-width: 100% !important;
-        }
-        iframe {
-            border: none !important;
-            width: 100% !important;
-        }
-    </style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap');
+
+    /* اخفاء عناصر Streamlit الافتراضية */
+    #MainMenu, header, footer {visibility: hidden;}
+    .block-container {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+        max-width: 100% !important;
+    }
+
+    /* ضبط الاتجاه والخط العام بحجم متوازن ومريح للعين */
+    .stApp {
+        background-color: #F8FAFC;
+        font-family: 'Cairo', sans-serif !important;
+        direction: rtl;
+        text-align: right;
+        color: #1E293B;
+    }
+
+    h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {
+        font-family: 'Cairo', sans-serif;
+    }
+
+    /* الشريط العلوي (Navbar) */
+    .sl-navbar {
+        background-color: #0A192F;
+        border-bottom: 1px solid #163A5F;
+        padding: 12px 6%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
+    .sl-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .sl-sigma {
+        width: 38px;
+        height: 38px;
+        background-color: #0F2942;
+        border: 1px solid rgba(20, 184, 166, 0.45);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2DD4BF;
+        font-weight: 800;
+        font-size: 18px;
+    }
+    .sl-logo-script {
+        font-family: 'Great Vibes', cursive !important;
+        font-size: 26px;
+        color: #FFFFFF;
+        line-height: 1;
+    }
+    .sl-logo-sub {
+        font-size: 10px;
+        color: #2DD4BF;
+        display: block;
+        margin-top: 2px;
+    }
+    .sl-nav-links {
+        display: flex;
+        gap: 24px;
+    }
+    .sl-nav-links a {
+        color: #E2E8F0;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+    .sl-nav-links a:hover {
+        color: #2DD4BF;
+    }
+    .sl-cta-top {
+        background-color: #F59E0B;
+        color: #0A192F !important;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 8px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+    /* القسم الترحيبي (Hero Section) */
+    .sl-hero {
+        background-color: #0A192F;
+        background-image: radial-gradient(rgba(20, 184, 166, 0.14) 1px, transparent 1px);
+        background-size: 26px 26px;
+        color: #FFFFFF;
+        padding: 55px 6%;
+        border-bottom: 1px solid #163A5F;
+    }
+    .sl-hero-grid {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.25fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+    }
+    @media (max-width: 900px) {
+        .sl-hero-grid { grid-template-columns: 1fr; }
+        .sl-nav-links { display: none; }
+    }
+    .sl-badge {
+        display: inline-block;
+        background-color: #0F2942;
+        border: 1px solid rgba(20, 184, 166, 0.35);
+        color: #2DD4BF;
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 5px 14px;
+        border-radius: 99px;
+        margin-bottom: 14px;
+    }
+    .sl-hero-title {
+        font-size: 28px !important;
+        font-weight: 800 !important;
+        line-height: 1.45 !important;
+        color: #FFFFFF !important;
+        margin-bottom: 14px !important;
+    }
+    .sl-hero-title span {
+        color: #2DD4BF;
+    }
+    .sl-hero-desc {
+        color: #CBD5E1;
+        font-size: 14.5px;
+        line-height: 1.8;
+        margin-bottom: 24px;
+    }
+    .sl-hero-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .sl-btn-amber {
+        background-color: #F59E0B;
+        color: #0A192F !important;
+        font-weight: 700;
+        font-size: 13.5px;
+        padding: 10px 22px;
+        border-radius: 10px;
+        text-decoration: none;
+    }
+    .sl-btn-outline {
+        background-color: #0F2942;
+        border: 1px solid #334155;
+        color: #FFFFFF !important;
+        font-weight: 600;
+        font-size: 13.5px;
+        padding: 10px 22px;
+        border-radius: 10px;
+        text-decoration: none;
+    }
+
+    /* بطاقة المعاينة الاحصائية في الواجهة */
+    .sl-stat-card {
+        background-color: #0F2942;
+        border: 1px solid #1E3A5F;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    }
+    .sl-stat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1E3A5F;
+        padding-bottom: 10px;
+        margin-bottom: 14px;
+    }
+    .sl-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 12px 0;
+        text-align: center;
+    }
+    .sl-kpi-box {
+        background-color: #0A192F;
+        border: 1px solid #1E3A5F;
+        border-radius: 10px;
+        padding: 8px;
+    }
+    .sl-kpi-label {
+        font-size: 11px;
+        color: #94A3B8;
+    }
+    .sl-kpi-val {
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: 2px;
+    }
+    .sl-reading-box {
+        background-color: #0A192F;
+        border-right: 3px solid #14B8A6;
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: #E2E8F0;
+        line-height: 1.65;
+    }
+
+    /* العناوين والأقسام */
+    .sl-section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 50px 6%;
+    }
+    .sl-sec-head {
+        text-align: center;
+        max-width: 620px;
+        margin: 0 auto 36px auto;
+    }
+    .sl-sec-tag {
+        color: #14B8A6;
+        font-size: 12.5px;
+        font-weight: 700;
+    }
+    .sl-sec-title {
+        color: #0A192F !important;
+        font-size: 22px !important;
+        font-weight: 800 !important;
+        margin: 4px 0 8px 0 !important;
+    }
+    .sl-sec-sub {
+        color: #64748B;
+        font-size: 13.5px;
+        margin: 0;
+    }
+
+    /* شبكة بطاقات الخدمات */
+    .sl-services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 18px;
+    }
+    .sl-srv-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-top: 3.5px solid #14B8A6;
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .sl-srv-card.navy-top { border-top-color: #0A192F; }
+    .sl-srv-card.amber-top { border-top-color: #F59E0B; }
+    .sl-srv-num {
+        font-size: 16px;
+        font-weight: 800;
+        color: #14B8A6;
+        margin-bottom: 6px;
+    }
+    .sl-srv-title {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        color: #0A192F !important;
+        margin-bottom: 8px !important;
+    }
+    .sl-srv-desc {
+        font-size: 13px;
+        color: #475569;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* تنسيق الأدوات التفاعلية والنماذج داخل Streamlit */
+    .sl-tool-box {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .sl-result-banner {
+        background-color: #F0FDFA;
+        border: 1px solid #99F6E4;
+        border-right: 4px solid #14B8A6;
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin-top: 12px;
+        font-size: 13px;
+        color: #0F2942;
+    }
+
+    /* ميثاق النزاهة والتذييل */
+    .sl-integrity {
+        background-color: #0A192F;
+        color: #FFFFFF;
+        text-align: center;
+        padding: 45px 6%;
+        margin-top: 30px;
+    }
+    .sl-footer {
+        background-color: #071120;
+        color: #94A3B8;
+        text-align: center;
+        padding: 28px 6%;
+        font-size: 12.5px;
+        border-top: 1px solid #163A5F;
+    }
+
+    /* تصغير وضبط مدخلات Streamlit الافتراضية */
+    div[data-baseweb="select"] > div, input, textarea {
+        font-size: 13px !important;
+        border-radius: 8px !important;
+    }
+    label p {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        color: #1E293B !important;
+    }
+</style>
 """,
     unsafe_allow_html=True,
 )
 
-# كود واجهة منصة Socio Lab الكامل داخل متغير نصي في بايثون
-html_code = """
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socio Lab</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: {
-                            900: '#0A192F',
-                            800: '#0F2942',
-                            700: '#163A5F'
-                        },
-                        teal: {
-                            500: '#14B8A6',
-                            400: '#2DD4BF'
-                        },
-                        amber: {
-                            500: '#F59E0B',
-                            600: '#D97706'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Cairo', 'sans-serif'],
-                        script: ['Great Vibes', 'cursive']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .bg-grid-pattern {
-            background-image: radial-gradient(rgba(20, 184, 166, 0.15) 1px, transparent 1px);
-            background-size: 28px 28px;
-        }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
-
-    <!-- 1. الشريط العلوي -->
-    <header class="bg-navy-900/95 backdrop-blur-md text-white sticky top-0 z-50 border-b border-navy-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-navy-800 border border-teal-500/40 flex items-center justify-center text-teal-400 font-bold text-xl shadow-inner">
-                    &Sigma;
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-script text-3xl text-white tracking-wider leading-none">Socio Lab</span>
-                    <span class="text-[11px] text-teal-400 mt-1">للتحليل الاحصائي والمنهجية</span>
-                </div>
-            </a>
-
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-200">
-                <a href="#services" class="hover:text-teal-400 transition">خدماتنا</a>
-                <a href="#tools" class="hover:text-teal-400 transition">الادوات التفاعلية</a>
-                <a href="#integrity" class="hover:text-teal-400 transition">ميثاق النزاهة</a>
-                <a href="#order" class="hover:text-teal-400 transition">اطلب خدمة</a>
-            </nav>
-
-            <a href="#order" class="bg-amber-500 hover:bg-amber-600 text-navy-900 font-bold px-5 py-2.5 rounded-lg text-sm transition shadow-lg shadow-amber-500/20">
-                احجز استشارة
-            </a>
+# 3. الشريط العلوي والقسم الترحيبي (Hero Section)
+st.markdown(
+    """
+<div class="sl-navbar">
+    <div class="sl-brand">
+        <div class="sl-sigma">&Sigma;</div>
+        <div>
+            <div class="sl-logo-script">Socio Lab</div>
+            <span class="sl-logo-sub">للتحليل الاحصائي والمنهجية</span>
         </div>
-    </header>
+    </div>
+    <div class="sl-nav-links">
+        <a href="#services">خدماتنا</a>
+        <a href="#tools">الادوات التفاعلية</a>
+        <a href="#integrity">ميثاق النزاهة</a>
+        <a href="#order">اطلب خدمة</a>
+    </div>
+    <a href="#order" class="sl-cta-top">احجز استشارة</a>
+</div>
 
-    <!-- 2. الواجهة الترحيبية -->
-    <section class="bg-navy-900 bg-grid-pattern text-white py-20 lg:py-24 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
-            
-            <div class="lg:col-span-7 space-y-6">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-800 border border-teal-500/30 text-teal-400 text-xs font-semibold">
-                    <span>&mu;</span>
-                    <span>دقة منهجية • قراءة سوسيولوجية • توثيق APA</span>
-                </div>
-                <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight">
-                    من الفكرة البحثية الى النتائج المحكمة.. <span class="text-teal-400">شريكك المنهجي والاحصائي الدقيق</span>
-                </h1>
-                <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-                    في <span class="font-script text-2xl text-white mx-1">Socio Lab</span> نحول البيانات الميدانية الخام الى رؤى سوسيولوجية وعلمية رصينة. نرافق الباحثين، طلبة الدراسات العليا، والمؤسسات في تصميم ادوات القياس، تنظيف البيانات، والتحليل الاحصائي المتقدم عبر برنامج SPSS.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#order" class="bg-amber-500 hover:bg-amber-600 text-navy-900 font-bold px-7 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/20">
-                        اطلب خدمتك البحثية الان
-                    </a>
-                    <a href="#tools" class="bg-navy-800 hover:bg-navy-700 border border-slate-700 text-white font-semibold px-7 py-3.5 rounded-xl transition">
-                        جرب الادوات الاحصائية المجانية
-                    </a>
-                </div>
-            </div>
-
-            <div class="lg:col-span-5 bg-navy-800/90 border border-navy-700 p-6 rounded-2xl shadow-2xl space-y-5">
-                <div class="flex items-center justify-between border-b border-navy-700 pb-4">
-                    <div>
-                        <span class="text-xs text-teal-400 font-semibold">نموذج مخرجات Socio Lab</span>
-                        <h3 class="text-base font-bold text-white">تحليل التوزيع الطبيعي ومؤشرات الثبات</h3>
-                    </div>
-                    <span class="bg-teal-500/20 text-teal-400 text-xs font-mono px-2.5 py-1 rounded">SPSS v28</span>
-                </div>
-
-                <div class="bg-navy-900/80 p-4 rounded-xl border border-navy-700">
-                    <svg viewBox="0 0 300 110" class="w-full h-28 overflow-visible">
-                        <defs>
-                            <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#14B8A6" stop-opacity="0.45"/>
-                                <stop offset="100%" stop-color="#14B8A6" stop-opacity="0.0"/>
-                            </linearGradient>
-                        </defs>
-                        <line x1="10" y1="95" x2="290" y2="95" stroke="#334155" stroke-width="1"/>
-                        <line x1="150" y1="15" x2="150" y2="95" stroke="#F59E0B" stroke-dasharray="3,3" stroke-width="1.5"/>
-                        <path d="M 15 95 C 75 95, 105 15, 150 15 C 195 15, 225 95, 285 95 Z" fill="url(#curveGrad)"/>
-                        <path d="M 15 95 C 75 95, 105 15, 150 15 C 195 15, 225 95, 285 95" fill="none" stroke="#14B8A6" stroke-width="2.5"/>
-                        <text x="150" y="108" fill="#F59E0B" font-size="10" text-anchor="middle">&mu; = 3.84</text>
-                    </svg>
-                </div>
-
-                <div class="grid grid-cols-3 gap-3 text-center">
-                    <div class="bg-navy-900/60 p-3 rounded-lg border border-navy-700">
-                        <div class="text-xs text-slate-400">الفا كرونباخ (&alpha;)</div>
-                        <div class="text-lg font-bold text-teal-400 font-mono">0.892</div>
-                    </div>
-                    <div class="bg-navy-900/60 p-3 rounded-lg border border-navy-700">
-                        <div class="text-xs text-slate-400">حجم العينة (N)</div>
-                        <div class="text-lg font-bold text-white font-mono">60</div>
-                    </div>
-                    <div class="bg-navy-900/60 p-3 rounded-lg border border-navy-700">
-                        <div class="text-xs text-slate-400">الدلالة (Sig)</div>
-                        <div class="text-lg font-bold text-amber-500 font-mono">0.001</div>
-                    </div>
-                </div>
-
-                <div class="text-xs text-slate-300 bg-navy-900/90 p-3.5 rounded-lg border-r-4 border-teal-500 leading-relaxed">
-                    <strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى دلالة 0.01.
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 3. قسم الخدمات البحثية والاحصائية -->
-    <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-teal-500 font-bold text-sm">حلول منهجية متكاملة</span>
-            <h2 class="text-3xl font-extrabold text-navy-900 mt-1">خدمات منصة Socio Lab</h2>
-            <p class="text-slate-600 mt-3 text-sm sm:text-base">نصمم الادوات ونحلل البيانات وفق الضوابط الاكاديمية المعتمدة في الجامعات والمجلات المحكمة.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-teal-500 shadow-sm hover:shadow-md transition">
-                <div class="text-teal-500 font-bold text-2xl mb-3">01</div>
-                <h3 class="text-xl font-bold text-navy-900 mb-2">تصميم وبناء ادوات البحث</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">صياغة الاستبيانات الورقية والالكترونية وبناء ادلة المقابلات المعمقة والملاحظة العلمية وفق ابعاد وفرضيات الدراسة مع دليل الترميز.</p>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-navy-900 shadow-sm hover:shadow-md transition">
-                <div class="text-navy-900 font-bold text-2xl mb-3">02</div>
-                <h3 class="text-xl font-bold text-navy-900 mb-2">التحليل الاحصائي وتنظيف البيانات (SPSS)</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">تفريغ البيانات وتنظيفها، حساب الصدق والثبات، واجراء الاختبارات الوصفية والاستدلالية مع قراءة سوسيولوجية معمقة للجداول.</p>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-amber-500 shadow-sm hover:shadow-md transition">
-                <div class="text-amber-500 font-bold text-2xl mb-3">03</div>
-                <h3 class="text-xl font-bold text-navy-900 mb-2">الضبط المنهجي وتحكيم المقاييس</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">مراجعة الاشكالية والفرضيات، ضبط المعاينة، وتقييم الخصائص السيكومترية للمقاييس لضمان سلامة البناء المنهجي للدراسة.</p>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-navy-900 shadow-sm hover:shadow-md transition">
-                <div class="text-navy-900 font-bold text-2xl mb-3">04</div>
-                <h3 class="text-xl font-bold text-navy-900 mb-2">تحليل البيانات الكيفية</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">تفريغ المقابلات المعمقة وتحليل المضمون والتحليل الموضوعاتي للدراسات الميدانية والدراسات المختلطة (الكمية والكيفية).</p>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-teal-500 shadow-sm hover:shadow-md transition">
-                <div class="text-teal-500 font-bold text-2xl mb-3">05</div>
-                <h3 class="text-xl font-bold text-navy-900 mb-2">التوثيق الاكاديمي (APA) والنشر</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">ضبط التوثيق في المتن وقائمة المراجع وفق معايير APA، وتنسيق اوراق المؤتمرات والمقالات العلمية للنشر في المجلات المحكمة.</p>
-            </div>
-
-            <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-amber-500 shadow-sm hover:shadow-md transition">
-                <div class="text-amber-500 font-bold text-2xl mb-3">06</div>
-                <h3 class="text-xl font-bold text-navy-900 mb-2">مسوح المؤسسات ودراسات الاثر</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">تصميم وتنفيذ استطلاعات الراي ودراسات قياس الاثر الاجتماعي للمؤسسات والجمعيات وتقديم تقارير تنفيذية لصناع القرار.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. قسم الادوات التفاعلية الذكية -->
-    <section id="tools" class="py-16 bg-slate-100 border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <span class="text-teal-500 font-bold text-sm">مختبر الادوات المجانية</span>
-                <h2 class="text-3xl font-extrabold text-navy-900 mt-1">الادوات التفاعلية لمساعدة الباحث</h2>
-                <p class="text-slate-600 mt-2 text-sm">استخدم ادواتنا الذكية لتحديد الاختبار الاحصائي المناسب لفرضيتك او حساب حجم عينتك الممثلة فورا.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-5">
-                    <div class="flex items-center justify-between border-b pb-4">
-                        <h3 class="text-xl font-bold text-navy-900">1. مشخص الاختبار الاحصائي (SPSS)</h3>
-                        <span class="text-xs bg-navy-900 text-teal-400 px-3 py-1 rounded-full font-semibold">اداة ذكية</span>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-1">هدف الفرضية البحثية:</label>
-                            <select id="goalSelect" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                                <option value="corr">قياس العلاقة الارتباطية بين متغيرين</option>
-                                <option value="diff2">قياس الفروق بين مجموعتين مستقلتين (مثل: ذكور / اناث)</option>
-                                <option value="diff3">قياس الفروق بين 3 مجموعات فاكثر (مثل: المستويات التعليمية)</option>
-                                <option value="impact">قياس اثر متغير مستقل على متغير تابع (التنبؤ)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-1">طبيعة البيانات والتوزيع:</label>
-                            <select id="distSelect" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                                <option value="normal">بيانات كمية تتبع التوزيع الطبيعي (معلمية)</option>
-                                <option value="nonnormal">بيانات رتبية او لا تتبع التوزيع الطبيعي (لامعلمية)</option>
-                            </select>
-                        </div>
-                        <button onclick="findTest()" class="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-3 rounded-xl transition">
-                            اعرض الاختبار الاحصائي المناسب
-                        </button>
-                        <div id="testResult" class="p-4 rounded-xl bg-slate-50 border border-teal-500/40 text-sm space-y-1">
-                            <div class="font-bold text-navy-900" id="testName">معامل ارتباط بيرسون (Pearson Correlation)</div>
-                            <div class="text-xs text-teal-600 font-mono" id="testPath">Analyze > Correlate > Bivariate > Pearson</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-5">
-                    <div class="flex items-center justify-between border-b pb-4">
-                        <h3 class="text-xl font-bold text-navy-900">2. حاسبة حجم العينة الممثلة</h3>
-                        <span class="text-xs bg-teal-500/15 text-teal-600 px-3 py-1 rounded-full font-semibold">معادلة كوكران</span>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-1">حجم مجتمع الدراسة الكلي (N):</label>
-                            <input type="number" id="popSize" value="500" min="10" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-1">هامش الخطا المسموح به:</label>
-                            <select id="marginError" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                                <option value="0.05">5% (مستوى ثقة 95% - القياسي في العلوم الاجتماعية)</option>
-                                <option value="0.01">1% (مستوى ثقة 99% - دقة عالية جدا)</option>
-                                <option value="0.10">10% (مستوى ثقة 90% - للدراسات الاستطلاعية)</option>
-                            </select>
-                        </div>
-                        <button onclick="calcSample()" class="w-full bg-teal-500 hover:bg-teal-400 text-navy-900 font-bold py-3 rounded-xl transition">
-                            احسب حجم العينة المطلوب
-                        </button>
-                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-                            <span class="text-sm font-semibold text-slate-700">الحد الادنى الممثل للعينة (n):</span>
-                            <span id="sampleOutput" class="text-2xl font-extrabold text-navy-900 font-mono">218 مفردة</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. قسم ميثاق النزاهة العلمية -->
-    <section id="integrity" class="py-14 bg-navy-900 text-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
-            <span class="bg-amber-500/20 text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full">الالتزام الاخلاقي والعلمي</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold">ميثاق النزاهة العلمية وسرية البيانات في Socio Lab</h2>
-            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
-                تلتزم منصة Socio Lab بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.
+<div class="sl-hero">
+    <div class="sl-hero-grid">
+        <div>
+            <div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق APA</div>
+            <div class="sl-hero-title">من الفكرة البحثية الى النتائج المحكمة.. <span>شريكك المنهجي والاحصائي الدقيق</span></div>
+            <p class="sl-hero-desc">
+                في <strong>Socio Lab</strong> نحول البيانات الميدانية الخام الى رؤى سوسيولوجية وعلمية رصينة. نرافق الباحثين، طلبة الدراسات العليا، والمؤسسات في تصميم ادوات القياس، تنظيف البيانات، والتحليل الاحصائي المتقدم عبر برنامج SPSS.
             </p>
+            <div class="sl-hero-btns">
+                <a href="#order" class="sl-btn-amber">اطلب خدمتك البحثية الان</a>
+                <a href="#tools" class="sl-btn-outline">جرب الادوات الاحصائية المجانية</a>
+            </div>
         </div>
-    </section>
 
-    <!-- 6. قسم طلب خدمة او استشارة -->
-    <section id="order" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg">
-            <div class="text-center mb-8">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">اطلب خدمتك البحثية او استشارتك</h2>
-                <p class="text-slate-600 text-sm mt-2">املا النموذج التالي وسيتواصل معك فريق Socio Lab خلال 24 ساعة بخطة العمل والتكلفة.</p>
+        <div class="sl-stat-card">
+            <div class="sl-stat-header">
+                <div>
+                    <div style="font-size:11px; color:#2DD4BF; font-weight:700;">نموذج مخرجات Socio Lab</div>
+                    <div style="font-size:14px; font-weight:700; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div>
+                </div>
+                <span style="background:rgba(20,184,166,0.18); color:#2DD4BF; font-size:11px; padding:3px 8px; border-radius:6px; font-family:monospace;">SPSS v28</span>
             </div>
 
-            <form id="serviceForm" onsubmit="submitOrder(event)" class="space-y-5">
-                <div class="grid sm:grid-cols-2 gap-5">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">الاسم الكامل / المؤسسة *</label>
-                        <input type="text" id="clientName" required placeholder="مثال: محمد الامين" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">الصفة الاكاديمية او المهنية *</label>
-                        <select id="clientRole" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                            <option>باحث ماستر</option>
-                            <option>باحث دكتوراه</option>
-                            <option>استاذ باحث</option>
-                            <option>مؤسسة / جمعية</option>
-                        </select>
-                    </div>
-                </div>
+            <div style="background:#0A192F; padding:10px; border-radius:10px; border:1px solid #1E3A5F;">
+                <svg viewBox="0 0 300 95" style="width:100%; height:85px; display:block;">
+                    <defs>
+                        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#14B8A6" stop-opacity="0.45"/>
+                            <stop offset="100%" stop-color="#14B8A6" stop-opacity="0.0"/>
+                        </linearGradient>
+                    </defs>
+                    <line x1="10" y1="80" x2="290" y2="80" stroke="#334155" stroke-width="1"/>
+                    <line x1="150" y1="12" x2="150" y2="80" stroke="#F59E0B" stroke-dasharray="3,3" stroke-width="1.3"/>
+                    <path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80 Z" fill="url(#g1)"/>
+                    <path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#2DD4BF" stroke-width="2.2"/>
+                    <text x="150" y="92" fill="#F59E0B" font-size="9" text-anchor="middle">&mu; = 3.84</text>
+                </svg>
+            </div>
 
-                <div class="grid sm:grid-cols-2 gap-5">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">نوع الخدمة المطلوبة *</label>
-                        <select id="serviceType" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                            <option>التحليل الاحصائي وتفريغ البيانات (SPSS)</option>
-                            <option>تصميم وبناء استبيان او اداة بحث</option>
-                            <option>الضبط المنهجي وتحكيم الادوات</option>
-                            <option>تحليل المقابلات والبيانات الكيفية</option>
-                            <option>التوثيق الاكاديمي (APA) وتنسيق المقالات</option>
-                            <option>حجز جلسة استشارية فردية</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">رقم الواتساب او البريد الالكتروني *</label>
-                        <input type="text" id="clientContact" required placeholder="06XXXXXXXX / email@domain.com" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none">
-                    </div>
+            <div class="sl-kpi-grid">
+                <div class="sl-kpi-box">
+                    <div class="sl-kpi-label">الفا كرونباخ (&alpha;)</div>
+                    <div class="sl-kpi-val" style="color:#2DD4BF;">0.892</div>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">ملخص الدراسة وحجم العينة والتفاصيل المطلوبة *</label>
-                    <textarea id="studyDetails" rows="4" required placeholder="اكتب عنوان الدراسة او الاشكالية وحجم العينة والموعد المقترح للتسليم..." class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-teal-500 focus:outline-none"></textarea>
+                <div class="sl-kpi-box">
+                    <div class="sl-kpi-label">حجم العينة (N)</div>
+                    <div class="sl-kpi-val" style="color:#FFFFFF;">60</div>
                 </div>
+                <div class="sl-kpi-box">
+                    <div class="sl-kpi-label">الدلالة (Sig)</div>
+                    <div class="sl-kpi-val" style="color:#F59E0B;">0.001</div>
+                </div>
+            </div>
 
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-navy-900 font-extrabold py-4 rounded-xl transition shadow-md">
-                    ارسال الطلب الان
-                </button>
-                <p id="formFeedback" class="hidden text-center text-sm font-bold text-teal-600 bg-teal-50 p-3 rounded-xl"></p>
-            </form>
+            <div class="sl-reading-box">
+                <strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.
+            </div>
         </div>
-    </section>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 
-    <!-- 7. التذييل -->
-    <footer class="bg-navy-900 text-slate-400 py-10 border-t border-navy-800 text-center text-sm">
-        <div class="max-w-7xl mx-auto px-4 space-y-2">
-            <div class="font-script text-3xl text-white">Socio Lab</div>
-            <p>المختبر الاستشاري للبحث السوسيولوجي والتحليل الاحصائي</p>
-            <p class="text-xs text-slate-500 pt-2">جميع الحقوق محفوظة &copy; 2026 Socio Lab</p>
+# 4. قسم الخدمات البحثية والإحصائية
+st.markdown(
+    """
+<div id="services" class="sl-section">
+    <div class="sl-sec-head">
+        <div class="sl-sec-tag">حلول منهجية متكاملة</div>
+        <h2 class="sl-sec-title">خدمات منصة Socio Lab</h2>
+        <p class="sl-sec-sub">نصمم الادوات ونحلل البيانات وفق الضوابط الاكاديمية المعتمدة في الجامعات والمجلات المحكمة.</p>
+    </div>
+
+    <div class="sl-services-grid">
+        <div class="sl-srv-card">
+            <div class="sl-srv-num">01</div>
+            <h3 class="sl-srv-title">تصميم وبناء ادوات البحث</h3>
+            <p class="sl-srv-desc">صياغة الاستبيانات الورقية والالكترونية وبناء ادلة المقابلات المعمقة والملاحظة العلمية وفق ابعاد وفرضيات الدراسة مع دليل الترميز.</p>
         </div>
-    </footer>
+        <div class="sl-srv-card navy-top">
+            <div class="sl-srv-num" style="color:#0A192F;">02</div>
+            <h3 class="sl-srv-title">التحليل الاحصائي وتنظيف البيانات (SPSS)</h3>
+            <p class="sl-srv-desc">تفريغ البيانات وتنظيفها، حساب الصدق والثبات، واجراء الاختبارات الوصفية والاستدلالية مع قراءة سوسيولوجية معمقة للجداول.</p>
+        </div>
+        <div class="sl-srv-card amber-top">
+            <div class="sl-srv-num" style="color:#F59E0B;">03</div>
+            <h3 class="sl-srv-title">الضبط المنهجي وتحكيم المقاييس</h3>
+            <p class="sl-srv-desc">مراجعة الاشكالية والفرضيات، ضبط المعاينة، وتقييم الخصائص السيكومترية للمقاييس لضمان سلامة البناء المنهجي للدراسة.</p>
+        </div>
+        <div class="sl-srv-card navy-top">
+            <div class="sl-srv-num" style="color:#0A192F;">04</div>
+            <h3 class="sl-srv-title">تحليل البيانات الكيفية</h3>
+            <p class="sl-srv-desc">تفريغ المقابلات المعمقة وتحليل المضمون والتحليل الموضوعاتي للدراسات الميدانية والدراسات المختلطة (الكمية والكيفية).</p>
+        </div>
+        <div class="sl-srv-card">
+            <div class="sl-srv-num">05</div>
+            <h3 class="sl-srv-title">التوثيق الاكاديمي (APA) والنشر</h3>
+            <p class="sl-srv-desc">ضبط التوثيق في المتن وقائمة المراجع وفق معايير APA، وتنسيق اوراق المؤتمرات والمقالات العلمية للنشر في المجلات المحكمة.</p>
+        </div>
+        <div class="sl-srv-card amber-top">
+            <div class="sl-srv-num" style="color:#F59E0B;">06</div>
+            <h3 class="sl-srv-title">مسوح المؤسسات ودراسات الاثر</h3>
+            <p class="sl-srv-desc">تصميم وتنفيذ استطلاعات الراي ودراسات قياس الاثر الاجتماعي للمؤسسات والجمعيات وتقديم تقارير تنفيذية لصناع القرار.</p>
+        </div>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 
-    <script>
-        function findTest() {
-            const goal = document.getElementById('goalSelect').value;
-            const dist = document.getElementById('distSelect').value;
-            const nameEl = document.getElementById('testName');
-            const pathEl = document.getElementById('testPath');
+# 5. قسم الأدوات التفاعلية الذكية (مبرمج مباشرة بـ Streamlit لضمان عمله السريع)
+st.markdown(
+    """
+<div id="tools" style="max-width:1180px; margin:0 auto; padding:10px 6% 20px 6%;">
+    <div class="sl-sec-head">
+        <div class="sl-sec-tag">مختبر الادوات المجانية</div>
+        <h2 class="sl-sec-title">الادوات التفاعلية لمساعدة الباحث</h2>
+        <p class="sl-sec-sub">استخدم ادواتنا الذكية لتحديد الاختبار الاحصائي المناسب لفرضيتك او حساب حجم عينتك الممثلة فورا.</p>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 
-            const tests = {
-                corr_normal: ['معامل ارتباط بيرسون (Pearson Correlation)', 'Analyze > Correlate > Bivariate > Pearson'],
-                corr_nonnormal: ['معامل ارتباط سبيرمان للرتب (Spearman Rho)', 'Analyze > Correlate > Bivariate > Spearman'],
-                diff2_normal: ['اختبار ت لعينتين مستقلتين (Independent Samples T-Test)', 'Analyze > Compare Means > Independent-Samples T Test'],
-                diff2_nonnormal: ['اختبار مان-ويتني (Mann-Whitney U Test)', 'Analyze > Nonparametric Tests > Independent Samples'],
-                diff3_normal: ['تحليل التباين الاحادي (One-Way ANOVA)', 'Analyze > Compare Means > One-Way ANOVA'],
-                diff3_nonnormal: ['اختبار كروسكال-واليس (Kruskal-Wallis Test)', 'Analyze > Nonparametric Tests > K Independent Samples'],
-                impact_normal: ['الانحدار الخطي البسيط/المتعدد (Linear Regression)', 'Analyze > Regression > Linear'],
-                impact_nonnormal: ['الانحدار اللوجستي او الترتيبي (Ordinal / Logistic Regression)', 'Analyze > Regression > Ordinal']
-            };
+_, col_t1, col_t2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
 
-            const key = `${goal}_${dist}`;
-            nameEl.textContent = tests[key][0];
-            pathEl.textContent = tests[key][1];
-        }
+with col_t1:
+    st.markdown(
+        '<div class="sl-tool-box"><h4 style="margin:0 0 12px 0; font-size:15.5px; color:#0A192F;">1. مشخص الاختبار الاحصائي (SPSS)</h4>',
+        unsafe_allow_html=True,
+    )
+    goal = st.selectbox(
+        "هدف الفرضية البحثية:",
+        [
+            "قياس العلاقة الارتباطية بين متغيرين",
+            "قياس الفروق بين مجموعتين مستقلتين (مثل: ذكور / اناث)",
+            "قياس الفروق بين 3 مجموعات فاكثر (مثل: المستويات التعليمية)",
+            "قياس اثر متغير مستقل على متغير تابع (التنبؤ)",
+        ],
+    )
+    dist = st.selectbox(
+        "طبيعة البيانات والتوزيع:",
+        [
+            "بيانات كمية تتبع التوزيع الطبيعي (معلمية)",
+            "بيانات رتبية او لا تتبع التوزيع الطبيعي (لامعلمية)",
+        ],
+    )
 
-        function calcSample() {
-            const N = parseFloat(document.getElementById('popSize').value) || 100;
-            const e = parseFloat(document.getElementById('marginError').value);
-            const z = e === 0.01 ? 2.576 : (e === 0.10 ? 1.645 : 1.96);
-            const p = 0.5;
-            const n0 = (Math.pow(z, 2) * p * (1 - p)) / Math.pow(e, 2);
-            const n = Math.ceil(n0 / (1 + ((n0 - 1) / N)));
-            document.getElementById('sampleOutput').textContent = n + ' مفردة';
-        }
+    is_normal = "معلمية" in dist
+    if "العلاقة" in goal:
+        t_name = (
+            "معامل ارتباط بيرسون (Pearson Correlation)"
+            if is_normal
+            else "معامل ارتباط سبيرمان للرتب (Spearman Rho)"
+        )
+        t_path = (
+            "Analyze > Correlate > Bivariate > Pearson"
+            if is_normal
+            else "Analyze > Correlate > Bivariate > Spearman"
+        )
+    elif "مجموعتين" in goal:
+        t_name = (
+            "اختبار ت لعينتين مستقلتين (Independent Samples T-Test)"
+            if is_normal
+            else "اختبار مان-ويتني (Mann-Whitney U Test)"
+        )
+        t_path = (
+            "Analyze > Compare Means > Independent-Samples T Test"
+            if is_normal
+            else "Analyze > Nonparametric Tests > Independent Samples"
+        )
+    elif "3 مجموعات" in goal:
+        t_name = (
+            "تحليل التباين الاحادي (One-Way ANOVA)"
+            if is_normal
+            else "اختبار كروسكال-واليس (Kruskal-Wallis Test)"
+        )
+        t_path = (
+            "Analyze > Compare Means > One-Way ANOVA"
+            if is_normal
+            else "Analyze > Nonparametric Tests > K Independent Samples"
+        )
+    else:
+        t_name = (
+            "الانحدار الخطي البسيط/المتعدد (Linear Regression)"
+            if is_normal
+            else "الانحدار اللوجستي او الترتيبي (Ordinal Regression)"
+        )
+        t_path = (
+            "Analyze > Regression > Linear"
+            if is_normal
+            else "Analyze > Regression > Ordinal"
+        )
 
-        function submitOrder(e) {
-            e.preventDefault();
-            const feedback = document.getElementById('formFeedback');
-            feedback.textContent = 'تم تسجيل طلبك بنجاح! سنتواصل معك خلال 24 ساعة.';
-            feedback.classList.remove('hidden');
-        }
-    </script>
-</body>
-</html>
-"""
+    st.markdown(
+        f"""
+        <div class="sl-result-banner">
+            <strong>الاختبار المناسب:</strong> {t_name}<br>
+            <span style="font-family:monospace; font-size:11.5px; color:#0D9488;">{t_path}</span>
+        </div>
+    </div>
+    """,
+        unsafe_allow_html=True,
+    )
 
-# عرض المنصة بالكامل داخل صفحة Streamlit
-components.html(html_code, height=3100, scrolling=True)
+with col_t2:
+    st.markdown(
+        '<div class="sl-tool-box"><h4 style="margin:0 0 12px 0; font-size:15.5px; color:#0A192F;">2. حاسبة حجم العينة الممثلة (معادلة كوكران)</h4>',
+        unsafe_allow_html=True,
+    )
+    pop_size = st.number_input(
+        "حجم مجتمع الدراسة الكلي (N):", min_value=10, value=500, step=10
+    )
+    margin_label = st.selectbox(
+        "هامش الخطا المسموح به:",
+        [
+            "5% (مستوى ثقة 95% - القياسي في العلوم الاجتماعية)",
+            "1% (مستوى ثقة 99% - دقة عالية جدا)",
+            "10% (مستوى ثقة 90% - للدراسات الاستطلاعية)",
+        ],
+    )
+
+    e = 0.05 if "5%" in margin_label else (0.01 if "1%" in margin_label else 0.10)
+    z = 1.96 if e == 0.05 else (2.576 if e == 0.01 else 1.645)
+    n0 = (z**2 * 0.25) / (e**2)
+    sample_n = math.ceil(n0 / (1 + ((n0 - 1) / pop_size)))
+
+    st.markdown(
+        f"""
+        <div class="sl-result-banner" style="display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>الحد الادنى الممثل للعينة (n):</strong></span>
+            <span style="font-size:18px; font-weight:800; color:#0A192F;">{sample_n} مفردة</span>
+        </div>
+    </div>
+    """,
+        unsafe_allow_html=True,
+    )
+
+# 6. ميثاق النزاهة العلمية
+st.markdown(
+    """
+<div id="integrity" class="sl-integrity">
+    <div style="max-width:800px; margin:0 auto;">
+        <span style="background:rgba(245,158,11,0.18); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>
+        <h3 style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في Socio Lab</h3>
+        <p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">
+            تلتزم منصة Socio Lab بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.
+        </p>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+# 7. نموذج طلب الخدمة
+st.markdown(
+    """
+<div id="order" style="max-width:850px; margin:0 auto; padding:45px 6% 15px 6%;">
+    <div class="sl-sec-head" style="margin-bottom:20px;">
+        <h2 class="sl-sec-title">اطلب خدمتك البحثية او استشارتك</h2>
+        <p class="sl-sec-sub">املا النموذج التالي وسيتواصل معك فريق Socio Lab خلال 24 ساعة بخطة العمل والتكلفة.</p>
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+_, form_col, _ = st.columns([0.12, 0.76, 0.12])
+with form_col:
+    with st.form("sociolab_order_form"):
+        c1, c2 = st.columns(2)
+        with c1:
+            client_name = st.text_input("الاسم الكامل / المؤسسة *")
+            service_type = st.selectbox(
+                "نوع الخدمة المطلوبة *",
+                [
+                    "التحليل الاحصائي وتفريغ البيانات (SPSS)",
+                    "تصميم وبناء استبيان او اداة بحث",
+                    "الضبط المنهجي وتحكيم الادوات",
+                    "تحليل المقابلات والبيانات الكيفية",
+                    "التوثيق الاكاديمي (APA) وتنسيق المقالات",
+                    "حجز جلسة استشارية فردية",
+                ],
+            )
+        with c2:
+            client_role = st.selectbox(
+                "الصفة الاكاديمية او المهنية *",
+                ["باحث ماستر", "باحث دكتوراه", "استاذ باحث", "مؤسسة / جمعية"],
+            )
+            client_contact = st.text_input("رقم الواتساب او البريد الالكتروني *")
+
+        study_details = st.text_area(
+            "ملخص الدراسة وحجم العينة والتفاصيل المطلوبة *", height=100
+        )
+        submitted = st.form_submit_button(
+            "ارسال الطلب الان", use_container_width=True
+        )
+        if submitted:
+            if client_name and client_contact:
+                st.success(
+                    f"تم تسجيل طلبك بنجاح يا {client_name}! سيتواصل معك فريق Socio Lab خلال 24 ساعة."
+                )
+            else:
+                st.warning("يرجى ملء الاسم ووسيلة التواصل لتأكيد الطلب.")
+
+# 8. التذييل (Footer)
+st.markdown(
+    """
+<div class="sl-footer">
+    <div class="sl-logo-script" style="font-size:24px; margin-bottom:4px;">Socio Lab</div>
+    <div>المختبر الاستشاري للبحث السوسيولوجي والتحليل الاحصائي</div>
+    <div style="font-size:11px; color:#64748B; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 Socio Lab</div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
