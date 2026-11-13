@@ -11,7 +11,6 @@ CONTACT_EMAIL = "contact@sociolab-dz.com"
 LOGO_FILENAME = "logo.png.jpg"
 
 
-# دالة لتحويل اللوقو وعرضه بدقة عالية داخل الصفحة
 def get_logo_base64(file_path):
     if os.path.exists(file_path):
         with open(file_path, "rb") as f:
@@ -136,7 +135,7 @@ if "srv" in query_params and query_params["srv"] in SERVICES_DATA:
 elif "selected_srv" not in st.session_state:
     st.session_state.selected_srv = "s2"
 
-# 4. التنسيق العام (CSS) المتناسق مع الوان اللوقو
+# 4. التنسيق العام (CSS)
 css_styles = """<style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap');
 #MainMenu, header, footer {visibility: hidden;}
@@ -210,7 +209,7 @@ label p {font-size: 13px !important; font-weight: 700 !important; color: #1E293B
 
 st.markdown(css_styles, unsafe_allow_html=True)
 
-# 5. الشريط العلوي المشترك مع اللوقو الرسمي
+# 5. الشريط العلوي المشترك
 active_home = "active" if st.session_state.current_view == "home" else ""
 active_srv = "active" if st.session_state.current_view == "services" else ""
 
@@ -251,4 +250,29 @@ if st.session_state.current_view == "home":
         st.markdown('<div style="font-size:16.5px; font-weight:800; color:#06182C; margin-bottom:10px;">1. مسبار الفرضيات الذكي (صياغة الفرضيات والتساؤلات وتحديد التحليل)</div>', unsafe_allow_html=True)
         pc1, pc2, pc3 = st.columns(3)
         with pc1:
-            indep_var = st.text_input("المتغير المستقل (X):", placeholder="مثال: جماعة الرفاق /
+            indep_var = st.text_input("المتغير المستقل (X):", placeholder="مثال: جماعة الرفاق")
+        with pc2:
+            dep_var = st.text_input("المتغير التابع (Y):", placeholder="مثال: السلوك الجانح")
+        with pc3:
+            study_sample = st.text_input("طبيعة عينة الدراسة:", placeholder="مثال: 60 تلميذا بالثانوي")
+
+        if indep_var and dep_var:
+            sample_txt = f"لدى عينة من ({study_sample})" if study_sample else "لدى عينة الدراسة"
+            probe_output = f"""<div class="sl-probe-result"><div style="font-weight:800; color:#0284C7; margin-bottom:8px;">التشخيص المنهجي والاحصائي المقترح لدراستك:</div><div style="margin-bottom:6px;"><strong>• التساؤل الرئيسي الموازي:</strong> هل توجد علاقة ذات دلالة احصائية (او اثر دال) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {sample_txt}؟</div><div style="margin-bottom:6px;"><strong>• الفرضية الصفرية (H0):</strong> لا توجد علاقة ارتباطية (او اثر ذو دلالة احصائية) عند مستوى دلالة (&alpha; &le; 0.05) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {sample_txt}.</div><div style="margin-bottom:6px;"><strong>• الفرضية البديلة (H1):</strong> توجد علاقة ارتباطية (او اثر ذو دلالة احصائية) عند مستوى دلالة (&alpha; &le; 0.05) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {sample_txt}.</div><div><strong>• مسار التحليل الاحصائي الانسب (SPSS):</strong> ابدأ بحساب معامل الثبات (الفا كرونباخ) لاداة قياس كل متغير، ثم اختبر التوزيع الطبيعي للبيانات؛ فاذا كان التوزيع طبيعيا استخدم <strong>معامل ارتباط بيرسون</strong> لقياس العلاقة و<strong>الانحدار الخطي البسيط</strong> لقياس الاثر، اما اذا كان غير طبيعي فاستخدم <strong>معامل سبيرمان للرتب</strong>.</div></div>"""
+            st.markdown(probe_output, unsafe_allow_html=True)
+        else:
+            st.markdown("""<div class="sl-result-banner">اكتب اسم المتغير المستقل والمتغير التابع اعلاه ليقوم المسبار بتوليد التساؤل الرئيسي، الفرضية الصفرية والبديلة، وخطة التحليل الاحصائي فورا.</div>""", unsafe_allow_html=True)
+
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+
+    # 3.2 مشخص الاختبار وحاسبة العينة
+    _, col_t1, col_t2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
+    with col_t1:
+        st.markdown('<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">2. مشخص الاختبار الاحصائي (SPSS)</div>', unsafe_allow_html=True)
+        goal = st.selectbox(
+            "هدف الفرضية البحثية:",
+            [
+                "قياس العلاقة الارتباطية بين متغيرين",
+                "قياس الفروق بين مجموعتين مستقلتين (مثل: ذكور / اناث)",
+                "قياس الفروق بين 3 مجموعات فاكثر (مثل: المستويات التعليمية)",
+                "قياس اثر متغير مستقل على متغير تابع (التنبؤ)",
