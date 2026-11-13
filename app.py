@@ -1,12 +1,43 @@
+import streamlit as st
+import streamlit.components.v1 as components
+
+# اعدادات الصفحة في Streamlit
+st.set_page_config(
+    page_title="Socio Lab | المختبر الاستشاري للبحث السوسيولوجي والتحليل الاحصائي",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+
+# اخفاء الهوامش والقوائم الافتراضية لـ Streamlit لتظهر المنصة كأنها موقع مستقل
+st.markdown(
+    """
+    <style>
+        #MainMenu {visibility: hidden;}
+        header {visibility: hidden;}
+        footer {visibility: hidden;}
+        .block-container {
+            padding: 0rem !important;
+            max-width: 100% !important;
+        }
+        iframe {
+            border: none !important;
+            width: 100% !important;
+        }
+    </style>
+""",
+    unsafe_allow_html=True,
+)
+
+# كود واجهة منصة Socio Lab الكامل داخل متغير نصي في بايثون
+html_code = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socio Lab | المختبر الاستشاري للبحث السوسيولوجي والتحليل الاحصائي</title>
-    <!-- استدعاء إطار التصميم Tailwind CSS -->
+    <title>Socio Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- استدعاء الخطوط (Cairo للنصوص العربية و Great Vibes للشعار الانسيابي) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -47,10 +78,9 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <!-- 1. الشريط العلوي (Navbar) -->
+    <!-- 1. الشريط العلوي -->
     <header class="bg-navy-900/95 backdrop-blur-md text-white sticky top-0 z-50 border-b border-navy-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- الشعار -->
             <a href="#" class="flex items-center gap-3">
                 <div class="w-11 h-11 rounded-xl bg-navy-800 border border-teal-500/40 flex items-center justify-center text-teal-400 font-bold text-xl shadow-inner">
                     &Sigma;
@@ -61,7 +91,6 @@
                 </div>
             </a>
 
-            <!-- روابط التصفح -->
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-200">
                 <a href="#services" class="hover:text-teal-400 transition">خدماتنا</a>
                 <a href="#tools" class="hover:text-teal-400 transition">الادوات التفاعلية</a>
@@ -69,18 +98,16 @@
                 <a href="#order" class="hover:text-teal-400 transition">اطلب خدمة</a>
             </nav>
 
-            <!-- زر الاجراء السريع -->
             <a href="#order" class="bg-amber-500 hover:bg-amber-600 text-navy-900 font-bold px-5 py-2.5 rounded-lg text-sm transition shadow-lg shadow-amber-500/20">
                 احجز استشارة
             </a>
         </div>
     </header>
 
-    <!-- 2. الواجهة الترحيبية (Hero Section) -->
-    <section class="bg-navy-900 bg-grid-pattern text-white py-20 lg:py-28 relative overflow-hidden">
+    <!-- 2. الواجهة الترحيبية -->
+    <section class="bg-navy-900 bg-grid-pattern text-white py-20 lg:py-24 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
             
-            <!-- النص الترحيبي -->
             <div class="lg:col-span-7 space-y-6">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-800 border border-teal-500/30 text-teal-400 text-xs font-semibold">
                     <span>&mu;</span>
@@ -102,7 +129,6 @@
                 </div>
             </div>
 
-            <!-- بطاقة المعاينة الاحصائية الحية -->
             <div class="lg:col-span-5 bg-navy-800/90 border border-navy-700 p-6 rounded-2xl shadow-2xl space-y-5">
                 <div class="flex items-center justify-between border-b border-navy-700 pb-4">
                     <div>
@@ -112,7 +138,6 @@
                     <span class="bg-teal-500/20 text-teal-400 text-xs font-mono px-2.5 py-1 rounded">SPSS v28</span>
                 </div>
 
-                <!-- رسم بياني لمنحنى التوزيع الطبيعي SVG -->
                 <div class="bg-navy-900/80 p-4 rounded-xl border border-navy-700">
                     <svg viewBox="0 0 300 110" class="w-full h-28 overflow-visible">
                         <defs>
@@ -129,7 +154,6 @@
                     </svg>
                 </div>
 
-                <!-- مؤشرات رقمية سريعة -->
                 <div class="grid grid-cols-3 gap-3 text-center">
                     <div class="bg-navy-900/60 p-3 rounded-lg border border-navy-700">
                         <div class="text-xs text-slate-400">الفا كرونباخ (&alpha;)</div>
@@ -154,50 +178,44 @@
     </section>
 
     <!-- 3. قسم الخدمات البحثية والاحصائية -->
-    <section id="services" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-14">
+    <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
             <span class="text-teal-500 font-bold text-sm">حلول منهجية متكاملة</span>
             <h2 class="text-3xl font-extrabold text-navy-900 mt-1">خدمات منصة Socio Lab</h2>
             <p class="text-slate-600 mt-3 text-sm sm:text-base">نصمم الادوات ونحلل البيانات وفق الضوابط الاكاديمية المعتمدة في الجامعات والمجلات المحكمة.</p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- خدمة 1 -->
             <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-teal-500 shadow-sm hover:shadow-md transition">
                 <div class="text-teal-500 font-bold text-2xl mb-3">01</div>
                 <h3 class="text-xl font-bold text-navy-900 mb-2">تصميم وبناء ادوات البحث</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">صياغة الاستبيانات الورقية والالكترونية وبناء ادلة المقابلات المعمقة والملاحظة العلمية وفق ابعاد وفرضيات الدراسة مع دليل الترميز.</p>
             </div>
 
-            <!-- خدمة 2 -->
             <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-navy-900 shadow-sm hover:shadow-md transition">
                 <div class="text-navy-900 font-bold text-2xl mb-3">02</div>
                 <h3 class="text-xl font-bold text-navy-900 mb-2">التحليل الاحصائي وتنظيف البيانات (SPSS)</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">تفريغ البيانات وتنظيفها، حساب الصدق والثبات، واجراء الاختبارات الوصفية والاستدلالية مع قراءة سوسيولوجية معمقة للجداول.</p>
             </div>
 
-            <!-- خدمة 3 -->
             <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-amber-500 shadow-sm hover:shadow-md transition">
                 <div class="text-amber-500 font-bold text-2xl mb-3">03</div>
                 <h3 class="text-xl font-bold text-navy-900 mb-2">الضبط المنهجي وتحكيم المقاييس</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">مراجعة الاشكالية والفرضيات، ضبط المعاينة، وتقييم الخصائص السيكومترية للمقاييس لضمان سلامة البناء المنهجي للدراسة.</p>
             </div>
 
-            <!-- خدمة 4 -->
             <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-navy-900 shadow-sm hover:shadow-md transition">
                 <div class="text-navy-900 font-bold text-2xl mb-3">04</div>
                 <h3 class="text-xl font-bold text-navy-900 mb-2">تحليل البيانات الكيفية</h3>
-                <p class="text-slate-600 text-sm leading-relaxed">تفريغ المقابلات المعمقة وتحليل المضمون والتحليل الموضوعاتي للدراسات الميدانية والدرسات المختلطة (الكمية والكيفية).</p>
+                <p class="text-slate-600 text-sm leading-relaxed">تفريغ المقابلات المعمقة وتحليل المضمون والتحليل الموضوعاتي للدراسات الميدانية والدراسات المختلطة (الكمية والكيفية).</p>
             </div>
 
-            <!-- خدمة 5 -->
             <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-teal-500 shadow-sm hover:shadow-md transition">
                 <div class="text-teal-500 font-bold text-2xl mb-3">05</div>
                 <h3 class="text-xl font-bold text-navy-900 mb-2">التوثيق الاكاديمي (APA) والنشر</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">ضبط التوثيق في المتن وقائمة المراجع وفق معايير APA، وتنسيق اوراق المؤتمرات والمقالات العلمية للنشر في المجلات المحكمة.</p>
             </div>
 
-            <!-- خدمة 6 -->
             <div class="bg-white p-7 rounded-2xl border border-slate-200 border-t-4 border-t-amber-500 shadow-sm hover:shadow-md transition">
                 <div class="text-amber-500 font-bold text-2xl mb-3">06</div>
                 <h3 class="text-xl font-bold text-navy-900 mb-2">مسوح المؤسسات ودراسات الاثر</h3>
@@ -207,17 +225,15 @@
     </section>
 
     <!-- 4. قسم الادوات التفاعلية الذكية -->
-    <section id="tools" class="py-20 bg-slate-100 border-y border-slate-200">
+    <section id="tools" class="py-16 bg-slate-100 border-y border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-14">
+            <div class="text-center max-w-2xl mx-auto mb-12">
                 <span class="text-teal-500 font-bold text-sm">مختبر الادوات المجانية</span>
                 <h2 class="text-3xl font-extrabold text-navy-900 mt-1">الادوات التفاعلية لمساعدة الباحث</h2>
                 <p class="text-slate-600 mt-2 text-sm">استخدم ادواتنا الذكية لتحديد الاختبار الاحصائي المناسب لفرضيتك او حساب حجم عينتك الممثلة فورا.</p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-8">
-                
-                <!-- الأداة الأولى: مشخص الاختبار الاحصائي -->
                 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-5">
                     <div class="flex items-center justify-between border-b pb-4">
                         <h3 class="text-xl font-bold text-navy-900">1. مشخص الاختبار الاحصائي (SPSS)</h3>
@@ -250,7 +266,6 @@
                     </div>
                 </div>
 
-                <!-- الأداة الثانية: حاسبة حجم العينة -->
                 <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm space-y-5">
                     <div class="flex items-center justify-between border-b pb-4">
                         <h3 class="text-xl font-bold text-navy-900">2. حاسبة حجم العينة الممثلة</h3>
@@ -278,14 +293,13 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
     <!-- 5. قسم ميثاق النزاهة العلمية -->
-    <section id="integrity" class="py-16 bg-navy-900 text-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+    <section id="integrity" class="py-14 bg-navy-900 text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
             <span class="bg-amber-500/20 text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full">الالتزام الاخلاقي والعلمي</span>
             <h2 class="text-2xl sm:text-3xl font-extrabold">ميثاق النزاهة العلمية وسرية البيانات في Socio Lab</h2>
             <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl mx-auto">
@@ -295,7 +309,7 @@
     </section>
 
     <!-- 6. قسم طلب خدمة او استشارة -->
-    <section id="order" class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="order" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg">
             <div class="text-center mb-8">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-navy-900">اطلب خدمتك البحثية او استشارتك</h2>
@@ -350,7 +364,7 @@
         </div>
     </section>
 
-    <!-- 7. التذييل (Footer) -->
+    <!-- 7. التذييل -->
     <footer class="bg-navy-900 text-slate-400 py-10 border-t border-navy-800 text-center text-sm">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
             <div class="font-script text-3xl text-white">Socio Lab</div>
@@ -359,9 +373,7 @@
         </div>
     </footer>
 
-    <!-- البرمجة التفاعلية (JavaScript) -->
     <script>
-        // 1. دالة مشخص الاختبار الاحصائي
         function findTest() {
             const goal = document.getElementById('goalSelect').value;
             const dist = document.getElementById('distSelect').value;
@@ -384,7 +396,6 @@
             pathEl.textContent = tests[key][1];
         }
 
-        // 2. دالة حساب حجم العينة
         function calcSample() {
             const N = parseFloat(document.getElementById('popSize').value) || 100;
             const e = parseFloat(document.getElementById('marginError').value);
@@ -395,13 +406,16 @@
             document.getElementById('sampleOutput').textContent = n + ' مفردة';
         }
 
-        // 3. دالة استقبال الطلب وتحويله لبريدك او واتسابك
         function submitOrder(e) {
             e.preventDefault();
             const feedback = document.getElementById('formFeedback');
-            feedback.textContent = 'تم تسجيل طلبك بنجاح! يمكنك ربط هذا النموذج ببريدك الالكتروني او رقم الواتساب الخاص بك مباشرة.';
+            feedback.textContent = 'تم تسجيل طلبك بنجاح! سنتواصل معك خلال 24 ساعة.';
             feedback.classList.remove('hidden');
         }
     </script>
 </body>
 </html>
+"""
+
+# عرض المنصة بالكامل داخل صفحة Streamlit
+components.html(html_code, height=3100, scrolling=True)
