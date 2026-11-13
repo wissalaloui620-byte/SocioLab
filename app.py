@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from scipy import stats
 import io
 import datetime
 import base64
@@ -15,11 +14,11 @@ except ImportError:
     HAS_PYREADSTAT = False
 
 # ==========================================
-# 1. إعدادات الصفحة والتصميم الفضائي المظلم (Ultra-Modern Dark Glass SaaS)
+# 1. إعدادات الصفحة والهوية البصرية الأكاديمية الراقية
 # ==========================================
 st.set_page_config(
-    page_title="Socio Lab Pro | منظومة الذكاء المنهجي والتدقيق الجنائي للبيانات",
-    page_icon="💠",
+    page_title="Socio Lab | المنصة الوطنية للاستشارات المنهجية والإحصائية والتدريب",
+    page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -38,9 +37,9 @@ st.markdown("""
     footer {visibility: hidden;}
     header {background: transparent !important;}
 
-    /* خلفية فضائية كحلية متدرجة فائقة الحداثة */
+    /* خلفية كحلية ملكية عميقة ومريحة للعين */
     .stApp {
-        background: radial-gradient(circle at 15% 15%, #1E1B4B 0%, #090D16 45%, #020617 100%) !important;
+        background: radial-gradient(circle at 15% 10%, #172554 0%, #0F172A 50%, #020617 100%) !important;
         color: #F8FAFC !important;
     }
 
@@ -48,19 +47,18 @@ st.markdown("""
         color: #F1F5F9 !important;
     }
 
-    /* شريط علوي عائم (Floating Glass Navbar) */
+    /* الترويسة العلوية للمنصة */
     .top-navbar {
-        background: rgba(15, 23, 42, 0.75);
+        background: rgba(15, 23, 42, 0.82);
         backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        border-radius: 20px;
-        padding: 18px 32px;
-        margin-bottom: 20px;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 22px;
+        padding: 22px 34px;
+        margin-bottom: 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.1);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65);
     }
     .brand-box {
         display: flex;
@@ -68,215 +66,195 @@ st.markdown("""
         gap: 18px;
     }
     .brand-logo {
-        width: 64px;
-        height: 64px;
+        width: 66px;
+        height: 66px;
         border-radius: 16px;
-        background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #6366F1 100%);
+        background: linear-gradient(135deg, #0284C7 0%, #2563EB 50%, #4F46E5 100%);
         display: flex;
         align-items: center;
         justify-content: center;
         font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 1.6rem;
+        font-size: 1.65rem;
         font-weight: 800;
         color: #FFFFFF;
-        box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
     }
     .brand-title {
-        font-size: 1.7rem;
+        font-size: 1.75rem;
         font-weight: 700;
-        background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 50%, #818CF8 100%);
+        background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 60%, #93C5FD 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 0;
     }
     .brand-sub {
-        color: #94A3B8 !important;
-        font-size: 0.88rem;
-        margin: 4px 0 0 0;
+        color: #CBD5E1 !important;
+        font-size: 0.92rem;
+        margin: 5px 0 0 0;
     }
-    .status-badge {
-        background: rgba(16, 185, 129, 0.15);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        color: #34D399 !important;
-        padding: 8px 18px;
+    .location-badge {
+        background: rgba(56, 189, 248, 0.14);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        color: #7DD3FC !important;
+        padding: 9px 18px;
         border-radius: 999px;
         font-size: 0.85rem;
         font-weight: 600;
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
     }
 
-    /* شبكة بطاقات المؤشرات النيون (Neon Bento Grid) */
-    .bento-card {
-        background: linear-gradient(145deg, rgba(30, 41, 59, 0.65) 0%, rgba(15, 23, 42, 0.85) 100%);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(148, 163, 184, 0.15);
-        border-top: 2px solid #38BDF8;
-        border-radius: 20px;
-        padding: 22px 24px;
-        transition: all 0.3s ease;
+    /* البانر التعريفي الرئيسي (Hero Section) */
+    .hero-box {
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.55) 0%, rgba(15, 23, 42, 0.9) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        border-right: 6px solid #38BDF8;
+        border-radius: 22px;
+        padding: 32px 36px;
+        margin-bottom: 28px;
         box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
-        margin-bottom: 20px;
     }
-    .bento-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(56, 189, 248, 0.5);
-        box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.2);
-    }
-    .bento-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .hero-title {
+        font-size: 1.85rem;
+        font-weight: 700;
+        color: #FFFFFF !important;
+        margin-top: 0;
         margin-bottom: 12px;
     }
-    .bento-label {
-        color: #94A3B8 !important;
-        font-size: 0.9rem;
-        font-weight: 500;
+    .hero-desc {
+        font-size: 1.05rem;
+        color: #E2E8F0 !important;
+        line-height: 1.85;
+        margin-bottom: 0;
     }
-    .bento-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: rgba(56, 189, 248, 0.12);
-        border: 1px solid rgba(56, 189, 248, 0.3);
+
+    /* بطاقات الفئات المستهدفة والخدمات والدورات */
+    .info-card {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.72) 0%, rgba(15, 23, 42, 0.92) 100%);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-top: 3px solid #38BDF8;
+        border-radius: 20px;
+        padding: 24px;
+        height: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.45);
+        margin-bottom: 20px;
+    }
+    .info-card:hover {
+        transform: translateY(-6px);
+        border-color: #38BDF8;
+        box-shadow: 0 20px 40px -12px rgba(56, 189, 248, 0.25);
+    }
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(56, 189, 248, 0.15);
+        border: 1px solid rgba(56, 189, 248, 0.35);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.25rem;
+        font-size: 1.45rem;
+        margin-bottom: 14px;
     }
-    .bento-val {
-        font-family: 'Space Grotesk', 'Readex Pro', sans-serif !important;
-        font-size: 2.1rem;
+    .card-title {
+        font-size: 1.2rem;
         font-weight: 700;
         color: #FFFFFF !important;
-        margin: 4px 0 10px 0;
-        text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        margin: 0 0 10px 0;
     }
-    .neon-tag {
+    .card-text {
+        font-size: 0.92rem;
+        color: #CBD5E1 !important;
+        line-height: 1.75;
+        margin-bottom: 14px;
+    }
+    .badge-tag {
         display: inline-block;
         padding: 4px 12px;
         border-radius: 999px;
-        font-size: 0.76rem;
+        font-size: 0.78rem;
         font-weight: 600;
+        background: rgba(56, 189, 248, 0.16);
+        color: #7DD3FC;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        margin-left: 6px;
+        margin-top: 4px;
     }
-    .tag-cyan { background: rgba(6, 182, 212, 0.18); color: #67E8F9; border: 1px solid rgba(6, 182, 212, 0.35); }
-    .tag-emerald { background: rgba(16, 185, 129, 0.18); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.35); }
-    .tag-amber { background: rgba(245, 158, 11, 0.18); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .badge-green {
+        background: rgba(16, 185, 129, 0.16);
+        color: #6EE7B7;
+        border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .badge-amber {
+        background: rgba(245, 158, 11, 0.16);
+        color: #FCD34D;
+        border: 1px solid rgba(245, 158, 11, 0.35);
+    }
 
-    /* الحاويات الزجاجية للأقسام (Glass Workspace) */
-    .workspace-card {
-        background: rgba(15, 23, 42, 0.72);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(99, 102, 241, 0.25);
-        border-radius: 22px;
-        padding: 28px 32px;
-        margin-top: 14px;
-        margin-bottom: 24px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
-    }
-    .workspace-title {
-        font-size: 1.4rem;
+    /* عناوين الأقسام */
+    .section-heading {
+        font-size: 1.5rem;
         font-weight: 700;
         color: #38BDF8 !important;
-        margin: 0 0 8px 0;
-    }
-    .workspace-desc {
-        color: #CBD5E1 !important;
-        font-size: 0.96rem;
-        line-height: 1.75;
-        margin-bottom: 18px;
+        margin: 24px 0 16px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(56, 189, 248, 0.25);
     }
 
-    /* شريط التبويبات العلوي المضيء (Horizontal Neon Tabs) */
+    /* شريط التبويبات الرئيسي */
     .stTabs [data-baseweb="tab-list"] {
         gap: 10px;
-        background: rgba(15, 23, 42, 0.85);
-        padding: 8px;
-        border-radius: 16px;
-        border: 1px solid rgba(148, 163, 184, 0.15);
+        background: rgba(15, 23, 42, 0.9);
+        padding: 10px;
+        border-radius: 18px;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        margin-bottom: 20px;
     }
     .stTabs [data-baseweb="tab"] {
         border-radius: 12px !important;
-        padding: 12px 20px !important;
-        font-weight: 600 !important;
+        padding: 12px 22px !important;
+        font-weight: 700 !important;
+        font-size: 0.96rem !important;
         color: #94A3B8 !important;
         background: transparent !important;
         border: none !important;
-        transition: all 0.25s ease !important;
     }
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #0284C7 0%, #4F46E5 100%) !important;
+        background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%) !important;
         color: #FFFFFF !important;
-        box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35) !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
     }
 
-    /* الأزرار التفاعلية المضيئة */
+    /* الأزرار */
     .stButton > button {
-        background: linear-gradient(135deg, #06B6D4 0%, #2563EB 50%, #4F46E5 100%) !important;
+        background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%) !important;
         color: #FFFFFF !important;
         font-weight: 700 !important;
-        font-size: 0.96rem !important;
         border-radius: 12px !important;
-        padding: 0.7rem 1.8rem !important;
-        border: 1px solid rgba(103, 232, 249, 0.4) !important;
-        box-shadow: 0 8px 25px -4px rgba(6, 182, 212, 0.45) !important;
-        transition: all 0.25s ease !important;
+        padding: 0.65rem 1.6rem !important;
+        border: 1px solid rgba(125, 211, 252, 0.4) !important;
+        box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.45) !important;
     }
     .stButton > button:hover {
-        transform: translateY(-2px) scale(1.01) !important;
-        box-shadow: 0 12px 30px -2px rgba(6, 182, 212, 0.65) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 12px 25px -2px rgba(37, 99, 235, 0.65) !important;
     }
 
-    /* جداول APA 7th في الوضع المظلم الملوكي */
-    .apa-dark-box {
-        background: rgba(2, 6, 23, 0.75);
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        border-radius: 18px;
-        padding: 26px;
-        margin: 18px 0;
-    }
-    .apa-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 14px 0;
-        font-size: 0.98rem;
-        color: #F8FAFC;
-        direction: rtl;
-    }
-    .apa-table thead tr {
-        border-top: 2px solid #38BDF8;
-        border-bottom: 1.5px solid #38BDF8;
-        background: rgba(30, 58, 138, 0.35);
-        color: #7DD3FC;
-        font-weight: 700;
-    }
-    .apa-table th, .apa-table td {
-        padding: 14px 16px;
-        text-align: center;
-    }
-    .apa-table tbody tr {
-        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-    }
-    .apa-table tbody tr:last-of-type {
-        border-bottom: 2px solid #38BDF8;
-    }
-
-    /* شهادة النزاهة بتصميم الهولوغرام المظلم */
+    /* شهادة موثوقية البيانات */
     .holo-cert {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 27, 75, 0.92) 100%);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.85) 100%);
         border: 2px solid #38BDF8;
-        border-radius: 24px;
-        padding: 42px;
+        border-radius: 22px;
+        padding: 36px;
         text-align: center;
-        box-shadow: 0 0 50px rgba(6, 182, 212, 0.2);
-        margin-top: 24px;
+        box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+        margin-top: 20px;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
 # ==========================================
-# 2. المحرك الإحصائي والمنهجي (Core Engine)
+# 2. دوال مختبر فحص وتجهيز البيانات (Data Preparation Engine)
 # ==========================================
 
 @st.cache_data
@@ -302,15 +280,13 @@ def generate_demo_dataset():
         q2 = int(np.clip(base_tendency + np.random.randint(-1, 2), 1, 5))
         q3 = int(np.clip(base_tendency + np.random.randint(-1, 2), 1, 5))
         q4_rev = int(np.clip(6 - base_tendency + np.random.randint(-1, 2), 1, 5))
-
         q5 = int(np.clip(base_tendency + np.random.randint(-1, 2), 1, 5))
         q6 = int(np.clip(base_tendency + np.random.randint(-1, 2), 1, 5))
-        q7_weak = int(np.random.randint(1, 6))
+        q7 = int(np.clip(base_tendency + np.random.randint(-1, 2), 1, 5))
         q8_rev = int(np.clip(6 - base_tendency + np.random.randint(-1, 2), 1, 5))
+        data.append([ids[i], genders[i], levels[i], q1, q2, q3, q4_rev, q5, q6, q7, q8_rev])
 
-        row = [ids[i], genders[i], levels[i], q1, q2, q3, q4_rev, q5, q6, q7_weak, q8_rev]
-        data.append(row)
-
+    # دس 4 استمارات عشوائية/مكررة لاختبار أداة الفحص والتنظيف الآلي
     data[13][3:] = [5, 5, 5, 5, 5, 5, 5, 5]
     data[28][3:] = [5, 5, 5, 5, 5, 5, 4, 5]
     data[40][3:] = [1, 1, 1, 1, 1, 1, 2, 1]
@@ -318,11 +294,10 @@ def generate_demo_dataset():
 
     columns = [
         "رمز_الاستمارة", "الجنس", "المستوى_الدراسي",
-        "Q1_تأثير_الأقران", "Q2_الانتماء_للجماعة", "Q3_مجاراة_الرفاق", "Q4_الاستقلالية_عكسية",
-        "Q5_مخالفة_القواعد", "Q6_العدوانية_اللفظية", "Q7_فقرة_مشوشة", "Q8_الانضباط_المدرسي_عكسية"
+        "العبارة_1_الانضمام_للرفاق", "العبارة_2_التأثر_بالأقران", "العبارة_3_قضاء_الوقت", "العبارة_4_الاستقلالية_عكسية",
+        "العبارة_5_مخالفة_النظم", "العبارة_6_التمرد_المدرسي", "العبارة_7_التغيب_المتكرر", "العبارة_8_الانضباط_عكسية"
     ]
     df_num = pd.DataFrame(data, columns=columns)
-
     df_text = df_num.copy()
     for col in columns[3:]:
         df_text[col] = df_text[col].map(likert_labels)
@@ -351,7 +326,7 @@ def auto_code_dataframe(df):
             if any(val in likert_map for val in unique_vals):
                 df_coded[col] = s_str.map(lambda x: likert_map.get(x, np.nan))
                 df_coded[col] = pd.to_numeric(df_coded[col], errors='coerce')
-                mapping_str = "ترميز قياسي آلي (مقياس ليكرت / ثنائي)"
+                mapping_str = "ترميز قياسي آلي (مقياس ليكرت 1 إلى 5 / ثنائي)"
             else:
                 num_try = pd.to_numeric(df_coded[col], errors='coerce')
                 if num_try.notna().sum() > 0:
@@ -366,33 +341,18 @@ def auto_code_dataframe(df):
             mapping_str = "معرف الاستمارة"
 
         codebook.append({
-            "اسم المتغير (Variable)": col,
-            "النوع في SPSS": "Numeric" if col != "رمز_الاستمارة" else "String",
+            "اسم المتغير": col,
+            "نوع المتغير": "رقمي (Numeric)" if col != "رمز_الاستمارة" else "نصي (String)",
             "القيم المفقودة": int(df[col].isna().sum()),
-            "دليل الترميز (Value Labels)": mapping_str
+            "دليل الترميز الآلي (Codebook)": mapping_str
         })
 
     return df_coded, pd.DataFrame(codebook)
 
 
-def calculate_cronbach_alpha(df_items):
-    df_num = df_items.apply(pd.to_numeric, errors='coerce').dropna()
-    k = df_num.shape[1]
-    if k < 2 or len(df_num) < 2:
-        return 0.0
-    mat = df_num.to_numpy(dtype=float)
-    item_variances = np.var(mat, axis=0, ddof=1).sum()
-    total_variance = np.var(mat.sum(axis=1), ddof=1)
-    if total_variance == 0 or np.isnan(total_variance):
-        return 0.0
-    alpha = (k / (k - 1)) * (1.0 - (item_variances / total_variance))
-    return float(alpha)
-
-
-def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
+def audit_survey_quality(df_coded, scale_cols, pos_col=None, neg_col=None):
     audit_records = []
     flagged_indices = []
-
     duplicated_mask = df_coded.duplicated(subset=scale_cols, keep='first')
 
     for idx, row in df_coded.iterrows():
@@ -403,36 +363,36 @@ def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
         missing_cnt = int(vals_series.isna().sum())
 
         reasons = []
-        status = "صالحة وموثوقة"
+        status = "استمارة سليمة وموثوقة"
 
         if sd_val < 0.20:
-            reasons.append(f"إجابة نمطية جامدة (SD={sd_val:.2f})")
-            status = "مزيفة / مرفوضة منهجيا"
+            reasons.append("إجابات نمطية مكررة في كل الأسئلة دون قراءة")
+            status = "استمارة غير صالحة (تستبعد)"
 
         if pos_col and neg_col and pos_col in df_coded.columns and neg_col in df_coded.columns:
             v_pos = pd.to_numeric(row[pos_col], errors='coerce')
             v_neg = pd.to_numeric(row[neg_col], errors='coerce')
             if pd.notna(v_pos) and pd.notna(v_neg):
                 if (v_pos >= 4 and v_neg >= 4) or (v_pos <= 2 and v_neg <= 2):
-                    reasons.append("تناقض سيكومتري حاد بين الموجب والسالب")
-                    status = "مزيفة / مرفوضة منهجيا"
+                    reasons.append("تناقض منطقي بين العبارة الموجبة والعبارة المعكوسة")
+                    status = "استمارة غير صالحة (تستبعد)"
 
         if duplicated_mask.loc[idx]:
-            reasons.append("تطابق كلي (استنساخ مكتبي من استمارة سابقة)")
-            status = "مزيفة / مرفوضة منهجيا"
+            reasons.append("استمارة منسوخة ومطابقة كلياً لاستمارة سابقة")
+            status = "استمارة غير صالحة (تستبعد)"
 
         if missing_cnt > len(scale_cols) * 0.3:
-            reasons.append(f"قيم مفقودة مرتفعة ({missing_cnt})")
-            status = "مرفوضة منهجيا"
+            reasons.append(f"نقص كبير في الإجابات ({missing_cnt} أسئلة فارغة)")
+            status = "استمارة غير صالحة (تستبعد)"
 
-        if status != "صالحة وموثوقة":
+        if status != "استمارة سليمة وموثوقة":
             flagged_indices.append(idx)
 
         audit_records.append({
             "رقم الاستمارة": form_id,
-            "الانحراف المعياري الداخلي (IRV)": round(sd_val, 3),
-            "القيم المفقودة": missing_cnt,
-            "التشخيص الجنائي الإحصائي": " ، ".join(reasons) if reasons else "اتساق طبيعي سليم",
+            "تباين إجابات المبحوث": round(sd_val, 2),
+            "الأسئلة الفارغة": missing_cnt,
+            "ملاحظات الفحص الآلي لجودة البيانات": " ، ".join(reasons) if reasons else "إجابات متسقة ومنطقية",
             "القرار المنهجي": status
         })
 
@@ -440,7 +400,7 @@ def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
 
 
 # ==========================================
-# 3. تهيئة البيانات والشعار الذكي (Session State & Smart Logo Finder)
+# 3. تهيئة الجلسة والشعار الذكي
 # ==========================================
 if "raw_df" not in st.session_state:
     demo_text, _ = generate_demo_dataset()
@@ -453,7 +413,6 @@ if "raw_df" not in st.session_state:
 
 if "custom_logo_b64" not in st.session_state:
     st.session_state.custom_logo_b64 = None
-    # بحث تلقائي ذكي عن أي ملف صورة مرفوع في GitHub مهما كان اسمه
     image_files = []
     for pattern in ["*.png", "*.jpg", "*.jpeg", "*.webp", "*.PNG", "*.JPG", "*.JPEG"]:
         image_files.extend(glob.glob(pattern))
@@ -464,516 +423,493 @@ if "custom_logo_b64" not in st.session_state:
         except Exception:
             pass
 
-# بناء كود الشعار للترويسة والشهادة
 if st.session_state.custom_logo_b64:
     b64_str = st.session_state.custom_logo_b64
-    logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:68px; height:68px; border-radius:16px; object-fit:contain; background:#0F172A; border:2px solid #38BDF8; padding:4px; box-shadow:0 0 25px rgba(56,189,248,0.5);">'
-    cert_logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:88px; height:88px; border-radius:18px; object-fit:contain; margin-bottom:14px; border:2px solid #38BDF8; padding:5px; background:#0F172A; box-shadow:0 0 25px rgba(56,189,248,0.4);"><br>'
+    logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:70px; height:70px; border-radius:16px; object-fit:contain; background:#0F172A; border:2px solid #38BDF8; padding:4px; box-shadow:0 0 25px rgba(56,189,248,0.5);">'
+    cert_logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:88px; height:88px; border-radius:18px; object-fit:contain; margin-bottom:14px; border:2px solid #38BDF8; padding:5px; background:#0F172A;"><br>'
 else:
     logo_html = '<div class="brand-logo">SL</div>'
     cert_logo_html = ''
 
 
 # ==========================================
-# 4. شريط القيادة العلوي العائم (Top Glass Navbar)
+# 4. الترويسة العلوية للمنصة (Top Header)
 # ==========================================
 st.markdown(f"""
 <div class="top-navbar">
     <div class="brand-box">
         {logo_html}
         <div>
-            <h1 class="brand-title">SOCIO LAB CLOUD PRO</h1>
-            <p class="brand-sub">منظومة الذكاء المنهجي، التدقيق الجنائي للبيانات، والتحكيم السيكومتري الآلي</p>
+            <h1 class="brand-title">SOCIO LAB | سوسيو لاب</h1>
+            <p class="brand-sub">مؤسسة ناشئة للاستشارات المنهجية والإحصائية، التدريب التطبيقي، والحلول الرقمية للبيانات</p>
         </div>
     </div>
-    <div class="status-badge">● متصل بالمحرك الإحصائي السحابي | v3.0 AI-Ready</div>
+    <div class="location-badge">📍 حضورياً بجامعة سوق أهراس | 🌐 رقمياً عبر 58 ولاية</div>
 </div>
 """, unsafe_allow_html=True)
 
-# شريط التحكم العلوي: رفع البيانات + رفع الشعار المباشر من داخل المنصة
-col_exp1, col_exp2 = st.columns([2, 1])
-
-with col_exp1:
-    with st.expander("📂 إدارة واستيراد قواعد البيانات (رفع ملف Excel / CSV أو إعادة ضبط العينة)"):
-        c_up1, c_up2 = st.columns([3, 1])
-        with c_up1:
-            uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام (Excel / CSV):", type=["xlsx", "csv"])
-            if uploaded_file is not None:
-                if uploaded_file.name.endswith(".csv"):
-                    user_df = pd.read_csv(uploaded_file)
-                else:
-                    user_df = pd.read_excel(uploaded_file)
-                st.session_state.raw_df = user_df
-                coded_df, codebook_df = auto_code_dataframe(user_df)
-                st.session_state.working_df = coded_df
-                st.session_state.codebook_df = codebook_df
-                st.session_state.reversed_done = False
-                st.session_state.cleaned_done = False
-                st.success("تم استيراد وترميز ملفك بنجاح!")
-        with c_up2:
-            st.write("")
-            st.write("")
-            if st.button("🔄 إعادة ضبط العينة (N=60)"):
-                demo_text, _ = generate_demo_dataset()
-                st.session_state.raw_df = demo_text
-                coded_df, codebook_df = auto_code_dataframe(demo_text)
-                st.session_state.working_df = coded_df
-                st.session_state.codebook_df = codebook_df
-                st.session_state.reversed_done = False
-                st.session_state.cleaned_done = False
-                st.rerun()
-
-with col_exp2:
-    with st.expander("🎨 تخصيص شعار المنصة (ارفع صورة اللوقو مباشرة هنا)"):
-        uploaded_logo = st.file_uploader("اختر صورة شعار Socio Lab:", type=["png", "jpg", "jpeg", "webp"])
-        if uploaded_logo is not None:
-            st.session_state.custom_logo_b64 = base64.b64encode(uploaded_logo.getvalue()).decode()
-            st.success("تم تفعيل الشعار بنجاح!")
-            st.rerun()
+with st.expander("🎨 تخصيص شعار المنصة (اضغط هنا لرفع صورة الشعار Logo من جهازك)"):
+    uploaded_logo = st.file_uploader("اختر صورة شعار Socio Lab:", type=["png", "jpg", "jpeg", "webp"])
+    if uploaded_logo is not None:
+        st.session_state.custom_logo_b64 = base64.b64encode(uploaded_logo.getvalue()).decode()
+        st.success("تم تحديث شعار المنصة بنجاح!")
+        st.rerun()
 
 
 # ==========================================
-# 5. شبكة المؤشرات الذكية المضيئة (Bento Grid KPIs)
-# ==========================================
-df_current = st.session_state.working_df
-numeric_cols = [c for c in df_current.columns if c not in ["رمز_الاستمارة", "الجنس", "المستوى_الدراسي"]]
-alpha_now = calculate_cronbach_alpha(df_current[numeric_cols]) if len(numeric_cols) >= 2 else 0.0
-
-k1, k2, k3, k4 = st.columns(4)
-
-with k1:
-    tag_cls = "tag-emerald" if st.session_state.cleaned_done else "tag-cyan"
-    tag_txt = "نقاوة البيانات 100% ✓" if st.session_state.cleaned_done else "العينة الميدانية الأولية"
-    st.markdown(f"""
-    <div class="bento-card">
-        <div class="bento-top">
-            <span class="bento-label">حجم العينة النشطة (N)</span>
-            <div class="bento-icon">👥</div>
-        </div>
-        <div class="bento-val">{len(df_current)}</div>
-        <span class="neon-tag {tag_cls}">{tag_txt}</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-with k2:
-    st.markdown(f"""
-    <div class="bento-card">
-        <div class="bento-top">
-            <span class="bento-label">المتغيرات المرمزة آلياً</span>
-            <div class="bento-icon">🧬</div>
-        </div>
-        <div class="bento-val">{len(numeric_cols)} متغيرات</div>
-        <span class="neon-tag tag-cyan">جاهزة للتصدير إلى SPSS</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-with k3:
-    a_cls = "tag-emerald" if alpha_now >= 0.75 else "tag-amber"
-    a_txt = "موثوقية سيكومترية عالية" if alpha_now >= 0.75 else "بحاجة لعكس الفقرات وتنقية المقياس"
-    st.markdown(f"""
-    <div class="bento-card">
-        <div class="bento-top">
-            <span class="bento-label">معامل ألفا كرونباخ (α)</span>
-            <div class="bento-icon">📐</div>
-        </div>
-        <div class="bento-val">{alpha_now:.3f}</div>
-        <span class="neon-tag {a_cls}">{a_txt}</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-with k4:
-    r_cls = "tag-emerald" if st.session_state.reversed_done else "tag-amber"
-    r_txt = "تم قلب الأوزان (1 ↔ 5) ✓" if st.session_state.reversed_done else "أوزان خام غير معكوسة"
-    st.markdown(f"""
-    <div class="bento-card">
-        <div class="bento-top">
-            <span class="bento-label">معالجة الفقرات المعكوسة</span>
-            <div class="bento-icon">⚡</div>
-        </div>
-        <div class="bento-val">{"مكتملة" if st.session_state.reversed_done else "قيد الانتظار"}</div>
-        <span class="neon-tag {r_cls}">{r_txt}</span>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-# ==========================================
-# 6. شريط الوحدات التفاعلية الأفقي (Main Horizontal Navigation Tabs)
+# 5. شريط التنقل الرئيسي الواضح للمنصة
 # ==========================================
 main_tabs = st.tabs([
-    "📥 1. الترميز الذكي وعكس الفقرات",
-    "🛡️ 2. الرادار الجنائي وكشف الفبركة",
-    "📐 3. المختبر السيكومتري الآلي",
-    "🌳 4. شجرة القرار وجداول APA",
-    "🎓 5. تصدير SPSS وشهادة الاعتماد",
-    "📅 6. حجز الاستشارات والدورات"
+    "🏛️ الرئيسية والفئات المستهدفة",
+    "💼 خدماتنا الاستشارية والميدانية",
+    "🎓 الدورات التكوينية والتدريب",
+    "🔬 المختبر الرقمي لفحص وتجهيز الاستبيانات",
+    "📅 بوابة حجز خدمة أو التسجيل في دورة"
 ])
 
+
+# ==========================================
+# التبويب 1: الرئيسية والفئات المستهدفة (لمن هذه المنصة؟)
+# ==========================================
 with main_tabs[0]:
     st.markdown("""
-    <div class="workspace-card">
-        <div class="workspace-title">📥 بوابة القراءة الذكية، الترميز الآلي، وعكس العبارات السالبة</div>
-        <div class="workspace-desc">
-            تحول المنصة إجابات الاستبيان النصية (العربية والفرنسية) تلقائياً إلى مصفوفة رقمية قياسية، وتبني جدول تعريف المتغيرات (Variable View) مع قلب أوزان العبارات السالبة بضغطة زر.
-        </div>
+    <div class="hero-box">
+        <h2 class="hero-title">مرحباً بك في منصة Socio Lab – شريكك العلمي والمؤسسي الموثوق</h2>
+        <p class="hero-desc">
+            تجمع مؤسسة <b>Socio Lab</b> بين <b>الفضاء الحضوري</b> للاستشارات المنهجية والإحصائية والتدريب بجامعة محمد الشريف مساعدية بسوق أهراس،
+            و<b>المنصة الرقمية السحابية</b> الموجهة للطلبة، الباحثين، والمؤسسات في جميع ولايات الجزائر. نهدف إلى مرافقتك علمياً وتقنياً من مرحلة
+            بناء الفكرة وأداة القياس إلى غاية استلام بيانات ميدانية منظفة، موثوقة، ومحللة بدقة وفق ضوابط النزاهة الأكاديمية.
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    sub_t1, sub_t2, sub_t3 = st.tabs([
-        "📄 البيانات النصية الخام",
-        "🔢 المصفوفة الرقمية المرمزة (Data View)",
-        "🗂️ قاموس المتغيرات الآلي (Variable View)"
-    ])
-    with sub_t1:
-        st.dataframe(st.session_state.raw_df, use_container_width=True, height=300)
-    with sub_t2:
-        st.dataframe(st.session_state.working_df, use_container_width=True, height=300)
-    with sub_t3:
-        st.dataframe(st.session_state.codebook_df, use_container_width=True)
+    st.markdown('<div class="section-heading">🎯 من هم المستفيدون من خدمات منصة Socio Lab؟ (الفئات المستهدفة)</div>', unsafe_allow_html=True)
 
-    st.markdown("#### ⚡ محرك عكس أوزان الفقرات السالبة (Reverse Coding)")
-    default_rev = [c for c in numeric_cols if "عكسية" in c]
-    rev_cols = st.multiselect("حدد الفقرات السالبة في استبيانك لقلب أوزانها (5 ↔ 1):", numeric_cols, default=default_rev)
+    c_t1, c_t2, c_t3 = st.columns(3)
 
-    if st.button("🔄 تنفيذ عكس الأوزان الآلي وتحديث معامل الثبات"):
-        if not st.session_state.reversed_done and rev_cols:
-            for c in rev_cols:
-                st.session_state.working_df[c] = 6 - pd.to_numeric(st.session_state.working_df[c], errors='coerce')
-            st.session_state.reversed_done = True
-            st.success(f"تم قلب أوزان الفقرات ({', '.join(rev_cols)}) بنجاح! انظر إلى ارتفاع ألفا كرونباخ في الأعلى.")
-            st.rerun()
-        elif st.session_state.reversed_done:
-            st.info("تم عكس أوزان هذه الفقرات مسبقاً.")
-
-with main_tabs[1]:
-    st.markdown("""
-    <div class="workspace-card">
-        <div class="workspace-title">🛡️ محرك التدقيق الجنائي الإحصائي وكشف تزييف الاستمارات (Anti-Curbstoning Radar)</div>
-        <div class="workspace-desc">
-            يفحص المحرك كل استمارة عبر خوارزميات التباين الداخلي (IRV) ومصائد التناقض السيكومتري وتطابق المصفوفات لعزل الاستمارات العشوائية أو المفبركة مكتبياً قبل التحليل.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    cp1, cp2 = st.columns(2)
-    with cp1:
-        pos_item = st.selectbox("اختر فقرة موجبة مرجعية لفحص التناقض:", numeric_cols, index=0)
-    with cp2:
-        neg_idx = 3 if len(numeric_cols) > 3 else 0
-        neg_item = st.selectbox("اختر الفقرة السالبة المقابلة لها منطقياً:", numeric_cols, index=neg_idx)
-
-    raw_coded_temp, _ = auto_code_dataframe(st.session_state.raw_df)
-    if st.session_state.cleaned_done:
-        raw_coded_temp = raw_coded_temp.loc[st.session_state.working_df.index]
-
-    audit_df, bad_indices = forensic_audit(raw_coded_temp, numeric_cols, pos_item, neg_item)
-
-    ca1, ca2, ca3 = st.columns(3)
-    ca1.metric("إجمالي الاستمارات المفحوصة", f"{len(audit_df)} استمارة")
-    ca2.metric("الاستمارات الصالحة والموثوقة", f"{len(audit_df) - len(bad_indices)} استمارة")
-    ca3.metric("الاستمارات المزيفة المرصودة", f"{len(bad_indices)} استمارات")
-
-    audit_sorted = audit_df.sort_values(by="القرار المنهجي", ascending=False)
-    st.dataframe(audit_sorted, use_container_width=True, height=320)
-
-    if len(bad_indices) > 0:
-        st.warning(f"⚠️ رصد الرادار الجنائي {len(bad_indices)} استمارات متلاعب بها أو متناقضة سيكومترياً.")
-        if st.button("🧹 عزل واستبعاد الاستمارات المزيفة آلياً وتطهير العينة"):
-            st.session_state.working_df = st.session_state.working_df.drop(index=bad_indices)
-            st.session_state.cleaned_done = True
-            st.success("تم تطهير قاعدة البيانات بنجاح! ارتفع مؤشر نزاهة العينة إلى 100%.")
-            st.rerun()
-    else:
-        st.success("✅ قاعدة البيانات نقية تماماً وخالية من أي تلاعب أو تناقض سيكومتري.")
-
-with main_tabs[2]:
-    st.markdown("""
-    <div class="workspace-card">
-        <div class="workspace-title">📐 المختبر السيكومتري الآلي لتحكيم المقاييس (Automated Psychometrics Lab)</div>
-        <div class="workspace-desc">
-            حساب آلي لمعامل ألفا كرونباخ والاتساق الداخلي للفقرات (Item-Total Correlation) مع كشف واستبعاد الفقرات المشوشة التي تضعف ثبات المقياس.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    selected_scale_items = st.multiselect(
-        "فقرات المقياس الخاضعة للتحكيم السيكومتري:",
-        numeric_cols,
-        default=numeric_cols
-    )
-
-    if len(selected_scale_items) >= 3:
-        sub_df = st.session_state.working_df[selected_scale_items].apply(pd.to_numeric, errors='coerce').dropna()
-        overall_alpha = calculate_cronbach_alpha(sub_df)
-
-        psych_rows = []
-        weak_items = []
-        for item in selected_scale_items:
-            other_items = [c for c in selected_scale_items if c != item]
-            alpha_if_deleted = calculate_cronbach_alpha(sub_df[other_items])
-            corrected_total = sub_df[other_items].sum(axis=1).to_numpy(dtype=float)
-            item_arr = sub_df[item].to_numpy(dtype=float)
-            r_val, p_val = stats.pearsonr(item_arr, corrected_total)
-
-            if alpha_if_deleted > overall_alpha + 0.01 or r_val < 0.25:
-                diag = "⚠️ فقرة مشوشة للثبات (يوصى بحذفها)"
-                weak_items.append(item)
-            else:
-                diag = "✅ فقرة صادقة ومتسقة بنيوياً"
-
-            psych_rows.append({
-                "الفقرة": item,
-                "المتوسط الحسابي (M)": round(float(np.mean(item_arr)), 2),
-                "الانحراف المعياري (SD)": round(float(np.std(item_arr, ddof=1)), 2),
-                "ارتباط الفقرة بالمحور (r)": round(float(r_val), 3),
-                "مستوى الدلالة (p-value)": round(float(p_val), 4),
-                "ألفا كرونباخ إذا حذفت الفقرة": round(float(alpha_if_deleted), 3),
-                "التشخيص السيكومتري": diag
-            })
-
-        st.dataframe(pd.DataFrame(psych_rows), use_container_width=True)
-
-        if weak_items:
-            st.warning(f"💡 توصية المحرك السيكومتري: حذف الفقرة المشوشة ({', '.join(weak_items)}) سيرفع ثبات المقياس بشكل ملحوظ.")
-            if st.button(f"✂️ استبعاد الفقرة المشوشة ({', '.join(weak_items)}) وإعادة بناء المقياس"):
-                st.session_state.working_df = st.session_state.working_df.drop(columns=weak_items)
-                st.success("تم حذف الفقرة المشوشة بنجاح وقفز معامل ألفا كرونباخ الكلي!")
-                st.rerun()
-
-with main_tabs[3]:
-    st.markdown("""
-    <div class="workspace-card">
-        <div class="workspace-title">🌳 شجرة القرار الإحصائي المشروطة ومولد جداول (APA 7th Edition)</div>
-        <div class="workspace-desc">
-            فحص إلزامي لاعتدالية التوزيع (Shapiro-Wilk) وتجانس التباين (Levene's Test) قبل توجيه الباحث آلياً للاختبار المعلمي أو اللامعلمي الصحيح وتوليد جدول APA.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    df_calc = st.session_state.working_df.copy()
-    peer_cols = [c for c in numeric_cols if c.startswith(("Q1", "Q2", "Q3", "Q4"))]
-    delinq_cols = [c for c in numeric_cols if c.startswith(("Q5", "Q6", "Q7", "Q8"))]
-
-    if peer_cols and delinq_cols:
-        df_calc["محور_تأثير_جماعة_الرفاق"] = df_calc[peer_cols].apply(pd.to_numeric, errors='coerce').mean(axis=1)
-        df_calc["محور_السلوك_الجانح"] = df_calc[delinq_cols].apply(pd.to_numeric, errors='coerce').mean(axis=1)
-        analysis_vars = ["محور_تأثير_جماعة_الرفاق", "محور_السلوك_الجانح"] + numeric_cols
-    else:
-        analysis_vars = numeric_cols
-
-    hypothesis_type = st.radio(
-        "حدد نوع الفرضية المراد اختبارها:",
-        [
-            "🔗 فرضية علاقة ارتباطية بين متغيرين كميين (Correlation)",
-            "⚖️ فرضية فروق بين مجموعتين مستقلتين (Two Independent Groups)"
-        ],
-        horizontal=True
-    )
-
-    if "ارتباطية" in hypothesis_type:
-        c1, c2 = st.columns(2)
-        with c1:
-            var_x = st.selectbox("المتغير المستقل (X):", analysis_vars, index=0)
-        with c2:
-            var_y = st.selectbox("المتغير التابع (Y):", analysis_vars, index=1 if len(analysis_vars) > 1 else 0)
-
-        series_x = pd.to_numeric(df_calc[var_x], errors='coerce').dropna().to_numpy(dtype=float)
-        series_y = pd.to_numeric(df_calc[var_y], errors='coerce').dropna().to_numpy(dtype=float)
-
-        stat_sw_x, p_sw_x = stats.shapiro(series_x)
-        stat_sw_y, p_sw_y = stats.shapiro(series_y)
-        is_normal = (p_sw_x > 0.05) and (p_sw_y > 0.05)
-
-        if is_normal:
-            test_used = "معامل ارتباط بيرسون المعلمي (Pearson Correlation - r)"
-            r_val, p_val = stats.pearsonr(series_x, series_y)
-            reason_txt = f"نظراً لتحقق اعتدالية التوزيع (Shapiro-Wilk p = {p_sw_x:.3f}, {p_sw_y:.3f} > 0.05)، اعتمد المحرك اختبار بيرسون المعلمي."
-        else:
-            test_used = "معامل ارتباط سبيرمان اللامعلمي للرتب (Spearman Rank - rho)"
-            r_val, p_val = stats.spearmanr(series_x, series_y)
-            reason_txt = f"نظراً لعدم تحقق اعتدالية التوزيع (Shapiro-Wilk p = {min(p_sw_x, p_sw_y):.4f} ≤ 0.05)، حظر النظام اختبار بيرسون ووجه المعالجة آلياً نحو سبيرمان اللامعلمي."
-
-        st.info(f"🧭 **قرار المحرك الإحصائي:** اعتماد **{test_used}**\n\n*{reason_txt}*")
-
-        sig_label = "دالة إحصائياً عند (α = 0.05)" if p_val < 0.05 else "غير دالة إحصائياً"
-        st.markdown(f"""
-        <div class="apa-dark-box">
-            <h4 style="color:#38BDF8; margin-top:0;">جدول (1): نتائج اختبار العلاقة الارتباطية وفق معايير APA 7th Edition</h4>
-            <table class="apa-table">
-                <thead>
-                    <tr>
-                        <th>المتغيرات المدروسة</th>
-                        <th>حجم العينة (N)</th>
-                        <th>المتوسط الحسابي (M)</th>
-                        <th>الانحراف المعياري (SD)</th>
-                        <th>قيمة معامل الارتباط</th>
-                        <th>مستوى الدلالة (p-value)</th>
-                        <th>القرار الإحصائي</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{var_x}</td>
-                        <td>{len(series_x)}</td>
-                        <td>{np.mean(series_x):.2f}</td>
-                        <td>{np.std(series_x, ddof=1):.2f}</td>
-                        <td rowspan="2" style="font-weight:800; font-size:1.2rem; color:#38BDF8;">{r_val:.3f}**</td>
-                        <td rowspan="2">{p_val:.4f}</td>
-                        <td rowspan="2"><span class="neon-tag tag-emerald">{sig_label}</span></td>
-                    </tr>
-                    <tr>
-                        <td>{var_y}</td>
-                        <td>{len(series_y)}</td>
-                        <td>{np.mean(series_y):.2f}</td>
-                        <td>{np.std(series_y, ddof=1):.2f}</td>
-                    </tr>
-                </tbody>
-            </table>
+    with c_t1:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🎓</div>
+            <h3 class="card-title">1. طلبة الليسانس والماستر</h3>
+            <p class="card-text">
+                طلبة جامعة سوق أهراس ومختلف الجامعات الجزائرية المقبلون على إعداد مذكرات التخرج وتقارير التربص الميداني، والذين يحتاجون إلى مرافقة منهجية سليمة في تصميم الاستبيان، تفريغ البيانات، ومعالجتها دون الوقوع في أخطاء إحصائية.
+            </p>
+            <span class="badge-tag">مذكرات التخرج</span>
+            <span class="badge-tag">تقارير التربص</span>
+            <span class="badge-tag badge-green">أسعار تفضيلية للطلبة</span>
         </div>
         """, unsafe_allow_html=True)
-    else:
-        dep_var = st.selectbox("اختر المتغير التابع الكمي:", analysis_vars, index=1 if len(analysis_vars) > 1 else 0)
-        if "الجنس" in df_calc.columns:
-            groups = df_calc["الجنس"].dropna().unique()
-            if len(groups) >= 2:
-                g1 = pd.to_numeric(df_calc[df_calc["الجنس"] == groups[0]][dep_var], errors='coerce').dropna().to_numpy(dtype=float)
-                g2 = pd.to_numeric(df_calc[df_calc["الجنس"] == groups[1]][dep_var], errors='coerce').dropna().to_numpy(dtype=float)
 
-                _, p_norm1 = stats.shapiro(g1) if len(g1) >= 3 else (0, 1)
-                _, p_norm2 = stats.shapiro(g2) if len(g2) >= 3 else (0, 1)
-                _, p_lev = stats.levene(g1, g2)
+    with c_t2:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🔬</div>
+            <h3 class="card-title">2. طلبة الدكتوراه والباحثون</h3>
+            <p class="card-text">
+                الباحثون الأكاديميون، الأساتذة، وأعضاء فرق ومخابر البحث العلمي (PRFU) الراغبون في تحكيم المقاييس السيكومترية، تدقيق قواعد البيانات الكبرى، وتنسيق الجداول الإحصائية لأطروحات الدكتوراه والمقالات العلمية المحكمة.
+            </p>
+            <span class="badge-tag">أطروحات الدكتوراه</span>
+            <span class="badge-tag">مقالات ASJP / Scopus</span>
+            <span class="badge-tag badge-green">تدقيق عالي الدقة</span>
+        </div>
+        """, unsafe_allow_html=True)
 
-                if p_norm1 > 0.05 and p_norm2 > 0.05 and p_lev > 0.05:
-                    t_stat, p_val = stats.ttest_ind(g1, g2)
-                    test_title = "اختبار (Independent Samples T-Test) المعلمي"
-                    stat_symbol = f"t = {t_stat:.3f}"
-                else:
-                    u_stat, p_val = stats.mannwhitneyu(g1, g2)
-                    test_title = "اختبار مان-ويتني (Mann-Whitney U) اللامعلمي"
-                    stat_symbol = f"U = {u_stat:.1f}"
+    with c_t3:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🏢</div>
+            <h3 class="card-title">3. المؤسسات، الإدارات، والجمعيات</h3>
+            <p class="card-text">
+                المؤسسات الاقتصادية العمومية والخاصة، الهيئات الإدارية، ومنظمات المجتمع المدني التي تحتاج إلى إنجاز دراسات ميدانية، استطلاعات رأي، قياس رضا المتعاملين، أو تحليل بيانات اجتماعية وميدانية لترشيد قراراتها.
+            </p>
+            <span class="badge-tag">استطلاعات الرأي</span>
+            <span class="badge-tag">دراسات الأثر الاجتماعي</span>
+            <span class="badge-tag badge-amber">عقود ومرافقة B2B</span>
+        </div>
+        """, unsafe_allow_html=True)
 
-                st.info(f"🧭 **الاختبار المطبق آلياً (Levene p = {p_lev:.3f}):** {test_title}")
-                st.markdown(f"""
-                <div class="apa-dark-box">
-                    <h4 style="color:#38BDF8; margin-top:0;">جدول (2): نتائج اختبار الفروق بين المجموعتين وفق معايير APA 7th Edition</h4>
-                    <table class="apa-table">
-                        <thead>
-                            <tr>
-                                <th>المجموعة المقارنة</th>
-                                <th>العدد (n)</th>
-                                <th>المتوسط الحسابي (M)</th>
-                                <th>الانحراف المعياري (SD)</th>
-                                <th>قيمة الاختبار</th>
-                                <th>مستوى الدلالة (p-value)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>المجموعة الأولى ({groups[0]})</td>
-                                <td>{len(g1)}</td>
-                                <td>{np.mean(g1):.2f}</td>
-                                <td>{np.std(g1, ddof=1):.2f}</td>
-                                <td rowspan="2" style="font-weight:800; font-size:1.2rem; color:#38BDF8;">{stat_symbol}</td>
-                                <td rowspan="2">{p_val:.4f}</td>
-                            </tr>
-                            <tr>
-                                <td>المجموعة الثانية ({groups[1]})</td>
-                                <td>{len(g2)}</td>
-                                <td>{np.mean(g2):.2f}</td>
-                                <td>{np.std(g2, ddof=1):.2f}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                """, unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">✨ لماذا تختار Socio Lab؟ (ركائز القيمة المضافة والنزاهة)</div>', unsafe_allow_html=True)
+    c_v1, c_v2, c_v3, c_v4 = st.columns(4)
+    with c_v1:
+        st.markdown("""
+        <div class="info-card">
+            <h4 class="card-title">⚖️ النزاهة الأكاديمية</h4>
+            <p class="card-text">نرافق الباحث علمياً وتقنياً ونشرح له خطوات التحليل وتفسير النتائج، ونرفض قاطعاً فبركة البيانات أو إنجاز البحوث نيابة عن الطالب.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c_v2:
+        st.markdown("""
+        <div class="info-card">
+            <h4 class="card-title">⚡ أتمتة تجهيز البيانات</h4>
+            <p class="card-text">منصة رقمية تختصر وقت تنظيف وترميز الاستبيانات وكشف الأخطاء والقيم المفقودة من عدة أيام إلى دقائق معدودة.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c_v3:
+        st.markdown("""
+        <div class="info-card">
+            <h4 class="card-title">🔒 سرية وحماية البيانات</h4>
+            <p class="card-text">حماية كاملة لسرية قواعد البيانات البحثية والمؤسسية وإخفاء الهوية الشخصية للمبحوثين وفق القانون الجزائري 18-07.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c_v4:
+        st.markdown("""
+        <div class="info-card">
+            <h4 class="card-title">🤝 خدمة هجينة (حضوري/رقمي)</h4>
+            <p class="card-text">إمكانية الاستفادة من الجلسات الاستشارية والدورات حضورياً بسوق أهراس أو عن بعد عبر المنصة في جميع ولايات الوطن.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
+
+# ==========================================
+# التبويب 2: خدماتنا الاستشارية والميدانية
+# ==========================================
+with main_tabs[1]:
+    st.markdown('<div class="section-heading">💼 قائمة الخدمات الأساسية لمؤسسة Socio Lab</div>', unsafe_allow_html=True)
+    st.write("نقدم باقة متكاملة من الخدمات العلمية والتقنية المصممة لتلبية احتياجات الطلبة، الباحثين، والمؤسسات:")
+
+    s_col1, s_col2 = st.columns(2)
+
+    with s_col1:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🧭</div>
+            <h3 class="card-title">1. الاستشارات في منهجية البحث العلمي</h3>
+            <p class="card-text">
+                جلسات استشارية فردية أو جماعية لضبط إشكالية الدراسة، صياغة الفرضيات، تحديد المتغيرات والمؤشرات الإجرائية، واختيار المنهج العلمي والعينة المناسبة لطبيعة الموضوع.
+            </p>
+            <span class="badge-tag">حضوري / عن بعد</span>
+            <span class="badge-tag badge-green">متاح للطلبة والباحثين</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">📝</div>
+            <h3 class="card-title">2. تصميم الاستبيانات وبناء أدوات جمع البيانات</h3>
+            <p class="card-text">
+                بناء استبيانات ورقية وإلكترونية محكمة، ضبط صياغة الفقرات والمحاور، اختيار مقاييس التقدير المناسبة، ومراجعة صدق وثبات الأداة قبل توزيعها الميداني النهائي.
+            </p>
+            <span class="badge-tag">تصميم وتحكيم</span>
+            <span class="badge-tag badge-green">استبيانات ومقابلات</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🗂️</div>
+            <h3 class="card-title">3. تنظيم بيانات الاستبيانات، ترميزها، ومراجعة جودتها</h3>
+            <p class="card-text">
+                تفريغ الاستمارات الميدانية، تحويل الإجابات النصية إلى رموز رقمية قياسية (Codage)، فحص القيم المفقودة، واستبعاد الاستمارات العشوائية أو المتناقضة لتجهيز ملف بيانات نظيف.
+            </p>
+            <span class="badge-tag">عبر المنصة الرقمية</span>
+            <span class="badge-tag badge-green">تجهيز قبلي للتحليل</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with s_col2:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">📊</div>
+            <h3 class="card-title">4. الاستشارات الإحصائية وتحليل البيانات</h3>
+            <p class="card-text">
+                إجراء المعالجات الإحصائية المناسبة لفرضيات البحث، استخراج الجداول والرسوم البيانية المنسقة أكاديمياً، مع عقد جلسة شرح منهجية للباحث لتوضيح قراءة المؤشرات وتفسيرها.
+            </p>
+            <span class="badge-tag">تحليل إحصائي دقيق</span>
+            <span class="badge-tag badge-green">مرفق بمذكرة شرح</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🎓</div>
+            <h3 class="card-title">5. المرافقة التقنية والمنهجية في مذكرات التخرج وتقارير التربص</h3>
+            <p class="card-text">
+                تدقيق الاتساق المنهجي بين الجانب النظري والتطبيقي، مراجعة سلامة عرض وتفسير الجداول الميدانية، وتدريب الطالب على مهارات العرض والمناقشة العلمية أمام اللجنة.
+            </p>
+            <span class="badge-tag">مرافقة أخلاقية نزيهة</span>
+            <span class="badge-tag badge-green">ليسانس وماستر</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🏢</div>
+            <h3 class="card-title">6. إنجاز الدراسات الميدانية والاستطلاعات للمؤسسات والجمعيات</h3>
+            <p class="card-text">
+                تنفيذ مسوح اجتماعية واستطلاعات رأي متكاملة لصالح المؤسسات الاقتصادية والهيئات والجمعيات، بدءاً من تصميم الاستمارة وجمع البيانات ميدانياً وصولاً إلى تقديم تقرير تحليلي وتوصيات عملية.
+            </p>
+            <span class="badge-tag badge-amber">خدمات المؤسسات B2B</span>
+            <span class="badge-tag">تقارير استراتيجية</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+# ==========================================
+# التبويب 3: الدورات التكوينية والتدريب
+# ==========================================
+with main_tabs[2]:
+    st.markdown('<div class="section-heading">🎓 البرامج والدورات التكوينية التطبيقية (حضورياً وعن بعد)</div>', unsafe_allow_html=True)
+    st.write("تنظم مؤسسة **Socio Lab** دورات تدريبية تطبيقية مصغرة ومكثفة موجهة للطلبة، الباحثين، وإطارات المؤسسات لتنمية المهارات المنهجية والإحصائية:")
+
+    tr_col1, tr_col2 = st.columns(2)
+
+    with tr_col1:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">💻</div>
+            <h3 class="card-title">الدورة 1: الأساسيات التطبيقية لتحليل البيانات ببرنامج SPSS</h3>
+            <p class="card-text">
+                <b>الفئة المستهدفة:</b> طلبة الليسانس والماستر المبتدئون في التحليل الإحصائي.<br>
+                <b>محاور الدورة:</b> إعداد قاعدة البيانات (Variable View & Data View)، ترميز الاستبيانات وإدخالها، حساب التكرارات والنسب المئوية، المتوسطات والانحراف المعياري، وتنسيق الجداول.
+            </p>
+            <span class="badge-tag">المدة: 12 ساعة تطبيقية</span>
+            <span class="badge-tag">حضوري بسوق أهراس / عن بعد</span>
+            <span class="badge-tag badge-green">شهادة مشاركة</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">📐</div>
+            <h3 class="card-title">الدورة 2: هندسة الاستبيانات الإلكترونية والورقية وبناء المقاييس</h3>
+            <p class="card-text">
+                <b>الفئة المستهدفة:</b> طلبة الدراسات العليا، الباحثون، وإطارات الجمعيات والمؤسسات.<br>
+                <b>محاور الدورة:</b> تحويل الإشكالية والفرضيات إلى محاور وفقرات قياس، تصميم الاستبيان على Google Forms بطريقة احترافية، وتجنب الأخطاء المنهجية الشائعة في صياغة الأسئلة.
+            </p>
+            <span class="badge-tag">المدة: 8 ساعات تطبيقية</span>
+            <span class="badge-tag">حضوري / عن بعد</span>
+            <span class="badge-tag badge-green">تطبيق عملي</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with tr_col2:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">📈</div>
+            <h3 class="card-title">الدورة 3: الإحصاء الاستدلالي المتقدم واختبار الفرضيات البحثية</h3>
+            <p class="card-text">
+                <b>الفئة المستهدفة:</b> طلبة الماستر 2، طلبة الدكتوراه، والباحثون الأكاديميون.<br>
+                <b>محاور الدورة:</b> فحص الصدق والثبات، شروط اختيار الاختبارات المعلمية واللامعلمية، اختبارات الارتباط، اختبارات الفروق، تحليل الانحدار، وقراءة وتفسير النتائج علمياً.
+            </p>
+            <span class="badge-tag">المدة: 15 ساعة معمقة</span>
+            <span class="badge-tag">حضوري / عن بعد</span>
+            <span class="badge-tag badge-amber">مستوى متقدم</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🏛️</div>
+            <h3 class="card-title">الدورة 4: منهجية إعداد البحوث والمذكرات وفق معيار IMRAD و APA</h3>
+            <p class="card-text">
+                <b>الفئة المستهدفة:</b> طلبة التخرج والباحثون الراغبون في النشر العلمي.<br>
+                <b>محاور الدورة:</b> الهيكلة المنهجية للدراسة الميدانية وفق قالب IMRAD، التوثيق العلمي والمراجع بطريقة APA، عرض ومناقشة النتائج الميدانية، وتقنيات العرض التقديمي يوم المناقشة.
+            </p>
+            <span class="badge-tag">المدة: 10 ساعات</span>
+            <span class="badge-tag">حضوري / عن بعد</span>
+            <span class="badge-tag badge-green">تحضير للمناقشة والنشر</span>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.info("💡 **للتسجيل في إحدى الدورات التكوينية:** انتقل إلى تبويب **«📅 بوابة حجز خدمة أو التسجيل في دورة»** في أعلى المنصة واختر الدورة المناسبة لك.")
+
+
+# ==========================================
+# التبويب 4: المختبر الرقمي لفحص وتجهيز الاستبيانات (الأداة التقنية المبتكرة)
+# ==========================================
+with main_tabs[3]:
+    st.markdown('<div class="section-heading">🔬 المختبر الرقمي الآلي لفحص جودة الاستبيانات وتجهيزها للتحليل</div>', unsafe_allow_html=True)
+    st.write("""
+    تتيح لك هذه الأداة الرقمية المبتكرة رفع ملف استبيانك الخام (Excel / CSV) ليقوم النظام آلياً بـ **ترميز الإجابات النصية إلى أرقام**،
+    **عكس أوزان العبارات السالبة**، **كشف الاستمارات العشوائية أو المكررة أو الناقصة**، وتصدير ملف بيانات نظيف وجاهز للتحليل الإحصائي.
+    """)
+
+    c_src1, c_src2 = st.columns([3, 1])
+    with c_src1:
+        uploaded_file = st.file_uploader("📂 ارفع ملف استبيانك الخام (Excel أو CSV) أو جرب الأداة على العينة المدمجة:", type=["xlsx", "csv"])
+        if uploaded_file is not None:
+            if uploaded_file.name.endswith(".csv"):
+                user_df = pd.read_csv(uploaded_file)
+            else:
+                user_df = pd.read_excel(uploaded_file)
+            st.session_state.raw_df = user_df
+            coded_df, codebook_df = auto_code_dataframe(user_df)
+            st.session_state.working_df = coded_df
+            st.session_state.codebook_df = codebook_df
+            st.session_state.reversed_done = False
+            st.session_state.cleaned_done = False
+            st.success("تم رفع وترميز ملف الاستبيان بنجاح!")
+    with c_src2:
+        st.write("")
+        st.write("")
+        if st.button("🔄 إعادة ضبط العينة التجريبية"):
+            demo_text, _ = generate_demo_dataset()
+            st.session_state.raw_df = demo_text
+            coded_df, codebook_df = auto_code_dataframe(demo_text)
+            st.session_state.working_df = coded_df
+            st.session_state.codebook_df = codebook_df
+            st.session_state.reversed_done = False
+            st.session_state.cleaned_done = False
+            st.rerun()
+
+    df_current = st.session_state.working_df
+    numeric_cols = [c for c in df_current.columns if c not in ["رمز_الاستمارة", "الجنس", "المستوى_الدراسي"]]
+
+    lab_subtabs = st.tabs([
+        "1️⃣ الترميز الآلي وعكس العبارات",
+        "2️⃣ فحص جودة الاستمارات وتنظيفها",
+        "3️⃣ تنزيل الملف الجاهز وتقرير الجودة"
+    ])
+
+    with lab_subtabs[0]:
+        st.markdown("##### أ. معاينة البيانات النصية الخام مقابل البيانات المرمزة رقمياً:")
+        col_v1, col_v2 = st.columns(2)
+        with col_v1:
+            st.caption("📄 الاستبيان النصي الخام (قبل الترميز):")
+            st.dataframe(st.session_state.raw_df, use_container_width=True, height=260)
+        with col_v2:
+            st.caption("🔢 المصفوفة الرقمية المرمزة آلياً:")
+            st.dataframe(st.session_state.working_df, use_container_width=True, height=260)
+
+        st.markdown("##### ب. دليل ترميز المتغيرات المولد آلياً (Codebook):")
+        st.dataframe(st.session_state.codebook_df, use_container_width=True)
+
+        st.markdown("##### ج. أداة عكس أوزان العبارات السالبة (Reverse Coding):")
+        default_rev = [c for c in numeric_cols if "عكسية" in c]
+        rev_cols = st.multiselect("حدد العبارات السالبة في استبيانك لقلب أوزانها (5 ↔ 1):", numeric_cols, default=default_rev)
+        if st.button("⚡ تطبيق عكس أوزان العبارات السالبة"):
+            if not st.session_state.reversed_done and rev_cols:
+                for c in rev_cols:
+                    st.session_state.working_df[c] = 6 - pd.to_numeric(st.session_state.working_df[c], errors='coerce')
+                st.session_state.reversed_done = True
+                st.success("تم عكس أوزان العبارات السالبة بنجاح!")
+                st.rerun()
+            elif st.session_state.reversed_done:
+                st.info("تم عكس أوزان هذه العبارات مسبقاً.")
+
+    with lab_subtabs[1]:
+        st.markdown("##### 🛡️ الفحص الآلي لجودة الاستمارات وكشف الإجابات العشوائية أو المكررة:")
+        cp1, cp2 = st.columns(2)
+        with cp1:
+            pos_item = st.selectbox("اختر عبارة موجبة مرجعية لفحص اتساق المبحوث:", numeric_cols, index=0)
+        with cp2:
+            neg_idx = 3 if len(numeric_cols) > 3 else 0
+            neg_item = st.selectbox("اختر العبارة المعكوسة المقابلة لها:", numeric_cols, index=neg_idx)
+
+        raw_coded_temp, _ = auto_code_dataframe(st.session_state.raw_df)
+        if st.session_state.cleaned_done:
+            raw_coded_temp = raw_coded_temp.loc[st.session_state.working_df.index]
+
+        audit_df, bad_indices = audit_survey_quality(raw_coded_temp, numeric_cols, pos_item, neg_item)
+
+        m1, m2, m3 = st.columns(3)
+        m1.metric("إجمالي الاستمارات المفحوصة", f"{len(audit_df)} استمارة")
+        m2.metric("الاستمارات السليمة والمقبولة", f"{len(audit_df) - len(bad_indices)} استمارة")
+        m3.metric("الاستمارات غير الصالحة المرصودة", f"{len(bad_indices)} استمارات")
+
+        st.dataframe(audit_df.sort_values(by="القرار المنهجي", ascending=False), use_container_width=True, height=300)
+
+        if len(bad_indices) > 0:
+            st.warning(f"تم اكتشاف {len(bad_indices)} استمارات تحتوي على إجابات عشوائية مكررة أو متناقضة.")
+            if st.button("🧹 استبعاد الاستمارات غير الصالحة وتنظيف قاعدة البيانات"):
+                st.session_state.working_df = st.session_state.working_df.drop(index=bad_indices)
+                st.session_state.cleaned_done = True
+                st.success("تم تنظيف قاعدة البيانات بنجاح وأصبحت جاهزة تماماً للتحليل!")
+                st.rerun()
+        else:
+            st.success("✅ جميع الاستمارات في قاعدة البيانات الحالية سليمة ومتسقة بنسبة 100%.")
+
+    with lab_subtabs[2]:
+        st.markdown("##### 📥 تنزيل ملفات البيانات المنظفة والمرمزة:")
+        d1, d2, d3 = st.columns(3)
+
+        csv_bytes = st.session_state.working_df.to_csv(index=False).encode('utf-8-sig')
+        with d1:
+            st.download_button("📥 تنزيل ملف البيانات المرمز (Excel / CSV)", data=csv_bytes, file_name="SocioLab_Cleaned_Data.csv", mime="text/csv")
+
+        codebook_bytes = st.session_state.codebook_df.to_csv(index=False).encode('utf-8-sig')
+        with d2:
+            st.download_button("📘 تنزيل دليل الترميز (Codebook)", data=codebook_bytes, file_name="SocioLab_Codebook.csv", mime="text/csv")
+
+        with d3:
+            if HAS_PYREADSTAT:
+                sav_path = "SocioLab_Ready.sav"
+                spss_df = st.session_state.working_df.copy()
+                for c in spss_df.columns:
+                    if c != "رمز_الاستمارة":
+                        spss_df[c] = pd.to_numeric(spss_df[c], errors='coerce')
+                    else:
+                        spss_df[c] = spss_df[c].astype(str)
+                clean_cols = {col: f"Q_{i+1}" for i, col in enumerate(spss_df.columns)}
+                col_labels = {f"Q_{i+1}": col for i, col in enumerate(spss_df.columns)}
+                spss_df = spss_df.rename(columns=clean_cols)
+                pyreadstat.write_sav(spss_df, sav_path, column_labels=col_labels)
+                with open(sav_path, "rb") as f:
+                    st.download_button("📊 تنزيل ملف جاهز لبرنامج التحليل (.sav)", data=f, file_name="SocioLab_Ready_Data.sav", mime="application/octet-stream")
+
+        today_str = datetime.date.today().strftime("%Y-%m-%d")
+        cert_id = f"SL-DZ-{datetime.datetime.now().strftime('%Y%m')}-060"
+
+        st.markdown(f"""
+        <div class="holo-cert">
+            {cert_logo_html}
+            <span class="badge-tag badge-green" style="font-size:0.9rem; padding:6px 18px;">★ تقرير فحص وجودة البيانات الميدانية ★</span>
+            <h3 style="color:#FFFFFF; margin-top:14px; margin-bottom:8px;">شهادة مراجعة وتجهيز قاعدة البيانات البحثية</h3>
+            <p style="font-size:1.02rem; color:#E2E8F0 !important; line-height:1.9; max-width:85%; margin:0 auto;">
+                تمت معالجة ومراجعة ملف البيانات عبر المنصة الرقمية لمؤسسة <b>Socio Lab</b>، وشملت المراجعة: توحيد الترميز الرقمي للمتغيرات،
+                فحص القيم المفقودة، والتأكد من خلو الاستمارات المعتمدة من التطابق المكرر أو الإجابات النمطية الجامدة.
+                إجمالي الاستمارات الصافية الجاهزة للتحليل: (<b>N = {len(df_current)} استمارة</b>).
+            </p>
+            <div style="display:flex; justify-content:space-around; margin-top:24px; padding-top:16px; border-top:1px dashed rgba(148, 163, 184, 0.3); color:#7DD3FC; font-weight:600;">
+                <div>🔖 رقم المرجع: {cert_id}</div>
+                <div>📅 التاريخ: {today_str}</div>
+                <div>🏛️ مؤسسة Socio Lab - سوق أهراس</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+# ==========================================
+# التبويب 5: بوابة حجز خدمة أو التسجيل في دورة
+# ==========================================
 with main_tabs[4]:
-    st.markdown("""
-    <div class="workspace-card">
-        <div class="workspace-title">🎓 تصدير الحزمة الإحصائية النهائية (SPSS .sav) وشهادة الاعتماد المنهجي</div>
-        <div class="workspace-desc">
-            حمل قاعدة بياناتك المطهرة بصيغة برنامج SPSS الأصلية، مع شهادة النزاهة والموثوقية الميدانية لإرفاقها بمذكرتك أو تقريرك المؤسسي.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    cd1, cd2, cd3 = st.columns(3)
-    csv_bytes = st.session_state.working_df.to_csv(index=False).encode('utf-8-sig')
-    with cd1:
-        st.download_button("📥 تحميل المصفوفة المرمزة (CSV / Excel)", data=csv_bytes, file_name="SocioLab_Cleaned.csv", mime="text/csv")
-
-    codebook_bytes = st.session_state.codebook_df.to_csv(index=False).encode('utf-8-sig')
-    with cd2:
-        st.download_button("📘 تحميل قاموس المتغيرات (Variable View)", data=codebook_bytes, file_name="SocioLab_Codebook.csv", mime="text/csv")
-
-    with cd3:
-        if HAS_PYREADSTAT:
-            sav_path = "SocioLab_Output.sav"
-            spss_df = st.session_state.working_df.copy()
-            for c in spss_df.columns:
-                if c != "رمز_الاستمارة":
-                    spss_df[c] = pd.to_numeric(spss_df[c], errors='coerce')
-                else:
-                    spss_df[c] = spss_df[c].astype(str)
-            clean_cols = {col: f"VAR_{i+1}" for i, col in enumerate(spss_df.columns)}
-            col_labels = {f"VAR_{i+1}": col for i, col in enumerate(spss_df.columns)}
-            spss_df = spss_df.rename(columns=clean_cols)
-            pyreadstat.write_sav(spss_df, sav_path, column_labels=col_labels)
-            with open(sav_path, "rb") as f:
-                st.download_button("📊 تحميل ملف SPSS الأصلي (.sav)", data=f, file_name="SocioLab_Verified.sav", mime="application/octet-stream")
-
-    today_str = datetime.date.today().strftime("%Y-%m-%d")
-    cert_id = f"SL-DZ-{datetime.datetime.now().strftime('%Y%m')}-060"
-
-    st.markdown(f"""
-    <div class="holo-cert">
-        {cert_logo_html}
-        <span class="neon-tag tag-cyan" style="font-size:0.9rem; padding:6px 20px;">★ SOCIO LAB VERIFIED DATASET ★</span>
-        <h2 style="color:#FFFFFF; margin-top:14px; margin-bottom:6px; font-weight:800;">شهادة التدقيق المنهجي وموثوقية البيانات الميدانية</h2>
-        <p style="color:#38BDF8 !important; font-family:'Space Grotesk',sans-serif; letter-spacing:1.5px; margin-top:0;">FORENSIC STATISTICAL & PSYCHOMETRIC AUDIT CERTIFICATE</p>
-        <hr style="border:1px solid rgba(56, 189, 248, 0.25); width:70%; margin:20px auto;">
-        <p style="font-size:1.1rem; color:#E2E8F0 !important; line-height:2.0; max-width:85%; margin:0 auto;">
-            تشهد منظومة <b>Socio Lab السحابية للهندسة المنهجية والبيانات</b> بأن قاعدة البيانات المرفقة قد خضعت للتدقيق الجنائي الإحصائي الآلي،
-            وتم فحصها من حيث التباين الداخلي للاستمارات (<b>IRV</b>)، والاتساق السيكومتري للعبارات المعكوسة، وخلوها من الاستنساخ المكتبي،
-            وبلغ معامل الثبات الكلي للمقياس بعد الضبط (<b>α = {alpha_now:.3f}</b>) بحجم عينة صافية ومعتمدة قدره (<b>N = {len(df_current)}</b>).
-        </p>
-        <div style="display:flex; justify-content:space-around; margin-top:30px; padding-top:20px; border-top:1px dashed rgba(148, 163, 184, 0.25); color:#7DD3FC; font-weight:700;">
-            <div>🔖 رقم الاعتماد: {cert_id}</div>
-            <div>📅 تاريخ الإصدار: {today_str}</div>
-            <div>🏛️ Socio Lab - جامعة سوق أهراس</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with main_tabs[5]:
-    st.markdown("""
-    <div class="workspace-card">
-        <div class="workspace-title">📅 بوابة حجز الاستشارات المنهجية والدورات التدريبية (حضوري بسوق أهراس / عن بعد)</div>
-        <div class="workspace-desc">
-            احجز جلسة مرافقة منهجية وإحصائية مخصصة لبحثك أو سجل في معسكرات التدريب التطبيقي على برنامج IBM SPSS ومنهجية IMRAD.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">📅 بوابة طلب استشارة، دراسة ميدانية، أو التسجيل في دورة تكوينية</div>', unsafe_allow_html=True)
+    st.write("يرجى ملء الاستمارة أدناه وتحديد فئتك ونوع الخدمة أو الدورة المطلوبة، وسيتواصل معك فريق **Socio Lab** لتأكيد الموعد (حضورياً بجامعة سوق أهراس أو عن بعد):")
 
     with st.form("booking_form"):
         cf1, cf2 = st.columns(2)
         with cf1:
-            client_name = st.text_input("👤 الاسم واللقب الكامل:")
-            client_uni = st.text_input("🏛️ الجامعة / المؤسسة:", value="جامعة محمد الشريف مساعدية - سوق أهراس")
-            client_level = st.selectbox("🎓 الصفة الأكاديمية أو المهنية:", ["طالب ماستر 2", "طالب دكتوراه", "أستاذ باحث", "مؤسسة اقتصادية / جمعية"])
-        with cf2:
-            service_req = st.selectbox("🛠️ نوع الخدمة المطلوبة:", [
-                "استشارة منهجية وضبط أدوات القياس (الاستبيان)",
-                "التدقيق الجنائي والمعالجة الإحصائية عبر SPSS",
-                "دورة تدريبية تطبيقية في برنامج SPSS ومنهجية IMRAD",
-                "إنجاز دراسة ميدانية أو استطلاع رأي مؤسسي (B2B)"
+            client_name = st.text_input("👤 الاسم واللقب الكامل (أو اسم المؤسسة/الجمعية):")
+            client_category = st.selectbox("🎯 الفئة المستفيدة:", [
+                "طالب جامعي (ليسانس / ماستر) - جامعة سوق أهراس",
+                "طالب جامعي (ليسانس / ماستر) - جامعة جزائرية أخرى",
+                "طالب دكتوراه / أستاذ باحث / فرقة بحث",
+                "مؤسسة اقتصادية / إدارة عمومية / جمعية"
             ])
-            mode_req = st.radio("📍 نمط الاستفادة المفضل:", ["حضورياً (مقر Socio Lab - سوق أهراس)", "عن بعد (عبر المنصة الرقمية - 58 ولاية)"])
+            client_uni = st.text_input("🏛️ الكلية / الجامعة / اسم الهيئة:")
+        with cf2:
+            service_req = st.selectbox("💼 الخدمة أو الدورة المطلوبة:", [
+                "استشارة في منهجية البحث العلمي وضبط الإشكالية",
+                "تصميم استبيان وبناء أداة جمع البيانات وتحكيمها",
+                "تنظيم بيانات الاستبيان، ترميزها، وتحليلها إحصائياً",
+                "المرافقة المنهجية والتقنية في مذكرة التخرج أو تقرير التربص",
+                "التسجيل في دورة تكوينية: أساسيات التحليل الإحصائي ببرنامج SPSS",
+                "التسجيل في دورة تكوينية: هندسة الاستبيانات وبناء المقاييس",
+                "التسجيل في دورة تكوينية: الإحصاء المتقدم واختبار الفرضيات",
+                "التسجيل في دورة تكوينية: منهجية إعداد البحوث وفق IMRAD و APA",
+                "طلب إنجاز دراسة ميدانية أو استطلاع رأي مؤسسي (B2B)"
+            ])
+            mode_req = st.radio("📍 طريقة الاستفادة المفضلة:", [
+                "حضورياً (مقر Socio Lab - جامعة سوق أهراس)",
+                "عن بعد (عبر المنصة الرقمية - متاح لجميع الولايات)"
+            ])
             client_phone = st.text_input("📱 رقم الهاتف أو البريد الإلكتروني للتواصل:")
 
-        notes = st.text_area("📝 ملخص موضوع البحث أو الاحتياج الإحصائي:")
-        submitted = st.form_submit_button("🚀 تأكيد وإرسال طلب الحجز الآن")
+        notes = st.text_area("📝 تفاصيل إضافية حول موضوع بحثك أو احتياجك التدريبي / الميداني:")
+        submitted = st.form_submit_button("✅ إرسال الطلب وتأكيد الحجز")
         if submitted:
             if client_name and client_phone:
-                st.success(f"شكراً لك ({client_name})! تم تسجيل طلبك لخدمة ({service_req}) بنجاح، وسيتواصل معك فريق Socio Lab خلال 24 ساعة.")
+                st.success(f"شكراً لك ({client_name})! تم تسجيل طلبك بخصوص ({service_req}) ضمن فئة ({client_category}) بنجاح. سنتواصل معك خلال 24 ساعة.")
             else:
-                st.warning("يرجى إدخال الاسم ورقم التواصل لتأكيد الحجز.")
+                st.warning("يرجى إدخال الاسم ورقم الهاتف أو البريد الإلكتروني لتأكيد الطلب.")
