@@ -4,7 +4,7 @@ import numpy as np
 from scipy import stats
 import io
 import datetime
-
+import base64, os
 try:
     import pyreadstat
     HAS_PYREADSTAT = True
@@ -453,10 +453,21 @@ if "raw_df" not in st.session_state:
 # ==========================================
 # 4. شريط القيادة العلوي العائم (Top Glass Navbar)
 # ==========================================
-st.markdown("""
+# ==========================================
+# 4. شريط القيادة العلوي العائم مع الشعار (Logo)
+# ==========================================
+logo_html = '<div class="brand-logo">SL</div>'
+for ext in ["logo.png", "logo.jpg", "logo.jpeg"]:
+    if os.path.exists(ext):
+        with open(ext, "rb") as img_f:
+            b64_logo = base64.b64encode(img_f.read()).decode()
+        logo_html = f'<img src="data:image/png;base64,{b64_logo}" style="width:58px; height:58px; border-radius:14px; object-fit:contain; background:#0F172A; border:1px solid #38BDF8; padding:3px; box-shadow:0 0 20px rgba(6,182,212,0.4);">'
+        break
+
+st.markdown(f"""
 <div class="top-navbar">
     <div class="brand-box">
-        <div class="brand-logo">SL</div>
+        {logo_html}
         <div>
             <h1 class="brand-title">SOCIO LAB CLOUD PRO</h1>
             <p class="brand-sub">منظومة الذكاء المنهجي، التدقيق الجنائي للبيانات، والتحكيم السيكومتري الآلي</p>
@@ -465,36 +476,6 @@ st.markdown("""
     <div class="status-badge">● متصل بالمحرك الإحصائي السحابي | v3.0 AI-Ready</div>
 </div>
 """, unsafe_allow_html=True)
-
-with st.expander("📂 إدارة واستيراد قواعد البيانات (اضغط هنا لرفع ملف Excel / CSV خاص بك أو إعادة ضبط العينة التجريبية)"):
-    c_up1, c_up2 = st.columns([3, 1])
-    with c_up1:
-        uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام (Excel / CSV):", type=["xlsx", "csv"])
-        if uploaded_file is not None:
-            if uploaded_file.name.endswith(".csv"):
-                user_df = pd.read_csv(uploaded_file)
-            else:
-                user_df = pd.read_excel(uploaded_file)
-            st.session_state.raw_df = user_df
-            coded_df, codebook_df = auto_code_dataframe(user_df)
-            st.session_state.working_df = coded_df
-            st.session_state.codebook_df = codebook_df
-            st.session_state.reversed_done = False
-            st.session_state.cleaned_done = False
-            st.success("تم استيراد وترميز ملفك بنجاح!")
-    with c_up2:
-        st.write("")
-        st.write("")
-        if st.button("🔄 إعادة ضبط العينة التجريبية (N=60)"):
-            demo_text, _ = generate_demo_dataset()
-            st.session_state.raw_df = demo_text
-            coded_df, codebook_df = auto_code_dataframe(demo_text)
-            st.session_state.working_df = coded_df
-            st.session_state.codebook_df = codebook_df
-            st.session_state.reversed_done = False
-            st.session_state.cleaned_done = False
-            st.rerun()
-
 
 # ==========================================
 # 5. شبكة المؤشرات الذكية المضيئة (Bento Grid KPIs)
