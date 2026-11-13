@@ -17,7 +17,7 @@ except ImportError:
 # 1. إعدادات الصفحة والهوية البصرية الأكاديمية الراقية
 # ==========================================
 st.set_page_config(
-    page_title="Socio Lab | المنصة الوطنية للاستشارات المنهجية والإحصائية والتدريب",
+    page_title="SOCIO LAB",
     page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -80,8 +80,10 @@ st.markdown("""
         box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
     }
     .brand-title {
-        font-size: 1.75rem;
-        font-weight: 700;
+        font-family: 'Space Grotesk', sans-serif !important;
+        font-size: 1.85rem;
+        font-weight: 800;
+        letter-spacing: 1px;
         background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 60%, #93C5FD 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -286,7 +288,6 @@ def generate_demo_dataset():
         q8_rev = int(np.clip(6 - base_tendency + np.random.randint(-1, 2), 1, 5))
         data.append([ids[i], genders[i], levels[i], q1, q2, q3, q4_rev, q5, q6, q7, q8_rev])
 
-    # دس 4 استمارات عشوائية/مكررة لاختبار أداة الفحص والتنظيف الآلي
     data[13][3:] = [5, 5, 5, 5, 5, 5, 5, 5]
     data[28][3:] = [5, 5, 5, 5, 5, 5, 4, 5]
     data[40][3:] = [1, 1, 1, 1, 1, 1, 2, 1]
@@ -433,15 +434,15 @@ else:
 
 
 # ==========================================
-# 4. الترويسة العلوية للمنصة (Top Header)
+# 4. الترويسة العلوية للمنصة (Top Header - English Name Only)
 # ==========================================
 st.markdown(f"""
 <div class="top-navbar">
     <div class="brand-box">
         {logo_html}
         <div>
-            <h1 class="brand-title">SOCIO LAB | سوسيو لاب</h1>
-            <p class="brand-sub">مؤسسة ناشئة للاستشارات المنهجية والإحصائية، التدريب التطبيقي، والحلول الرقمية للبيانات</p>
+            <h1 class="brand-title">SOCIO LAB</h1>
+            <p class="brand-sub">منصة رقمية للاستشارات المنهجية والإحصائية، التدريب التطبيقي، والحلول الرقمية للبيانات</p>
         </div>
     </div>
     <div class="location-badge">📍 حضورياً بجامعة سوق أهراس | 🌐 رقمياً عبر 58 ولاية</div>
@@ -449,7 +450,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 with st.expander("🎨 تخصيص شعار المنصة (اضغط هنا لرفع صورة الشعار Logo من جهازك)"):
-    uploaded_logo = st.file_uploader("اختر صورة شعار Socio Lab:", type=["png", "jpg", "jpeg", "webp"])
+    uploaded_logo = st.file_uploader("اختر صورة شعار SOCIO LAB:", type=["png", "jpg", "jpeg", "webp"])
     if uploaded_logo is not None:
         st.session_state.custom_logo_b64 = base64.b64encode(uploaded_logo.getvalue()).decode()
         st.success("تم تحديث شعار المنصة بنجاح!")
@@ -469,21 +470,21 @@ main_tabs = st.tabs([
 
 
 # ==========================================
-# التبويب 1: الرئيسية والفئات المستهدفة (لمن هذه المنصة؟)
+# التبويب 1: الرئيسية والفئات المستهدفة
 # ==========================================
 with main_tabs[0]:
     st.markdown("""
     <div class="hero-box">
-        <h2 class="hero-title">مرحباً بك في منصة Socio Lab – شريكك العلمي والمؤسسي الموثوق</h2>
+        <h2 class="hero-title">مرحباً بك في المنصة الرقمية SOCIO LAB – شريكك العلمي والمؤسسي الموثوق</h2>
         <p class="hero-desc">
-            تجمع مؤسسة <b>Socio Lab</b> بين <b>الفضاء الحضوري</b> للاستشارات المنهجية والإحصائية والتدريب بجامعة محمد الشريف مساعدية بسوق أهراس،
-            و<b>المنصة الرقمية السحابية</b> الموجهة للطلبة، الباحثين، والمؤسسات في جميع ولايات الجزائر. نهدف إلى مرافقتك علمياً وتقنياً من مرحلة
+            تجمع المنصة الرقمية <b>SOCIO LAB</b> بين <b>الفضاء الحضوري</b> للاستشارات المنهجية والإحصائية والتدريب بجامعة محمد الشريف مساعدية بسوق أهراس،
+            و<b>الخدمات السحابية الذكية</b> الموجهة للطلبة، الباحثين، والمؤسسات في جميع ولايات الجزائر. نهدف إلى مرافقتك علمياً وتقنياً من مرحلة
             بناء الفكرة وأداة القياس إلى غاية استلام بيانات ميدانية منظفة، موثوقة، ومحللة بدقة وفق ضوابط النزاهة الأكاديمية.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-heading">🎯 من هم المستفيدون من خدمات منصة Socio Lab؟ (الفئات المستهدفة)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">🎯 من هم المستفيدون من المنصة الرقمية SOCIO LAB؟ (الفئات المستهدفة)</div>', unsafe_allow_html=True)
 
     c_t1, c_t2, c_t3 = st.columns(3)
 
@@ -529,7 +530,7 @@ with main_tabs[0]:
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-heading">✨ لماذا تختار Socio Lab؟ (ركائز القيمة المضافة والنزاهة)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">✨ لماذا تختار المنصة الرقمية SOCIO LAB؟ (ركائز القيمة المضافة والنزاهة)</div>', unsafe_allow_html=True)
     c_v1, c_v2, c_v3, c_v4 = st.columns(4)
     with c_v1:
         st.markdown("""
@@ -556,7 +557,7 @@ with main_tabs[0]:
         st.markdown("""
         <div class="info-card">
             <h4 class="card-title">🤝 خدمة هجينة (حضوري/رقمي)</h4>
-            <p class="card-text">إمكانية الاستفادة من الجلسات الاستشارية والدورات حضورياً بسوق أهراس أو عن بعد عبر المنصة في جميع ولايات الوطن.</p>
+            <p class="card-text">إمكانية الاستفادة من الجلسات الاستشارية والدورات حضورياً بسوق أهراس أو عن بعد عبر المنصة الرقمية في جميع ولايات الوطن.</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -565,8 +566,8 @@ with main_tabs[0]:
 # التبويب 2: خدماتنا الاستشارية والميدانية
 # ==========================================
 with main_tabs[1]:
-    st.markdown('<div class="section-heading">💼 قائمة الخدمات الأساسية لمؤسسة Socio Lab</div>', unsafe_allow_html=True)
-    st.write("نقدم باقة متكاملة من الخدمات العلمية والتقنية المصممة لتلبية احتياجات الطلبة، الباحثين، والمؤسسات:")
+    st.markdown('<div class="section-heading">💼 قائمة الخدمات الأساسية للمنصة الرقمية SOCIO LAB</div>', unsafe_allow_html=True)
+    st.write("نقدم عبر المنصة الرقمية والفضاء الحضوري باقة متكاملة من الخدمات العلمية والتقنية المصممة لتلبية احتياجات الطلبة، الباحثين، والمؤسسات:")
 
     s_col1, s_col2 = st.columns(2)
 
@@ -650,7 +651,7 @@ with main_tabs[1]:
 # ==========================================
 with main_tabs[2]:
     st.markdown('<div class="section-heading">🎓 البرامج والدورات التكوينية التطبيقية (حضورياً وعن بعد)</div>', unsafe_allow_html=True)
-    st.write("تنظم مؤسسة **Socio Lab** دورات تدريبية تطبيقية مصغرة ومكثفة موجهة للطلبة، الباحثين، وإطارات المؤسسات لتنمية المهارات المنهجية والإحصائية:")
+    st.write("تقدم المنصة الرقمية **SOCIO LAB** دورات تدريبية تطبيقية مصغرة ومكثفة موجهة للطلبة، الباحثين، وإطارات المؤسسات لتنمية المهارات المنهجية والإحصائية:")
 
     tr_col1, tr_col2 = st.columns(2)
 
@@ -712,16 +713,16 @@ with main_tabs[2]:
         </div>
         """, unsafe_allow_html=True)
 
-    st.info("💡 **للتسجيل في إحدى الدورات التكوينية:** انتقل إلى تبويب **«📅 بوابة حجز خدمة أو التسجيل في دورة»** في أعلى المنصة واختر الدورة المناسبة لك.")
+    st.info("💡 **للتسجيل في إحدى الدورات التكوينية:** انتقل إلى تبويب **«📅 بوابة حجز خدمة أو التسجيل في دورة»** في أعلى المنصة الرقمية واختر الدورة المناسبة لك.")
 
 
 # ==========================================
-# التبويب 4: المختبر الرقمي لفحص وتجهيز الاستبيانات (الأداة التقنية المبتكرة)
+# التبويب 4: المختبر الرقمي لفحص وتجهيز الاستبيانات
 # ==========================================
 with main_tabs[3]:
     st.markdown('<div class="section-heading">🔬 المختبر الرقمي الآلي لفحص جودة الاستبيانات وتجهيزها للتحليل</div>', unsafe_allow_html=True)
     st.write("""
-    تتيح لك هذه الأداة الرقمية المبتكرة رفع ملف استبيانك الخام (Excel / CSV) ليقوم النظام آلياً بـ **ترميز الإجابات النصية إلى أرقام**،
+    تتيح لك هذه الأداة في المنصة الرقمية **SOCIO LAB** رفع ملف استبيانك الخام (Excel / CSV) ليقوم النظام آلياً بـ **ترميز الإجابات النصية إلى أرقام**،
     **عكس أوزان العبارات السالبة**، **كشف الاستمارات العشوائية أو المكررة أو الناقصة**، وتصدير ملف بيانات نظيف وجاهز للتحليل الإحصائي.
     """)
 
@@ -857,14 +858,14 @@ with main_tabs[3]:
             <span class="badge-tag badge-green" style="font-size:0.9rem; padding:6px 18px;">★ تقرير فحص وجودة البيانات الميدانية ★</span>
             <h3 style="color:#FFFFFF; margin-top:14px; margin-bottom:8px;">شهادة مراجعة وتجهيز قاعدة البيانات البحثية</h3>
             <p style="font-size:1.02rem; color:#E2E8F0 !important; line-height:1.9; max-width:85%; margin:0 auto;">
-                تمت معالجة ومراجعة ملف البيانات عبر المنصة الرقمية لمؤسسة <b>Socio Lab</b>، وشملت المراجعة: توحيد الترميز الرقمي للمتغيرات،
+                تمت معالجة ومراجعة ملف البيانات عبر المنصة الرقمية <b>SOCIO LAB</b>، وشملت المراجعة: توحيد الترميز الرقمي للمتغيرات،
                 فحص القيم المفقودة، والتأكد من خلو الاستمارات المعتمدة من التطابق المكرر أو الإجابات النمطية الجامدة.
                 إجمالي الاستمارات الصافية الجاهزة للتحليل: (<b>N = {len(df_current)} استمارة</b>).
             </p>
             <div style="display:flex; justify-content:space-around; margin-top:24px; padding-top:16px; border-top:1px dashed rgba(148, 163, 184, 0.3); color:#7DD3FC; font-weight:600;">
                 <div>🔖 رقم المرجع: {cert_id}</div>
                 <div>📅 التاريخ: {today_str}</div>
-                <div>🏛️ مؤسسة Socio Lab - سوق أهراس</div>
+                <div>🏛️ المنصة الرقمية SOCIO LAB - سوق أهراس</div>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -875,7 +876,7 @@ with main_tabs[3]:
 # ==========================================
 with main_tabs[4]:
     st.markdown('<div class="section-heading">📅 بوابة طلب استشارة، دراسة ميدانية، أو التسجيل في دورة تكوينية</div>', unsafe_allow_html=True)
-    st.write("يرجى ملء الاستمارة أدناه وتحديد فئتك ونوع الخدمة أو الدورة المطلوبة، وسيتواصل معك فريق **Socio Lab** لتأكيد الموعد (حضورياً بجامعة سوق أهراس أو عن بعد):")
+    st.write("يرجى ملء الاستمارة أدناه وتحديد فئتك ونوع الخدمة أو الدورة المطلوبة، وسيتواصل معك فريق المنصة الرقمية **SOCIO LAB** لتأكيد الموعد (حضورياً بجامعة سوق أهراس أو عن بعد):")
 
     with st.form("booking_form"):
         cf1, cf2 = st.columns(2)
@@ -901,7 +902,7 @@ with main_tabs[4]:
                 "طلب إنجاز دراسة ميدانية أو استطلاع رأي مؤسسي (B2B)"
             ])
             mode_req = st.radio("📍 طريقة الاستفادة المفضلة:", [
-                "حضورياً (مقر Socio Lab - جامعة سوق أهراس)",
+                "حضورياً (مقر SOCIO LAB - جامعة سوق أهراس)",
                 "عن بعد (عبر المنصة الرقمية - متاح لجميع الولايات)"
             ])
             client_phone = st.text_input("📱 رقم الهاتف أو البريد الإلكتروني للتواصل:")
