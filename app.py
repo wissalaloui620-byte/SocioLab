@@ -196,7 +196,6 @@ def generate_demo_dataset():
         row = [ids[i], genders[i], levels[i], q1, q2, q3, q4_rev, q5, q6, q7_weak, q8_rev]
         data.append(row)
 
-    # دس 4 حالات تلاعب لاختبار المحرك الجنائي
     data[13][3:] = [5, 5, 5, 5, 5, 5, 5, 5]
     data[28][3:] = [5, 5, 5, 5, 5, 5, 4, 5]
     data[40][3:] = [1, 1, 1, 1, 1, 1, 2, 1]
@@ -230,17 +229,27 @@ def auto_code_dataframe(df):
     }
 
     for col in df_coded.columns:
-        if df_coded[col].dtype == 'object' and col != "رمز_الاستمارة":
-            unique_vals = df_coded[col].dropna().unique()
+        if col != "رمز_الاستمارة":
+            # فحص آمن وموحد لجميع أنواع النصوص والأرقام في Python 3.14
+            s_str = df_coded[col].astype(str).str.strip()
+            unique_vals = [v for v in s_str.unique() if v not in ["nan", "None", ""]]
+            
             if any(val in likert_map for val in unique_vals):
-                df_coded[col] = df_coded[col].map(lambda x: likert_map.get(str(x).strip(), x))
+                df_coded[col] = s_str.map(lambda x: likert_map.get(x, np.nan))
+                df_coded[col] = pd.to_numeric(df_coded[col], errors='coerce')
                 mapping_str = "ترميز قياسي آلي (مقياس ليكرت / ثنائي)"
             else:
-                cats = {val: idx + 1 for idx, val in enumerate(unique_vals)}
-                df_coded[col] = df_coded[col].map(cats)
-                mapping_str = " | ".join([f"{k}={v}" for k, v in cats.items()])
+                num_try = pd.to_numeric(df_coded[col], errors='coerce')
+                if num_try.notna().sum() > 0:
+                    df_coded[col] = num_try
+                    mapping_str = "متغير رقمي مباشر"
+                else:
+                    cats = {val: idx + 1 for idx, val in enumerate(unique_vals)}
+                    df_coded[col] = s_str.map(cats)
+                    df_coded[col] = pd.to_numeric(df_coded[col], errors='coerce')
+                    mapping_str = " | ".join([f"{k}={v}" for k, v in cats.items()])
         else:
-            mapping_str = "متغير رقمي / معرف"
+            mapping_str = "معرف الاستمارة"
 
         codebook.append({
             "اسم المتغير (Variable)": col,
@@ -253,15 +262,17 @@ def auto_code_dataframe(df):
 
 
 def calculate_cronbach_alpha(df_items):
-    df_clean = df_items.dropna()
-    k = df_clean.shape[1]
-    if k < 2 or len(df_clean) < 2:
+    # استخدام مصفوفة NumPy عشرية مباشرة لتفادي أي خطأ في Python 3.14
+    df_num = df_items.apply(pd.to_numeric, errors='coerce').dropna()
+    k = df_num.shape[1]
+    if k < 2 or len(df_num) < 2:
         return 0.0
-    item_variances = df_clean.var(axis=0, ddof=1).sum()
-    total_variance = df_clean.sum(axis=1).var(ddof=1)
-    if total_variance == 0:
+    mat = df_num.to_numpy(dtype=float)
+    item_variances = np.var(mat, axis=0, ddof=1).sum()
+    total_variance = np.var(mat.sum(axis=1), ddof=1)
+    if total_variance == 0 or np.isnan(total_variance):
         return 0.0
-    alpha = (k / (k - 1)) * (1 - (item_variances / total_variance))
+    alpha = (k / (k - 1)) * (1.0 - (item_variances / total_variance))
     return float(alpha)
 
 
@@ -273,9 +284,10 @@ def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
 
     for idx, row in df_coded.iterrows():
         form_id = row["رمز_الاستمارة"] if "رمز_الاستمارة" in df_coded.columns else f"Row-{idx+1}"
-        vals = pd.to_numeric(row[scale_cols], errors='coerce').dropna()
-        sd_val = float(vals.std(ddof=0)) if len(vals) > 1 else 0.0
-        missing_cnt = int(row[scale_cols].isna().sum())
+        vals_series = pd.to_numeric(row[scale_cols], errors='coerce')
+        vals_clean = vals_series.dropna().to_numpy(dtype=float)
+        sd_val = float(np.std(vals_clean, ddof=0)) if len(vals_clean) > 1 else 0.0
+        missing_cnt = int(vals_series.isna().sum())
 
         reasons = []
         status = "صالحة وموثوقة"
@@ -285,8 +297,8 @@ def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
             status = "مزيفة / مرفوضة منهجيا"
 
         if pos_col and neg_col and pos_col in df_coded.columns and neg_col in df_coded.columns:
-            v_pos = row[pos_col]
-            v_neg = row[neg_col]
+            v_pos = pd.to_numeric(row[pos_col], errors='coerce')
+            v_neg = pd.to_numeric(row[neg_col], errors='coerce')
             if pd.notna(v_pos) and pd.notna(v_neg):
                 if (v_pos >= 4 and v_neg >= 4) or (v_pos <= 2 and v_neg <= 2):
                     reasons.append("تناقض سيكومتري حاد بين الموجب والسالب")
@@ -460,7 +472,7 @@ if nav_page == "1. الرفع الذكي والترميز الآلي":
 
     st.markdown("---")
     st.markdown("#### 🔄 أداة عكس أوزان الفقرات السالبة (Reverse Coding Engine)")
-    st.write("حدد الفقرات ذات الصياغة السالبة ليقوم النظام بقلب أوزانها آلياً ($5 \leftrightarrow 1$ و $4 \leftrightarrow 2$) لضمان صحة الدرجة الكلية للمحور:")
+    st.write("حدد الفقرات ذات الصياغة السالبة ليقوم النظام بقلب أوزانها آلياً ($5 \\leftrightarrow 1$ و $4 \\leftrightarrow 2$) لضمان صحة الدرجة الكلية للمحور:")
 
     default_rev = [c for c in numeric_cols if "عكسية" in c]
     rev_cols = st.multiselect("اختر الفقرات المعكوسة في استبيانك:", numeric_cols, default=default_rev)
@@ -548,8 +560,9 @@ elif nav_page == "3. المختبر السيكومتري (الصدق والثب�
         for item in selected_scale_items:
             other_items = [c for c in selected_scale_items if c != item]
             alpha_if_deleted = calculate_cronbach_alpha(sub_df[other_items])
-            corrected_total = sub_df[other_items].sum(axis=1)
-            r_val, p_val = stats.pearsonr(sub_df[item], corrected_total)
+            corrected_total = sub_df[other_items].sum(axis=1).to_numpy(dtype=float)
+            item_arr = sub_df[item].to_numpy(dtype=float)
+            r_val, p_val = stats.pearsonr(item_arr, corrected_total)
 
             if alpha_if_deleted > overall_alpha + 0.01 or r_val < 0.25:
                 diag = "⚠️ فقرة ضعيفة/مشوهة (ينصح بحذفها)"
@@ -559,11 +572,11 @@ elif nav_page == "3. المختبر السيكومتري (الصدق والثب�
 
             psych_rows.append({
                 "الفقرة": item,
-                "المتوسط الحسابي (M)": round(sub_df[item].mean(), 2),
-                "الانحراف المعياري (SD)": round(sub_df[item].std(), 2),
-                "ارتباط الفقرة بالمحور (r)": round(r_val, 3),
-                "مستوى الدلالة (p-value)": round(p_val, 4),
-                "ألفا كرونباخ إذا حذفت الفقرة": round(alpha_if_deleted, 3),
+                "المتوسط الحسابي (M)": round(float(np.mean(item_arr)), 2),
+                "الانحراف المعياري (SD)": round(float(np.std(item_arr, ddof=1)), 2),
+                "ارتباط الفقرة بالمحور (r)": round(float(r_val), 3),
+                "مستوى الدلالة (p-value)": round(float(p_val), 4),
+                "ألفا كرونباخ إذا حذفت الفقرة": round(float(alpha_if_deleted), 3),
                 "التوصية السيكومترية": diag
             })
 
@@ -617,8 +630,8 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
         with c2:
             var_y = st.selectbox("المتغير التابع (Y):", analysis_vars, index=1 if len(analysis_vars) > 1 else 0)
 
-        series_x = pd.to_numeric(df_calc[var_x], errors='coerce').dropna()
-        series_y = pd.to_numeric(df_calc[var_y], errors='coerce').dropna()
+        series_x = pd.to_numeric(df_calc[var_x], errors='coerce').dropna().to_numpy(dtype=float)
+        series_y = pd.to_numeric(df_calc[var_y], errors='coerce').dropna().to_numpy(dtype=float)
 
         stat_sw_x, p_sw_x = stats.shapiro(series_x)
         stat_sw_y, p_sw_y = stats.shapiro(series_y)
@@ -635,7 +648,7 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
         else:
             test_used = "معامل ارتباط سبيرمان اللامعلمي للرتب (Spearman Rank Correlation - rho)"
             r_val, p_val = stats.spearmanr(series_x, series_y)
-            reason_txt = "نظراً لعدم تحقق شرط الاعتدالية في أحد المتغيرين ($p \le 0.05$)، حظر النظام اختبار بيرسون تجنباً للخطأ المنهجي، ووجه المعالجة آلياً نحو البديل اللامعلمي الصحيح (سبيرمان)."
+            reason_txt = "نظراً لعدم تحقق شرط الاعتدالية في أحد المتغيرين ($p \\le 0.05$)، حظر النظام اختبار بيرسون تجنباً للخطأ المنهجي، ووجه المعالجة آلياً نحو البديل اللامعلمي الصحيح (سبيرمان)."
 
         st.success(f"**القرار الإحصائي الآلي:** اعتماد **{test_used}**\n\n*{reason_txt}*")
 
@@ -658,8 +671,8 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                 <tr>
                     <td>{var_x}</td>
                     <td>{len(series_x)}</td>
-                    <td>{series_x.mean():.2f}</td>
-                    <td>{series_x.std():.2f}</td>
+                    <td>{np.mean(series_x):.2f}</td>
+                    <td>{np.std(series_x, ddof=1):.2f}</td>
                     <td rowspan="2" style="font-weight:800; color:#1E3A8A;">{r_val:.3f}**</td>
                     <td rowspan="2" style="font-weight:700;">{p_val:.4f}</td>
                     <td rowspan="2">{sig_label}</td>
@@ -667,8 +680,8 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                 <tr>
                     <td>{var_y}</td>
                     <td>{len(series_y)}</td>
-                    <td>{series_y.mean():.2f}</td>
-                    <td>{series_y.std():.2f}</td>
+                    <td>{np.mean(series_y):.2f}</td>
+                    <td>{np.std(series_y, ddof=1):.2f}</td>
                 </tr>
             </tbody>
         </table>
@@ -680,8 +693,8 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
         if "الجنس" in df_calc.columns:
             groups = df_calc["الجنس"].dropna().unique()
             if len(groups) >= 2:
-                g1 = pd.to_numeric(df_calc[df_calc["الجنس"] == groups[0]][dep_var], errors='coerce').dropna()
-                g2 = pd.to_numeric(df_calc[df_calc["الجنس"] == groups[1]][dep_var], errors='coerce').dropna()
+                g1 = pd.to_numeric(df_calc[df_calc["الجنس"] == groups[0]][dep_var], errors='coerce').dropna().to_numpy(dtype=float)
+                g2 = pd.to_numeric(df_calc[df_calc["الجنس"] == groups[1]][dep_var], errors='coerce').dropna().to_numpy(dtype=float)
 
                 _, p_norm1 = stats.shapiro(g1) if len(g1) >= 3 else (0, 1)
                 _, p_norm2 = stats.shapiro(g2) if len(g2) >= 3 else (0, 1)
@@ -713,16 +726,16 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                         <tr>
                             <td>المجموعة 1 ({groups[0]})</td>
                             <td>{len(g1)}</td>
-                            <td>{g1.mean():.2f}</td>
-                            <td>{g1.std():.2f}</td>
+                            <td>{np.mean(g1):.2f}</td>
+                            <td>{np.std(g1, ddof=1):.2f}</td>
                             <td rowspan="2" style="font-weight:800; color:#1E3A8A;">{stat_symbol}</td>
                             <td rowspan="2">{p_val:.4f}</td>
                         </tr>
                         <tr>
                             <td>المجموعة 2 ({groups[1]})</td>
                             <td>{len(g2)}</td>
-                            <td>{g2.mean():.2f}</td>
-                            <td>{g2.std():.2f}</td>
+                            <td>{np.mean(g2):.2f}</td>
+                            <td>{np.std(g2, ddof=1):.2f}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -762,6 +775,11 @@ elif nav_page == "5. التصدير لـ SPSS وشهادة النزاهة":
         if HAS_PYREADSTAT:
             sav_path = "SocioLab_Output.sav"
             spss_df = st.session_state.working_df.copy()
+            for c in spss_df.columns:
+                if c != "رمز_الاستمارة":
+                    spss_df[c] = pd.to_numeric(spss_df[c], errors='coerce')
+                else:
+                    spss_df[c] = spss_df[c].astype(str)
             clean_cols = {col: f"VAR_{i+1}" for i, col in enumerate(spss_df.columns)}
             col_labels = {f"VAR_{i+1}": col for i, col in enumerate(spss_df.columns)}
             spss_df = spss_df.rename(columns=clean_cols)
@@ -788,7 +806,7 @@ elif nav_page == "5. التصدير لـ SPSS وشهادة النزاهة":
         <p style="font-size:1.1rem; color:#1E293B; line-height:1.9;">
             تشهد منصة <b>Socio Lab السحابية للهندسة المنهجية والبيانات</b> بأن قاعدة البيانات الميدانية المرفقة قد خضعت للفحص الجنائي الإحصائي
             وتم تدقيقها من حيث التباين الداخلي للاستمارات ($IRV$)، والاتساق السيكومتري للعبارات المعكوسة، وخلوها من الاستنساخ المكتبي،
-            وبلغ معامل الثبات الكلي للمقياس بعد الضبط (<b>$\alpha = {alpha_now:.3f}$</b>) بحجم عينة صافية قدره (<b>$N = {len(df_current)}$</b>).
+            وبلغ معامل الثبات الكلي للمقياس بعد الضبط (<b>$\\alpha = {alpha_now:.3f}$</b>) بحجم عينة صافية قدره (<b>$N = {len(df_current)}$</b>).
         </p>
         <div style="display:flex; justify-content:space-around; margin-top:26px; font-weight:700; color:#0F172A;">
             <div>رقم الشهادة المرجعي: {cert_id}</div>
