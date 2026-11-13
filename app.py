@@ -4,45 +4,302 @@ import numpy as np
 import math, datetime, base64, glob
 
 # ==========================================
-# 1. إعدادات الصفحة والتنسيق البصري
+# 1. إعدادات الصفحة والأيقونة الإحصائية
 # ==========================================
-st.set_page_config(page_title="Socio Lab", page_icon="🏛️", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(
+    page_title="Socio Lab | Analytics & Methodology",
+    page_icon="📈",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Readex+Pro:wght@300;400;600;700&display=swap');
-html, body, [class*="css"] { font-family: 'Readex Pro', sans-serif !important; direction: rtl; text-align: right; }
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+
+/* فرض الاتجاه من اليمين إلى اليسار وتوحيد الخطوط */
+html, body, [class*="css"], .stApp, .stMarkdown, .stText, .stButton, .stSelectbox, .stMultiSelect, .stRadio, .stCheckbox, input, textarea {
+    font-family: 'Readex Pro', sans-serif !important;
+    direction: rtl !important;
+    text-align: right !important;
+}
+
 #MainMenu, footer { visibility: hidden; }
 header { background: transparent !important; }
-.stApp { background: radial-gradient(circle at 15% 10%, #0A2540 0%, #051324 55%, #020813 100%) !important; color: #F8FAFC !important; }
-h1, h2, h3, h4, h5, p, label, .stMarkdown { color: #F1F5F9 !important; }
-div[data-testid="stAlert"] { background: rgba(10, 32, 64, 0.95) !important; border: 1px solid #38BDF8 !important; border-right: 5px solid #38BDF8 !important; border-radius: 12px !important; }
-div[data-testid="stAlert"] * { color: #F8FAFC !important; }
-.top-navbar { background: rgba(8, 25, 48, 0.88); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 20px; padding: 18px 30px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; }
-.brand-box { display: flex; align-items: center; gap: 18px; }
-.brand-logo { width: 64px; height: 64px; border-radius: 15px; background: linear-gradient(135deg, #0284C7, #1E3A8A); display: flex; align-items: center; justify-content: center; font-family: 'Lobster', cursive !important; font-size: 1.7rem; color: #FFF; }
-.brand-title { font-family: 'Lobster', cursive !important; font-size: 2.6rem !important; direction: ltr !important; display: inline-block; background: linear-gradient(180deg, #FFF 15%, #BAE6FD 65%, #7DD3FC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1.1; }
-.brand-sub { color: #CBD5E1 !important; font-size: 0.9rem; margin: 5px 0 0 0; }
-.loc-badge { background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.4); color: #7DD3FC !important; padding: 8px 16px; border-radius: 999px; font-size: 0.84rem; font-weight: 600; }
-.hero-box { background: linear-gradient(135deg, rgba(14, 48, 92, 0.7), rgba(7, 20, 40, 0.95)); border: 1px solid rgba(56, 189, 248, 0.35); border-right: 6px solid #38BDF8; border-radius: 20px; padding: 30px 36px; margin-bottom: 24px; }
-.info-card { background: linear-gradient(145deg, rgba(15, 38, 72, 0.75), rgba(8, 22, 44, 0.94)); border: 1px solid rgba(56, 189, 248, 0.22); border-top: 3px solid #38BDF8; border-radius: 18px; padding: 22px; height: 100%; margin-bottom: 18px; }
-.card-title { font-size: 1.18rem; font-weight: 700; color: #FFF !important; margin: 0 0 10px 0; }
-.card-text { font-size: 0.92rem; color: #CBD5E1 !important; line-height: 1.75; }
-.out-box { background: rgba(6, 182, 212, 0.14); border-right: 3px solid #38BDF8; padding: 10px 14px; border-radius: 8px; font-size: 0.86rem; color: #7DD3FC !important; margin-top: 10px; }
-.tag { display: inline-block; padding: 4px 11px; border-radius: 999px; font-size: 0.76rem; font-weight: 600; background: rgba(56, 189, 248, 0.16); color: #7DD3FC; border: 1px solid rgba(56, 189, 248, 0.3); margin: 4px 0 0 5px; }
-.tag-green { background: rgba(16, 185, 129, 0.16); color: #6EE7B7; border-color: rgba(16, 185, 129, 0.35); }
-.tag-amber { background: rgba(245, 158, 11, 0.16); color: #FCD34D; border-color: rgba(245, 158, 11, 0.35); }
-.sec-head { font-size: 1.42rem; font-weight: 700; color: #38BDF8 !important; margin: 22px 0 14px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(56, 189, 248, 0.25); }
-.cta-banner { background: linear-gradient(135deg, rgba(2, 132, 199, 0.28), rgba(15, 38, 72, 0.92)); border: 1px solid rgba(56, 189, 248, 0.5); border-right: 6px solid #38BDF8; border-radius: 16px; padding: 20px 26px; margin-top: 20px; }
-.stTabs [data-baseweb="tab-list"] { gap: 6px; background: rgba(8, 24, 46, 0.95); padding: 8px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, 0.25); flex-wrap: wrap; }
-.stTabs [data-baseweb="tab"] { border-radius: 10px !important; padding: 9px 15px !important; font-weight: 700 !important; font-size: 0.9rem !important; color: #94A3B8 !important; background: transparent !important; border: none !important; }
-.stTabs [aria-selected="true"] { background: linear-gradient(135deg, #0284C7, #2563EB) !important; color: #FFF !important; }
-.stButton > button { background: linear-gradient(135deg, #0284C7, #2563EB) !important; color: #FFF !important; font-weight: 700 !important; border-radius: 10px !important; padding: 0.6rem 1.4rem !important; border: 1px solid rgba(125, 211, 252, 0.4) !important; }
+
+/* خلفية كحلية متدرجة فاخرة */
+.stApp {
+    background: radial-gradient(circle at 12% 12%, #0F294A 0%, #061529 52%, #020813 100%) !important;
+    color: #E2E8F0 !important;
+}
+
+/* مقاسات خطوط احترافية ومدمجة للحاسوب */
+h1 { font-size: 1.55rem !important; font-weight: 700 !important; color: #F8FAFC !important; }
+h2 { font-size: 1.3rem !important; font-weight: 700 !important; color: #F8FAFC !important; }
+h3 { font-size: 1.08rem !important; font-weight: 600 !important; color: #F8FAFC !important; }
+h4 { font-size: 0.98rem !important; font-weight: 600 !important; color: #F8FAFC !important; }
+p, label, li, .stMarkdown { font-size: 0.88rem !important; line-height: 1.65 !important; color: #CBD5E1 !important; }
+
+/* صناديق التنبيه */
+div[data-testid="stAlert"] {
+    background: rgba(10, 32, 64, 0.95) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    border-right: 4px solid #14B8A6 !important;
+    border-radius: 10px !important;
+    padding: 12px 16px !important;
+}
+div[data-testid="stAlert"] * { color: #F1F5F9 !important; font-size: 0.86rem !important; }
+
+/* الترويسة العلوية المتناسقة */
+.top-navbar {
+    background: linear-gradient(135deg, rgba(12, 34, 64, 0.92) 0%, rgba(17, 24, 39, 0.95) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    border-radius: 16px;
+    padding: 14px 24px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+}
+.brand-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.stat-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0284C7 0%, #14B8A6 55%, #6366F1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 18px rgba(20, 184, 166, 0.45);
+    flex-shrink: 0;
+}
+.brand-title {
+    font-family: 'Lobster', cursive !important;
+    font-size: 2.05rem !important;
+    font-weight: 400 !important;
+    direction: ltr !important;
+    display: inline-block;
+    background: linear-gradient(90deg, #FFFFFF 10%, #7DD3FC 55%, #5EEAD4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 !important;
+    line-height: 1.15 !important;
+}
+.brand-sub {
+    color: #94A3B8 !important;
+    font-size: 0.82rem !important;
+    margin: 3px 0 0 0 !important;
+}
+.loc-badge {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.16), rgba(99, 102, 241, 0.16));
+    border: 1px solid rgba(94, 234, 212, 0.35);
+    color: #5EEAD4 !important;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.78rem !important;
+    font-weight: 600;
+}
+
+/* البانر الترحيبي المدمج */
+.hero-box {
+    background: linear-gradient(135deg, rgba(15, 44, 82, 0.75) 0%, rgba(23, 27, 66, 0.85) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.32);
+    border-right: 4px solid #14B8A6;
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-bottom: 20px;
+}
+.hero-headline {
+    font-size: 1.32rem !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    margin: 0 0 8px 0 !important;
+}
+.hero-text {
+    font-size: 0.9rem !important;
+    color: #CBD5E1 !important;
+    line-height: 1.75 !important;
+    margin: 0 !important;
+}
+
+/* البطاقات الملونة بتناسق احترافي */
+.info-card {
+    background: linear-gradient(155deg, rgba(15, 35, 65, 0.82) 0%, rgba(9, 20, 40, 0.94) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-top: 3px solid #0EA5E9;
+    border-radius: 14px;
+    padding: 18px;
+    height: 100%;
+    margin-bottom: 14px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.info-card:hover {
+    transform: translateY(-3px);
+    border-color: #5EEAD4;
+}
+.card-teal { border-top-color: #14B8A6 !important; }
+.card-indigo { border-top-color: #818CF8 !important; }
+.card-amber { border-top-color: #F59E0B !important; }
+
+.card-title {
+    font-size: 1.02rem !important;
+    font-weight: 700 !important;
+    color: #F8FAFC !important;
+    margin: 0 0 8px 0 !important;
+}
+.card-text {
+    font-size: 0.85rem !important;
+    color: #CBD5E1 !important;
+    line-height: 1.65 !important;
+    margin: 0 0 8px 0 !important;
+}
+.out-box {
+    background: rgba(20, 184, 166, 0.12);
+    border-right: 3px solid #14B8A6;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem !important;
+    color: #5EEAD4 !important;
+    margin-top: 8px;
+}
+
+/* الشارات الملونة */
+.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem !important;
+    font-weight: 600;
+    background: rgba(14, 165, 233, 0.16);
+    color: #7DD3FC !important;
+    border: 1px solid rgba(14, 165, 233, 0.32);
+    margin: 4px 0 0 4px;
+}
+.tag-teal { background: rgba(20, 184, 166, 0.16); color: #5EEAD4 !important; border-color: rgba(20, 184, 166, 0.35); }
+.tag-indigo { background: rgba(129, 140, 248, 0.16); color: #C7D2FE !important; border-color: rgba(129, 140, 248, 0.35); }
+.tag-amber { background: rgba(245, 158, 11, 0.16); color: #FCD34D !important; border-color: rgba(245, 158, 11, 0.35); }
+
+/* عناوين الأقسام */
+.sec-head {
+    font-size: 1.14rem !important;
+    font-weight: 700 !important;
+    color: #5EEAD4 !important;
+    margin: 18px 0 12px 0 !important;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(94, 234, 212, 0.22);
+}
+
+/* بانر الدعوة لاتخاذ إجراء */
+.cta-banner {
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(79, 70, 229, 0.25));
+    border: 1px solid rgba(94, 234, 212, 0.4);
+    border-right: 4px solid #14B8A6;
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin-top: 16px;
+    font-size: 0.88rem !important;
+}
+
+/* شريط التبويبات */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 6px;
+    background: rgba(8, 22, 44, 0.92);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    flex-wrap: wrap;
+}
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px !important;
+    padding: 7px 13px !important;
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+    color: #94A3B8 !important;
+    background: transparent !important;
+    border: none !important;
+}
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, #0284C7 0%, #14B8A6 100%) !important;
+    color: #FFFFFF !important;
+}
+
+/* الأزرار */
+.stButton > button {
+    background: linear-gradient(135deg, #0284C7 0%, #14B8A6 100%) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    border-radius: 9px !important;
+    padding: 0.45rem 1.2rem !important;
+    border: none !important;
+}
+
+/* ==========================================
+   تجاوب دقيق لشاشات الهواتف (Mobile Responsive)
+   ========================================== */
+@media only screen and (max-width: 768px) {
+    .top-navbar {
+        padding: 12px 14px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    .stat-icon-box {
+        width: 42px !important;
+        height: 42px !important;
+    }
+    .brand-title {
+        font-size: 1.55rem !important;
+    }
+    .brand-sub {
+        font-size: 0.74rem !important;
+        line-height: 1.45 !important;
+    }
+    .loc-badge {
+        font-size: 0.72rem !important;
+        padding: 5px 10px !important;
+    }
+    .hero-box {
+        padding: 16px 16px !important;
+    }
+    .hero-headline {
+        font-size: 1.05rem !important;
+        line-height: 1.45 !important;
+    }
+    .hero-text {
+        font-size: 0.82rem !important;
+        line-height: 1.6 !important;
+    }
+    .sec-head {
+        font-size: 0.98rem !important;
+    }
+    .info-card {
+        padding: 14px !important;
+        margin-bottom: 10px !important;
+    }
+    .card-title {
+        font-size: 0.92rem !important;
+    }
+    .card-text {
+        font-size: 0.8rem !important;
+        line-height: 1.55 !important;
+    }
+    .stTabs [data-baseweb="tab"] {
+        padding: 6px 10px !important;
+        font-size: 0.76rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 2. تهيئة البيانات والشعار
+# 2. تهيئة البيانات وأيقونة التحليل الإحصائي
 # ==========================================
 if "orders_db" not in st.session_state:
     st.session_state.orders_db = {
@@ -55,24 +312,23 @@ if "orders_db" not in st.session_state:
         }
     }
 
-if "custom_logo_b64" not in st.session_state:
-    st.session_state.custom_logo_b64 = None
-    imgs = []
-    for p in ["*logo*", "*.png", "*.jpg", "*.jpeg"]:
-        imgs.extend(glob.glob(p))
-    if imgs:
-        try:
-            with open(imgs[0], "rb") as f:
-                st.session_state.custom_logo_b64 = base64.b64encode(f.read()).decode()
-        except Exception:
-            pass
-
-logo_html = f'<img src="data:image/png;base64,{st.session_state.custom_logo_b64}" style="width:74px;height:74px;border-radius:16px;object-fit:cover;border:2px solid #38BDF8;">' if st.session_state.custom_logo_b64 else '<div class="brand-logo">SL</div>'
+# أيقونة SVG احترافية تعبر عن التحليل الإحصائي والبيانات
+stat_svg_icon = """
+<div class="stat-icon-box">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"></line>
+        <line x1="12" y1="20" x2="12" y2="4"></line>
+        <line x1="6" y1="20" x2="6" y2="14"></line>
+        <path d="M3 3v18h18"></path>
+        <polyline points="6 11 11 7 15 9 20 3"></polyline>
+    </svg>
+</div>
+"""
 
 st.markdown(f"""
 <div class="top-navbar">
     <div class="brand-box">
-        {logo_html}
+        {stat_svg_icon}
         <div>
             <h1 class="brand-title">Socio Lab</h1>
             <p class="brand-sub">منصة رقمية للاستشارات المنهجية السوسيولوجية، التحليل الإحصائي، وتجهيز البيانات</p>
@@ -90,9 +346,9 @@ tabs = st.tabs([
     "🧭 من نحن والنزاهة",
     "💼 الخدمات والمؤسسات B2B",
     "🎓 الدورات التكوينية",
-    "📂 نماذج الأعمال (Portfolio)",
-    "🧰 الأدوات الذكية المجانية",
-    "📊 لوحة تتبع الطلبات",
+    "📂 نماذج الأعمال",
+    "🧰 الأدوات المجانية",
+    "📊 تتبع الطلبات",
     "📅 اطلب خدمة والدفع"
 ])
 
@@ -100,9 +356,9 @@ tabs = st.tabs([
 with tabs[0]:
     st.markdown("""
     <div class="hero-box">
-        <h2 style="font-size:1.9rem;margin-top:0;">من الفكرة البحثية إلى النتائج المحكمة.. شريكك المنهجي والإحصائي الدقيق.</h2>
-        <p style="font-size:1.05rem;line-height:1.85;margin-bottom:0;">
-            في المنصة الرقمية <span style="font-family:'Lobster',cursive;font-size:1.3rem;color:#7DD3FC;">Socio Lab</span>، نحول البيانات الميدانية الخام إلى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الدراسات العليا، الباحثين، والمؤسسات في تصميم أدوات القياس، تنظيف البيانات، والتحليل الإحصائي المتقدم وفق أعلى معايير الجودة والنزاهة العلمية.
+        <div class="hero-headline">من الفكرة البحثية إلى النتائج المحكمة.. شريكك المنهجي والإحصائي الدقيق.</div>
+        <p class="hero-text">
+            في المنصة الرقمية <span style="font-family:'Lobster',cursive;font-size:1.15rem;color:#5EEAD4;">Socio Lab</span>، نحول البيانات الميدانية الخام إلى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الدراسات العليا، الباحثين، والمؤسسات في تصميم أدوات القياس، تنظيف البيانات، والتحليل الإحصائي المتقدم وفق أعلى معايير الجودة والنزاهة العلمية.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -110,42 +366,42 @@ with tabs[0]:
     st.markdown('<div class="sec-head">🎯 الفئات المستهدفة (من يستفيد من المنصة الرقمية؟)</div>', unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.markdown('<div class="info-card"><h3 class="card-title">🎓 طلبة الليسانس والماستر</h3><p class="card-text">طلبة جامعة سوق أهراس والجامعات الجزائرية المقبلون على إعداد مذكرات التخرج وتقارير التربص الميداني ويحتاجون مرافقة منهجية وإحصائية دقيقة.</p><span class="tag">مذكرات التخرج</span><span class="tag">تقارير التربص</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-card"><h3 class="card-title">🎓 طلبة الليسانس والماستر</h3><p class="card-text">طلبة جامعة سوق أهراس والجامعات الجزائرية المقبلون على إعداد مذكرات التخرج وتقارير التربص الميداني ويحتاجون مرافقة منهجية وإحصائية دقيقة.</p><span class="tag">مذكرات التخرج</span><span class="tag tag-teal">تقارير التربص</span></div>', unsafe_allow_html=True)
     with c2:
-        st.markdown('<div class="info-card"><h3 class="card-title">🔬 طلبة الدكتوراه والباحثون</h3><p class="card-text">الباحثون، الأساتذة، وفرق ومخابر البحث الراغبون في تحكيم المقاييس السيكومترية، تنظيف قواعد البيانات، وتنسيق الجداول للنشر العلمي المحكم.</p><span class="tag">أطروحات الدكتوراه</span><span class="tag">مقالات محكمة</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-card card-teal"><h3 class="card-title">🔬 طلبة الدكتوراه والباحثون</h3><p class="card-text">الباحثون، الأساتذة، وفرق ومخابر البحث الراغبون في تحكيم المقاييس السيكومترية، تنظيف قواعد البيانات، وتنسيق الجداول للنشر العلمي المحكم.</p><span class="tag tag-teal">أطروحات الدكتوراه</span><span class="tag tag-indigo">مقالات محكمة</span></div>', unsafe_allow_html=True)
     with c3:
-        st.markdown('<div class="info-card"><h3 class="card-title">🏢 المؤسسات، الإدارات، والجمعيات</h3><p class="card-text">المؤسسات الاقتصادية، الإدارات، والجمعيات التي تحتاج إلى دراسات ميدانية، استطلاعات رأي، وقياس رضا المستفيدين لترشيد قراراتها.</p><span class="tag">استطلاعات الرأي</span><span class="tag tag-amber">حلول B2B</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-card card-indigo"><h3 class="card-title">🏢 المؤسسات، الإدارات، والجمعيات</h3><p class="card-text">المؤسسات الاقتصادية، الإدارات، والجمعيات التي تحتاج إلى دراسات ميدانية، استطلاعات رأي، وقياس رضا المستفيدين لترشيد قراراتها.</p><span class="tag tag-indigo">استطلاعات الرأي</span><span class="tag tag-amber">حلول B2B</span></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="sec-head">✨ لماذا تختار المنصة الرقمية Socio Lab؟</div>', unsafe_allow_html=True)
     r1, r2, r3, r4 = st.columns(4)
-    r1.markdown('<div class="info-card"><h4 class="card-title">📖 قراءة سوسيولوجية لا أرقام صماء</h4><p class="card-text">نربط المؤشرات الإحصائية بالسياق النظري والميداني لدراستك.</p></div>', unsafe_allow_html=True)
-    r2.markdown('<div class="info-card"><h4 class="card-title">🎯 دقة منهجية صارمة</h4><p class="card-text">نعتمد أحدث الأساليب العلمية في بناء المقاييس واختيار الاختبارات الأنسب.</p></div>', unsafe_allow_html=True)
-    r3.markdown('<div class="info-card"><h4 class="card-title">🔒 سرية وأمان تام</h4><p class="card-text">حماية أفكارك البحثية وبيانات المبحوثين بموجب ميثاق صارم للخصوصية.</p></div>', unsafe_allow_html=True)
-    r4.markdown('<div class="info-card"><h4 class="card-title">⏱️ التزام بالمواعيد</h4><p class="card-text">تسليم المخرجات في الآجال المحددة مع جلسات شرح ومناقشة للنتائج.</p></div>', unsafe_allow_html=True)
+    r1.markdown('<div class="info-card"><h4 class="card-title">📖 قراءة سوسيولوجية</h4><p class="card-text">نربط المؤشرات الإحصائية بالسياق النظري والميداني لدراستك بدلا من الأرقام الصماء.</p></div>', unsafe_allow_html=True)
+    r2.markdown('<div class="info-card card-teal"><h4 class="card-title">🎯 دقة منهجية صارمة</h4><p class="card-text">نعتمد أحدث الأساليب العلمية في بناء المقاييس واختيار الاختبارات الأنسب لمتغيراتك.</p></div>', unsafe_allow_html=True)
+    r3.markdown('<div class="info-card card-indigo"><h4 class="card-title">🔒 سرية وأمان تام</h4><p class="card-text">حماية أفكارك البحثية وبيانات المبحوثين بموجب ميثاق صارم للخصوصية وعدم الإفصاح.</p></div>', unsafe_allow_html=True)
+    r4.markdown('<div class="info-card card-amber"><h4 class="card-title">⏱️ التزام بالمواعيد</h4><p class="card-text">تسليم المخرجات في الآجال المحددة مع جلسات شرح ومناقشة للنتائج قبل المناقشة.</p></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="sec-head">⚙️ خطوات العمل (How It Works)</div>', unsafe_allow_html=True)
     s1, s2, s3, s4 = st.columns(4)
     s1.markdown('<div class="info-card"><h4 class="card-title">1. إرسال الطلب والملفات</h4><p class="card-text">تملأ نموذج الطلب وتحدد الخدمة وترفق مسودة بحثك أو بياناتك.</p></div>', unsafe_allow_html=True)
-    s2.markdown('<div class="info-card"><h4 class="card-title">2. التقييم وتحديد الخطة</h4><p class="card-text">ندرس ملفك ونوافيك بخطة العمل والمدة والتكلفة خلال 24 ساعة.</p></div>', unsafe_allow_html=True)
-    s3.markdown('<div class="info-card"><h4 class="card-title">3. التنفيذ والمتابعة</h4><p class="card-text">يبدأ العمل المنهجي أو الإحصائي مع تتبع المراحل عبر لوحتك.</p></div>', unsafe_allow_html=True)
-    s4.markdown('<div class="info-card"><h4 class="card-title">4. التسليم والشرح</h4><p class="card-text">تستلم ملفاتك النهائية مع جلسة توضيحية لشرح النتائج قبل المناقشة.</p></div>', unsafe_allow_html=True)
+    s2.markdown('<div class="info-card card-teal"><h4 class="card-title">2. التقييم وتحديد الخطة</h4><p class="card-text">ندرس ملفك ونوافيك بخطة العمل والمدة والتكلفة خلال 24 ساعة.</p></div>', unsafe_allow_html=True)
+    s3.markdown('<div class="info-card card-indigo"><h4 class="card-title">3. التنفيذ والمتابعة</h4><p class="card-text">يبدأ العمل المنهجي أو الإحصائي مع تتبع المراحل عبر لوحتك.</p></div>', unsafe_allow_html=True)
+    s4.markdown('<div class="info-card card-amber"><h4 class="card-title">4. التسليم والشرح</h4><p class="card-text">تستلم ملفاتك النهائية مع جلسة توضيحية لشرح النتائج قبل المناقشة.</p></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="cta-banner">🚀 <b>ابدأ الآن:</b> انتقل إلى تبويب <b>«📅 اطلب خدمة والدفع»</b> في أعلى الشاشة لطلب استشارتك أو حجز خدمتك البحثية.</div>', unsafe_allow_html=True)
 
 # --- 2. من نحن وميثاق النزاهة العلمية ---
 with tabs[1]:
     st.markdown('<div class="sec-head">🧭 من نحن (About Us)</div>', unsafe_allow_html=True)
-    st.markdown('<div class="hero-box"><p class="card-text" style="font-size:1.05rem;"><b>Socio Lab</b> هو مختبر استشاري وبحثي ومنصة رقمية متخصصة في المنهجية السوسيولوجية والتحليل الإحصائي للبيانات الاجتماعية والإنسانية. تأسست المنصة لسد الفجوة بين الجانب النظري في الأبحاث الأكاديمية والتطبيق الميداني والإحصائي الدقيق، عبر تقديم حلول بحثية متكاملة تجمع بين الخبرة الميدانية والتمكن التقني.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-box"><p class="hero-text"><b>Socio Lab</b> هو مختبر استشاري وبحثي ومنصة رقمية متخصصة في المنهجية السوسيولوجية والتحليل الإحصائي للبيانات الاجتماعية والإنسانية. تأسست المنصة لسد الفجوة بين الجانب النظري في الأبحاث الأكاديمية والتطبيق الميداني والإحصائي الدقيق، عبر تقديم حلول بحثية متكاملة تجمع بين الخبرة الميدانية والتمكن التقني.</p></div>', unsafe_allow_html=True)
 
     a1, a2 = st.columns(2)
-    a1.markdown('<div class="info-card"><h3 class="card-title">🔭 رؤيتنا</h3><p class="card-text">أن نكون المرجع الأول والموثوق للباحثين والمؤسسات في العالم العربي للارتقاء بجودة الإنتاج العلمي والقرارات المبنية على البيانات الدقيقة.</p></div>', unsafe_allow_html=True)
-    a2.markdown('<div class="info-card"><h3 class="card-title">🎯 رسالتنا</h3><p class="card-text">تمكين الباحثين وطلبة الماستر والدكتوراه والمؤسسات من إنجاز دراسات ميدانية محكمة، عبر توفير استشارات منهجية احترافية، وأدوات قياس موثوقة، وتحليلات إحصائية دقيقة تلتزم بأخلاقيات البحث العلمي وتنبذ التزييف أو الانتحال.</p></div>', unsafe_allow_html=True)
+    a1.markdown('<div class="info-card card-teal"><h3 class="card-title">🔭 رؤيتنا</h3><p class="card-text">أن نكون المرجع الأول والموثوق للباحثين والمؤسسات في العالم العربي للارتقاء بجودة الإنتاج العلمي والقرارات المبنية على البيانات الدقيقة.</p></div>', unsafe_allow_html=True)
+    a2.markdown('<div class="info-card card-indigo"><h3 class="card-title">🎯 رسالتنا</h3><p class="card-text">تمكين الباحثين وطلبة الماستر والدكتوراه والمؤسسات من إنجاز دراسات ميدانية محكمة، عبر توفير استشارات منهجية احترافية، وأدوات قياس موثوقة، وتحليلات إحصائية دقيقة تلتزم بأخلاقيات البحث العلمي وتنبذ التزييف أو الانتحال.</p></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="sec-head">⚖️ ميثاق النزاهة العلمية وسياسة العمل (Academic Integrity Charter)</div>', unsafe_allow_html=True)
     ch1, ch2 = st.columns(2)
     with ch1:
         st.markdown("""
-        <div class="info-card" style="border-top-color:#EF4444;">
+        <div class="info-card" style="border-top-color:#F43F5E;">
             <h3 class="card-title">🚫 الخطوط الحمراء للمنصة</h3>
             <p class="card-text">
                 تقدم منصة <b>Socio Lab</b> الاستشارة، الضبط المنهجي، والتحليل الإحصائي للبيانات الحقيقية فقط، وترفض تماما:<br>
@@ -156,7 +412,7 @@ with tabs[1]:
         """, unsafe_allow_html=True)
     with ch2:
         st.markdown("""
-        <div class="info-card" style="border-top-color:#10B981;">
+        <div class="info-card card-teal">
             <h3 class="card-title">🛡️ اتفاقية عدم الإفصاح وحماية البيانات (NDA)</h3>
             <p class="card-text">
                 تلتزم المنصة بموجب ميثاق السرية وحماية المعطيات الشخصية (القانون 18-07) بأن فكرة الباحث، أدوات قياسه، وبياناته الميدانية محمية قانونيا وأخلاقيا، ولا يتم مشاركتها أو إعادة استخدامها في أي غرض آخر، مع إتلاف الملفات المؤقتة فور انتهاء المعالجة وتسليمها لصاحبها.
@@ -170,24 +426,24 @@ with tabs[2]:
     sv1, sv2 = st.columns(2)
     with sv1:
         st.markdown('<div class="info-card"><h3 class="card-title">1. تصميم وبناء أدوات البحث الميداني</h3><p class="card-text">• صياغة وبناء الاستبيانات الورقية والإلكترونية (Google Forms, KoboToolbox) وفق المحاور والفرضيات.<br>• إعداد أدلة المقابلات المعمقة والملاحظة العلمية.<br>• تكييف المقاييس العالمية وترجمتها بما يناسب البيئة الاجتماعية.</p><div class="out-box"><b>المخرجات:</b> نسخة نهائية قابلة للتحكيم والتطبيق مرفقة بدليل الترميز (Codebook).</div></div>', unsafe_allow_html=True)
-        st.markdown('<div class="info-card"><h3 class="card-title">3. التحكيم والضبط المنهجي</h3><p class="card-text">• تدقيق صياغة الإشكالية، التساؤلات، والفرضيات ومدى قابليتها للاختبار.<br>• تحديد نوع العينة وحجمها المناسب لمجتمع الدراسة.<br>• مواءمة الإطار النظري مع مؤشرات القياس الميداني.</p><div class="out-box"><b>المخرجات:</b> تقرير مفصل بالملاحظات المنهجية والتعديلات المقترحة خطوة بخطوة.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-card card-indigo"><h3 class="card-title">3. التحكيم والضبط المنهجي</h3><p class="card-text">• تدقيق صياغة الإشكالية، التساؤلات، والفرضيات ومدى قابليتها للاختبار.<br>• تحديد نوع العينة وحجمها المناسب لمجتمع الدراسة.<br>• مواءمة الإطار النظري مع مؤشرات القياس الميداني.</p><div class="out-box"><b>المخرجات:</b> تقرير مفصل بالملاحظات المنهجية والتعديلات المقترحة خطوة بخطوة.</div></div>', unsafe_allow_html=True)
     with sv2:
-        st.markdown('<div class="info-card"><h3 class="card-title">2. التحليل الإحصائي وتفريغ البيانات (SPSS)</h3><p class="card-text">• تفريغ البيانات، ترميزها، وتنظيفها من القيم الشاذة والمفقودة.<br>• حساب الخصائص السيكومترية (الصدق البنائي، الاتساق الداخلي، ألفا كرونباخ).<br>• إجراء الاختبارات الوصفية والاستدلالية وفق طبيعة التوزيع.</p><div class="out-box"><b>المخرجات:</b> ملف SPSS الأصلي + تقرير تحليلي بالجداول والرسوم مع التعليق السوسيولوجي الأولي.</div></div>', unsafe_allow_html=True)
-        st.markdown('<div class="info-card"><h3 class="card-title">4. التوثيق والتدقيق الأكاديمي</h3><p class="card-text">• توثيق المراجع في المتن وفي القائمة النهائية بدقة وفق نظام (APA).<br>• التدقيق اللغوي والأسلوبي للنصوص الأكاديمية لضمان رصانة الأسلوب.<br>• تنسيق الجداول والأشكال البيانية وفق شروط المجلات المحكمة.</p><div class="out-box"><b>المخرجات:</b> ورقة بحثية أو فصل تطبيقي منسق ومضبوط وفق معايير النشر الأكاديمي.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-card card-teal"><h3 class="card-title">2. التحليل الإحصائي وتفريغ البيانات (SPSS)</h3><p class="card-text">• تفريغ البيانات، ترميزها، وتنظيفها من القيم الشاذة والمفقودة.<br>• حساب الخصائص السيكومترية (الصدق البنائي، الاتساق الداخلي، ألفا كرونباخ).<br>• إجراء الاختبارات الوصفية والاستدلالية وفق طبيعة التوزيع.</p><div class="out-box"><b>المخرجات:</b> ملف SPSS الأصلي + تقرير تحليلي بالجداول والرسوم مع التعليق السوسيولوجي الأولي.</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="info-card card-amber"><h3 class="card-title">4. التوثيق والتدقيق الأكاديمي</h3><p class="card-text">• توثيق المراجع في المتن وفي القائمة النهائية بدقة وفق نظام (APA).<br>• التدقيق اللغوي والأسلوبي للنصوص الأكاديمية لضمان رصانة الأسلوب.<br>• تنسيق الجداول والأشكال البيانية وفق شروط المجلات المحكمة.</p><div class="out-box"><b>المخرجات:</b> ورقة بحثية أو فصل تطبيقي منسق ومضبوط وفق معايير النشر الأكاديمي.</div></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="sec-head">🏢 فضاء المؤسسات والجمعيات (B2B / Institutional Solutions)</div>', unsafe_allow_html=True)
     b1, b2 = st.columns(2)
-    b1.markdown('<div class="info-card"><h3 class="card-title">📊 دراسات قياس الأثر الاجتماعي (Social Impact Assessment)</h3><p class="card-text">تقييم البرامج والمشاريع التنموية والاجتماعية لصالح الجمعيات، الهيئات العمومية، ومراكز الدراسات لقياس مدى تحقق الأهداف الميدانية وتحديد مؤشرات النجاح والفجوات.</p><span class="tag tag-amber">تقارير تنفيذية لصناع القرار</span></div>', unsafe_allow_html=True)
-    b2.markdown('<div class="info-card"><h3 class="card-title">🗳️ استطلاعات الرأي وقياس رضا المستفيدين والموظفين</h3><p class="card-text">تصميم وتنفيذ مسوح ميدانية أو إلكترونية شاملة للمؤسسات الاقتصادية والخدمية، وتحليل اتجاهات الجمهور الداخلي والخارجي مع تقديم توصيات عملية قابلة للتنفيذ.</p><span class="tag tag-green">مسوح ميدانية وإلكترونية شاملة</span></div>', unsafe_allow_html=True)
+    b1.markdown('<div class="info-card card-teal"><h3 class="card-title">📊 دراسات قياس الأثر الاجتماعي (Social Impact Assessment)</h3><p class="card-text">تقييم البرامج والمشاريع التنموية والاجتماعية لصالح الجمعيات، الهيئات العمومية، ومراكز الدراسات لقياس مدى تحقق الأهداف الميدانية وتحديد مؤشرات النجاح والفجوات.</p><span class="tag tag-amber">تقارير تنفيذية لصناع القرار</span></div>', unsafe_allow_html=True)
+    b2.markdown('<div class="info-card card-indigo"><h3 class="card-title">🗳️ استطلاعات الرأي وقياس رضا المستفيدين والموظفين</h3><p class="card-text">تصميم وتنفيذ مسوح ميدانية أو إلكترونية شاملة للمؤسسات الاقتصادية والخدمية، وتحليل اتجاهات الجمهور الداخلي والخارجي مع تقديم توصيات عملية قابلة للتنفيذ.</p><span class="tag tag-teal">مسوح ميدانية وإلكترونية شاملة</span></div>', unsafe_allow_html=True)
 
 # --- 4. الدورات التكوينية ---
 with tabs[3]:
     st.markdown('<div class="sec-head">🎓 البرامج والدورات التكوينية التطبيقية (حضوريا وعن بعد)</div>', unsafe_allow_html=True)
     t1, t2 = st.columns(2)
-    t1.markdown('<div class="info-card"><h3 class="card-title">💻 الدورة 1: الأساسيات التطبيقية لتحليل البيانات ببرنامج SPSS</h3><p class="card-text">إعداد قاعدة البيانات، ترميز الاستبيانات، حساب التكرارات والنسب، المتوسطات والانحراف المعياري، وتنسيق الجداول.</p><span class="tag">12 ساعة تطبيقية</span><span class="tag tag-green">للمبتدئين</span></div>', unsafe_allow_html=True)
-    t1.markdown('<div class="info-card"><h3 class="card-title">📐 الدورة 2: هندسة الاستبيانات الإلكترونية وبناء المقاييس</h3><p class="card-text">تحويل الفرضيات إلى محاور وفقرات قياس، تصميم الاستبيان على Google Forms و KoboToolbox، وتجنب الأخطاء المنهجية.</p><span class="tag">8 ساعات تطبيقية</span></div>', unsafe_allow_html=True)
-    t2.markdown('<div class="info-card"><h3 class="card-title">📈 الدورة 3: الإحصاء الاستدلالي المتقدم واختبار الفرضيات</h3><p class="card-text">فحص الصدق والثبات، شروط الاختبارات المعلمية واللامعلمية، الارتباط والفروق والانحدار، والقراءة السوسيولوجية للنتائج.</p><span class="tag">15 ساعة معمقة</span><span class="tag tag-amber">مستوى متقدم</span></div>', unsafe_allow_html=True)
-    t2.markdown('<div class="info-card"><h3 class="card-title">🏛️ الدورة 4: منهجية إعداد البحوث والمذكرات وفق IMRAD و APA</h3><p class="card-text">الهيكلة المنهجية للدراسة الميدانية، التوثيق العلمي والمراجع بطريقة APA، ومهارات العرض والدفاع أمام لجنة المناقشة.</p><span class="tag">10 ساعات</span></div>', unsafe_allow_html=True)
+    t1.markdown('<div class="info-card"><h3 class="card-title">💻 الدورة 1: الأساسيات التطبيقية لتحليل البيانات ببرنامج SPSS</h3><p class="card-text">إعداد قاعدة البيانات، ترميز الاستبيانات، حساب التكرارات والنسب، المتوسطات والانحراف المعياري، وتنسيق الجداول.</p><span class="tag">12 ساعة تطبيقية</span><span class="tag tag-teal">للمبتدئين</span></div>', unsafe_allow_html=True)
+    t1.markdown('<div class="info-card card-teal"><h3 class="card-title">📐 الدورة 2: هندسة الاستبيانات الإلكترونية وبناء المقاييس</h3><p class="card-text">تحويل الفرضيات إلى محاور وفقرات قياس، تصميم الاستبيان على Google Forms و KoboToolbox، وتجنب الأخطاء المنهجية.</p><span class="tag tag-teal">8 ساعات تطبيقية</span></div>', unsafe_allow_html=True)
+    t2.markdown('<div class="info-card card-indigo"><h3 class="card-title">📈 الدورة 3: الإحصاء الاستدلالي المتقدم واختبار الفرضيات</h3><p class="card-text">فحص الصدق والثبات، شروط الاختبارات المعلمية واللامعلمية، الارتباط والفروق والانحدار، والقراءة السوسيولوجية للنتائج.</p><span class="tag tag-indigo">15 ساعة معمقة</span><span class="tag tag-amber">مستوى متقدم</span></div>', unsafe_allow_html=True)
+    t2.markdown('<div class="info-card card-amber"><h3 class="card-title">🏛️ الدورة 4: منهجية إعداد البحوث والمذكرات وفق IMRAD و APA</h3><p class="card-text">الهيكلة المنهجية للدراسة الميدانية، التوثيق العلمي والمراجع بطريقة APA، ومهارات العرض والدفاع أمام لجنة المناقشة.</p><span class="tag tag-amber">10 ساعات</span></div>', unsafe_allow_html=True)
 
 # --- 5. نماذج من أعمالنا (Portfolio & Case Studies) ---
 with tabs[4]:
@@ -195,9 +451,9 @@ with tabs[4]:
     p1, p2 = st.columns(2)
     with p1:
         st.markdown("""
-        <div class="info-card">
-            <span class="tag">دراسة حالة (Case Study 01)</span>
-            <h3 class="card-title" style="margin-top:10px;">معالجة تشتت البيانات وعدم اعتدالية التوزيع في دراسة سوسيولوجية</h3>
+        <div class="info-card card-indigo">
+            <span class="tag tag-indigo">دراسة حالة (Case Study 01)</span>
+            <h3 class="card-title" style="margin-top:8px;">معالجة تشتت البيانات وعدم اعتدالية التوزيع في دراسة سوسيولوجية</h3>
             <p class="card-text">
                 <b>المشكلة:</b> واجه باحث في علم الاجتماع رفضا مبدئيا لنتائجه بسبب استخدامه اختبار (T-Test) المعلمي على عينة صغيرة (N=60) ذات توزيع غير طبيعي.<br>
                 <b>تدخل Socio Lab:</b> إعادة تنظيف قاعدة البيانات، فحص اعتدالية التوزيع باختبار Shapiro-Wilk، التحول المنهجي إلى اختبار مان-ويتني (Mann-Whitney U) اللامعلمي، وإعادة صياغة الجداول وفق معيار APA 7th مع تعليق سوسيولوجي رصين.
@@ -206,9 +462,9 @@ with tabs[4]:
         """, unsafe_allow_html=True)
     with p2:
         st.markdown("""
-        <div class="info-card">
-            <span class="tag tag-green">دراسة حالة (Case Study 02)</span>
-            <h3 class="card-title" style="margin-top:10px;">كشف الاستمارات العشوائية ورفع معامل الثبات من 0.61 إلى 0.86</h3>
+        <div class="info-card card-teal">
+            <span class="tag tag-teal">دراسة حالة (Case Study 02)</span>
+            <h3 class="card-title" style="margin-top:8px;">كشف الاستمارات العشوائية ورفع معامل الثبات من 0.61 إلى 0.86</h3>
             <p class="card-text">
                 <b>المشكلة:</b> استلمت جمعية محلية 220 استمارة استطلاع رأي أظهرت نتائج متناقضة وضعفا في ثبات المقياس.<br>
                 <b>تدخل Socio Lab:</b> إخضاع الملف للفحص الآلي، اكتشاف واستبعاد 18 استمارة ذات إجابات نمطية متناقضة، وحذف فقرتين مشوشتين في المقياس، مما رفع معامل ألفا كرونباخ إلى 0.86 وقدم تقريرا دقيقا لصناع القرار.
@@ -216,7 +472,7 @@ with tabs[4]:
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("#### 📋 عينة نموذجية لتنسيق الجداول والتعليق السوسيولوجي المعتمد في تقارير Socio Lab:")
+    st.markdown('<div class="sec-head">📋 عينة نموذجية لتنسيق الجداول في تقارير Socio Lab</div>', unsafe_allow_html=True)
     sample_report_df = pd.DataFrame({
         "المحور المدروس": ["تأثير جماعة الرفاق", "الضبط الأسري", "التوافق المدرسي"],
         "حجم العينة (N)": [60, 60, 60],
@@ -230,9 +486,9 @@ with tabs[4]:
 with tabs[5]:
     st.markdown('<div class="sec-head">🧰 الأدوات التفاعلية المجانية للباحثين (Lead Magnets)</div>', unsafe_allow_html=True)
     tool_tabs = st.tabs([
-        "🧭 مشخص الاختبار الإحصائي (Statistical Test Selector)",
-        "🧮 حاسبة حجم العينة (Sample Size)",
-        "✅ قائمة التحقق المنهجية قبل الإيداع (Research Checklist)"
+        "🧭 مشخص الاختبار الإحصائي",
+        "🧮 حاسبة حجم العينة",
+        "✅ قائمة التحقق المنهجية"
     ])
 
     with tool_tabs[0]:
@@ -296,7 +552,7 @@ with tabs[6]:
     if track_code in st.session_state.orders_db:
         order = st.session_state.orders_db[track_code]
         st.markdown(f"""
-        <div class="info-card">
+        <div class="info-card card-teal">
             <h3 class="card-title">ملف الطلب: {track_code}</h3>
             <p class="card-text"><b>صاحب الطلب:</b> {order['client']} | <b>الخدمة:</b> {order['service']}</p>
             <p class="card-text"><b>تحديث الفريق المنهجي:</b> {order['notes']}</p>
@@ -311,11 +567,11 @@ with tabs[6]:
             prefix = "✅" if i <= curr else "⏳"
             cols_st[i].markdown(f"**{prefix} {st_name}**")
 
-        st.markdown("#### 📥 أرشيف الملفات والمخرجات الجاهزة للتحميل:")
+        st.markdown('<div class="sec-head">📥 أرشيف الملفات والمخرجات الجاهزة</div>', unsafe_allow_html=True)
         sample_csv = "المتغير,المتوسط,الانحراف_المعياري\nتأثير_الرفاق,3.84,0.68\n".encode("utf-8-sig")
         st.download_button("📥 تحميل ملف النتائج الأولي المعتمد (CSV / Excel)", data=sample_csv, file_name=f"{track_code}_Results.csv")
 
-        st.markdown("#### ✍️ نظام طلب التعديلات (ملاحظات الأستاذ المشرف أو لجنة المناقشة):")
+        st.markdown('<div class="sec-head">✍️ طلب تعديلات (ملاحظات المشرف أو لجنة المناقشة)</div>', unsafe_allow_html=True)
         rev_note = st.text_area("اكتب التعديلات المطلوبة على الجداول أو الاختبارات ليقوم الفريق بتنفيذها:")
         if st.button("إرسال طلب التعديل إلى الفريق"):
             if rev_note:
@@ -367,7 +623,7 @@ with tabs[7]:
 
     with pay_col:
         st.markdown("""
-        <div class="info-card">
+        <div class="info-card card-indigo">
             <h3 class="card-title">💳 خيارات الدفع المرنة المتاحة</h3>
             <p class="card-text">
                 نوفر طرق دفع ميسرة تناسب الطلبة والباحثين والمؤسسات:<br>
