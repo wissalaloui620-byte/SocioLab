@@ -12,330 +12,269 @@ except ImportError:
     HAS_PYREADSTAT = False
 
 # ==========================================
-# 1. إعدادات الصفحة والتصميم العصري الفاخر (Ultra-Modern SaaS UI)
+# 1. إعدادات الصفحة والتصميم الفضائي المظلم (Ultra-Modern Dark Glass SaaS)
 # ==========================================
 st.set_page_config(
-    page_title="Socio Lab | منصة الهندسة المنهجية والتدقيق الإحصائي",
-    page_icon="💎",
+    page_title="Socio Lab Pro | منظومة الذكاء المنهجي والتدقيق الجنائي للبيانات",
+    page_icon="💠",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
 
-    /* ضبط الخطوط والاتجاه العام */
     html, body, [class*="css"], .stMarkdown, .stText, .stButton, .stSelectbox, .stMultiSelect, .stRadio {
-        font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif !important;
+        font-family: 'Readex Pro', sans-serif !important;
         direction: rtl;
         text-align: right;
     }
 
-    /* إخفاء عناصر Streamlit الافتراضية المزعجة */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {background: transparent !important;}
 
-    /* خلفية الصفحة الرئيسية المتدرجة بنعومة */
+    /* خلفية فضائية كحلية متدرجة فائقة الحداثة */
     .stApp {
-        background: radial-gradient(circle at top right, #EEF2FF 0%, #F8FAFC 45%, #F1F5F9 100%);
-        color: #0F172A;
-    }
-
-    /* تصميم القائمة الجانبية (Dark Navy Glassmorphism) */
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(165deg, #070C18 0%, #0F172A 50%, #172554 100%) !important;
-        border-left: 1px solid rgba(56, 189, 248, 0.18);
-        box-shadow: -8px 0 30px rgba(2, 6, 23, 0.25);
-    }
-    section[data-testid="stSidebar"] * {
+        background: radial-gradient(circle at 15% 15%, #1E1B4B 0%, #090D16 45%, #020617 100%) !important;
         color: #F8FAFC !important;
     }
 
-    /* شعار القائمة الجانبية */
-    .sidebar-brand {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 18px;
-        margin-bottom: 20px;
-        backdrop-filter: blur(12px);
-        text-align: center;
-    }
-    .sidebar-brand-title {
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: 1.65rem;
-        font-weight: 800;
-        background: linear-gradient(90deg, #38BDF8, #818CF8, #E0E7FF);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: 1px;
-        margin-bottom: 4px;
-    }
-    .sidebar-brand-sub {
-        font-size: 0.85rem;
-        color: #94A3B8 !important;
-        font-weight: 500;
+    /* ضبط نصوص Streamlit في الوضع المظلم */
+    h1, h2, h3, h4, h5, h6, p, label, .stMarkdown {
+        color: #F1F5F9 !important;
     }
 
-    /* البانر الترحيبي العلوي (Hero Banner) */
-    .hero-container {
-        background: linear-gradient(125deg, #090D16 0%, #0F172A 40%, #1E3A8A 85%, #1D4ED8 100%);
-        border-radius: 22px;
-        padding: 34px 40px;
-        margin-bottom: 28px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.35);
+    /* شريط علوي عائم (Floating Glass Navbar) */
+    .top-navbar {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(56, 189, 248, 0.25);
-    }
-    .hero-container::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -10%;
-        width: 380px;
-        height: 380px;
-        background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, transparent 70%);
-        border-radius: 50%;
-    }
-    .hero-badge {
-        display: inline-block;
-        background: rgba(56, 189, 248, 0.15);
-        border: 1px solid rgba(56, 189, 248, 0.4);
-        color: #7DD3FC !important;
-        padding: 5px 16px;
-        border-radius: 999px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        margin-bottom: 12px;
-        letter-spacing: 0.5px;
-    }
-    .hero-title {
-        color: #FFFFFF !important;
-        font-size: 2.2rem;
-        font-weight: 900;
-        margin: 0 0 10px 0;
-        line-height: 1.3;
-    }
-    .hero-subtitle {
-        color: #CBD5E1 !important;
-        font-size: 1.05rem;
-        font-weight: 400;
-        margin: 0;
-        max-width: 90%;
-        line-height: 1.7;
-    }
-
-    /* بطاقات المؤشرات الذكية (Modern Glass KPI Cards) */
-    .kpi-card {
-        background: #FFFFFF;
-        border-radius: 18px;
-        padding: 22px 24px;
-        border: 1px solid #E2E8F0;
-        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04);
-        transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 18px;
-    }
-    .kpi-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 30px -10px rgba(30, 58, 138, 0.12);
-        border-color: #93C5FD;
-    }
-    .kpi-icon-bar {
+        border-radius: 20px;
+        padding: 18px 32px;
+        margin-bottom: 26px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.1);
     }
-    .kpi-label {
-        color: #64748B;
-        font-size: 0.92rem;
-        font-weight: 700;
+    .brand-box {
+        display: flex;
+        align-items: center;
+        gap: 16px;
     }
-    .kpi-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: #EFF6FF;
-        color: #1D4ED8;
+    .brand-logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #6366F1 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-    .kpi-number {
-        color: #0F172A;
-        font-size: 1.95rem;
-        font-weight: 900;
-        margin: 4px 0 8px 0;
-        font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif !important;
-    }
-    .kpi-pill {
-        display: inline-block;
-        padding: 3px 11px;
-        border-radius: 999px;
-        font-size: 0.78rem;
-        font-weight: 700;
-    }
-    .pill-blue { background: #E0F2FE; color: #0369A1; }
-    .pill-green { background: #DCFCE7; color: #15803D; }
-    .pill-amber { background: #FEF3C7; color: #B45309; }
-
-    /* الحاويات والأقسام العلمية (Elevated Cards) */
-    .glass-panel {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 20px;
-        padding: 28px 32px;
-        margin-bottom: 24px;
-        box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.05);
-    }
-    .panel-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        border-bottom: 2px solid #F1F5F9;
-        padding-bottom: 16px;
-        margin-bottom: 20px;
-    }
-    .panel-title {
-        color: #0F172A;
-        font-size: 1.4rem;
+        font-family: 'Space Grotesk', sans-serif !important;
+        font-size: 1.5rem;
         font-weight: 800;
+        color: #FFFFFF;
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    }
+    .brand-title {
+        font-size: 1.65rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 50%, #818CF8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin: 0;
     }
-    .panel-desc {
-        color: #475569;
-        font-size: 1rem;
-        line-height: 1.75;
-        margin-bottom: 20px;
+    .brand-sub {
+        color: #94A3B8 !important;
+        font-size: 0.85rem;
+        margin: 2px 0 0 0;
+    }
+    .status-badge {
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        color: #34D399 !important;
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
     }
 
-    /* الأزرار العصرية المتدرجة */
+    /* شبكة بطاقات المؤشرات النيون (Neon Bento Grid) */
+    .bento-card {
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.65) 0%, rgba(15, 23, 42, 0.85) 100%);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-top: 2px solid #38BDF8;
+        border-radius: 20px;
+        padding: 22px 24px;
+        transition: all 0.3s ease;
+        box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+    }
+    .bento-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(56, 189, 248, 0.5);
+        box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.2);
+    }
+    .bento-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .bento-label {
+        color: #94A3B8 !important;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    .bento-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: rgba(56, 189, 248, 0.12);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+    .bento-val {
+        font-family: 'Space Grotesk', 'Readex Pro', sans-serif !important;
+        font-size: 2.1rem;
+        font-weight: 700;
+        color: #FFFFFF !important;
+        margin: 4px 0 10px 0;
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+    .neon-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 600;
+    }
+    .tag-cyan { background: rgba(6, 182, 212, 0.18); color: #67E8F9; border: 1px solid rgba(6, 182, 212, 0.35); }
+    .tag-emerald { background: rgba(16, 185, 129, 0.18); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .tag-amber { background: rgba(245, 158, 11, 0.18); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.35); }
+
+    /* الحاويات الزجاجية للأقسام (Glass Workspace) */
+    .workspace-card {
+        background: rgba(15, 23, 42, 0.72);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        border-radius: 22px;
+        padding: 28px 32px;
+        margin-top: 14px;
+        margin-bottom: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+    }
+    .workspace-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #38BDF8 !important;
+        margin: 0 0 8px 0;
+    }
+    .workspace-desc {
+        color: #CBD5E1 !important;
+        font-size: 0.96rem;
+        line-height: 1.75;
+        margin-bottom: 18px;
+    }
+
+    /* شريط التبويبات العلوي المضيء (Horizontal Neon Tabs) */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 10px;
+        background: rgba(15, 23, 42, 0.85);
+        padding: 8px;
+        border-radius: 16px;
+        border: 1px solid rgba(148, 163, 184, 0.15);
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 12px !important;
+        padding: 12px 20px !important;
+        font-weight: 600 !important;
+        color: #94A3B8 !important;
+        background: transparent !important;
+        border: none !important;
+        transition: all 0.25s ease !important;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #0284C7 0%, #4F46E5 100%) !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35) !important;
+    }
+
+    /* الأزرار التفاعلية المضيئة */
     .stButton > button {
-        background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%) !important;
+        background: linear-gradient(135deg, #06B6D4 0%, #2563EB 50%, #4F46E5 100%) !important;
         color: #FFFFFF !important;
         font-weight: 700 !important;
-        font-size: 0.98rem !important;
+        font-size: 0.96rem !important;
         border-radius: 12px !important;
-        padding: 0.65rem 1.6rem !important;
-        border: 1px solid rgba(255,255,255,0.15) !important;
-        box-shadow: 0 6px 15px -3px rgba(37, 99, 235, 0.35) !important;
+        padding: 0.7rem 1.8rem !important;
+        border: 1px solid rgba(103, 232, 249, 0.4) !important;
+        box-shadow: 0 8px 25px -4px rgba(6, 182, 212, 0.45) !important;
         transition: all 0.25s ease !important;
     }
     .stButton > button:hover {
-        background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 100%) !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 10px 22px -4px rgba(37, 99, 235, 0.5) !important;
+        transform: translateY(-2px) scale(1.01) !important;
+        box-shadow: 0 12px 30px -2px rgba(6, 182, 212, 0.65) !important;
     }
 
-    /* أزرار التحميل */
-    .stDownloadButton > button {
-        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-        color: #F8FAFC !important;
-        font-weight: 700 !important;
-        border-radius: 12px !important;
-        padding: 0.65rem 1.2rem !important;
-        width: 100% !important;
-        border: 1px solid #334155 !important;
-    }
-    .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%) !important;
-        border-color: #60A5FA !important;
-    }
-
-    /* تصميم التبويبات (Modern Pills Tabs) */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background-color: #F1F5F9;
-        padding: 6px;
-        border-radius: 14px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 10px !important;
-        padding: 10px 20px !important;
-        font-weight: 700 !important;
-        background-color: transparent !important;
-        border: none !important;
-        color: #475569 !important;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: #FFFFFF !important;
-        color: #1E3A8A !important;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
-    }
-
-    /* جداول APA 7th الاحترافية */
-    .apa-container {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 16px;
-        padding: 24px;
+    /* جداول APA 7th في الوضع المظلم الملوكي */
+    .apa-dark-box {
+        background: rgba(2, 6, 23, 0.75);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 18px;
+        padding: 26px;
         margin: 18px 0;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }
     .apa-table {
         width: 100%;
         border-collapse: collapse;
-        margin: 12px 0;
-        font-size: 1rem;
-        background-color: #FFFFFF;
+        margin: 14px 0;
+        font-size: 0.98rem;
+        color: #F8FAFC;
         direction: rtl;
     }
     .apa-table thead tr {
-        border-top: 2.5px solid #0F172A;
-        border-bottom: 1.5px solid #0F172A;
-        color: #0F172A;
-        font-weight: 800;
-        background-color: #F8FAFC;
+        border-top: 2px solid #38BDF8;
+        border-bottom: 1.5px solid #38BDF8;
+        background: rgba(30, 58, 138, 0.35);
+        color: #7DD3FC;
+        font-weight: 700;
     }
     .apa-table th, .apa-table td {
         padding: 14px 16px;
         text-align: center;
     }
     .apa-table tbody tr {
-        border-bottom: 1px solid #F1F5F9;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
     }
     .apa-table tbody tr:last-of-type {
-        border-bottom: 2.5px solid #0F172A;
+        border-bottom: 2px solid #38BDF8;
     }
 
-    /* شهادة النزاهة العلمية الملكية */
-    .luxury-certificate {
-        background: radial-gradient(circle at top left, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%);
-        border: 2px solid #1E3A8A;
-        outline: 6px double rgba(30, 58, 138, 0.18);
-        outline-offset: -14px;
-        border-radius: 22px;
-        padding: 44px 38px;
+    /* شهادة النزاهة بتصميم الهولوغرام المظلم */
+    .holo-cert {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 27, 75, 0.92) 100%);
+        border: 2px solid #38BDF8;
+        border-radius: 24px;
+        padding: 42px;
         text-align: center;
-        box-shadow: 0 20px 45px -15px rgba(30, 58, 138, 0.15);
+        box-shadow: 0 0 50px rgba(6, 182, 212, 0.2);
         margin-top: 24px;
-        position: relative;
-    }
-    .cert-seal {
-        display: inline-block;
-        background: linear-gradient(135deg, #1E3A8A, #2563EB);
-        color: #FFFFFF;
-        padding: 8px 24px;
-        border-radius: 999px;
-        font-weight: 800;
-        font-size: 0.88rem;
-        letter-spacing: 1px;
-        margin-bottom: 14px;
-        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
     }
 </style>
 """, unsafe_allow_html=True)
 
 
 # ==========================================
-# 2. الدوال الإحصائية والمنهجية (Core Engine - Python 3.14 Safe)
+# 2. المحرك الإحصائي والمنهجي (Core Engine)
 # ==========================================
 
 @st.cache_data
@@ -370,7 +309,6 @@ def generate_demo_dataset():
         row = [ids[i], genders[i], levels[i], q1, q2, q3, q4_rev, q5, q6, q7_weak, q8_rev]
         data.append(row)
 
-    # 4 استمارات متلاعب بها لاختبار المحرك الجنائي
     data[13][3:] = [5, 5, 5, 5, 5, 5, 5, 5]
     data[28][3:] = [5, 5, 5, 5, 5, 5, 4, 5]
     data[40][3:] = [1, 1, 1, 1, 1, 1, 2, 1]
@@ -500,7 +438,7 @@ def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
 
 
 # ==========================================
-# 3. إدارة حالة الجلسة (Session State)
+# 3. تهيئة البيانات (Session State)
 # ==========================================
 if "raw_df" not in st.session_state:
     demo_text, _ = generate_demo_dataset()
@@ -513,37 +451,25 @@ if "raw_df" not in st.session_state:
 
 
 # ==========================================
-# 4. القائمة الجانبية العصرية (Sidebar Navigation)
+# 4. شريط القيادة العلوي العائم (Top Glass Navbar)
 # ==========================================
-with st.sidebar:
-    st.markdown("""
-    <div class="sidebar-brand">
-        <div class="sidebar-brand-title">SOCIO LAB</div>
-        <div class="sidebar-brand-sub">ResearchTech & Forensic Analytics</div>
+st.markdown("""
+<div class="top-navbar">
+    <div class="brand-box">
+        <div class="brand-logo">SL</div>
+        <div>
+            <h1 class="brand-title">SOCIO LAB CLOUD PRO</h1>
+            <p class="brand-sub">منظومة الذكاء المنهجي، التدقيق الجنائي للبيانات، والتحكيم السيكومتري الآلي</p>
+        </div>
     </div>
-    """, unsafe_allow_html=True)
+    <div class="status-badge">● متصل بالمحرك الإحصائي السحابي | v3.0 AI-Ready</div>
+</div>
+""", unsafe_allow_html=True)
 
-    nav_page = st.radio(
-        "🧭 وحدات المنصة السحابية:",
-        [
-            "1. الرفع الذكي والترميز الآلي",
-            "2. التدقيق الجنائي وكشف التلاعب",
-            "3. المختبر السيكومتري (الصدق والثبات)",
-            "4. شجرة القرار الإحصائي وجداول APA",
-            "5. التصدير لـ SPSS وشهادة النزاهة",
-            "6. حجز الاستشارات والدورات التدريبية"
-        ]
-    )
-
-    st.markdown("---")
-    st.markdown("##### 📂 إدارة مصدر البيانات")
-    data_source = st.selectbox(
-        "اختر قاعدة البيانات النشطة:",
-        ["قاعدة البيانات التجريبية (N=60 تلميذاً)", "رفع ملف استبيان خارجي (Excel / CSV)"]
-    )
-
-    if data_source == "رفع ملف استبيان خارجي (Excel / CSV)":
-        uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام", type=["xlsx", "csv"])
+with st.expander("📂 إدارة واستيراد قواعد البيانات (اضغط هنا لرفع ملف Excel / CSV خاص بك أو إعادة ضبط العينة التجريبية)"):
+    c_up1, c_up2 = st.columns([3, 1])
+    with c_up1:
+        uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام (Excel / CSV):", type=["xlsx", "csv"])
         if uploaded_file is not None:
             if uploaded_file.name.endswith(".csv"):
                 user_df = pd.read_csv(uploaded_file)
@@ -555,179 +481,149 @@ with st.sidebar:
             st.session_state.codebook_df = codebook_df
             st.session_state.reversed_done = False
             st.session_state.cleaned_done = False
-            st.success("تم رفع وترميز ملفك بنجاح!")
-
-    if st.button("🔄 استعادة البيانات التجريبية الأصلية"):
-        demo_text, _ = generate_demo_dataset()
-        st.session_state.raw_df = demo_text
-        coded_df, codebook_df = auto_code_dataframe(demo_text)
-        st.session_state.working_df = coded_df
-        st.session_state.codebook_df = codebook_df
-        st.session_state.reversed_done = False
-        st.session_state.cleaned_done = False
-        st.rerun()
-
-    st.markdown("---")
-    st.markdown("""
-    <div style="font-size:0.8rem; color:#94A3B8; text-align:center; line-height:1.6;">
-        <b>Socio Lab Cloud Platform v2.5</b><br>
-        حاضنة الأعمال - جامعة سوق أهراس<br>
-        الامتثال للقانون 18-07 لحماية البيانات
-    </div>
-    """, unsafe_allow_html=True)
+            st.success("تم استيراد وترميز ملفك بنجاح!")
+    with c_up2:
+        st.write("")
+        st.write("")
+        if st.button("🔄 إعادة ضبط العينة التجريبية (N=60)"):
+            demo_text, _ = generate_demo_dataset()
+            st.session_state.raw_df = demo_text
+            coded_df, codebook_df = auto_code_dataframe(demo_text)
+            st.session_state.working_df = coded_df
+            st.session_state.codebook_df = codebook_df
+            st.session_state.reversed_done = False
+            st.session_state.cleaned_done = False
+            st.rerun()
 
 
 # ==========================================
-# 5. البانر الرئيسي وبطاقات الأداء الذكية (KPIs)
+# 5. شبكة المؤشرات الذكية المضيئة (Bento Grid KPIs)
 # ==========================================
-st.markdown("""
-<div class="hero-container">
-    <div class="hero-badge">✨ الجيل الجديد من تكنولوجيا البحث العلمي والبيانات في الجزائر</div>
-    <h1 class="hero-title">SOCIO LAB | المختبر السحابي للهندسة المنهجية والتدقيق السيكومتري</h1>
-    <p class="hero-subtitle">
-        أول محرك ذكاء منهجي وإحصائي جنائي لأتمتة فحص موثوقية الاستبيانات، كشف الاستمارات المفبركة، التحكيم السيكومتري للمقاييس، وتوليد جداول APA وملفات SPSS الأصلية.
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
 df_current = st.session_state.working_df
 numeric_cols = [c for c in df_current.columns if c not in ["رمز_الاستمارة", "الجنس", "المستوى_الدراسي"]]
 alpha_now = calculate_cronbach_alpha(df_current[numeric_cols]) if len(numeric_cols) >= 2 else 0.0
 
-col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+k1, k2, k3, k4 = st.columns(4)
 
-with col_m1:
-    pill_cls = "pill-green" if st.session_state.cleaned_done else "pill-blue"
-    pill_txt = "عينة مطهرة ومعتمدة ✓" if st.session_state.cleaned_done else "العينة الميدانية الخام"
+with k1:
+    tag_cls = "tag-emerald" if st.session_state.cleaned_done else "tag-cyan"
+    tag_txt = "نقاوة البيانات 100% ✓" if st.session_state.cleaned_done else "العينة الميدانية الأولية"
     st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-icon-bar">
-            <span class="kpi-label">حجم العينة النشطة (N)</span>
-            <div class="kpi-icon">👥</div>
+    <div class="bento-card">
+        <div class="bento-top">
+            <span class="bento-label">حجم العينة النشطة (N)</span>
+            <div class="bento-icon">👥</div>
         </div>
-        <div class="kpi-number">{len(df_current)}</div>
-        <span class="kpi-pill {pill_cls}">{pill_txt}</span>
+        <div class="bento-val">{len(df_current)}</div>
+        <span class="neon-tag {tag_cls}">{tag_txt}</span>
     </div>
     """, unsafe_allow_html=True)
 
-with col_m2:
+with k2:
     st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-icon-bar">
-            <span class="kpi-label">فقرات القياس المرمزة</span>
-            <div class="kpi-icon">🔢</div>
+    <div class="bento-card">
+        <div class="bento-top">
+            <span class="bento-label">المتغيرات المرمزة آلياً</span>
+            <div class="bento-icon">🧬</div>
         </div>
-        <div class="kpi-number">{len(numeric_cols)} فقرات</div>
-        <span class="kpi-pill pill-blue">متوافقة 100% مع SPSS</span>
+        <div class="bento-val">{len(numeric_cols)} متغيرات</div>
+        <span class="neon-tag tag-cyan">جاهزة للتصدير إلى SPSS</span>
     </div>
     """, unsafe_allow_html=True)
 
-with col_m3:
-    alpha_pill = "pill-green" if alpha_now >= 0.75 else "pill-amber"
-    alpha_status = "ثبات سيكومتري ممتاز" if alpha_now >= 0.75 else "يتطلب ضبط الفقرات المعكوسة"
+with k3:
+    a_cls = "tag-emerald" if alpha_now >= 0.75 else "tag-amber"
+    a_txt = "موثوقية سيكومترية عالية" if alpha_now >= 0.75 else "بحاجة لعكس الفقرات وتنقية المقياس"
     st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-icon-bar">
-            <span class="kpi-label">ألفا كرونباخ الكلي (α)</span>
-            <div class="kpi-icon">📐</div>
+    <div class="bento-card">
+        <div class="bento-top">
+            <span class="bento-label">معامل ألفا كرونباخ (α)</span>
+            <div class="bento-icon">📐</div>
         </div>
-        <div class="kpi-number">{alpha_now:.3f}</div>
-        <span class="kpi-pill {alpha_pill}">{alpha_status}</span>
+        <div class="bento-val">{alpha_now:.3f}</div>
+        <span class="neon-tag {a_cls}">{a_txt}</span>
     </div>
     """, unsafe_allow_html=True)
 
-with col_m4:
-    rev_pill = "pill-green" if st.session_state.reversed_done else "pill-amber"
-    rev_txt = "تم عكس الأوزان (1 ↔ 5) ✓" if st.session_state.reversed_done else "الأوزان الخام قبل العكس"
+with k4:
+    r_cls = "tag-emerald" if st.session_state.reversed_done else "tag-amber"
+    r_txt = "تم قلب الأوزان (1 ↔ 5) ✓" if st.session_state.reversed_done else "أوزان خام غير معكوسة"
     st.markdown(f"""
-    <div class="kpi-card">
-        <div class="kpi-icon-bar">
-            <span class="kpi-label">العبارات السالبة المعكوسة</span>
-            <div class="kpi-icon">🔄</div>
+    <div class="bento-card">
+        <div class="bento-top">
+            <span class="bento-label">معالجة الفقرات المعكوسة</span>
+            <div class="bento-icon">⚡</div>
         </div>
-        <div class="kpi-number">{"مضبوطة" if st.session_state.reversed_done else "قيد الانتظار"}</div>
-        <span class="kpi-pill {rev_pill}">{rev_txt}</span>
+        <div class="bento-val">{"مكتملة" if st.session_state.reversed_done else "قيد الانتظار"}</div>
+        <span class="neon-tag {r_cls}">{r_txt}</span>
     </div>
     """, unsafe_allow_html=True)
 
 
 # ==========================================
-# القسم الأول: الرفع الذكي والترميز الآلي
+# 6. شريط الوحدات التفاعلية الأفقي (Main Horizontal Navigation Tabs)
 # ==========================================
-if nav_page == "1. الرفع الذكي والترميز الآلي":
+main_tabs = st.tabs([
+    "📥 1. الترميز الذكي وعكس الفقرات",
+    "🛡️ 2. الرادار الجنائي وكشف الفبركة",
+    "📐 3. المختبر السيكومتري الآلي",
+    "🌳 4. شجرة القرار وجداول APA",
+    "🎓 5. تصدير SPSS وشهادة الاعتماد",
+    "📅 6. حجز الاستشارات والدورات"
+])
+
+with main_tabs[0]:
     st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">📥 بوابة القراءة الذكية، الترميز الآلي، وعكس العبارات السالبة</h3>
+    <div class="workspace-card">
+        <div class="workspace-title">📥 بوابة القراءة الذكية، الترميز الآلي، وعكس العبارات السالبة</div>
+        <div class="workspace-desc">
+            تحول المنصة إجابات الاستبيان النصية (العربية والفرنسية) تلقائياً إلى مصفوفة رقمية قياسية، وتبني جدول تعريف المتغيرات (Variable View) مع قلب أوزان العبارات السالبة بضغطة زر.
         </div>
-        <p class="panel-desc">
-            تحول هذه الوحدة استبيانات Google Forms أو Excel النصية تلقائياً إلى مصفوفة رقمية قياسية، وتولد دليل ترميز المتغيرات (Variable View) مع معالجة الفقرات المعكوسة بضغطة زر.
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    tab_raw, tab_coded, tab_codebook = st.tabs([
-        "📄 البيانات النصية الخام (قبل المعالجة)",
+    sub_t1, sub_t2, sub_t3 = st.tabs([
+        "📄 البيانات النصية الخام",
         "🔢 المصفوفة الرقمية المرمزة (Data View)",
-        "🗂️ جدول تعريف المتغيرات الآلي (SPSS Variable View)"
+        "🗂️ قاموس المتغيرات الآلي (Variable View)"
     ])
-
-    with tab_raw:
-        st.dataframe(st.session_state.raw_df, use_container_width=True, height=340)
-
-    with tab_coded:
-        st.dataframe(st.session_state.working_df, use_container_width=True, height=340)
-
-    with tab_codebook:
+    with sub_t1:
+        st.dataframe(st.session_state.raw_df, use_container_width=True, height=300)
+    with sub_t2:
+        st.dataframe(st.session_state.working_df, use_container_width=True, height=300)
+    with sub_t3:
         st.dataframe(st.session_state.codebook_df, use_container_width=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">🔄 محرك عكس أوزان الفقرات السالبة (Reverse Coding Engine)</h3>
-        </div>
-        <p class="panel-desc">
-            حدد الفقرات السالبة في المقياس ليقوم النظام بقلب أوزانها آلياً (5 ↔ 1 و 4 ↔ 2) لضمان اتساق الدرجة الكلية للمحور ورفع معامل الثبات:
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
+    st.markdown("#### ⚡ محرك عكس أوزان الفقرات السالبة (Reverse Coding)")
     default_rev = [c for c in numeric_cols if "عكسية" in c]
-    rev_cols = st.multiselect("اختر الفقرات السالبة (المعكوسة):", numeric_cols, default=default_rev)
+    rev_cols = st.multiselect("حدد الفقرات السالبة في استبيانك لقلب أوزانها (5 ↔ 1):", numeric_cols, default=default_rev)
 
-    if st.button("⚡ تطبيق عكس الأوزان الآلي وتحديث معامل الثبات"):
+    if st.button("🔄 تنفيذ عكس الأوزان الآلي وتحديث معامل الثبات"):
         if not st.session_state.reversed_done and rev_cols:
             for c in rev_cols:
                 st.session_state.working_df[c] = 6 - pd.to_numeric(st.session_state.working_df[c], errors='coerce')
             st.session_state.reversed_done = True
-            st.success(f"تم عكس أوزان الفقرات ({', '.join(rev_cols)}) بنجاح! لاحظ قفزة معامل ألفا كرونباخ في البطاقات العلوية.")
+            st.success(f"تم قلب أوزان الفقرات ({', '.join(rev_cols)}) بنجاح! انظر إلى ارتفاع ألفا كرونباخ في الأعلى.")
             st.rerun()
         elif st.session_state.reversed_done:
             st.info("تم عكس أوزان هذه الفقرات مسبقاً.")
 
-
-# ==========================================
-# القسم الثاني: محرك التدقيق الجنائي وكشف التلاعب
-# ==========================================
-elif nav_page == "2. التدقيق الجنائي وكشف التلاعب":
+with main_tabs[1]:
     st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">🛡️ محرك التدقيق الجنائي الإحصائي وكشف فبركة البيانات (Anti-Curbstoning Engine)</h3>
+    <div class="workspace-card">
+        <div class="workspace-title">🛡️ محرك التدقيق الجنائي الإحصائي وكشف تزييف الاستمارات (Anti-Curbstoning Radar)</div>
+        <div class="workspace-desc">
+            يفحص المحرك كل استمارة عبر خوارزميات التباين الداخلي (IRV) ومصائد التناقض السيكومتري وتطابق المصفوفات لعزل الاستمارات العشوائية أو المفبركة مكتبياً قبل التحليل.
         </div>
-        <p class="panel-desc">
-            يمثل هذا المحرك جوهر ابتكار <b>Socio Lab</b>؛ حيث يفحص كل استمارة لكشف <b>الإجابات النمطية الجامدة (SD = 0)</b>، و<b>التناقضات السيكومترية الحادة بين الفقرات الموجبة والسالبة</b>، و<b>الاستمارات المستنسخة مكتبياً (Curbstoning)</b>.
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    col_p1, col_p2 = st.columns(2)
-    with col_p1:
-        pos_item = st.selectbox("اختر فقرة موجبة مرجعية لفحص التناقض المنطقي:", numeric_cols, index=0)
-    with col_p2:
+    cp1, cp2 = st.columns(2)
+    with cp1:
+        pos_item = st.selectbox("اختر فقرة موجبة مرجعية لفحص التناقض:", numeric_cols, index=0)
+    with cp2:
         neg_idx = 3 if len(numeric_cols) > 3 else 0
-        neg_item = st.selectbox("اختر الفقرة السالبة المقابلة لها:", numeric_cols, index=neg_idx)
+        neg_item = st.selectbox("اختر الفقرة السالبة المقابلة لها منطقياً:", numeric_cols, index=neg_idx)
 
     raw_coded_temp, _ = auto_code_dataframe(st.session_state.raw_df)
     if st.session_state.cleaned_done:
@@ -735,43 +631,36 @@ elif nav_page == "2. التدقيق الجنائي وكشف التلاعب":
 
     audit_df, bad_indices = forensic_audit(raw_coded_temp, numeric_cols, pos_item, neg_item)
 
-    col_a1, col_a2, col_a3 = st.columns(3)
-    col_a1.metric("إجمالي الاستمارات المفحوصة", f"{len(audit_df)} استمارة")
-    col_a2.metric("الاستمارات الصالحة والموثوقة", f"{len(audit_df) - len(bad_indices)} استمارة")
-    col_a3.metric("الاستمارات المزيفة المرصودة", f"{len(bad_indices)} استمارات")
+    ca1, ca2, ca3 = st.columns(3)
+    ca1.metric("إجمالي الاستمارات المفحوصة", f"{len(audit_df)} استمارة")
+    ca2.metric("الاستمارات الصالحة والموثوقة", f"{len(audit_df) - len(bad_indices)} استمارة")
+    ca3.metric("الاستمارات المزيفة المرصودة", f"{len(bad_indices)} استمارات")
 
-    st.markdown("#### 🔍 سجل التشخيص الجنائي الإحصائي للاستمارات:")
     audit_sorted = audit_df.sort_values(by="القرار المنهجي", ascending=False)
-    st.dataframe(audit_sorted, use_container_width=True, height=340)
+    st.dataframe(audit_sorted, use_container_width=True, height=320)
 
     if len(bad_indices) > 0:
-        st.warning(f"⚠️ رصد المحرك الجنائي {len(bad_indices)} استمارات متلاعب بها أو متناقضة منطقياً تشوه نتائج الدراسة.")
+        st.warning(f"⚠️ رصد الرادار الجنائي {len(bad_indices)} استمارات متلاعب بها أو متناقضة سيكومترياً.")
         if st.button("🧹 عزل واستبعاد الاستمارات المزيفة آلياً وتطهير العينة"):
             st.session_state.working_df = st.session_state.working_df.drop(index=bad_indices)
             st.session_state.cleaned_done = True
             st.success("تم تطهير قاعدة البيانات بنجاح! ارتفع مؤشر نزاهة العينة إلى 100%.")
             st.rerun()
     else:
-        st.success("✅ قاعدة البيانات مطهرة بالكامل وخالية من أي فبركة أو تناقض سيكومتري (مؤشر النزاهة = 100%).")
+        st.success("✅ قاعدة البيانات نقية تماماً وخالية من أي تلاعب أو تناقض سيكومتري.")
 
-
-# ==========================================
-# القسم الثالث: المختبر السيكومتري (الصدق والثبات)
-# ==========================================
-elif nav_page == "3. المختبر السيكومتري (الصدق والثبات)":
+with main_tabs[2]:
     st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">📐 المختبر السيكومتري الآلي لتحكيم المقاييس (Psychometric Validation Lab)</h3>
+    <div class="workspace-card">
+        <div class="workspace-title">📐 المختبر السيكومتري الآلي لتحكيم المقاييس (Automated Psychometrics Lab)</div>
+        <div class="workspace-desc">
+            حساب آلي لمعامل ألفا كرونباخ والاتساق الداخلي للفقرات (Item-Total Correlation) مع كشف واستبعاد الفقرات المشوشة التي تضعف ثبات المقياس.
         </div>
-        <p class="panel-desc">
-            يحسب هذا المختبر معامل ألفا كرونباخ (Cronbach's Alpha) ومصفوفة الاتساق الداخلي (Item-Total Correlation)، ويكتشف آلياً الفقرات المشوشة التي ينبغي حذفها لرفع جودة أداة القياس.
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
     selected_scale_items = st.multiselect(
-        "حدد فقرات المقياس المراد فحص خصائصها السيكومترية:",
+        "فقرات المقياس الخاضعة للتحكيم السيكومتري:",
         numeric_cols,
         default=numeric_cols
     )
@@ -805,31 +694,22 @@ elif nav_page == "3. المختبر السيكومتري (الصدق والثب�
                 "التشخيص السيكومتري": diag
             })
 
-        st.info(f"📊 **معامل الثبات ألفا كرونباخ الحالي للمقياس ({len(selected_scale_items)} فقرات):** `{overall_alpha:.3f}`")
         st.dataframe(pd.DataFrame(psych_rows), use_container_width=True)
 
         if weak_items:
-            st.warning(f"💡 توصية المحرك السيكومتري: استبعاد الفقرة المشوشة ({', '.join(weak_items)}) سيرفع ثبات المقياس ومصداقيته.")
-            if st.button(f"✂️ حذف الفقرة المشوشة ({', '.join(weak_items)}) وإعادة الحساب فوراً"):
+            st.warning(f"💡 توصية المحرك السيكومتري: حذف الفقرة المشوشة ({', '.join(weak_items)}) سيرفع ثبات المقياس بشكل ملحوظ.")
+            if st.button(f"✂️ استبعاد الفقرة المشوشة ({', '.join(weak_items)}) وإعادة بناء المقياس"):
                 st.session_state.working_df = st.session_state.working_df.drop(columns=weak_items)
-                st.success("تم استبعاد الفقرة المشوشة بنجاح وارتفع معامل ألفا كرونباخ الكلي!")
+                st.success("تم حذف الفقرة المشوشة بنجاح وقفز معامل ألفا كرونباخ الكلي!")
                 st.rerun()
-    else:
-        st.warning("يرجى تحديد 3 فقرات على الأقل لإجراء الفحص السيكومتري.")
 
-
-# ==========================================
-# القسم الرابع: شجرة القرار الإحصائي وجداول APA
-# ==========================================
-elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
+with main_tabs[3]:
     st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">🌳 شجرة القرار الإحصائي المشروطة ومولد جداول (APA 7th Edition)</h3>
+    <div class="workspace-card">
+        <div class="workspace-title">🌳 شجرة القرار الإحصائي المشروطة ومولد جداول (APA 7th Edition)</div>
+        <div class="workspace-desc">
+            فحص إلزامي لاعتدالية التوزيع (Shapiro-Wilk) وتجانس التباين (Levene's Test) قبل توجيه الباحث آلياً للاختبار المعلمي أو اللامعلمي الصحيح وتوليد جدول APA.
         </div>
-        <p class="panel-desc">
-            تختبر المنصة تلقائياً شروط اعتدالية التوزيع (Shapiro-Wilk) وتجانس التباين (Levene's Test) في الخلفية، وتوجه الباحث إجبارياً نحو الاختبار المعلمي أو اللامعلمي الصحيح مع توليد الجدول الأكاديمي النهائي.
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -845,9 +725,9 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
         analysis_vars = numeric_cols
 
     hypothesis_type = st.radio(
-        "اختر نوع الفرضية البحثية المراد اختبارها:",
+        "حدد نوع الفرضية المراد اختبارها:",
         [
-            "🔗 فرضية علاقة ارتباطية بين متغيرين كميين (Correlation Analysis)",
+            "🔗 فرضية علاقة ارتباطية بين متغيرين كميين (Correlation)",
             "⚖️ فرضية فروق بين مجموعتين مستقلتين (Two Independent Groups)"
         ],
         horizontal=True
@@ -870,18 +750,18 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
         if is_normal:
             test_used = "معامل ارتباط بيرسون المعلمي (Pearson Correlation - r)"
             r_val, p_val = stats.pearsonr(series_x, series_y)
-            reason_txt = f"نظراً لتحقق شرط اعتدالية التوزيع في المتغيرين (Shapiro-Wilk p = {p_sw_x:.3f}, {p_sw_y:.3f} > 0.05)، اعتمد المحرك اختبار بيرسون المعلمي."
+            reason_txt = f"نظراً لتحقق اعتدالية التوزيع (Shapiro-Wilk p = {p_sw_x:.3f}, {p_sw_y:.3f} > 0.05)، اعتمد المحرك اختبار بيرسون المعلمي."
         else:
             test_used = "معامل ارتباط سبيرمان اللامعلمي للرتب (Spearman Rank - rho)"
             r_val, p_val = stats.spearmanr(series_x, series_y)
-            reason_txt = f"نظراً لعدم تحقق شرط الاعتدالية في أحد المتغيرين (Shapiro-Wilk p = {min(p_sw_x, p_sw_y):.4f} ≤ 0.05)، حظر النظام اختبار بيرسون ووجه التحليل آلياً نحو بديله اللامعلمي الصحيح (سبيرمان)."
+            reason_txt = f"نظراً لعدم تحقق اعتدالية التوزيع (Shapiro-Wilk p = {min(p_sw_x, p_sw_y):.4f} ≤ 0.05)، حظر النظام اختبار بيرسون ووجه المعالجة آلياً نحو سبيرمان اللامعلمي."
 
-        st.success(f"🧭 **قرار المحرك الإحصائي:** اعتماد **{test_used}**\n\n*{reason_txt}*")
+        st.info(f"🧭 **قرار المحرك الإحصائي:** اعتماد **{test_used}**\n\n*{reason_txt}*")
 
         sig_label = "دالة إحصائياً عند (α = 0.05)" if p_val < 0.05 else "غير دالة إحصائياً"
         st.markdown(f"""
-        <div class="apa-container">
-            <h4 style="color:#0F172A; margin-top:0; font-weight:800;">جدول (1): نتائج اختبار العلاقة الارتباطية وفق معايير APA 7th Edition</h4>
+        <div class="apa-dark-box">
+            <h4 style="color:#38BDF8; margin-top:0;">جدول (1): نتائج اختبار العلاقة الارتباطية وفق معايير APA 7th Edition</h4>
             <table class="apa-table">
                 <thead>
                     <tr>
@@ -896,26 +776,24 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="font-weight:700;">{var_x}</td>
+                        <td>{var_x}</td>
                         <td>{len(series_x)}</td>
                         <td>{np.mean(series_x):.2f}</td>
                         <td>{np.std(series_x, ddof=1):.2f}</td>
-                        <td rowspan="2" style="font-weight:900; font-size:1.15rem; color:#1E3A8A;">{r_val:.3f}**</td>
-                        <td rowspan="2" style="font-weight:700;">{p_val:.4f}</td>
-                        <td rowspan="2"><span class="kpi-pill pill-green">{sig_label}</span></td>
+                        <td rowspan="2" style="font-weight:800; font-size:1.2rem; color:#38BDF8;">{r_val:.3f}**</td>
+                        <td rowspan="2">{p_val:.4f}</td>
+                        <td rowspan="2"><span class="neon-tag tag-emerald">{sig_label}</span></td>
                     </tr>
                     <tr>
-                        <td style="font-weight:700;">{var_y}</td>
+                        <td>{var_y}</td>
                         <td>{len(series_y)}</td>
                         <td>{np.mean(series_y):.2f}</td>
                         <td>{np.std(series_y, ddof=1):.2f}</td>
                     </tr>
                 </tbody>
             </table>
-            <p style="font-size:0.88rem; color:#64748B; margin-bottom:0;"><i>ملاحظة: تم استخراج الجدول وتنسيقه آلياً عبر منصة Socio Lab وفق الدليل السابع للجمعية الأمريكية لعلم النفس (APA).</i></p>
         </div>
         """, unsafe_allow_html=True)
-
     else:
         dep_var = st.selectbox("اختر المتغير التابع الكمي:", analysis_vars, index=1 if len(analysis_vars) > 1 else 0)
         if "الجنس" in df_calc.columns:
@@ -937,10 +815,10 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                     test_title = "اختبار مان-ويتني (Mann-Whitney U) اللامعلمي"
                     stat_symbol = f"U = {u_stat:.1f}"
 
-                st.success(f"🧭 **الاختبار المعتمد آلياً بعد فحص الاعتدالية وتجانس التباين (Levene p = {p_lev:.3f}):** {test_title}")
+                st.info(f"🧭 **الاختبار المطبق آلياً (Levene p = {p_lev:.3f}):** {test_title}")
                 st.markdown(f"""
-                <div class="apa-container">
-                    <h4 style="color:#0F172A; margin-top:0; font-weight:800;">جدول (2): نتائج اختبار الفروق بين المجموعتين وفق معايير APA 7th Edition</h4>
+                <div class="apa-dark-box">
+                    <h4 style="color:#38BDF8; margin-top:0;">جدول (2): نتائج اختبار الفروق بين المجموعتين وفق معايير APA 7th Edition</h4>
                     <table class="apa-table">
                         <thead>
                             <tr>
@@ -954,15 +832,15 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="font-weight:700;">المجموعة الأولى ({groups[0]})</td>
+                                <td>المجموعة الأولى ({groups[0]})</td>
                                 <td>{len(g1)}</td>
                                 <td>{np.mean(g1):.2f}</td>
                                 <td>{np.std(g1, ddof=1):.2f}</td>
-                                <td rowspan="2" style="font-weight:900; font-size:1.15rem; color:#1E3A8A;">{stat_symbol}</td>
-                                <td rowspan="2" style="font-weight:700;">{p_val:.4f}</td>
+                                <td rowspan="2" style="font-weight:800; font-size:1.2rem; color:#38BDF8;">{stat_symbol}</td>
+                                <td rowspan="2">{p_val:.4f}</td>
                             </tr>
                             <tr>
-                                <td style="font-weight:700;">المجموعة الثانية ({groups[1]})</td>
+                                <td>المجموعة الثانية ({groups[1]})</td>
                                 <td>{len(g2)}</td>
                                 <td>{np.mean(g2):.2f}</td>
                                 <td>{np.std(g2, ddof=1):.2f}</td>
@@ -972,43 +850,26 @@ elif nav_page == "4. شجرة القرار الإحصائي وجداول APA":
                 </div>
                 """, unsafe_allow_html=True)
 
-
-# ==========================================
-# القسم الخامس: التصدير لـ SPSS وشهادة النزاهة
-# ==========================================
-elif nav_page == "5. التصدير لـ SPSS وشهادة النزاهة":
+with main_tabs[4]:
     st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">🎓 تصدير الحزمة الإحصائية النهائية (SPSS .sav) وإصدار شهادة النزاهة</h3>
+    <div class="workspace-card">
+        <div class="workspace-title">🎓 تصدير الحزمة الإحصائية النهائية (SPSS .sav) وشهادة الاعتماد المنهجي</div>
+        <div class="workspace-desc">
+            حمل قاعدة بياناتك المطهرة بصيغة برنامج SPSS الأصلية، مع شهادة النزاهة والموثوقية الميدانية لإرفاقها بمذكرتك أو تقريرك المؤسسي.
         </div>
-        <p class="panel-desc">
-            حمل ملفاتك النهائية المطهرة والمرمزة جاهزة للفتح المباشر في برنامج <b>IBM SPSS Statistics</b>، مع شهادة الاعتماد المنهجي لإرفاقها بمذكرة التخرج أو التقرير المؤسسي.
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    col_d1, col_d2, col_d3 = st.columns(3)
-
+    cd1, cd2, cd3 = st.columns(3)
     csv_bytes = st.session_state.working_df.to_csv(index=False).encode('utf-8-sig')
-    with col_d1:
-        st.download_button(
-            label="📥 تحميل المصفوفة المرمزة (CSV / Excel)",
-            data=csv_bytes,
-            file_name="SocioLab_Cleaned_Dataset.csv",
-            mime="text/csv"
-        )
+    with cd1:
+        st.download_button("📥 تحميل المصفوفة المرمزة (CSV / Excel)", data=csv_bytes, file_name="SocioLab_Cleaned.csv", mime="text/csv")
 
     codebook_bytes = st.session_state.codebook_df.to_csv(index=False).encode('utf-8-sig')
-    with col_d2:
-        st.download_button(
-            label="📘 تحميل دليل الترميز (Variable View)",
-            data=codebook_bytes,
-            file_name="SocioLab_SPSS_Codebook.csv",
-            mime="text/csv"
-        )
+    with cd2:
+        st.download_button("📘 تحميل قاموس المتغيرات (Variable View)", data=codebook_bytes, file_name="SocioLab_Codebook.csv", mime="text/csv")
 
-    with col_d3:
+    with cd3:
         if HAS_PYREADSTAT:
             sav_path = "SocioLab_Output.sav"
             spss_df = st.session_state.working_df.copy()
@@ -1022,60 +883,47 @@ elif nav_page == "5. التصدير لـ SPSS وشهادة النزاهة":
             spss_df = spss_df.rename(columns=clean_cols)
             pyreadstat.write_sav(spss_df, sav_path, column_labels=col_labels)
             with open(sav_path, "rb") as f:
-                st.download_button(
-                    label="📊 تحميل ملف SPSS الأصلي (.sav)",
-                    data=f,
-                    file_name="SocioLab_Verified_Data.sav",
-                    mime="application/octet-stream"
-                )
-        else:
-            st.info("تصدير `.sav` مفعل عبر مكتبة pyreadstat.")
+                st.download_button("📊 تحميل ملف SPSS الأصلي (.sav)", data=f, file_name="SocioLab_Verified.sav", mime="application/octet-stream")
 
     today_str = datetime.date.today().strftime("%Y-%m-%d")
     cert_id = f"SL-DZ-{datetime.datetime.now().strftime('%Y%m')}-060"
 
     st.markdown(f"""
-    <div class="luxury-certificate">
-        <div class="cert-seal">★ SOCIO LAB VERIFIED DATASET ★</div>
-        <h2 style="color:#0F172A; margin-bottom:6px; font-weight:900; font-size:1.85rem;">شهادة التدقيق المنهجي وموثوقية البيانات الميدانية</h2>
-        <h5 style="color:#1D4ED8; margin-top:0; font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:1.5px;">FORENSIC STATISTICAL & PSYCHOMETRIC AUDIT CERTIFICATE</h5>
-        <hr style="border:1px solid #CBD5E1; width:65%; margin:20px auto;">
-        <p style="font-size:1.12rem; color:#1E293B; line-height:2.0; max-width:85%; margin:0 auto;">
-            تشهد منصة <b>Socio Lab السحابية للهندسة المنهجية والبيانات</b> بأن قاعدة البيانات الميدانية المرفقة قد خضعت للفحص الجنائي الإحصائي الآلي،
-            وتم تدقيقها من حيث التباين الداخلي للاستمارات (<b>IRV</b>)، والاتساق السيكومتري للعبارات المعكوسة، وخلوها من الاستنساخ المكتبي،
+    <div class="holo-cert">
+        <span class="neon-tag tag-cyan" style="font-size:0.9rem; padding:6px 20px;">★ SOCIO LAB VERIFIED DATASET ★</span>
+        <h2 style="color:#FFFFFF; margin-top:14px; margin-bottom:6px; font-weight:800;">شهادة التدقيق المنهجي وموثوقية البيانات الميدانية</h2>
+        <p style="color:#38BDF8 !important; font-family:'Space Grotesk',sans-serif; letter-spacing:1.5px; margin-top:0;">FORENSIC STATISTICAL & PSYCHOMETRIC AUDIT CERTIFICATE</p>
+        <hr style="border:1px solid rgba(56, 189, 248, 0.25); width:70%; margin:20px auto;">
+        <p style="font-size:1.1rem; color:#E2E8F0 !important; line-height:2.0; max-width:85%; margin:0 auto;">
+            تشهد منظومة <b>Socio Lab السحابية للهندسة المنهجية والبيانات</b> بأن قاعدة البيانات المرفقة قد خضعت للتدقيق الجنائي الإحصائي الآلي،
+            وتم فحصها من حيث التباين الداخلي للاستمارات (<b>IRV</b>)، والاتساق السيكومتري للعبارات المعكوسة، وخلوها من الاستنساخ المكتبي،
             وبلغ معامل الثبات الكلي للمقياس بعد الضبط (<b>α = {alpha_now:.3f}</b>) بحجم عينة صافية ومعتمدة قدره (<b>N = {len(df_current)}</b>).
         </p>
-        <div style="display:flex; justify-content:space-around; margin-top:32px; padding-top:20px; border-top:1px dashed #CBD5E1; font-weight:800; color:#0F172A;">
-            <div>🔖 رقم الاعتماد المرجعي: <span style="color:#1D4ED8;">{cert_id}</span></div>
-            <div>📅 تاريخ الإصدار: <span style="color:#1D4ED8;">{today_str}</span></div>
-            <div>🏛️ الجهة المشرفة: <span style="color:#1D4ED8;">Socio Lab - سوق أهراس</span></div>
+        <div style="display:flex; justify-content:space-around; margin-top:30px; padding-top:20px; border-top:1px dashed rgba(148, 163, 184, 0.25); color:#7DD3FC; font-weight:700;">
+            <div>🔖 رقم الاعتماد: {cert_id}</div>
+            <div>📅 تاريخ الإصدار: {today_str}</div>
+            <div>🏛️ Socio Lab - جامعة سوق أهراس</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-
-# ==========================================
-# القسم السادس: بوابة حجز الاستشارات والدورات
-# ==========================================
-elif nav_page == "6. حجز الاستشارات والدورات التدريبية":
+with main_tabs[5]:
     st.markdown("""
-    <div class="glass-panel">
-        <div class="panel-header">
-            <h3 class="panel-title">📅 بوابة حجز الاستشارات المنهجية والدورات التدريبية (حضوري بسوق أهراس / عن بعد)</h3>
+    <div class="workspace-card">
+        <div class="workspace-title">📅 بوابة حجز الاستشارات المنهجية والدورات التدريبية (حضوري بسوق أهراس / عن بعد)</div>
+        <div class="workspace-desc">
+            احجز جلسة مرافقة منهجية وإحصائية مخصصة لبحثك أو سجل في معسكرات التدريب التطبيقي على برنامج IBM SPSS ومنهجية IMRAD.
         </div>
-        <p class="panel-desc">
-            احجز جلسة مرافقة منهجية وإحصائية مخصصة لبحثك أو سجل في معسكرات التدريب التطبيقي على برنامج <b>IBM SPSS</b> ومنهجية <b>IMRAD</b>:
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
     with st.form("booking_form"):
-        c_f1, c_f2 = st.columns(2)
-        with c_f1:
+        cf1, cf2 = st.columns(2)
+        with cf1:
             client_name = st.text_input("👤 الاسم واللقب الكامل:")
             client_uni = st.text_input("🏛️ الجامعة / المؤسسة:", value="جامعة محمد الشريف مساعدية - سوق أهراس")
             client_level = st.selectbox("🎓 الصفة الأكاديمية أو المهنية:", ["طالب ماستر 2", "طالب دكتوراه", "أستاذ باحث", "مؤسسة اقتصادية / جمعية"])
-        with c_f2:
+        with cf2:
             service_req = st.selectbox("🛠️ نوع الخدمة المطلوبة:", [
                 "استشارة منهجية وضبط أدوات القياس (الاستبيان)",
                 "التدقيق الجنائي والمعالجة الإحصائية عبر SPSS",
