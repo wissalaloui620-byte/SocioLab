@@ -6,6 +6,7 @@ import io
 import datetime
 import base64
 import os
+import glob
 
 try:
     import pyreadstat
@@ -43,7 +44,6 @@ st.markdown("""
         color: #F8FAFC !important;
     }
 
-    /* ضبط نصوص Streamlit في الوضع المظلم */
     h1, h2, h3, h4, h5, h6, p, label, .stMarkdown {
         color: #F1F5F9 !important;
     }
@@ -56,7 +56,7 @@ st.markdown("""
         border: 1px solid rgba(56, 189, 248, 0.25);
         border-radius: 20px;
         padding: 18px 32px;
-        margin-bottom: 26px;
+        margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -65,24 +65,24 @@ st.markdown("""
     .brand-box {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 18px;
     }
     .brand-logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
         background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #6366F1 100%);
         display: flex;
         align-items: center;
         justify-content: center;
         font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-weight: 800;
         color: #FFFFFF;
         box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
     }
     .brand-title {
-        font-size: 1.65rem;
+        font-size: 1.7rem;
         font-weight: 700;
         background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 50%, #818CF8 100%);
         -webkit-background-clip: text;
@@ -91,8 +91,8 @@ st.markdown("""
     }
     .brand-sub {
         color: #94A3B8 !important;
-        font-size: 0.85rem;
-        margin: 2px 0 0 0;
+        font-size: 0.88rem;
+        margin: 4px 0 0 0;
     }
     .status-badge {
         background: rgba(16, 185, 129, 0.15);
@@ -440,7 +440,7 @@ def forensic_audit(df_coded, scale_cols, pos_col=None, neg_col=None):
 
 
 # ==========================================
-# 3. تهيئة البيانات (Session State)
+# 3. تهيئة البيانات والشعار الذكي (Session State & Smart Logo Finder)
 # ==========================================
 if "raw_df" not in st.session_state:
     demo_text, _ = generate_demo_dataset()
@@ -451,20 +451,32 @@ if "raw_df" not in st.session_state:
     st.session_state.reversed_done = False
     st.session_state.cleaned_done = False
 
+if "custom_logo_b64" not in st.session_state:
+    st.session_state.custom_logo_b64 = None
+    # بحث تلقائي ذكي عن أي ملف صورة مرفوع في GitHub مهما كان اسمه
+    image_files = []
+    for pattern in ["*.png", "*.jpg", "*.jpeg", "*.webp", "*.PNG", "*.JPG", "*.JPEG"]:
+        image_files.extend(glob.glob(pattern))
+    if image_files:
+        try:
+            with open(image_files[0], "rb") as img_f:
+                st.session_state.custom_logo_b64 = base64.b64encode(img_f.read()).decode()
+        except Exception:
+            pass
+
+# بناء كود الشعار للترويسة والشهادة
+if st.session_state.custom_logo_b64:
+    b64_str = st.session_state.custom_logo_b64
+    logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:68px; height:68px; border-radius:16px; object-fit:contain; background:#0F172A; border:2px solid #38BDF8; padding:4px; box-shadow:0 0 25px rgba(56,189,248,0.5);">'
+    cert_logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:88px; height:88px; border-radius:18px; object-fit:contain; margin-bottom:14px; border:2px solid #38BDF8; padding:5px; background:#0F172A; box-shadow:0 0 25px rgba(56,189,248,0.4);"><br>'
+else:
+    logo_html = '<div class="brand-logo">SL</div>'
+    cert_logo_html = ''
+
 
 # ==========================================
-# 4. شريط القيادة العلوي العائم مع قراءة الشعار تلقائياً (Logo Integration)
+# 4. شريط القيادة العلوي العائم (Top Glass Navbar)
 # ==========================================
-logo_html = '<div class="brand-logo">SL</div>'
-cert_logo_html = ''
-for ext in ["logo.png", "logo.jpg", "logo.jpeg", "Logo.png", "LOGO.png"]:
-    if os.path.exists(ext):
-        with open(ext, "rb") as img_f:
-            b64_logo = base64.b64encode(img_f.read()).decode()
-        logo_html = f'<img src="data:image/png;base64,{b64_logo}" style="width:62px; height:62px; border-radius:14px; object-fit:contain; background:#0F172A; border:1.5px solid #38BDF8; padding:4px; box-shadow:0 0 20px rgba(6,182,212,0.45);">'
-        cert_logo_html = f'<img src="data:image/png;base64,{b64_logo}" style="width:78px; height:78px; border-radius:16px; object-fit:contain; margin-bottom:12px; border:1.5px solid #38BDF8; padding:5px; background:#0F172A;"><br>'
-        break
-
 st.markdown(f"""
 <div class="top-navbar">
     <div class="brand-box">
@@ -478,33 +490,45 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-with st.expander("📂 إدارة واستيراد قواعد البيانات (اضغط هنا لرفع ملف Excel / CSV خاص بك أو إعادة ضبط العينة التجريبية)"):
-    c_up1, c_up2 = st.columns([3, 1])
-    with c_up1:
-        uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام (Excel / CSV):", type=["xlsx", "csv"])
-        if uploaded_file is not None:
-            if uploaded_file.name.endswith(".csv"):
-                user_df = pd.read_csv(uploaded_file)
-            else:
-                user_df = pd.read_excel(uploaded_file)
-            st.session_state.raw_df = user_df
-            coded_df, codebook_df = auto_code_dataframe(user_df)
-            st.session_state.working_df = coded_df
-            st.session_state.codebook_df = codebook_df
-            st.session_state.reversed_done = False
-            st.session_state.cleaned_done = False
-            st.success("تم استيراد وترميز ملفك بنجاح!")
-    with c_up2:
-        st.write("")
-        st.write("")
-        if st.button("🔄 إعادة ضبط العينة التجريبية (N=60)"):
-            demo_text, _ = generate_demo_dataset()
-            st.session_state.raw_df = demo_text
-            coded_df, codebook_df = auto_code_dataframe(demo_text)
-            st.session_state.working_df = coded_df
-            st.session_state.codebook_df = codebook_df
-            st.session_state.reversed_done = False
-            st.session_state.cleaned_done = False
+# شريط التحكم العلوي: رفع البيانات + رفع الشعار المباشر من داخل المنصة
+col_exp1, col_exp2 = st.columns([2, 1])
+
+with col_exp1:
+    with st.expander("📂 إدارة واستيراد قواعد البيانات (رفع ملف Excel / CSV أو إعادة ضبط العينة)"):
+        c_up1, c_up2 = st.columns([3, 1])
+        with c_up1:
+            uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام (Excel / CSV):", type=["xlsx", "csv"])
+            if uploaded_file is not None:
+                if uploaded_file.name.endswith(".csv"):
+                    user_df = pd.read_csv(uploaded_file)
+                else:
+                    user_df = pd.read_excel(uploaded_file)
+                st.session_state.raw_df = user_df
+                coded_df, codebook_df = auto_code_dataframe(user_df)
+                st.session_state.working_df = coded_df
+                st.session_state.codebook_df = codebook_df
+                st.session_state.reversed_done = False
+                st.session_state.cleaned_done = False
+                st.success("تم استيراد وترميز ملفك بنجاح!")
+        with c_up2:
+            st.write("")
+            st.write("")
+            if st.button("🔄 إعادة ضبط العينة (N=60)"):
+                demo_text, _ = generate_demo_dataset()
+                st.session_state.raw_df = demo_text
+                coded_df, codebook_df = auto_code_dataframe(demo_text)
+                st.session_state.working_df = coded_df
+                st.session_state.codebook_df = codebook_df
+                st.session_state.reversed_done = False
+                st.session_state.cleaned_done = False
+                st.rerun()
+
+with col_exp2:
+    with st.expander("🎨 تخصيص شعار المنصة (ارفع صورة اللوقو مباشرة هنا)"):
+        uploaded_logo = st.file_uploader("اختر صورة شعار Socio Lab:", type=["png", "jpg", "jpeg", "webp"])
+        if uploaded_logo is not None:
+            st.session_state.custom_logo_b64 = base64.b64encode(uploaded_logo.getvalue()).decode()
+            st.success("تم تفعيل الشعار بنجاح!")
             st.rerun()
 
 
