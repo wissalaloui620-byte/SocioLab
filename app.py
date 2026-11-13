@@ -15,10 +15,10 @@ except ImportError:
     HAS_PYREADSTAT = False
 
 # ==========================================
-# 1. إعدادات الصفحة والهوية البصرية الأكاديمية الراقية
+# 1. إعدادات الصفحة والهوية البصرية المطابقة للشعار
 # ==========================================
 st.set_page_config(
-    page_title="SOCIO LAB",
+    page_title="Socio Lab",
     page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -26,7 +26,7 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Readex+Pro:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
 
     html, body, [class*="css"], .stMarkdown, .stText, .stButton, .stSelectbox, .stMultiSelect, .stRadio {
         font-family: 'Readex Pro', sans-serif !important;
@@ -38,9 +38,9 @@ st.markdown("""
     footer {visibility: hidden;}
     header {background: transparent !important;}
 
-    /* خلفية كحلية ملكية عميقة */
+    /* خلفية كحلية مطابقة لألوان الشعار */
     .stApp {
-        background: radial-gradient(circle at 15% 10%, #172554 0%, #0F172A 50%, #020617 100%) !important;
+        background: radial-gradient(circle at 15% 10%, #0A2540 0%, #051324 55%, #020813 100%) !important;
         color: #F8FAFC !important;
     }
 
@@ -50,50 +50,54 @@ st.markdown("""
 
     /* الترويسة العلوية للمنصة */
     .top-navbar {
-        background: rgba(15, 23, 42, 0.85);
+        background: rgba(8, 25, 48, 0.85);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(56, 189, 248, 0.3);
+        border: 1px solid rgba(56, 189, 248, 0.35);
         border-radius: 22px;
         padding: 20px 34px;
         margin-bottom: 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65);
+        box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.75), 0 0 25px rgba(56, 189, 248, 0.12);
     }
     .brand-box {
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 20px;
     }
     .brand-logo {
-        width: 66px;
-        height: 66px;
+        width: 68px;
+        height: 68px;
         border-radius: 16px;
-        background: linear-gradient(135deg, #0284C7 0%, #2563EB 50%, #4F46E5 100%);
+        background: linear-gradient(135deg, #0284C7 0%, #2563EB 50%, #1E3A8A 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 1.65rem;
-        font-weight: 800;
+        font-family: 'Lobster', 'Pacifico', cursive !important;
+        font-size: 1.8rem;
         color: #FFFFFF;
-        box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
     }
+    /* اسم المشروع بنفس خط الشعار تماماً (Lobster / Pacifico Script) */
     .brand-title {
-        font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 1.9rem;
-        font-weight: 800;
-        letter-spacing: 1px;
-        background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 60%, #93C5FD 100%);
+        font-family: 'Lobster', 'Pacifico', cursive !important;
+        font-size: 2.65rem !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.5px;
+        direction: ltr !important;
+        display: inline-block;
+        background: linear-gradient(180deg, #FFFFFF 15%, #BAE6FD 65%, #7DD3FC 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.45));
         margin: 0;
+        line-height: 1.15;
     }
     .brand-sub {
         color: #CBD5E1 !important;
         font-size: 0.92rem;
-        margin: 5px 0 0 0;
+        margin: 6px 0 0 0;
     }
     .location-badge {
         background: rgba(56, 189, 248, 0.14);
@@ -107,16 +111,16 @@ st.markdown("""
 
     /* الواجهة الرئيسية (Hero Section) */
     .hero-box {
-        background: linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(15, 23, 42, 0.92) 100%);
-        border: 1px solid rgba(96, 165, 250, 0.35);
+        background: linear-gradient(135deg, rgba(14, 48, 92, 0.65) 0%, rgba(7, 20, 40, 0.94) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.35);
         border-right: 6px solid #38BDF8;
         border-radius: 22px;
         padding: 36px 40px;
         margin-bottom: 28px;
-        box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.55);
+        box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.6);
     }
     .hero-title {
-        font-size: 2.0rem;
+        font-size: 1.95rem;
         font-weight: 700;
         color: #FFFFFF !important;
         margin-top: 0;
@@ -124,7 +128,7 @@ st.markdown("""
         line-height: 1.4;
     }
     .hero-desc {
-        font-size: 1.08rem;
+        font-size: 1.06rem;
         color: #E2E8F0 !important;
         line-height: 1.9;
         margin-bottom: 0;
@@ -132,20 +136,20 @@ st.markdown("""
 
     /* البطاقات المعلوماتية */
     .info-card {
-        background: linear-gradient(145deg, rgba(30, 41, 59, 0.72) 0%, rgba(15, 23, 42, 0.92) 100%);
-        border: 1px solid rgba(148, 163, 184, 0.18);
+        background: linear-gradient(145deg, rgba(15, 38, 72, 0.72) 0%, rgba(8, 22, 44, 0.92) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.2);
         border-top: 3px solid #38BDF8;
         border-radius: 20px;
         padding: 24px;
         height: 100%;
         transition: all 0.3s ease;
-        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
         margin-bottom: 20px;
     }
     .info-card:hover {
         transform: translateY(-5px);
         border-color: #38BDF8;
-        box-shadow: 0 20px 40px -12px rgba(56, 189, 248, 0.25);
+        box-shadow: 0 20px 40px -12px rgba(56, 189, 248, 0.28);
     }
     .card-icon {
         width: 48px;
@@ -160,7 +164,7 @@ st.markdown("""
         margin-bottom: 14px;
     }
     .card-title {
-        font-size: 1.22rem;
+        font-size: 1.2rem;
         font-weight: 700;
         color: #FFFFFF !important;
         margin: 0 0 10px 0;
@@ -172,7 +176,7 @@ st.markdown("""
         margin-bottom: 12px;
     }
     .output-box {
-        background: rgba(6, 182, 212, 0.12);
+        background: rgba(6, 182, 212, 0.14);
         border-right: 3px solid #38BDF8;
         padding: 10px 14px;
         border-radius: 8px;
@@ -205,8 +209,8 @@ st.markdown("""
 
     /* بطاقات خطوات العمل */
     .step-card {
-        background: rgba(15, 23, 42, 0.8);
-        border: 1px solid rgba(99, 102, 241, 0.3);
+        background: rgba(10, 28, 56, 0.85);
+        border: 1px solid rgba(56, 189, 248, 0.3);
         border-radius: 18px;
         padding: 22px;
         text-align: center;
@@ -224,7 +228,7 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         margin: 0 auto 12px auto;
-        box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+        box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
     }
 
     /* عناوين الأقسام */
@@ -240,10 +244,10 @@ st.markdown("""
     /* شريط التبويبات الرئيسي */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background: rgba(15, 23, 42, 0.9);
+        background: rgba(8, 24, 46, 0.92);
         padding: 10px;
         border-radius: 18px;
-        border: 1px solid rgba(56, 189, 248, 0.2);
+        border: 1px solid rgba(56, 189, 248, 0.25);
         margin-bottom: 20px;
         flex-wrap: wrap;
     }
@@ -259,7 +263,7 @@ st.markdown("""
     .stTabs [aria-selected="true"] {
         background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%) !important;
         color: #FFFFFF !important;
-        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45) !important;
     }
 
     /* الأزرار */
@@ -275,17 +279,6 @@ st.markdown("""
     .stButton > button:hover {
         transform: translateY(-2px) !important;
         box-shadow: 0 12px 25px -2px rgba(37, 99, 235, 0.65) !important;
-    }
-
-    /* شهادة موثوقية البيانات */
-    .holo-cert {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.85) 100%);
-        border: 2px solid #38BDF8;
-        border-radius: 22px;
-        padding: 36px;
-        text-align: center;
-        box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
-        margin-top: 20px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -451,7 +444,7 @@ if "raw_df" not in st.session_state:
 if "custom_logo_b64" not in st.session_state:
     st.session_state.custom_logo_b64 = None
     image_files = []
-    for pattern in ["*.png", "*.jpg", "*.jpeg", "*.webp", "*.PNG", "*.JPG", "*.JPEG"]:
+    for pattern in ["*logo*", "*.png", "*.jpg", "*.jpeg", "*.webp", "*.PNG", "*.JPG", "*.JPEG"]:
         image_files.extend(glob.glob(pattern))
     if image_files:
         try:
@@ -462,22 +455,20 @@ if "custom_logo_b64" not in st.session_state:
 
 if st.session_state.custom_logo_b64:
     b64_str = st.session_state.custom_logo_b64
-    logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:70px; height:70px; border-radius:16px; object-fit:contain; background:#0F172A; border:2px solid #38BDF8; padding:4px; box-shadow:0 0 25px rgba(56,189,248,0.5);">'
-    cert_logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:88px; height:88px; border-radius:18px; object-fit:contain; margin-bottom:14px; border:2px solid #38BDF8; padding:5px; background:#0F172A;"><br>'
+    logo_html = f'<img src="data:image/png;base64,{b64_str}" style="width:76px; height:76px; border-radius:16px; object-fit:cover; background:#051324; border:2px solid #38BDF8; box-shadow:0 0 25px rgba(56,189,248,0.5);">'
 else:
     logo_html = '<div class="brand-logo">SL</div>'
-    cert_logo_html = ''
 
 
 # ==========================================
-# 4. الترويسة العلوية للمنصة (Top Header)
+# 4. الترويسة العلوية للمنصة بنفس خط الشعار (Lobster Script)
 # ==========================================
 st.markdown(f"""
 <div class="top-navbar">
     <div class="brand-box">
         {logo_html}
         <div>
-            <h1 class="brand-title">SOCIO LAB</h1>
+            <h1 class="brand-title">Socio Lab</h1>
             <p class="brand-sub">منصة رقمية للاستشارات المنهجية السوسيولوجية، التحليل الإحصائي، وتجهيز البيانات</p>
         </div>
     </div>
@@ -485,8 +476,8 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-with st.expander("🎨 تخصيص شعار المنصة (اضغط هنا لرفع صورة الشعار Logo من جهازك)"):
-    uploaded_logo = st.file_uploader("اختر صورة شعار SOCIO LAB:", type=["png", "jpg", "jpeg", "webp"])
+with st.expander("🎨 تخصيص شعار المنصة (اضغط هنا لرفع صورة الشعار من جهازك)"):
+    uploaded_logo = st.file_uploader("اختر صورة شعار Socio Lab:", type=["png", "jpg", "jpeg", "webp"])
     if uploaded_logo is not None:
         st.session_state.custom_logo_b64 = base64.b64encode(uploaded_logo.getvalue()).decode()
         st.success("تم تحديث شعار المنصة بنجاح!")
@@ -515,13 +506,12 @@ with main_tabs[0]:
     <div class="hero-box">
         <h2 class="hero-title">من الفكرة البحثية إلى النتائج المحكمة.. شريكك المنهجي والإحصائي الدقيق.</h2>
         <p class="hero-desc">
-            في المنصة الرقمية <b>SOCIO LAB</b>، نحول البيانات الميدانية الخام إلى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الدراسات العليا، الباحثين، والمؤسسات في تصميم أدوات القياس، تنظيف البيانات، والتحليل الإحصائي المتقدم وفق أعلى معايير الجودة والنزاهة العلمية.
+            في المنصة الرقمية <span style="font-family:'Lobster',cursive; font-size:1.35rem; color:#7DD3FC;">Socio Lab</span>، نحول البيانات الميدانية الخام إلى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الدراسات العليا، الباحثين، والمؤسسات في تصميم أدوات القياس، تنظيف البيانات، والتحليل الإحصائي المتقدم وفق أعلى معايير الجودة والنزاهة العلمية.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    # الفئات المستهدفة بوضوح
-    st.markdown('<div class="section-heading">🎯 الفئات المستهدفة (من يستفيد من المنصة الرقمية SOCIO LAB؟)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">🎯 الفئات المستهدفة (من يستفيد من المنصة الرقمية؟)</div>', unsafe_allow_html=True)
     ft1, ft2, ft3 = st.columns(3)
     with ft1:
         st.markdown("""
@@ -554,8 +544,7 @@ with main_tabs[0]:
         </div>
         """, unsafe_allow_html=True)
 
-    # لماذا تختار Socio Lab؟ (4 ركائز أساسية)
-    st.markdown('<div class="section-heading">✨ لماذا تختار المنصة الرقمية SOCIO LAB؟</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">✨ لماذا تختار المنصة الرقمية Socio Lab؟</div>', unsafe_allow_html=True)
     r1, r2, r3, r4 = st.columns(4)
     with r1:
         st.markdown("""
@@ -590,8 +579,7 @@ with main_tabs[0]:
         </div>
         """, unsafe_allow_html=True)
 
-    # خطوات العمل التفاعلية (How It Works)
-    st.markdown('<div class="section-heading">⚙️ خطوات العمل في SOCIO LAB (How It Works)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-heading">⚙️ خطوات العمل في المنصة (How It Works)</div>', unsafe_allow_html=True)
     st1, st2, st3, st4 = st.columns(4)
     with st1:
         st.markdown("""
@@ -637,9 +625,9 @@ with main_tabs[1]:
     st.markdown('<div class="section-heading">🧭 من نحن (About Us)</div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="hero-box">
-        <h3 class="card-title" style="font-size:1.5rem; color:#38BDF8 !important;">المنصة الرقمية والمختبر الاستشاري SOCIO LAB</h3>
+        <h3 class="card-title" style="font-size:1.5rem; color:#38BDF8 !important;">المنصة الرقمية والمختبر الاستشاري <span style="font-family:'Lobster',cursive;">Socio Lab</span></h3>
         <p class="hero-desc">
-            <b>SOCIO LAB</b> هو مختبر استشاري وبحثي ومنصة رقمية متخصصة في المنهجية السوسيولوجية والتحليل الإحصائي للبيانات الاجتماعية والإنسانية.
+            <b>Socio Lab</b> هو مختبر استشاري وبحثي ومنصة رقمية متخصصة في المنهجية السوسيولوجية والتحليل الإحصائي للبيانات الاجتماعية والإنسانية.
             تأسست المنصة لسد الفجوة بين الجانب النظري في الأبحاث الأكاديمية والتطبيق الميداني والإحصائي الدقيق، عبر تقديم حلول بحثية متكاملة تجمع بين الخبرة الميدانية والتمكن التقني.
         </p>
     </div>
@@ -672,7 +660,7 @@ with main_tabs[1]:
         <div class="card-icon">🛡️</div>
         <h3 class="card-title">التزامنا بالنزاهة العلمية وسرية البيانات</h3>
         <p class="card-text">
-            تعمل المنصة الرقمية <b>SOCIO LAB</b> وفق ميثاق صارم لأخلاقيات البحث العلمي؛ حيث نرفض تماما كتابة المذكرات أو البحوث بالنيابة عن الطالب أو اختلاق بيانات غير حقيقية، ونحصر تدخلنا في الاستشارة المنهجية، بناء وتحكيم أدوات القياس، تنظيف البيانات، والمعالجة الإحصائية المشروعة مع الشرح التعليمي الكامل للباحث، مع ضمان السرية التامة لكافة الملفات والبيانات الشخصية للمبحوثين.
+            تعمل المنصة الرقمية <b>Socio Lab</b> وفق ميثاق صارم لأخلاقيات البحث العلمي؛ حيث نرفض تماما كتابة المذكرات أو البحوث بالنيابة عن الطالب أو اختلاق بيانات غير حقيقية، ونحصر تدخلنا في الاستشارة المنهجية، بناء وتحكيم أدوات القياس، تنظيف البيانات، والمعالجة الإحصائية المشروعة مع الشرح التعليمي الكامل للباحث، مع ضمان السرية التامة لكافة الملفات والبيانات الشخصية للمبحوثين.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -758,7 +746,7 @@ with main_tabs[2]:
 # ==========================================
 with main_tabs[3]:
     st.markdown('<div class="section-heading">🎓 الدورات التكوينية والتدريب التطبيقي (حضوريا وعن بعد)</div>', unsafe_allow_html=True)
-    st.write("تقدم المنصة الرقمية **SOCIO LAB** دورات تدريبية تطبيقية مصغرة ومكثفة لتطوير مهارات الطلبة، الباحثين، وإطارات المؤسسات:")
+    st.write("تقدم المنصة الرقمية **Socio Lab** دورات تدريبية تطبيقية مصغرة ومكثفة لتطوير مهارات الطلبة، الباحثين، وإطارات المؤسسات:")
 
     tr1, tr2 = st.columns(2)
     with tr1:
@@ -817,7 +805,7 @@ with main_tabs[3]:
 
 
 # ==========================================
-# 5. مكتبة الأدوات (Resources) - حاسبة حجم العينة + أداة تجهيز الاستبيانات + قوالب
+# 5. مكتبة الأدوات (Resources)
 # ==========================================
 with main_tabs[4]:
     st.markdown('<div class="section-heading">🧰 مكتبة الأدوات البحثية التفاعلية (Resources)</div>', unsafe_allow_html=True)
@@ -828,7 +816,6 @@ with main_tabs[4]:
         "📑 نماذج استبيانات وقوالب بحثية جاهزة"
     ])
 
-    # أ. حاسبة حجم العينة التفاعلية
     with res_tabs[0]:
         st.markdown("""
         <div class="info-card">
@@ -855,7 +842,6 @@ with main_tabs[4]:
         st.success(f"🎯 **حجم العينة العلمي الموصى به لدراستك هو:** `{sample_size}` مفردة (استمارة صالحة للتحليل).")
         st.caption("ملاحظة منهجية: ينصح بتوزيع 10% إضافية من الاستمارات لتعويض الفاقد أو الاستمارات غير المكتملة ميدانيا.")
 
-    # ب. أداة تنظيف وترميز الاستبيانات الآلية
     with res_tabs[1]:
         st.write("ارفع ملف استبيانك الخام (Excel / CSV) ليقوم النظام آليا بترميز الإجابات، عكس العبارات السالبة، وكشف الاستمارات العشوائية أو المكررة:")
         c_src1, c_src2 = st.columns([3, 1])
@@ -929,7 +915,6 @@ with main_tabs[4]:
         with d2:
             st.download_button("📘 تنزيل دليل الترميز (Codebook)", data=codebook_bytes, file_name="SocioLab_Codebook.csv", mime="text/csv")
 
-    # ج. نماذج استبيانات وقوالب بحثية جاهزة
     with res_tabs[2]:
         q1, q2, q3 = st.columns(3)
         with q1:
@@ -1006,7 +991,7 @@ with main_tabs[5]:
 # ==========================================
 with main_tabs[6]:
     st.markdown('<div class="section-heading">📅 اطلب خدمة بحثية أو احجز جلسة استشارية (Order & Book)</div>', unsafe_allow_html=True)
-    st.write("املأ النموذج أدناه وأرفق ملفاتك (اختياري)، وسيقوم فريق المنصة الرقمية **SOCIO LAB** بدراسة طلبك وموافاتك بخطة العمل والتكلفة خلال 24 ساعة:")
+    st.write("املأ النموذج أدناه وأرفق ملفاتك (اختياري)، وسيقوم فريق المنصة الرقمية **Socio Lab** بدراسة طلبك وموافاتك بخطة العمل والتكلفة خلال 24 ساعة:")
 
     with st.form("order_service_form"):
         f_col1, f_col2 = st.columns(2)
@@ -1048,7 +1033,7 @@ with main_tabs[6]:
                 st.success(
                     f"تم استلام طلبك بنجاح يا ({client_name})! "
                     f"الخدمة المطلوبة: ({service_type}) | الموعد المقترح: ({deadline_date}) | عدد الملفات المرفقة: ({files_count}). "
-                    f"سيتواصل معك فريق SOCIO LAB عبر ({client_contact}) خلال 24 ساعة."
+                    f"سيتواصل معك فريق Socio Lab عبر ({client_contact}) خلال 24 ساعة."
                 )
             else:
                 st.warning("يرجى إدخال الاسم الكامل ووسيلة التواصل (البريد الإلكتروني أو رقم الواتساب) لإرسال الطلب.")
