@@ -4,7 +4,9 @@ import numpy as np
 from scipy import stats
 import io
 import datetime
-import base64, os
+import base64
+import os
+
 try:
     import pyreadstat
     HAS_PYREADSTAT = True
@@ -66,8 +68,8 @@ st.markdown("""
         gap: 16px;
     }
     .brand-logo {
-        width: 52px;
-        height: 52px;
+        width: 56px;
+        height: 56px;
         border-radius: 14px;
         background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #6366F1 100%);
         display: flex;
@@ -451,17 +453,16 @@ if "raw_df" not in st.session_state:
 
 
 # ==========================================
-# 4. شريط القيادة العلوي العائم (Top Glass Navbar)
-# ==========================================
-# ==========================================
-# 4. شريط القيادة العلوي العائم مع الشعار (Logo)
+# 4. شريط القيادة العلوي العائم مع قراءة الشعار تلقائياً (Logo Integration)
 # ==========================================
 logo_html = '<div class="brand-logo">SL</div>'
-for ext in ["logo.png", "logo.jpg", "logo.jpeg"]:
+cert_logo_html = ''
+for ext in ["logo.png", "logo.jpg", "logo.jpeg", "Logo.png", "LOGO.png"]:
     if os.path.exists(ext):
         with open(ext, "rb") as img_f:
             b64_logo = base64.b64encode(img_f.read()).decode()
-        logo_html = f'<img src="data:image/png;base64,{b64_logo}" style="width:58px; height:58px; border-radius:14px; object-fit:contain; background:#0F172A; border:1px solid #38BDF8; padding:3px; box-shadow:0 0 20px rgba(6,182,212,0.4);">'
+        logo_html = f'<img src="data:image/png;base64,{b64_logo}" style="width:62px; height:62px; border-radius:14px; object-fit:contain; background:#0F172A; border:1.5px solid #38BDF8; padding:4px; box-shadow:0 0 20px rgba(6,182,212,0.45);">'
+        cert_logo_html = f'<img src="data:image/png;base64,{b64_logo}" style="width:78px; height:78px; border-radius:16px; object-fit:contain; margin-bottom:12px; border:1.5px solid #38BDF8; padding:5px; background:#0F172A;"><br>'
         break
 
 st.markdown(f"""
@@ -476,6 +477,36 @@ st.markdown(f"""
     <div class="status-badge">● متصل بالمحرك الإحصائي السحابي | v3.0 AI-Ready</div>
 </div>
 """, unsafe_allow_html=True)
+
+with st.expander("📂 إدارة واستيراد قواعد البيانات (اضغط هنا لرفع ملف Excel / CSV خاص بك أو إعادة ضبط العينة التجريبية)"):
+    c_up1, c_up2 = st.columns([3, 1])
+    with c_up1:
+        uploaded_file = st.file_uploader("ارفع ملف الاستبيان الخام (Excel / CSV):", type=["xlsx", "csv"])
+        if uploaded_file is not None:
+            if uploaded_file.name.endswith(".csv"):
+                user_df = pd.read_csv(uploaded_file)
+            else:
+                user_df = pd.read_excel(uploaded_file)
+            st.session_state.raw_df = user_df
+            coded_df, codebook_df = auto_code_dataframe(user_df)
+            st.session_state.working_df = coded_df
+            st.session_state.codebook_df = codebook_df
+            st.session_state.reversed_done = False
+            st.session_state.cleaned_done = False
+            st.success("تم استيراد وترميز ملفك بنجاح!")
+    with c_up2:
+        st.write("")
+        st.write("")
+        if st.button("🔄 إعادة ضبط العينة التجريبية (N=60)"):
+            demo_text, _ = generate_demo_dataset()
+            st.session_state.raw_df = demo_text
+            coded_df, codebook_df = auto_code_dataframe(demo_text)
+            st.session_state.working_df = coded_df
+            st.session_state.codebook_df = codebook_df
+            st.session_state.reversed_done = False
+            st.session_state.cleaned_done = False
+            st.rerun()
+
 
 # ==========================================
 # 5. شبكة المؤشرات الذكية المضيئة (Bento Grid KPIs)
@@ -871,6 +902,7 @@ with main_tabs[4]:
 
     st.markdown(f"""
     <div class="holo-cert">
+        {cert_logo_html}
         <span class="neon-tag tag-cyan" style="font-size:0.9rem; padding:6px 20px;">★ SOCIO LAB VERIFIED DATASET ★</span>
         <h2 style="color:#FFFFFF; margin-top:14px; margin-bottom:6px; font-weight:800;">شهادة التدقيق المنهجي وموثوقية البيانات الميدانية</h2>
         <p style="color:#38BDF8 !important; font-family:'Space Grotesk',sans-serif; letter-spacing:1.5px; margin-top:0;">FORENSIC STATISTICAL & PSYCHOMETRIC AUDIT CERTIFICATE</p>
