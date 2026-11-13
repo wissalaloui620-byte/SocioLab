@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import math
 import io
 import datetime
 import base64
@@ -37,7 +38,7 @@ st.markdown("""
     footer {visibility: hidden;}
     header {background: transparent !important;}
 
-    /* خلفية كحلية ملكية عميقة ومريحة للعين */
+    /* خلفية كحلية ملكية عميقة */
     .stApp {
         background: radial-gradient(circle at 15% 10%, #172554 0%, #0F172A 50%, #020617 100%) !important;
         color: #F8FAFC !important;
@@ -49,11 +50,11 @@ st.markdown("""
 
     /* الترويسة العلوية للمنصة */
     .top-navbar {
-        background: rgba(15, 23, 42, 0.82);
+        background: rgba(15, 23, 42, 0.85);
         backdrop-filter: blur(20px);
         border: 1px solid rgba(56, 189, 248, 0.3);
         border-radius: 22px;
-        padding: 22px 34px;
+        padding: 20px 34px;
         margin-bottom: 24px;
         display: flex;
         justify-content: space-between;
@@ -81,7 +82,7 @@ st.markdown("""
     }
     .brand-title {
         font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 1.85rem;
+        font-size: 1.9rem;
         font-weight: 800;
         letter-spacing: 1px;
         background: linear-gradient(90deg, #FFFFFF 0%, #38BDF8 60%, #93C5FD 100%);
@@ -104,31 +105,32 @@ st.markdown("""
         font-weight: 600;
     }
 
-    /* البانر التعريفي الرئيسي (Hero Section) */
+    /* الواجهة الرئيسية (Hero Section) */
     .hero-box {
-        background: linear-gradient(135deg, rgba(30, 58, 138, 0.55) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 1px solid rgba(96, 165, 250, 0.3);
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(15, 23, 42, 0.92) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.35);
         border-right: 6px solid #38BDF8;
         border-radius: 22px;
-        padding: 32px 36px;
+        padding: 36px 40px;
         margin-bottom: 28px;
-        box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.55);
     }
     .hero-title {
-        font-size: 1.85rem;
+        font-size: 2.0rem;
         font-weight: 700;
         color: #FFFFFF !important;
         margin-top: 0;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+        line-height: 1.4;
     }
     .hero-desc {
-        font-size: 1.05rem;
+        font-size: 1.08rem;
         color: #E2E8F0 !important;
-        line-height: 1.85;
+        line-height: 1.9;
         margin-bottom: 0;
     }
 
-    /* بطاقات الفئات المستهدفة والخدمات والدورات */
+    /* البطاقات المعلوماتية */
     .info-card {
         background: linear-gradient(145deg, rgba(30, 41, 59, 0.72) 0%, rgba(15, 23, 42, 0.92) 100%);
         border: 1px solid rgba(148, 163, 184, 0.18);
@@ -141,7 +143,7 @@ st.markdown("""
         margin-bottom: 20px;
     }
     .info-card:hover {
-        transform: translateY(-6px);
+        transform: translateY(-5px);
         border-color: #38BDF8;
         box-shadow: 0 20px 40px -12px rgba(56, 189, 248, 0.25);
     }
@@ -158,16 +160,25 @@ st.markdown("""
         margin-bottom: 14px;
     }
     .card-title {
-        font-size: 1.2rem;
+        font-size: 1.22rem;
         font-weight: 700;
         color: #FFFFFF !important;
         margin: 0 0 10px 0;
     }
     .card-text {
-        font-size: 0.92rem;
+        font-size: 0.94rem;
         color: #CBD5E1 !important;
-        line-height: 1.75;
-        margin-bottom: 14px;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+    .output-box {
+        background: rgba(6, 182, 212, 0.12);
+        border-right: 3px solid #38BDF8;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 0.88rem;
+        color: #7DD3FC !important;
+        margin-top: 10px;
     }
     .badge-tag {
         display: inline-block;
@@ -192,30 +203,55 @@ st.markdown("""
         border: 1px solid rgba(245, 158, 11, 0.35);
     }
 
+    /* بطاقات خطوات العمل */
+    .step-card {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 18px;
+        padding: 22px;
+        text-align: center;
+        height: 100%;
+    }
+    .step-num {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0284C7, #2563EB);
+        color: #FFFFFF;
+        font-weight: 800;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px auto;
+        box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+    }
+
     /* عناوين الأقسام */
     .section-heading {
         font-size: 1.5rem;
         font-weight: 700;
         color: #38BDF8 !important;
-        margin: 24px 0 16px 0;
+        margin: 26px 0 16px 0;
         padding-bottom: 10px;
         border-bottom: 1px solid rgba(56, 189, 248, 0.25);
     }
 
     /* شريط التبويبات الرئيسي */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
+        gap: 8px;
         background: rgba(15, 23, 42, 0.9);
         padding: 10px;
         border-radius: 18px;
         border: 1px solid rgba(56, 189, 248, 0.2);
         margin-bottom: 20px;
+        flex-wrap: wrap;
     }
     .stTabs [data-baseweb="tab"] {
         border-radius: 12px !important;
-        padding: 12px 22px !important;
+        padding: 10px 18px !important;
         font-weight: 700 !important;
-        font-size: 0.96rem !important;
+        font-size: 0.94rem !important;
         color: #94A3B8 !important;
         background: transparent !important;
         border: none !important;
@@ -256,7 +292,7 @@ st.markdown("""
 
 
 # ==========================================
-# 2. دوال مختبر فحص وتجهيز البيانات (Data Preparation Engine)
+# 2. دوال مختبر فحص وتجهيز البيانات
 # ==========================================
 
 @st.cache_data
@@ -434,7 +470,7 @@ else:
 
 
 # ==========================================
-# 4. الترويسة العلوية للمنصة (Top Header - English Name Only)
+# 4. الترويسة العلوية للمنصة (Top Header)
 # ==========================================
 st.markdown(f"""
 <div class="top-navbar">
@@ -442,10 +478,10 @@ st.markdown(f"""
         {logo_html}
         <div>
             <h1 class="brand-title">SOCIO LAB</h1>
-            <p class="brand-sub">منصة رقمية للاستشارات المنهجية والإحصائية، التدريب التطبيقي، والحلول الرقمية للبيانات</p>
+            <p class="brand-sub">منصة رقمية للاستشارات المنهجية السوسيولوجية، التحليل الإحصائي، وتجهيز البيانات</p>
         </div>
     </div>
-    <div class="location-badge">📍 حضورياً بجامعة سوق أهراس | 🌐 رقمياً عبر 58 ولاية</div>
+    <div class="location-badge">📍 حضوريا بجامعة سوق أهراس | 🌐 رقميا عبر 58 ولاية</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -458,243 +494,310 @@ with st.expander("🎨 تخصيص شعار المنصة (اضغط هنا لرف�
 
 
 # ==========================================
-# 5. شريط التنقل الرئيسي الواضح للمنصة
+# 5. الهيكلة التفصيلية للصفحات (7 تبويبات متكاملة)
 # ==========================================
 main_tabs = st.tabs([
-    "🏛️ الرئيسية والفئات المستهدفة",
-    "💼 خدماتنا الاستشارية والميدانية",
-    "🎓 الدورات التكوينية والتدريب",
-    "🔬 المختبر الرقمي لفحص وتجهيز الاستبيانات",
-    "📅 بوابة حجز خدمة أو التسجيل في دورة"
+    "🏛️ الرئيسية (Home)",
+    "🧭 من نحن (About Us)",
+    "💼 خدماتنا (Services)",
+    "🎓 الدورات التكوينية",
+    "🧰 مكتبة الأدوات (Resources)",
+    "📰 المدونة (Blog)",
+    "📅 اطلب خدمة / استشارة"
 ])
 
 
 # ==========================================
-# التبويب 1: الرئيسية والفئات المستهدفة
+# 1. الصفحة الرئيسية (Home)
 # ==========================================
 with main_tabs[0]:
     st.markdown("""
     <div class="hero-box">
-        <h2 class="hero-title">مرحباً بك في المنصة الرقمية SOCIO LAB – شريكك العلمي والمؤسسي الموثوق</h2>
+        <h2 class="hero-title">من الفكرة البحثية إلى النتائج المحكمة.. شريكك المنهجي والإحصائي الدقيق.</h2>
         <p class="hero-desc">
-            تجمع المنصة الرقمية <b>SOCIO LAB</b> بين <b>الفضاء الحضوري</b> للاستشارات المنهجية والإحصائية والتدريب بجامعة محمد الشريف مساعدية بسوق أهراس،
-            و<b>الخدمات السحابية الذكية</b> الموجهة للطلبة، الباحثين، والمؤسسات في جميع ولايات الجزائر. نهدف إلى مرافقتك علمياً وتقنياً من مرحلة
-            بناء الفكرة وأداة القياس إلى غاية استلام بيانات ميدانية منظفة، موثوقة، ومحللة بدقة وفق ضوابط النزاهة الأكاديمية.
+            في المنصة الرقمية <b>SOCIO LAB</b>، نحول البيانات الميدانية الخام إلى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الدراسات العليا، الباحثين، والمؤسسات في تصميم أدوات القياس، تنظيف البيانات، والتحليل الإحصائي المتقدم وفق أعلى معايير الجودة والنزاهة العلمية.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-heading">🎯 من هم المستفيدون من المنصة الرقمية SOCIO LAB؟ (الفئات المستهدفة)</div>', unsafe_allow_html=True)
-
-    c_t1, c_t2, c_t3 = st.columns(3)
-
-    with c_t1:
+    # الفئات المستهدفة بوضوح
+    st.markdown('<div class="section-heading">🎯 الفئات المستهدفة (من يستفيد من المنصة الرقمية SOCIO LAB؟)</div>', unsafe_allow_html=True)
+    ft1, ft2, ft3 = st.columns(3)
+    with ft1:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">🎓</div>
-            <h3 class="card-title">1. طلبة الليسانس والماستر</h3>
-            <p class="card-text">
-                طلبة جامعة سوق أهراس ومختلف الجامعات الجزائرية المقبلون على إعداد مذكرات التخرج وتقارير التربص الميداني، والذين يحتاجون إلى مرافقة منهجية سليمة في تصميم الاستبيان، تفريغ البيانات، ومعالجتها دون الوقوع في أخطاء إحصائية.
-            </p>
+            <h3 class="card-title">طلبة الليسانس والماستر</h3>
+            <p class="card-text">طلبة جامعة سوق أهراس ومختلف الجامعات الجزائرية المقبلون على إعداد مذكرات التخرج وتقارير التربص الميداني، والذين يبحثون عن مرافقة منهجية وإحصائية دقيقة.</p>
             <span class="badge-tag">مذكرات التخرج</span>
             <span class="badge-tag">تقارير التربص</span>
-            <span class="badge-tag badge-green">أسعار تفضيلية للطلبة</span>
         </div>
         """, unsafe_allow_html=True)
-
-    with c_t2:
+    with ft2:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">🔬</div>
-            <h3 class="card-title">2. طلبة الدكتوراه والباحثون</h3>
-            <p class="card-text">
-                الباحثون الأكاديميون، الأساتذة، وأعضاء فرق ومخابر البحث العلمي (PRFU) الراغبون في تحكيم المقاييس السيكومترية، تدقيق قواعد البيانات الكبرى، وتنسيق الجداول الإحصائية لأطروحات الدكتوراه والمقالات العلمية المحكمة.
-            </p>
+            <h3 class="card-title">طلبة الدكتوراه والباحثون</h3>
+            <p class="card-text">الباحثون الأكاديميون، الأساتذة، وفرق ومخابر البحث الراغبون في تحكيم المقاييس السيكومترية، تنظيف قواعد البيانات، وتنسيق الجداول للنشر في المجلات المصنفة.</p>
             <span class="badge-tag">أطروحات الدكتوراه</span>
-            <span class="badge-tag">مقالات ASJP / Scopus</span>
-            <span class="badge-tag badge-green">تدقيق عالي الدقة</span>
+            <span class="badge-tag">مقالات محكمة</span>
         </div>
         """, unsafe_allow_html=True)
-
-    with c_t3:
+    with ft3:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">🏢</div>
-            <h3 class="card-title">3. المؤسسات، الإدارات، والجمعيات</h3>
-            <p class="card-text">
-                المؤسسات الاقتصادية العمومية والخاصة، الهيئات الإدارية، ومنظمات المجتمع المدني التي تحتاج إلى إنجاز دراسات ميدانية، استطلاعات رأي، قياس رضا المتعاملين، أو تحليل بيانات اجتماعية وميدانية لترشيد قراراتها.
-            </p>
+            <h3 class="card-title">المؤسسات، الإدارات، والجمعيات</h3>
+            <p class="card-text">المؤسسات الاقتصادية العمومية والخاصة، الإدارات، والجمعيات التي تحتاج إلى إنجاز دراسات ميدانية، استطلاعات رأي، وتحليل بيانات اجتماعية لترشيد قراراتها.</p>
             <span class="badge-tag">استطلاعات الرأي</span>
-            <span class="badge-tag">دراسات الأثر الاجتماعي</span>
-            <span class="badge-tag badge-amber">عقود ومرافقة B2B</span>
+            <span class="badge-tag badge-amber">دراسات ميدانية B2B</span>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<div class="section-heading">✨ لماذا تختار المنصة الرقمية SOCIO LAB؟ (ركائز القيمة المضافة والنزاهة)</div>', unsafe_allow_html=True)
-    c_v1, c_v2, c_v3, c_v4 = st.columns(4)
-    with c_v1:
+    # لماذا تختار Socio Lab؟ (4 ركائز أساسية)
+    st.markdown('<div class="section-heading">✨ لماذا تختار المنصة الرقمية SOCIO LAB؟</div>', unsafe_allow_html=True)
+    r1, r2, r3, r4 = st.columns(4)
+    with r1:
         st.markdown("""
         <div class="info-card">
-            <h4 class="card-title">⚖️ النزاهة الأكاديمية</h4>
-            <p class="card-text">نرافق الباحث علمياً وتقنياً ونشرح له خطوات التحليل وتفسير النتائج، ونرفض قاطعاً فبركة البيانات أو إنجاز البحوث نيابة عن الطالب.</p>
+            <div class="card-icon">📖</div>
+            <h4 class="card-title">قراءة سوسيولوجية لا أرقام صماء</h4>
+            <p class="card-text">لا نكتفي باستخراج جداول SPSS، بل نربط المؤشرات الإحصائية بالسياق النظري والميداني لدراستك.</p>
         </div>
         """, unsafe_allow_html=True)
-    with c_v2:
+    with r2:
         st.markdown("""
         <div class="info-card">
-            <h4 class="card-title">⚡ أتمتة تجهيز البيانات</h4>
-            <p class="card-text">منصة رقمية تختصر وقت تنظيف وترميز الاستبيانات وكشف الأخطاء والقيم المفقودة من عدة أيام إلى دقائق معدودة.</p>
+            <div class="card-icon">🎯</div>
+            <h4 class="card-title">دقة منهجية صارمة</h4>
+            <p class="card-text">نعتمد أحدث الأساليب العلمية في بناء المقاييس، حساب الصدق والثبات، واختيار الاختبارات الإحصائية الأنسب لطبيعة متغيراتك.</p>
         </div>
         """, unsafe_allow_html=True)
-    with c_v3:
+    with r3:
         st.markdown("""
         <div class="info-card">
-            <h4 class="card-title">🔒 سرية وحماية البيانات</h4>
-            <p class="card-text">حماية كاملة لسرية قواعد البيانات البحثية والمؤسسية وإخفاء الهوية الشخصية للمبحوثين وفق القانون الجزائري 18-07.</p>
+            <div class="card-icon">🔒</div>
+            <h4 class="card-title">سرية وأمان تام</h4>
+            <p class="card-text">نضمن حماية أفكارك البحثية وبيانات المستجيبين بموجب ميثاق صارم للخصوصية وعدم الإفصاح.</p>
         </div>
         """, unsafe_allow_html=True)
-    with c_v4:
+    with r4:
         st.markdown("""
         <div class="info-card">
-            <h4 class="card-title">🤝 خدمة هجينة (حضوري/رقمي)</h4>
-            <p class="card-text">إمكانية الاستفادة من الجلسات الاستشارية والدورات حضورياً بسوق أهراس أو عن بعد عبر المنصة الرقمية في جميع ولايات الوطن.</p>
+            <div class="card-icon">⏱️</div>
+            <h4 class="card-title">التزام بالمواعيد</h4>
+            <p class="card-text">تسليم المخرجات في الآجال المحددة مع إتاحة جلسات شرح ومناقشة للنتائج قبل موعد دفاعك أو نشرك العلمي.</p>
         </div>
         """, unsafe_allow_html=True)
+
+    # خطوات العمل التفاعلية (How It Works)
+    st.markdown('<div class="section-heading">⚙️ خطوات العمل في SOCIO LAB (How It Works)</div>', unsafe_allow_html=True)
+    st1, st2, st3, st4 = st.columns(4)
+    with st1:
+        st.markdown("""
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <h4 class="card-title">إرسال الطلب والملفات</h4>
+            <p class="card-text">تملأ نموذج الطلب وتحدد الخدمة المطلوبة وترفق مسودة بحثك أو بياناتك.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with st2:
+        st.markdown("""
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <h4 class="card-title">التقييم وتحديد الخطة</h4>
+            <p class="card-text">ندرس ملفك ونوافيك بخطة العمل المقترحة، المدة الزمنية، والتكلفة الدقيقة خلال 24 ساعة.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with st3:
+        st.markdown("""
+        <div class="step-card">
+            <div class="step-num">3</div>
+            <h4 class="card-title">التنفيذ والمتابعة</h4>
+            <p class="card-text">يبدأ العمل المنهجي أو الإحصائي مع إطلاعك على مراحل التقدم خطوة بخطوة.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with st4:
+        st.markdown("""
+        <div class="step-card">
+            <div class="step-num">4</div>
+            <h4 class="card-title">التسليم والشرح</h4>
+            <p class="card-text">تستلم ملفاتك النهائية الجاهزة، مع جلسة توضيحية لشرح النتائج وكيفية الدفاع عنها أمام لجنة المناقشة.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.info("🚀 **دعوتك لطلب استشارة:** انتقل إلى تبويب **«📅 اطلب خدمة / استشارة»** في أعلى الشاشة لبدء مرافقتك البحثية أو المؤسسية الآن.")
 
 
 # ==========================================
-# التبويب 2: خدماتنا الاستشارية والميدانية
+# 2. صفحة من نحن (About Us)
 # ==========================================
 with main_tabs[1]:
-    st.markdown('<div class="section-heading">💼 قائمة الخدمات الأساسية للمنصة الرقمية SOCIO LAB</div>', unsafe_allow_html=True)
-    st.write("نقدم عبر المنصة الرقمية والفضاء الحضوري باقة متكاملة من الخدمات العلمية والتقنية المصممة لتلبية احتياجات الطلبة، الباحثين، والمؤسسات:")
+    st.markdown('<div class="section-heading">🧭 من نحن (About Us)</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="hero-box">
+        <h3 class="card-title" style="font-size:1.5rem; color:#38BDF8 !important;">المنصة الرقمية والمختبر الاستشاري SOCIO LAB</h3>
+        <p class="hero-desc">
+            <b>SOCIO LAB</b> هو مختبر استشاري وبحثي ومنصة رقمية متخصصة في المنهجية السوسيولوجية والتحليل الإحصائي للبيانات الاجتماعية والإنسانية.
+            تأسست المنصة لسد الفجوة بين الجانب النظري في الأبحاث الأكاديمية والتطبيق الميداني والإحصائي الدقيق، عبر تقديم حلول بحثية متكاملة تجمع بين الخبرة الميدانية والتمكن التقني.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    s_col1, s_col2 = st.columns(2)
-
-    with s_col1:
+    ab1, ab2 = st.columns(2)
+    with ab1:
         st.markdown("""
         <div class="info-card">
-            <div class="card-icon">🧭</div>
-            <h3 class="card-title">1. الاستشارات في منهجية البحث العلمي</h3>
+            <div class="card-icon">🔭</div>
+            <h3 class="card-title">رؤيتنا</h3>
             <p class="card-text">
-                جلسات استشارية فردية أو جماعية لضبط إشكالية الدراسة، صياغة الفرضيات، تحديد المتغيرات والمؤشرات الإجرائية، واختيار المنهج العلمي والعينة المناسبة لطبيعة الموضوع.
+                أن نكون المرجع الأول والموثوق للباحثين والمؤسسات في العالم العربي للارتقاء بجودة الإنتاج العلمي والقرارات المبنية على البيانات الدقيقة.
             </p>
-            <span class="badge-tag">حضوري / عن بعد</span>
-            <span class="badge-tag badge-green">متاح للطلبة والباحثين</span>
+        </div>
+        """, unsafe_allow_html=True)
+    with ab2:
+        st.markdown("""
+        <div class="info-card">
+            <div class="card-icon">🎯</div>
+            <h3 class="card-title">رسالتنا</h3>
+            <p class="card-text">
+                تمكين الباحثين وطلبة الماستر والدكتوراه والمؤسسات من إنجاز دراسات ميدانية محكمة، عبر توفير استشارات منهجية احترافية، وأدوات قياس موثوقة، وتحليلات إحصائية دقيقة تلتزم بأخلاقيات البحث العلمي وتنبذ التزييف أو الانتحال.
+            </p>
         </div>
         """, unsafe_allow_html=True)
 
+    st.markdown("""
+    <div class="info-card">
+        <div class="card-icon">🛡️</div>
+        <h3 class="card-title">التزامنا بالنزاهة العلمية وسرية البيانات</h3>
+        <p class="card-text">
+            تعمل المنصة الرقمية <b>SOCIO LAB</b> وفق ميثاق صارم لأخلاقيات البحث العلمي؛ حيث نرفض تماما كتابة المذكرات أو البحوث بالنيابة عن الطالب أو اختلاق بيانات غير حقيقية، ونحصر تدخلنا في الاستشارة المنهجية، بناء وتحكيم أدوات القياس، تنظيف البيانات، والمعالجة الإحصائية المشروعة مع الشرح التعليمي الكامل للباحث، مع ضمان السرية التامة لكافة الملفات والبيانات الشخصية للمبحوثين.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ==========================================
+# 3. صفحة الخدمات (Services)
+# ==========================================
+with main_tabs[2]:
+    st.markdown('<div class="section-heading">💼 خدماتنا البحثية والإحصائية (Services)</div>', unsafe_allow_html=True)
+
+    sv1, sv2 = st.columns(2)
+
+    with sv1:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">📝</div>
-            <h3 class="card-title">2. تصميم الاستبيانات وبناء أدوات جمع البيانات</h3>
+            <h3 class="card-title">أولا: تصميم وبناء أدوات البحث الميداني</h3>
             <p class="card-text">
-                بناء استبيانات ورقية وإلكترونية محكمة، ضبط صياغة الفقرات والمحاور، اختيار مقاييس التقدير المناسبة، ومراجعة صدق وثبات الأداة قبل توزيعها الميداني النهائي.
+                نصمم لك أداة جمع البيانات الملائمة لإشكالية بحثك ومتغيراته بدقة عالية:<br>
+                • صياغة وبناء الاستبيانات الورقية والإلكترونية (Google Forms, KoboToolbox) وفق المحاور والفرضيات.<br>
+                • إعداد أدلة المقابلات المعمقة والملاحظة العلمية للدراسات الكيفية.<br>
+                • تكييف المقاييس العالمية وترجمتها بما يتناسب مع البيئة الاجتماعية والثقافية لعينة الدراسة.
             </p>
-            <span class="badge-tag">تصميم وتحكيم</span>
-            <span class="badge-tag badge-green">استبيانات ومقابلات</span>
+            <div class="output-box">
+                <b>المخرجات:</b> نسخة نهائية من الأداة قابلة للتحكيم والتطبيق الميداني مرفقة بدليل الترميز (Codebook).
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
         st.markdown("""
         <div class="info-card">
-            <div class="card-icon">🗂️</div>
-            <h3 class="card-title">3. تنظيم بيانات الاستبيانات، ترميزها، ومراجعة جودتها</h3>
+            <div class="card-icon">🧭</div>
+            <h3 class="card-title">ثالثا: التحكيم والضبط المنهجي</h3>
             <p class="card-text">
-                تفريغ الاستمارات الميدانية، تحويل الإجابات النصية إلى رموز رقمية قياسية (Codage)، فحص القيم المفقودة، واستبعاد الاستمارات العشوائية أو المتناقضة لتجهيز ملف بيانات نظيف.
+                مراجعة شاملة لخطة البحث لضمان انسجامها المنهجي قبل الشروع في الدراسة الميدانية أو المناقشة:<br>
+                • تدقيق صياغة الإشكالية، التساؤلات، والفرضيات ومدى قابليتها للاختبار.<br>
+                • تحديد نوع العينة وحجمها المناسب لمجتمع الدراسة.<br>
+                • مواءمة الإطار النظري مع مؤشرات القياس الميداني.
             </p>
-            <span class="badge-tag">عبر المنصة الرقمية</span>
-            <span class="badge-tag badge-green">تجهيز قبلي للتحليل</span>
+            <div class="output-box">
+                <b>المخرجات:</b> تقرير مفصل بالملاحظات المنهجية والتعديلات المقترحة خطوة بخطوة.
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
-    with s_col2:
+    with sv2:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">📊</div>
-            <h3 class="card-title">4. الاستشارات الإحصائية وتحليل البيانات</h3>
+            <h3 class="card-title">ثانيا: التحليل الإحصائي وتفريغ البيانات (SPSS)</h3>
             <p class="card-text">
-                إجراء المعالجات الإحصائية المناسبة لفرضيات البحث، استخراج الجداول والرسوم البيانية المنسقة أكاديمياً، مع عقد جلسة شرح منهجية للباحث لتوضيح قراءة المؤشرات وتفسيرها.
+                نحول إجابات المبحوثين إلى نتائج إحصائية دقيقة وقابلة للتفسير:<br>
+                • تفريغ البيانات، ترميزها، وتنظيفها (Data Cleaning) من القيم الشاذة والمفقودة.<br>
+                • حساب الخصائص السيكومترية للأداة (الصدق البنائي، الاتساق الداخلي، ومعامل الثبات ألفا كرونباخ).<br>
+                • إجراء الاختبارات الوصفية (التكرارات، النسب، المتوسطات، الانحراف المعياري) والاستدلالية (اختبارات الفروق، الارتباط، الانحدار) وفق طبيعة التوزيع.
             </p>
-            <span class="badge-tag">تحليل إحصائي دقيق</span>
-            <span class="badge-tag badge-green">مرفق بمذكرة شرح</span>
+            <div class="output-box">
+                <b>المخرجات:</b> ملف مخرجات SPSS الأصلي + تقرير تحليلي منسق بالجداول والرسوم البيانية مع التعليق السوسيولوجي الأولي على كل جدول.
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
         st.markdown("""
         <div class="info-card">
-            <div class="card-icon">🎓</div>
-            <h3 class="card-title">5. المرافقة التقنية والمنهجية في مذكرات التخرج وتقارير التربص</h3>
+            <div class="card-icon">📚</div>
+            <h3 class="card-title">رابعا: التوثيق والتدقيق الأكاديمي</h3>
             <p class="card-text">
-                تدقيق الاتساق المنهجي بين الجانب النظري والتطبيقي، مراجعة سلامة عرض وتفسير الجداول الميدانية، وتدريب الطالب على مهارات العرض والمناقشة العلمية أمام اللجنة.
+                نجهز أوراقك البحثية ومقالاتك للنشر في المجلات المحكمة والمؤتمرات الدولية:<br>
+                • توثيق المراجع في المتن وفي القائمة النهائية بدقة وفق نظام التوثيق العالمي (APA).<br>
+                • التدقيق اللغوي والأسلوبي للنصوص الأكاديمية لضمان سلامة اللغة ورصانة الأسلوب العلمي.<br>
+                • تنسيق الجداول والأشكال البيانية وفق شروط المجلات العلمية المستهدفة.
             </p>
-            <span class="badge-tag">مرافقة أخلاقية نزيهة</span>
-            <span class="badge-tag badge-green">ليسانس وماستر</span>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="info-card">
-            <div class="card-icon">🏢</div>
-            <h3 class="card-title">6. إنجاز الدراسات الميدانية والاستطلاعات للمؤسسات والجمعيات</h3>
-            <p class="card-text">
-                تنفيذ مسوح اجتماعية واستطلاعات رأي متكاملة لصالح المؤسسات الاقتصادية والهيئات والجمعيات، بدءاً من تصميم الاستمارة وجمع البيانات ميدانياً وصولاً إلى تقديم تقرير تحليلي وتوصيات عملية.
-            </p>
-            <span class="badge-tag badge-amber">خدمات المؤسسات B2B</span>
-            <span class="badge-tag">تقارير استراتيجية</span>
+            <div class="output-box">
+                <b>المخرجات:</b> ورقة بحثية أو فصل تطبيقي منسق ومضبوط وفق معايير النشر الأكاديمي.
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
 
 # ==========================================
-# التبويب 3: الدورات التكوينية والتدريب
+# 4. صفحة الدورات التكوينية
 # ==========================================
-with main_tabs[2]:
-    st.markdown('<div class="section-heading">🎓 البرامج والدورات التكوينية التطبيقية (حضورياً وعن بعد)</div>', unsafe_allow_html=True)
-    st.write("تقدم المنصة الرقمية **SOCIO LAB** دورات تدريبية تطبيقية مصغرة ومكثفة موجهة للطلبة، الباحثين، وإطارات المؤسسات لتنمية المهارات المنهجية والإحصائية:")
+with main_tabs[3]:
+    st.markdown('<div class="section-heading">🎓 الدورات التكوينية والتدريب التطبيقي (حضوريا وعن بعد)</div>', unsafe_allow_html=True)
+    st.write("تقدم المنصة الرقمية **SOCIO LAB** دورات تدريبية تطبيقية مصغرة ومكثفة لتطوير مهارات الطلبة، الباحثين، وإطارات المؤسسات:")
 
-    tr_col1, tr_col2 = st.columns(2)
-
-    with tr_col1:
+    tr1, tr2 = st.columns(2)
+    with tr1:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">💻</div>
             <h3 class="card-title">الدورة 1: الأساسيات التطبيقية لتحليل البيانات ببرنامج SPSS</h3>
             <p class="card-text">
                 <b>الفئة المستهدفة:</b> طلبة الليسانس والماستر المبتدئون في التحليل الإحصائي.<br>
-                <b>محاور الدورة:</b> إعداد قاعدة البيانات (Variable View & Data View)، ترميز الاستبيانات وإدخالها، حساب التكرارات والنسب المئوية، المتوسطات والانحراف المعياري، وتنسيق الجداول.
+                <b>المحاور:</b> إعداد قاعدة البيانات، ترميز الاستبيانات وإدخالها، حساب التكرارات والنسب المئوية، المتوسطات والانحراف المعياري، وتنسيق الجداول.
             </p>
-            <span class="badge-tag">المدة: 12 ساعة تطبيقية</span>
+            <span class="badge-tag">12 ساعة تطبيقية</span>
             <span class="badge-tag">حضوري بسوق أهراس / عن بعد</span>
-            <span class="badge-tag badge-green">شهادة مشاركة</span>
         </div>
         """, unsafe_allow_html=True)
 
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">📐</div>
-            <h3 class="card-title">الدورة 2: هندسة الاستبيانات الإلكترونية والورقية وبناء المقاييس</h3>
+            <h3 class="card-title">الدورة 2: هندسة الاستبيانات الإلكترونية وبناء المقاييس</h3>
             <p class="card-text">
                 <b>الفئة المستهدفة:</b> طلبة الدراسات العليا، الباحثون، وإطارات الجمعيات والمؤسسات.<br>
-                <b>محاور الدورة:</b> تحويل الإشكالية والفرضيات إلى محاور وفقرات قياس، تصميم الاستبيان على Google Forms بطريقة احترافية، وتجنب الأخطاء المنهجية الشائعة في صياغة الأسئلة.
+                <b>المحاور:</b> تحويل الفرضيات إلى محاور وفقرات قياس، تصميم الاستبيان على Google Forms و KoboToolbox، وتجنب أخطاء صياغة الأسئلة.
             </p>
-            <span class="badge-tag">المدة: 8 ساعات تطبيقية</span>
-            <span class="badge-tag">حضوري / عن بعد</span>
-            <span class="badge-tag badge-green">تطبيق عملي</span>
+            <span class="badge-tag">8 ساعات تطبيقية</span>
+            <span class="badge-tag badge-green">تطبيق عملي مباشر</span>
         </div>
         """, unsafe_allow_html=True)
 
-    with tr_col2:
+    with tr2:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">📈</div>
-            <h3 class="card-title">الدورة 3: الإحصاء الاستدلالي المتقدم واختبار الفرضيات البحثية</h3>
+            <h3 class="card-title">الدورة 3: الإحصاء الاستدلالي المتقدم واختبار الفرضيات</h3>
             <p class="card-text">
                 <b>الفئة المستهدفة:</b> طلبة الماستر 2، طلبة الدكتوراه، والباحثون الأكاديميون.<br>
-                <b>محاور الدورة:</b> فحص الصدق والثبات، شروط اختيار الاختبارات المعلمية واللامعلمية، اختبارات الارتباط، اختبارات الفروق، تحليل الانحدار، وقراءة وتفسير النتائج علمياً.
+                <b>المحاور:</b> فحص الصدق والثبات، شروط الاختبارات المعلمية واللامعلمية، اختبارات الارتباط والفروق والانحدار، والقراءة السوسيولوجية للنتائج.
             </p>
-            <span class="badge-tag">المدة: 15 ساعة معمقة</span>
-            <span class="badge-tag">حضوري / عن بعد</span>
+            <span class="badge-tag">15 ساعة معمقة</span>
             <span class="badge-tag badge-amber">مستوى متقدم</span>
         </div>
         """, unsafe_allow_html=True)
@@ -702,215 +805,250 @@ with main_tabs[2]:
         st.markdown("""
         <div class="info-card">
             <div class="card-icon">🏛️</div>
-            <h3 class="card-title">الدورة 4: منهجية إعداد البحوث والمذكرات وفق معيار IMRAD و APA</h3>
+            <h3 class="card-title">الدورة 4: منهجية إعداد البحوث والمذكرات وفق IMRAD و APA</h3>
             <p class="card-text">
                 <b>الفئة المستهدفة:</b> طلبة التخرج والباحثون الراغبون في النشر العلمي.<br>
-                <b>محاور الدورة:</b> الهيكلة المنهجية للدراسة الميدانية وفق قالب IMRAD، التوثيق العلمي والمراجع بطريقة APA، عرض ومناقشة النتائج الميدانية، وتقنيات العرض التقديمي يوم المناقشة.
+                <b>المحاور:</b> الهيكلة المنهجية للدراسة الميدانية، التوثيق العلمي والمراجع بطريقة APA، وعرض ومناقشة النتائج الميدانية أمام اللجان العلمية.
             </p>
-            <span class="badge-tag">المدة: 10 ساعات</span>
-            <span class="badge-tag">حضوري / عن بعد</span>
+            <span class="badge-tag">10 ساعات</span>
             <span class="badge-tag badge-green">تحضير للمناقشة والنشر</span>
         </div>
         """, unsafe_allow_html=True)
 
-    st.info("💡 **للتسجيل في إحدى الدورات التكوينية:** انتقل إلى تبويب **«📅 بوابة حجز خدمة أو التسجيل في دورة»** في أعلى المنصة الرقمية واختر الدورة المناسبة لك.")
-
 
 # ==========================================
-# التبويب 4: المختبر الرقمي لفحص وتجهيز الاستبيانات
+# 5. مكتبة الأدوات (Resources) - حاسبة حجم العينة + أداة تجهيز الاستبيانات + قوالب
 # ==========================================
-with main_tabs[3]:
-    st.markdown('<div class="section-heading">🔬 المختبر الرقمي الآلي لفحص جودة الاستبيانات وتجهيزها للتحليل</div>', unsafe_allow_html=True)
-    st.write("""
-    تتيح لك هذه الأداة في المنصة الرقمية **SOCIO LAB** رفع ملف استبيانك الخام (Excel / CSV) ليقوم النظام آلياً بـ **ترميز الإجابات النصية إلى أرقام**،
-    **عكس أوزان العبارات السالبة**، **كشف الاستمارات العشوائية أو المكررة أو الناقصة**، وتصدير ملف بيانات نظيف وجاهز للتحليل الإحصائي.
-    """)
+with main_tabs[4]:
+    st.markdown('<div class="section-heading">🧰 مكتبة الأدوات البحثية التفاعلية (Resources)</div>', unsafe_allow_html=True)
 
-    c_src1, c_src2 = st.columns([3, 1])
-    with c_src1:
-        uploaded_file = st.file_uploader("📂 ارفع ملف استبيانك الخام (Excel أو CSV) أو جرب الأداة على العينة المدمجة:", type=["xlsx", "csv"])
-        if uploaded_file is not None:
-            if uploaded_file.name.endswith(".csv"):
-                user_df = pd.read_csv(uploaded_file)
-            else:
-                user_df = pd.read_excel(uploaded_file)
-            st.session_state.raw_df = user_df
-            coded_df, codebook_df = auto_code_dataframe(user_df)
-            st.session_state.working_df = coded_df
-            st.session_state.codebook_df = codebook_df
-            st.session_state.reversed_done = False
-            st.session_state.cleaned_done = False
-            st.success("تم رفع وترميز ملف الاستبيان بنجاح!")
-    with c_src2:
-        st.write("")
-        st.write("")
-        if st.button("🔄 إعادة ضبط العينة التجريبية"):
-            demo_text, _ = generate_demo_dataset()
-            st.session_state.raw_df = demo_text
-            coded_df, codebook_df = auto_code_dataframe(demo_text)
-            st.session_state.working_df = coded_df
-            st.session_state.codebook_df = codebook_df
-            st.session_state.reversed_done = False
-            st.session_state.cleaned_done = False
-            st.rerun()
-
-    df_current = st.session_state.working_df
-    numeric_cols = [c for c in df_current.columns if c not in ["رمز_الاستمارة", "الجنس", "المستوى_الدراسي"]]
-
-    lab_subtabs = st.tabs([
-        "1️⃣ الترميز الآلي وعكس العبارات",
-        "2️⃣ فحص جودة الاستمارات وتنظيفها",
-        "3️⃣ تنزيل الملف الجاهز وتقرير الجودة"
+    res_tabs = st.tabs([
+        "🧮 حاسبة حجم العينة (Sample Size Calculator)",
+        "🔬 أداة تنظيف وترميز الاستبيانات الآلية",
+        "📑 نماذج استبيانات وقوالب بحثية جاهزة"
     ])
 
-    with lab_subtabs[0]:
-        st.markdown("##### أ. معاينة البيانات النصية الخام مقابل البيانات المرمزة رقمياً:")
+    # أ. حاسبة حجم العينة التفاعلية
+    with res_tabs[0]:
+        st.markdown("""
+        <div class="info-card">
+            <h3 class="card-title">🧮 حاسبة حجم العينة الإحصائية الدقيقة (معادلة كوكران وستيفن ثامبسون)</h3>
+            <p class="card-text">احسب حجم العينة العلمي المناسب لمجتمع دراستك بناء على حجم المجتمع الأصلي، مستوى الثقة، وهامش الخطأ المقبول:</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        cc1, cc2, cc3 = st.columns(3)
+        with cc1:
+            pop_size = st.number_input("حجم مجتمع الدراسة الأصلي (N):", min_value=10, max_value=10000000, value=1000, step=50)
+        with cc2:
+            conf_level = st.selectbox("مستوى الثقة (Confidence Level):", ["95% (Z = 1.96 - المعيار الشائع)", "99% (Z = 2.58)", "90% (Z = 1.645)"])
+        with cc3:
+            margin_err = st.selectbox("هامش الخطأ المقبول (Margin of Error):", ["5% (0.05 - المعيار القياسي)", "3% (0.03)", "1% (0.01)"])
+
+        z_val = 1.96 if "95%" in conf_level else (2.58 if "99%" in conf_level else 1.645)
+        e_val = 0.05 if "5%" in margin_err else (0.03 if "3%" in margin_err else 0.01)
+        p_val = 0.5
+
+        n_inf = (z_val ** 2 * p_val * (1 - p_val)) / (e_val ** 2)
+        sample_size = math.ceil(n_inf / (1 + ((n_inf - 1) / pop_size)))
+
+        st.success(f"🎯 **حجم العينة العلمي الموصى به لدراستك هو:** `{sample_size}` مفردة (استمارة صالحة للتحليل).")
+        st.caption("ملاحظة منهجية: ينصح بتوزيع 10% إضافية من الاستمارات لتعويض الفاقد أو الاستمارات غير المكتملة ميدانيا.")
+
+    # ب. أداة تنظيف وترميز الاستبيانات الآلية
+    with res_tabs[1]:
+        st.write("ارفع ملف استبيانك الخام (Excel / CSV) ليقوم النظام آليا بترميز الإجابات، عكس العبارات السالبة، وكشف الاستمارات العشوائية أو المكررة:")
+        c_src1, c_src2 = st.columns([3, 1])
+        with c_src1:
+            uploaded_file = st.file_uploader("📂 ارفع ملف استبيانك الخام (Excel أو CSV):", type=["xlsx", "csv"])
+            if uploaded_file is not None:
+                user_df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith(".csv") else pd.read_excel(uploaded_file)
+                st.session_state.raw_df = user_df
+                coded_df, codebook_df = auto_code_dataframe(user_df)
+                st.session_state.working_df = coded_df
+                st.session_state.codebook_df = codebook_df
+                st.session_state.reversed_done = False
+                st.session_state.cleaned_done = False
+                st.success("تم رفع وترميز ملف الاستبيان بنجاح!")
+        with c_src2:
+            st.write("")
+            st.write("")
+            if st.button("🔄 إعادة ضبط العينة التجريبية"):
+                demo_text, _ = generate_demo_dataset()
+                st.session_state.raw_df = demo_text
+                coded_df, codebook_df = auto_code_dataframe(demo_text)
+                st.session_state.working_df = coded_df
+                st.session_state.codebook_df = codebook_df
+                st.session_state.reversed_done = False
+                st.session_state.cleaned_done = False
+                st.rerun()
+
+        df_current = st.session_state.working_df
+        numeric_cols = [c for c in df_current.columns if c not in ["رمز_الاستمارة", "الجنس", "المستوى_الدراسي"]]
+
         col_v1, col_v2 = st.columns(2)
         with col_v1:
-            st.caption("📄 الاستبيان النصي الخام (قبل الترميز):")
-            st.dataframe(st.session_state.raw_df, use_container_width=True, height=260)
+            st.caption("📄 البيانات النصية الخام:")
+            st.dataframe(st.session_state.raw_df, use_container_width=True, height=230)
         with col_v2:
-            st.caption("🔢 المصفوفة الرقمية المرمزة آلياً:")
-            st.dataframe(st.session_state.working_df, use_container_width=True, height=260)
+            st.caption("🔢 المصفوفة الرقمية المرمزة آليا:")
+            st.dataframe(st.session_state.working_df, use_container_width=True, height=230)
 
-        st.markdown("##### ب. دليل ترميز المتغيرات المولد آلياً (Codebook):")
-        st.dataframe(st.session_state.codebook_df, use_container_width=True)
-
-        st.markdown("##### ج. أداة عكس أوزان العبارات السالبة (Reverse Coding):")
         default_rev = [c for c in numeric_cols if "عكسية" in c]
-        rev_cols = st.multiselect("حدد العبارات السالبة في استبيانك لقلب أوزانها (5 ↔ 1):", numeric_cols, default=default_rev)
-        if st.button("⚡ تطبيق عكس أوزان العبارات السالبة"):
-            if not st.session_state.reversed_done and rev_cols:
-                for c in rev_cols:
-                    st.session_state.working_df[c] = 6 - pd.to_numeric(st.session_state.working_df[c], errors='coerce')
-                st.session_state.reversed_done = True
-                st.success("تم عكس أوزان العبارات السالبة بنجاح!")
-                st.rerun()
-            elif st.session_state.reversed_done:
-                st.info("تم عكس أوزان هذه العبارات مسبقاً.")
+        rev_cols = st.multiselect("حدد العبارات السالبة لقلب أوزانها (5 ↔ 1):", numeric_cols, default=default_rev)
+        c_act1, c_act2 = st.columns(2)
+        with c_act1:
+            if st.button("⚡ تطبيق عكس أوزان العبارات السالبة"):
+                if not st.session_state.reversed_done and rev_cols:
+                    for c in rev_cols:
+                        st.session_state.working_df[c] = 6 - pd.to_numeric(st.session_state.working_df[c], errors='coerce')
+                    st.session_state.reversed_done = True
+                    st.success("تم عكس الأوزان بنجاح!")
+                    st.rerun()
+        with c_act2:
+            raw_coded_temp, _ = auto_code_dataframe(st.session_state.raw_df)
+            if st.session_state.cleaned_done:
+                raw_coded_temp = raw_coded_temp.loc[st.session_state.working_df.index]
+            pos_item = numeric_cols[0] if len(numeric_cols) > 0 else None
+            neg_item = numeric_cols[3] if len(numeric_cols) > 3 else pos_item
+            audit_df, bad_indices = audit_survey_quality(raw_coded_temp, numeric_cols, pos_item, neg_item)
+            if len(bad_indices) > 0:
+                if st.button(f"🧹 استبعاد {len(bad_indices)} استمارات غير صالحة وتنظيف الملف"):
+                    st.session_state.working_df = st.session_state.working_df.drop(index=bad_indices)
+                    st.session_state.cleaned_done = True
+                    st.success("تم تنظيف قاعدة البيانات بنجاح!")
+                    st.rerun()
 
-    with lab_subtabs[1]:
-        st.markdown("##### 🛡️ الفحص الآلي لجودة الاستمارات وكشف الإجابات العشوائية أو المكررة:")
-        cp1, cp2 = st.columns(2)
-        with cp1:
-            pos_item = st.selectbox("اختر عبارة موجبة مرجعية لفحص اتساق المبحوث:", numeric_cols, index=0)
-        with cp2:
-            neg_idx = 3 if len(numeric_cols) > 3 else 0
-            neg_item = st.selectbox("اختر العبارة المعكوسة المقابلة لها:", numeric_cols, index=neg_idx)
+        st.dataframe(audit_df.sort_values(by="القرار المنهجي", ascending=False), use_container_width=True, height=240)
 
-        raw_coded_temp, _ = auto_code_dataframe(st.session_state.raw_df)
-        if st.session_state.cleaned_done:
-            raw_coded_temp = raw_coded_temp.loc[st.session_state.working_df.index]
-
-        audit_df, bad_indices = audit_survey_quality(raw_coded_temp, numeric_cols, pos_item, neg_item)
-
-        m1, m2, m3 = st.columns(3)
-        m1.metric("إجمالي الاستمارات المفحوصة", f"{len(audit_df)} استمارة")
-        m2.metric("الاستمارات السليمة والمقبولة", f"{len(audit_df) - len(bad_indices)} استمارة")
-        m3.metric("الاستمارات غير الصالحة المرصودة", f"{len(bad_indices)} استمارات")
-
-        st.dataframe(audit_df.sort_values(by="القرار المنهجي", ascending=False), use_container_width=True, height=300)
-
-        if len(bad_indices) > 0:
-            st.warning(f"تم اكتشاف {len(bad_indices)} استمارات تحتوي على إجابات عشوائية مكررة أو متناقضة.")
-            if st.button("🧹 استبعاد الاستمارات غير الصالحة وتنظيف قاعدة البيانات"):
-                st.session_state.working_df = st.session_state.working_df.drop(index=bad_indices)
-                st.session_state.cleaned_done = True
-                st.success("تم تنظيف قاعدة البيانات بنجاح وأصبحت جاهزة تماماً للتحليل!")
-                st.rerun()
-        else:
-            st.success("✅ جميع الاستمارات في قاعدة البيانات الحالية سليمة ومتسقة بنسبة 100%.")
-
-    with lab_subtabs[2]:
-        st.markdown("##### 📥 تنزيل ملفات البيانات المنظفة والمرمزة:")
-        d1, d2, d3 = st.columns(3)
-
+        d1, d2 = st.columns(2)
         csv_bytes = st.session_state.working_df.to_csv(index=False).encode('utf-8-sig')
         with d1:
-            st.download_button("📥 تنزيل ملف البيانات المرمز (Excel / CSV)", data=csv_bytes, file_name="SocioLab_Cleaned_Data.csv", mime="text/csv")
-
+            st.download_button("📥 تنزيل ملف البيانات النظيف (CSV / Excel)", data=csv_bytes, file_name="SocioLab_Cleaned_Data.csv", mime="text/csv")
         codebook_bytes = st.session_state.codebook_df.to_csv(index=False).encode('utf-8-sig')
         with d2:
             st.download_button("📘 تنزيل دليل الترميز (Codebook)", data=codebook_bytes, file_name="SocioLab_Codebook.csv", mime="text/csv")
 
-        with d3:
-            if HAS_PYREADSTAT:
-                sav_path = "SocioLab_Ready.sav"
-                spss_df = st.session_state.working_df.copy()
-                for c in spss_df.columns:
-                    if c != "رمز_الاستمارة":
-                        spss_df[c] = pd.to_numeric(spss_df[c], errors='coerce')
-                    else:
-                        spss_df[c] = spss_df[c].astype(str)
-                clean_cols = {col: f"Q_{i+1}" for i, col in enumerate(spss_df.columns)}
-                col_labels = {f"Q_{i+1}": col for i, col in enumerate(spss_df.columns)}
-                spss_df = spss_df.rename(columns=clean_cols)
-                pyreadstat.write_sav(spss_df, sav_path, column_labels=col_labels)
-                with open(sav_path, "rb") as f:
-                    st.download_button("📊 تنزيل ملف جاهز لبرنامج التحليل (.sav)", data=f, file_name="SocioLab_Ready_Data.sav", mime="application/octet-stream")
-
-        today_str = datetime.date.today().strftime("%Y-%m-%d")
-        cert_id = f"SL-DZ-{datetime.datetime.now().strftime('%Y%m')}-060"
-
-        st.markdown(f"""
-        <div class="holo-cert">
-            {cert_logo_html}
-            <span class="badge-tag badge-green" style="font-size:0.9rem; padding:6px 18px;">★ تقرير فحص وجودة البيانات الميدانية ★</span>
-            <h3 style="color:#FFFFFF; margin-top:14px; margin-bottom:8px;">شهادة مراجعة وتجهيز قاعدة البيانات البحثية</h3>
-            <p style="font-size:1.02rem; color:#E2E8F0 !important; line-height:1.9; max-width:85%; margin:0 auto;">
-                تمت معالجة ومراجعة ملف البيانات عبر المنصة الرقمية <b>SOCIO LAB</b>، وشملت المراجعة: توحيد الترميز الرقمي للمتغيرات،
-                فحص القيم المفقودة، والتأكد من خلو الاستمارات المعتمدة من التطابق المكرر أو الإجابات النمطية الجامدة.
-                إجمالي الاستمارات الصافية الجاهزة للتحليل: (<b>N = {len(df_current)} استمارة</b>).
-            </p>
-            <div style="display:flex; justify-content:space-around; margin-top:24px; padding-top:16px; border-top:1px dashed rgba(148, 163, 184, 0.3); color:#7DD3FC; font-weight:600;">
-                <div>🔖 رقم المرجع: {cert_id}</div>
-                <div>📅 التاريخ: {today_str}</div>
-                <div>🏛️ المنصة الرقمية SOCIO LAB - سوق أهراس</div>
+    # ج. نماذج استبيانات وقوالب بحثية جاهزة
+    with res_tabs[2]:
+        q1, q2, q3 = st.columns(3)
+        with q1:
+            st.markdown("""
+            <div class="info-card">
+                <div class="card-icon">📋</div>
+                <h4 class="card-title">نموذج استبيان سوسيولوجي معياري</h4>
+                <p class="card-text">قالب جاهز مقسم إلى البيانات الشخصية ومحاور القياس وفق مقياس ليكرت الثلاثي والخماسي مع تعليمات الصدق الظاهري.</p>
+                <span class="badge-tag">صيغة Word / PDF</span>
             </div>
+            """, unsafe_allow_html=True)
+        with q2:
+            st.markdown("""
+            <div class="info-card">
+                <div class="card-icon">📑</div>
+                <h4 class="card-title">قالب ورقة بحثية وفق نظام IMRAD</h4>
+                <p class="card-text">نموذج تنسيق أكاديمي للمقالات العلمية ومذكرات التخرج يوضح هيكلة المقدمة، المنهجية، النتائج، والمناقشة.</p>
+                <span class="badge-tag">معيار النشر الدولي</span>
+            </div>
+            """, unsafe_allow_html=True)
+        with q3:
+            st.markdown("""
+            <div class="info-card">
+                <div class="card-icon">🔖</div>
+                <h4 class="card-title">دليل التوثيق المختصر APA 7th</h4>
+                <p class="card-text">ملخص عملي لقواعد توثيق الكتب، المقالات، الرسائل الجامعية، والمواقع الإلكترونية في المتن وقائمة المراجع.</p>
+                <span class="badge-tag badge-green">نسخة عربية محدثة</span>
+            </div>
+            """, unsafe_allow_html=True)
+
+
+# ==========================================
+# 6. المدونة (Blog)
+# ==========================================
+with main_tabs[5]:
+    st.markdown('<div class="section-heading">📰 المدونة المنهجية والإحصائية (Blog)</div>', unsafe_allow_html=True)
+    st.write("مقالات وشروحات تطبيقية مبسطة لمساعدة الباحثين والطلبة على تجنب الأخطاء المنهجية وإتقان أدوات البحث:")
+
+    b1, b2, b3 = st.columns(3)
+    with b1:
+        st.markdown("""
+        <div class="info-card">
+            <span class="badge-tag">شروحات SPSS</span>
+            <h3 class="card-title" style="margin-top:10px;">كيف تختار الاختبار الإحصائي المناسب لفرضيتك؟</h3>
+            <p class="card-text">
+                دليل عملي يوضح الفرق بين الاختبارات المعلمية واللامعلمية، ومتى نستخدم معامل ارتباط بيرسون أو سبيرمان، ومتى نلجأ لاختبار T-Test أو مان-ويتني بناء على شروط التوزيع الطبيعي وحجم العينة.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    with b2:
+        st.markdown("""
+        <div class="info-card">
+            <span class="badge-tag badge-amber">أخطاء منهجية شائعة</span>
+            <h3 class="card-title" style="margin-top:10px;">7 أخطاء قاتلة عند تصميم الاستبيان الميداني</h3>
+            <p class="card-text">
+                تعرف على أبرز الأخطاء التي تفقد الاستبيان صدقه العلمي: الأسئلة المزدوجة، الأسئلة الموجهة لإجابة معينة، إهمال العبارات المعكوسة، وعدم تطابق بدائل الإجابة مع طبيعة المتغير المدروس.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    with b3:
+        st.markdown("""
+        <div class="info-card">
+            <span class="badge-tag badge-green">أخلاقيات البحث العلمي</span>
+            <h3 class="card-title" style="margin-top:10px;">النزاهة الأكاديمية وحماية بيانات المبحوثين</h3>
+            <p class="card-text">
+                لماذا يعد الحفاظ على سرية هوية المبحوثين وأمانة تفريغ البيانات الميدانية حجر الأساس في البحث السوسيولوجي الرصين؟ وكيف تحمي بحثك من شبهات الانتحال أو تزييف النتائج.
+            </p>
         </div>
         """, unsafe_allow_html=True)
 
 
 # ==========================================
-# التبويب 5: بوابة حجز خدمة أو التسجيل في دورة
+# 7. اطلب خدمة / استشارة (Order & Book)
 # ==========================================
-with main_tabs[4]:
-    st.markdown('<div class="section-heading">📅 بوابة طلب استشارة، دراسة ميدانية، أو التسجيل في دورة تكوينية</div>', unsafe_allow_html=True)
-    st.write("يرجى ملء الاستمارة أدناه وتحديد فئتك ونوع الخدمة أو الدورة المطلوبة، وسيتواصل معك فريق المنصة الرقمية **SOCIO LAB** لتأكيد الموعد (حضورياً بجامعة سوق أهراس أو عن بعد):")
+with main_tabs[6]:
+    st.markdown('<div class="section-heading">📅 اطلب خدمة بحثية أو احجز جلسة استشارية (Order & Book)</div>', unsafe_allow_html=True)
+    st.write("املأ النموذج أدناه وأرفق ملفاتك (اختياري)، وسيقوم فريق المنصة الرقمية **SOCIO LAB** بدراسة طلبك وموافاتك بخطة العمل والتكلفة خلال 24 ساعة:")
 
-    with st.form("booking_form"):
-        cf1, cf2 = st.columns(2)
-        with cf1:
-            client_name = st.text_input("👤 الاسم واللقب الكامل (أو اسم المؤسسة/الجمعية):")
-            client_category = st.selectbox("🎯 الفئة المستفيدة:", [
-                "طالب جامعي (ليسانس / ماستر) - جامعة سوق أهراس",
-                "طالب جامعي (ليسانس / ماستر) - جامعة جزائرية أخرى",
-                "طالب دكتوراه / أستاذ باحث / فرقة بحث",
-                "مؤسسة اقتصادية / إدارة عمومية / جمعية"
+    with st.form("order_service_form"):
+        f_col1, f_col2 = st.columns(2)
+        with f_col1:
+            client_name = st.text_input("👤 الاسم الكامل / المؤسسة:")
+            client_contact = st.text_input("📱 البريد الإلكتروني / رقم الواتساب:")
+            client_role = st.selectbox("🎓 الصفة الأكاديمية أو المهنية:", [
+                "طالب ماستر",
+                "طالب دكتوراه",
+                "أستاذ باحث",
+                "مؤسسة أو جمعية",
+                "طالب ليسانس"
             ])
-            client_uni = st.text_input("🏛️ الكلية / الجامعة / اسم الهيئة:")
-        with cf2:
-            service_req = st.selectbox("💼 الخدمة أو الدورة المطلوبة:", [
-                "استشارة في منهجية البحث العلمي وضبط الإشكالية",
-                "تصميم استبيان وبناء أداة جمع البيانات وتحكيمها",
-                "تنظيم بيانات الاستبيان، ترميزها، وتحليلها إحصائياً",
-                "المرافقة المنهجية والتقنية في مذكرة التخرج أو تقرير التربص",
-                "التسجيل في دورة تكوينية: أساسيات التحليل الإحصائي ببرنامج SPSS",
-                "التسجيل في دورة تكوينية: هندسة الاستبيانات وبناء المقاييس",
-                "التسجيل في دورة تكوينية: الإحصاء المتقدم واختبار الفرضيات",
-                "التسجيل في دورة تكوينية: منهجية إعداد البحوث وفق IMRAD و APA",
-                "طلب إنجاز دراسة ميدانية أو استطلاع رأي مؤسسي (B2B)"
-            ])
-            mode_req = st.radio("📍 طريقة الاستفادة المفضلة:", [
-                "حضورياً (مقر SOCIO LAB - جامعة سوق أهراس)",
-                "عن بعد (عبر المنصة الرقمية - متاح لجميع الولايات)"
-            ])
-            client_phone = st.text_input("📱 رقم الهاتف أو البريد الإلكتروني للتواصل:")
+            client_specialty = st.text_input("📚 التخصص العلمي:")
 
-        notes = st.text_area("📝 تفاصيل إضافية حول موضوع بحثك أو احتياجك التدريبي / الميداني:")
-        submitted = st.form_submit_button("✅ إرسال الطلب وتأكيد الحجز")
+        with f_col2:
+            service_type = st.selectbox("💼 نوع الخدمة المطلوبة:", [
+                "تصميم استبيان وبناء أداة بحث",
+                "تحليل إحصائي وتفريغ بيانات SPSS",
+                "ضبط وتحكيم منهجي",
+                "توثيق APA وتدقيق أكاديمي",
+                "باقة متكاملة (من تصميم الأداة إلى التحليل والتقرير)",
+                "التسجيل في دورة تكوينية",
+                "حجز جلسة توجيه فردي"
+            ])
+            deadline_date = st.date_input("📅 الموعد النهائي المقترح للتسليم:", value=datetime.date.today() + datetime.timedelta(days=7))
+            attached_files = st.file_uploader(
+                "📎 إرفاق ملفات (اختياري: Word, Excel, SPSS, PDF):",
+                type=["doc", "docx", "xlsx", "xls", "csv", "sav", "pdf"],
+                accept_multiple_files=True
+            )
+
+        order_desc = st.text_area("📝 وصف مختصر للدراسة أو الطلب:")
+
+        submitted = st.form_submit_button("🚀 إرسال الطلب وحجز الخدمة الآن")
         if submitted:
-            if client_name and client_phone:
-                st.success(f"شكراً لك ({client_name})! تم تسجيل طلبك بخصوص ({service_req}) ضمن فئة ({client_category}) بنجاح. سنتواصل معك خلال 24 ساعة.")
+            if client_name and client_contact:
+                files_count = len(attached_files) if attached_files else 0
+                st.success(
+                    f"تم استلام طلبك بنجاح يا ({client_name})! "
+                    f"الخدمة المطلوبة: ({service_type}) | الموعد المقترح: ({deadline_date}) | عدد الملفات المرفقة: ({files_count}). "
+                    f"سيتواصل معك فريق SOCIO LAB عبر ({client_contact}) خلال 24 ساعة."
+                )
             else:
-                st.warning("يرجى إدخال الاسم ورقم الهاتف أو البريد الإلكتروني لتأكيد الطلب.")
+                st.warning("يرجى إدخال الاسم الكامل ووسيلة التواصل (البريد الإلكتروني أو رقم الواتساب) لإرسال الطلب.")
