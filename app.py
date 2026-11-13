@@ -313,31 +313,21 @@ if "orders_db" not in st.session_state:
     }
 
 # أيقونة SVG احترافية تعبر عن التحليل الإحصائي والبيانات
-stat_svg_icon = """
-<div class="stat-icon-box">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10"></line>
-        <line x1="12" y1="20" x2="12" y2="4"></line>
-        <line x1="6" y1="20" x2="6" y2="14"></line>
-        <path d="M3 3v18h18"></path>
-        <polyline points="6 11 11 7 15 9 20 3"></polyline>
-    </svg>
-</div>
-"""
+# ==========================================
+# 2. تهيئة البيانات وأيقونة التحليل الإحصائي
+# ==========================================
+if "orders_db" not in st.session_state:
+    st.session_state.orders_db = {
+        "SL-2026-101": {
+            "client": "نموذج استرشادي - مذكرة ماستر (علم الاجتماع)",
+            "service": "تحليل إحصائي وتفريغ بيانات SPSS",
+            "stage_idx": 2,
+            "stages": ["تم استلام الملفات", "قيد المراجعة المنهجية", "مرحلة تنظيف البيانات", "التحليل الإحصائي", "جاهز للتسليم"],
+            "notes": "تم الانتهاء من تنظيف 60 استمارة وحساب الصدق والثبات، ويجري استخراج جداول الفرضيات."
+        }
+    }
 
-st.markdown(f"""
-<div class="top-navbar">
-    <div class="brand-box">
-        {stat_svg_icon}
-        <div>
-            <h1 class="brand-title">Socio Lab</h1>
-            <p class="brand-sub">منصة رقمية للاستشارات المنهجية السوسيولوجية، التحليل الإحصائي، وتجهيز البيانات</p>
-        </div>
-    </div>
-    <div class="loc-badge">📍 حضوريا بسوق أهراس | 🌐 رقميا عبر 58 ولاية</div>
-</div>
-""", unsafe_allow_html=True)
-
+st.markdown("""<div class="top-navbar"><div class="brand-box"><div class="stat-icon-box"><span style="font-size:1.6rem;">📊</span></div><div><div class="brand-title">Socio Lab</div><div class="brand-sub">منصة رقمية للاستشارات المنهجية السوسيولوجية، التحليل الإحصائي، وتجهيز البيانات</div></div></div><div class="loc-badge">📍 حضوريا بسوق أهراس | 🌐 رقميا عبر 58 ولاية</div></div>""", unsafe_allow_html=True)
 # ==========================================
 # 3. هيكل الصفحات المتكامل (8 تبويبات)
 # ==========================================
