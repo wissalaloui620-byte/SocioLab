@@ -88,9 +88,9 @@ SERVICES_DATA = {
     },
     "s5": {
         "num": "05",
-        "title": "التوثيق الاكاديمي (APA) والنشر",
-        "short_desc": "ضبط التوثيق في المتن وقائمة المراجع وفق معايير APA، وتنسيق اوراق المؤتمرات والمقالات للنشر المحكم.",
-        "full_desc": "نجهز اوراقك البحثية ومقالاتك ومذكراتك وفق احدث اصدارات نظام التوثيق العالمي APA وقوالب المجلات المحكمة.",
+        "title": "التوثيق الاكاديمي (APA 7) والنشر",
+        "short_desc": "ضبط التوثيق في المتن وقائمة المراجع وفق الاصدار السابع APA، وتنسيق اوراق المؤتمرات والمقالات للنشر المحكم.",
+        "full_desc": "نجهز اوراقك البحثية ومقالاتك ومذكراتك وفق احدث اصدارات نظام التوثيق العالمي APA 7th وقوالب المجلات المحكمة.",
         "deliverables": [
             "مطابقة التوثيق في المتن مع قائمة المراجع النهائية بدقة.",
             "تنسيق الجداول والاشكال البيانية وفق معايير النشر الاكاديمي.",
@@ -115,6 +115,21 @@ SERVICES_DATA = {
         "duration": "تحدد حسب حجم المشروع",
         "color": "#F59E0B",
         "top_class": "amber-top"
+    },
+    "s7": {
+        "num": "07",
+        "title": "مختبر نمذجة المعادلات البنية (SEM)",
+        "short_desc": "تحليلات متقدمة للدكتوراه: اختبار الوساطة والاعتدال والتحليل متعدد المتغيرات عبر SmartPLS و Process Macro.",
+        "full_desc": "خدمة متقدمة موجهة لطلبة الدكتوراه والباحثين الاكاديميين لبناء النماذج السببية المعقدة واختبار المتغيرات الوسيطة والمعدلة.",
+        "deliverables": [
+            "تقييم نموذج القياس (Measurement Model) والصدق التمييزي (HTMT / Fornell).",
+            "تقييم النموذج البنيوي (Structural Model) ومعاملات المسار (Path Coefficients).",
+            "اختبار فرضيات الوساطة (Mediation) والاعتدال (Moderation) عبر Process Macro.",
+            "تقرير اكاديمي متكامل بالجداول والرسوم البيانية للمسارات وفق معايير النشر الدولي."
+        ],
+        "duration": "من 4 الى 7 ايام عمل",
+        "color": "#0284C7",
+        "top_class": "navy-top"
     }
 }
 
@@ -141,7 +156,7 @@ h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {font-famil
 .sl-sigma {width: 38px; height: 38px; background-color: #0F2942; border: 1px solid rgba(20, 184, 166, 0.45); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #2DD4BF; font-weight: 800; font-size: 18px;}
 .sl-logo-script {font-family: 'Great Vibes', cursive !important; font-size: 26px; color: #FFFFFF; line-height: 1;}
 .sl-logo-sub {font-size: 10px; color: #38BDF8; display: block; margin-top: 2px;}
-.sl-nav-links {display: flex; gap: 20px; flex-wrap: wrap;}
+.sl-nav-links {display: flex; gap: 18px; flex-wrap: wrap;}
 .sl-nav-links a {color: #E2E8F0; text-decoration: none; font-size: 13px; font-weight: 600;}
 .sl-nav-links a:hover, .sl-nav-links a.active {color: #38BDF8;}
 .sl-cta-top {background-color: #F59E0B; color: #06182C !important; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 8px; text-decoration: none;}
@@ -163,7 +178,7 @@ h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {font-famil
 .sl-kpi-val {font-size: 15px; font-weight: 700; margin-top: 2px;}
 .sl-reading-box {background-color: #06182C; border-right: 3px solid #38BDF8; padding: 10px 12px; border-radius: 6px; font-size: 12px; color: #E2E8F0; line-height: 1.65;}
 .sl-section {max-width: 1180px; margin: 0 auto; padding: 45px 6%;}
-.sl-sec-head {text-align: center; max-width: 660px; margin: 0 auto 30px auto;}
+.sl-sec-head {text-align: center; max-width: 680px; margin: 0 auto 30px auto;}
 .sl-sec-tag {color: #0284C7; font-size: 12.5px; font-weight: 700;}
 .sl-sec-title {color: #06182C; font-size: 22px; font-weight: 800; margin: 4px 0 8px 0;}
 .sl-sec-sub {color: #64748B; font-size: 13.5px; margin: 0;}
@@ -186,12 +201,15 @@ h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {font-famil
 .sl-clinic-box {background: #06182C; border-radius: 18px; padding: 28px; color: #FFFFFF; border: 1px solid #1E3A5F;}
 .sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 12px; padding: 18px; margin-bottom: 14px;}
 .sl-probe-result {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #06182C; border-radius: 12px; padding: 18px; margin-top: 14px; font-size: 13px; line-height: 1.75; color: #1E293B;}
+.sl-track-banner {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 5px solid #14B8A6; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;}
+.sl-track-banner.adv {border-right-color: #06182C;}
 .sl-detail-box {background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 24px;}
 .sl-deliv-item {background: #F8FAFC; border: 1px solid #E2E8F0; border-right: 3.5px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #1E293B; margin-bottom: 10px;}
 .sl-pill-tab {display: inline-block; padding: 8px 16px; border-radius: 99px; font-size: 12.5px; font-weight: 700; text-decoration: none !important; margin: 4px; border: 1px solid #CBD5E1; color: #334155 !important; background: #FFFFFF;}
 .sl-pill-tab.active {background: #06182C; color: #38BDF8 !important; border-color: #06182C;}
 .sl-back-link {display: inline-block; color: #06182C !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; margin-bottom: 18px; background: #E2E8F0; padding: 7px 16px; border-radius: 8px;}
 .sl-result-banner {background-color: #F0F9FF; border: 1px solid #BAE6FD; border-right: 4px solid #0284C7; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #0F2942;}
+.sl-warn-banner {background-color: #FFFBEB; border: 1px solid #FDE68A; border-right: 4px solid #F59E0B; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #78350F;}
 .sl-email-btn {display: block; text-align: center; background-color: #06182C; color: #38BDF8 !important; border: 1.5px solid #38BDF8; font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 10px; text-decoration: none !important; margin-top: 12px;}
 .sl-integrity {background-color: #06182C; color: #FFFFFF; text-align: center; padding: 45px 6%; margin-top: 35px;}
 .sl-footer {background-color: #04101E; color: #94A3B8; text-align: center; padding: 32px 6%; font-size: 12.5px; border-top: 1px solid #163A5F;}
@@ -209,16 +227,17 @@ if logo_b64:
 else:
     brand_html = '<a href="?view=home" target="_self" class="sl-brand"><div class="sl-sigma">&Sigma;</div><div><div class="sl-logo-script">Socio Lab</div><span class="sl-logo-sub">للتحليل الاحصائي والمنهجية</span></div></a>'
 
-navbar_html = f"""<div class="sl-navbar">{brand_html}<div class="sl-nav-links"><a href="?view=home" target="_self" class="{active_home}">الرئيسية</a><a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والحزم</a><a href="?view=home#tools" target="_self">مختبر الادوات</a><a href="?view=home#clinic-radar" target="_self">العيادة والرادار</a><a href="?view=home#integrity" target="_self">ميثاق النزاهة</a></div><a href="?view=services&srv=s2#order-box" target="_self" class="sl-cta-top">راسلنا لطلب خدمة</a></div>"""
+navbar_html = f"""<div class="sl-navbar">{brand_html}<div class="sl-nav-links"><a href="?view=home" target="_self" class="{active_home}">الرئيسية</a><a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والحزم</a><a href="?view=home#foundation" target="_self">مسار التاسيس</a><a href="?view=home#advanced" target="_self">مسار الدكتوراه</a><a href="?view=home#clinic-radar" target="_self">العيادة والرادار</a></div><a href="?view=services&srv=s2#order-box" target="_self" class="sl-cta-top">راسلنا لطلب خدمة</a></div>"""
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
 # الصفحة الاولى: الواجهة الرئيسية (HOME)
 # =====================================================================
 if st.session_state.current_view == "home":
-    hero_html = """<div class="sl-hero"><div class="sl-hero-grid"><div><div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق APA</div><div class="sl-hero-title">من الفكرة البحثية الى النتائج المحكمة.. <span>شريكك المنهجي والاحصائي الدقيق</span></div><p class="sl-hero-desc">في <strong>Socio Lab</strong> نحول البيانات الميدانية الخام الى رؤى سوسيولوجية وعلمية رصينة. نرافق الباحثين، طلبة الدراسات العليا، والمؤسسات في تصميم ادوات القياس، تنظيف البيانات، والتحليل الاحصائي المتقدم عبر برنامج SPSS.</p><div class="sl-hero-btns"><a href="?view=services&srv=s1" target="_self" class="sl-btn-amber">استكشف الخدمات والحزم الميدانية</a><a href="#tools" target="_self" class="sl-btn-outline">جرب مسبار الفرضيات الذكي</a></div></div><div class="sl-stat-card"><div class="sl-stat-header"><div><div style="font-size:11px; color:#38BDF8; font-weight:700;">نموذج مخرجات Socio Lab</div><div style="font-size:14px; font-weight:700; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div></div><span style="background:rgba(56,189,248,0.18); color:#38BDF8; font-size:11px; padding:3px 8px; border-radius:6px; font-family:monospace;">SPSS v28</span></div><div style="background:#06182C; padding:10px; border-radius:10px; border:1px solid #1E3A5F;"><svg viewBox="0 0 300 95" style="width:100%; height:85px; display:block;"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/><stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/></linearGradient></defs><line x1="10" y1="80" x2="290" y2="80" stroke="#334155" stroke-width="1"/><line x1="150" y1="12" x2="150" y2="80" stroke="#F59E0B" stroke-dasharray="3,3" stroke-width="1.3"/><path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80 Z" fill="url(#g1)"/><path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#38BDF8" stroke-width="2.2"/><text x="150" y="92" fill="#F59E0B" font-size="9" text-anchor="middle">&mu; = 3.84</text></svg></div><div class="sl-kpi-grid"><div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (&alpha;)</div><div class="sl-kpi-val" style="color:#38BDF8;">0.892</div></div><div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (N)</div><div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div><div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (Sig)</div><div class="sl-kpi-val" style="color:#F59E0B;">0.001</div></div></div><div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.</div></div></div></div>"""
+    hero_html = """<div class="sl-hero"><div class="sl-hero-grid"><div><div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق APA 7</div><div class="sl-hero-title">من الفكرة البحثية الى النتائج المحكمة.. <span>شريكك المنهجي والاحصائي الدقيق</span></div><p class="sl-hero-desc">في <strong>Socio Lab</strong> نحول البيانات الميدانية الخام الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الماستر في بناء الاساس المنهجي السليم، وندعم باحثي الدكتوراه والمؤسسات بالتحليلات المتقدمة ونمذجة المعادلات البنية.</p><div class="sl-hero-btns"><a href="?view=services&srv=s1" target="_self" class="sl-btn-amber">استكشف الخدمات والحزم الميدانية</a><a href="#foundation" target="_self" class="sl-btn-outline">مختبر الادوات التفاعلية</a></div></div><div class="sl-stat-card"><div class="sl-stat-header"><div><div style="font-size:11px; color:#38BDF8; font-weight:700;">نموذج مخرجات Socio Lab</div><div style="font-size:14px; font-weight:700; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div></div><span style="background:rgba(56,189,248,0.18); color:#38BDF8; font-size:11px; padding:3px 8px; border-radius:6px; font-family:monospace;">SPSS & PLS</span></div><div style="background:#06182C; padding:10px; border-radius:10px; border:1px solid #1E3A5F;"><svg viewBox="0 0 300 95" style="width:100%; height:85px; display:block;"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/><stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/></linearGradient></defs><line x1="10" y1="80" x2="290" y2="80" stroke="#334155" stroke-width="1"/><line x1="150" y1="12" x2="150" y2="80" stroke="#F59E0B" stroke-dasharray="3,3" stroke-width="1.3"/><path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80 Z" fill="url(#g1)"/><path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#38BDF8" stroke-width="2.2"/><text x="150" y="92" fill="#F59E0B" font-size="9" text-anchor="middle">&mu; = 3.84</text></svg></div><div class="sl-kpi-grid"><div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (&alpha;)</div><div class="sl-kpi-val" style="color:#38BDF8;">0.892</div></div><div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (N)</div><div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div><div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (Sig)</div><div class="sl-kpi-val" style="color:#F59E0B;">0.001</div></div></div><div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.</div></div></div></div>"""
     st.markdown(hero_html, unsafe_allow_html=True)
 
+    # القسم الاول: بطاقات الخدمات (بما فيها مختبر SEM)
     cards_html = ""
     for key, srv in SERVICES_DATA.items():
         cards_html += f'<a href="?view=services&srv={key}" target="_self" class="sl-srv-card {srv["top_class"]}"><div class="sl-srv-num" style="color:{srv["color"]};">{srv["num"]}</div><div class="sl-srv-title">{srv["title"]}</div><p class="sl-srv-desc">{srv["short_desc"]}</p><span class="sl-srv-link">عرض تفاصيل الخدمة وطلبها &larr;</span></a>'
@@ -226,18 +245,126 @@ if st.session_state.current_view == "home":
     services_section = f"""<div id="services" class="sl-section"><div class="sl-sec-head"><div class="sl-sec-tag">حلول منهجية متكاملة</div><div class="sl-sec-title">خدمات منصة Socio Lab</div><p class="sl-sec-sub">اضغط على اي خدمة للانتقال الى صفحتها التفصيلية والاطلاع على المخرجات وطلبها عبر البريد الالكتروني.</p></div><div class="sl-services-grid">{cards_html}</div></div>"""
     st.markdown(services_section, unsafe_allow_html=True)
 
+    # القسم الثاني: حزم الاستشارة المتكاملة للباحث الميداني
     packages_html = """<div id="packages" class="sl-section" style="padding-top:10px;"><div class="sl-sec-head"><div class="sl-sec-tag">حلول شاملة لمراحل البحث</div><div class="sl-sec-title">حزم الاستشارة المتكاملة للباحث الميداني</div><p class="sl-sec-sub">باقات عملية مصممة لمرافقتك في اهم محطتين في مسارك البحثي: النزول الى الميدان والاستعداد للمناقشة.</p></div><div class="sl-pkg-grid"><div class="sl-pkg-card"><span class="sl-pkg-badge">المرحلة الاولى: قبل النزول الى الميدان</span><div style="font-size:19px; font-weight:800; color:#06182C; margin-bottom:8px;">باقة "انطلاق الميدان الامن"</div><p style="font-size:13px; color:#64748B; margin-bottom:14px;">تضمن لك بناء اداة قياس محكمة وعينة ممثلة قبل جمع البيانات لتفادي الاخطاء القاتلة.</p><div class="sl-pkg-item">&#10003; تصميم وبناء اداة البحث (استبيان الكتروني/ورقي او دليل مقابلة).</div><div class="sl-pkg-item">&#10003; الضبط المنهجي للاشكالية والفرضيات وتحكيم المقاييس.</div><div class="sl-pkg-item">&#10003; تحديد نوع وحجم العينة الممثلة بدقة احصائية.</div><a href="?view=services&srv=s1&pkg=p1#order-box" target="_self" class="sl-pkg-btn">اطلب باقة انطلاق الميدان الامن</a></div><div class="sl-pkg-card featured"><span class="sl-pkg-badge" style="background:#06182C; color:#38BDF8;">المرحلة الثانية: التحليل والدفاع</span><div style="font-size:19px; font-weight:800; color:#06182C; margin-bottom:8px;">باقة "المناقشة المحصنة"</div><p style="font-size:13px; color:#64748B; margin-bottom:14px;">تجهزك بنتائج احصائية وكيفية دقيقة وتدربك على الدفاع العلمي امام لجنة المناقشة.</p><div class="sl-pkg-item">&#10003; التحليل الاحصائي الكامل وتنظيف البيانات عبر برنامج SPSS.</div><div class="sl-pkg-item">&#10003; تفريغ وتحليل البيانات الكيفية (المقابلات) ودمجها مع النتائج.</div><div class="sl-pkg-item">&#10003; جلسة تحضيرية افتراضية لشرح الجداول وتوقع اسئلة اللجنة الحرجة.</div><a href="?view=services&srv=s2&pkg=p2#order-box" target="_self" class="sl-pkg-btn amber">اطلب باقة المناقشة المحصنة</a></div></div></div>"""
     st.markdown(packages_html, unsafe_allow_html=True)
 
-    tools_header_html = """<div id="tools" style="max-width:1180px; margin:0 auto; padding:25px 6% 15px 6%;"><div class="sl-sec-head"><div class="sl-sec-tag">مختبر الادوات المجانية</div><div class="sl-sec-title">مسبار الفرضيات والادوات الاحصائية الذكية</div><p class="sl-sec-sub">ادوات تفاعلية فورية لمساعدة الباحث في صياغة الفرضيات، اختيار الاختبار الاحصائي، وحساب حجم العينة.</p></div></div>"""
-    st.markdown(tools_header_html, unsafe_allow_html=True)
+    # =================================================================
+    # المسار الاول: اضافات الباحثين في المستويات التمهيدية (بناء الاساس)
+    # =================================================================
+    found_header = """<div id="foundation" style="max-width:1180px; margin:0 auto; padding:25px 6% 10px 6%;"><div class="sl-track-banner"><div style="font-size:12px; color:#0D9488; font-weight:800;">المسار التمهيدي وبناء الاساس المنهجي</div><div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">ادوات كسر رهبة المنهجية للباحثين الجدد وطلبة الماستر</div><p style="font-size:13px; color:#64748B; margin:0;">بسطنا لك المفاهيم الغامضة، ووفرنا لك قائمة فحص لاستمارتك قبل الطباعة، وحاسبة لتقدير وقت وتكلفة نزولك للميدان.</p></div></div>"""
+    st.markdown(found_header, unsafe_allow_html=True)
 
+    _, f_col1, f_col2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
+
+    # 1. دليل مصطلحات المنهجية ببساطة (Glossary & Jargon Buster)
+    with f_col1:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
+            '1. دليل "مصطلحات المنهجية ببساطة"</div>',
+            unsafe_allow_html=True,
+        )
+        glossary_dict = {
+            "الفرق بين مجتمع البحث والعينة": (
+                "مجتمع البحث هو كل الافراد الذين تنطبق عليهم مشكلتك (مثلا: كل تلاميذ الثانوية في الولاية). "
+                "اما العينة فهي جزء مصغر وممثل تختاره لتطبق عليه الاستبيان لانك لا تستطيع استجواب الجميع."
+            ),
+            "ما هو المتغير المستقل والمتغير التابع؟": (
+                "المتغير المستقل هو السبب او المؤثر (مثل: جماعة الرفاق)، اما المتغير التابع فهو النتيجة "
+                "او السلوك الذي يتاثر به (مثل: السلوك الجانح). انت تقيس كيف يغير المستقل في التابع."
+            ),
+            "ما هو المتغير الوسيط (Mediator)؟": (
+                "هو الجسر او الحلقة الوسطى التي تفسر كيف ينتقل الاثر من السبب الى النتيجة. "
+                "مثال: البطالة (مستقل) تؤدي الى العزلة الاجتماعية (وسيط) التي تقود الى الاكتئاب (تابع)."
+            ),
+            "متى نستخدم الاستمارة ومتى نستخدم المقابلة؟": (
+                "نستخدم الاستمارة (الاستبيان) عندما نريد ارقاما ونسبا من عدد كبير من الناس (منهج كمي). "
+                "ونستخدم المقابلة عندما نريد فهما عميقا لتجارب ودوافع عدد محدود من الحالات (منهج كيفي)."
+            ),
+            "ما معنى الصدق والثبات في الاستبيان؟": (
+                "الصدق يعني ان اسئلتك تقيس فعلا ما وضعت لقياسه ولا تسال عن موضوع اخر. "
+                "اما الثبات (الفا كرونباخ) فيعني ان الاستبيان يعطي نتائج مستقرة لو اعدت تطبيقه في نفس الظروف."
+            ),
+        }
+        selected_term = st.selectbox("اختر المصطلح المنهجي لفهمه ببساطة:", list(glossary_dict.keys()))
+        st.markdown(
+            f'<div class="sl-result-banner"><strong>الشرح المبسط بالمثال:</strong><br>{glossary_dict[selected_term]}</div>',
+            unsafe_allow_html=True,
+        )
+
+    # 2. حاسبة وقت وتكلفة الميدان (Fieldwork Time & Cost Estimator)
+    with f_col2:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
+            '2. حاسبة وقت وتكلفة النزول الميداني</div>',
+            unsafe_allow_html=True,
+        )
+        fw_sample = st.number_input("حجم العينة المستهدفة (عدد الاستمارات/المقابلات):", min_value=5, value=60, step=5)
+        fw_questions = st.number_input("عدد اسئلة الاستمارة او محاور المقابلة:", min_value=5, value=25, step=5)
+        fw_region = st.selectbox(
+            "طبيعة المنطقة الجغرافية للتوزيع:",
+            [
+                "مؤسسة واحدة قريبة (ثانوية / جامعة / شركة)",
+                "مناطق متفرقة داخل نفس المدينة",
+                "مناطق نائية او عدة بلديات متباعدة",
+            ],
+        )
+
+        mins_per_form = round(5 + (fw_questions * 0.4))
+        total_hours = math.ceil((fw_sample * mins_per_form) / 60)
+        factor = 1 if "مؤسسة واحدة" in fw_region else (1.5 if "متفرقة" in fw_region else 2.2)
+        est_days = math.ceil((total_hours / 3) * factor)
+        print_cost = fw_sample * 25
+
+        st.markdown(
+            f'<div class="sl-result-banner">'
+            f'<strong>التقدير الميداني لدراستك:</strong><br>'
+            f'• زمن ملء الاستمارة الواحدة: <strong>{mins_per_form} دقيقة تقريبا</strong><br>'
+            f'• المدة الزمنية المقترحة لانجاز الميدان: <strong>{est_days} ايام عمل ميداني</strong><br>'
+            f'• تكلفة الطباعة التقديرية (ورقي): <strong>{print_cost} دج</strong> (او مجاني عبر Google Forms)'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("<div style='height:15px;'></div>", unsafe_allow_html=True)
+
+    # 3. قالب تشخيص مشاكل استمارة الاستبيان (Self-Audit Checklist)
+    _, chk_col, _ = st.columns([0.06, 0.88, 0.06])
+    with chk_col:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:8px;">'
+            '3. قالب "تشخيص مشاكل استمارة الاستبيان" قبل النزول للميدان (ضع علامة امام ما ينطبق على استمارتك)</div>',
+            unsafe_allow_html=True,
+        )
+        cc1, cc2 = st.columns(2)
+        with cc1:
+            q1 = st.checkbox("كل سؤال يقيس فكرة واحدة فقط (خلو الاستمارة من الاسئلة المزدوجة).", value=True)
+            q2 = st.checkbox("صياغة العبارات محايدة ولا توحي للمبحوث باجابة معينة.", value=True)
+            q3 = st.checkbox("تضمين ورقة تعريفية تطمئن المبحوث بسرية بياناته لاغراض علمية.", value=True)
+        with cc2:
+            q4 = st.checkbox("توافق بدائل الاجابة (مثل مقياس ليكرت الخماسي) مع طبيعة العبارات.", value=True)
+            q5 = st.checkbox("تغطية جميع فرضيات وابعاد الدراسة بأسئلة واضحة ومباشرة.", value=False)
+            q6 = st.checkbox("عرض الاستمارة على اساتذة محكمين او تجريبها على عينة استطلاعية.", value=False)
+
+        score = sum([q1, q2, q3, q4, q5, q6])
+        if score == 6:
+            st.markdown(
+                '<div class="sl-result-banner"><strong>جاهزية الاستمارة (6/6):</strong> ممتاز! استمارتك مستوفية للشروط المنهجية الاساسية وجاهزة للتطبيق الميداني.</div>',
+                unsafe_allow_html=True,
+            )
+        else:
+            st.markdown(
+                f'<div class="sl-warn-banner"><strong>درجة جاهزية الاستمارة ({score}/6):</strong> انتبه! لديك {6 - score} نقاط منهجية غير مكتملة قد تؤدي الى ضعف الصدق او صعوبة التفريغ في SPSS. يمكنك طلب خدمة الضبط والتحكيم لتصحيحها.</div>',
+                unsafe_allow_html=True,
+            )
+
+    # 4. مسبار الفرضيات الذكي + مشخص الاختبار + حاسبة العينة
+    st.markdown("<div style='height:25px;'></div>", unsafe_allow_html=True)
     _, probe_col, _ = st.columns([0.06, 0.88, 0.06])
     with probe_col:
         st.markdown(
             '<div style="font-size:16px; font-weight:800; color:#06182C; margin-bottom:10px;">'
-            '1. مسبار الفرضيات الذكي (صياغة الفرضيات والتساؤلات وتحديد التحليل)'
-            '</div>',
+            '4. مسبار الفرضيات الذكي (صياغة الفرضيات والتساؤلات وتحديد التحليل)</div>',
             unsafe_allow_html=True,
         )
         pc1, pc2, pc3 = st.columns(3)
@@ -260,13 +387,8 @@ if st.session_state.current_view == "home":
                 f'</div>'
             )
             st.markdown(probe_output, unsafe_allow_html=True)
-        else:
-            st.markdown(
-                '<div class="sl-result-banner">اكتب المتغير المستقل والمتغير التابع اعلاه لتوليد التساؤل والفرضيات وخطة التحليل فورا.</div>',
-                unsafe_allow_html=True,
-            )
 
-    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:18px;'></div>", unsafe_allow_html=True)
 
     goal_options = [
         "قياس العلاقة الارتباطية بين متغيرين",
@@ -287,7 +409,7 @@ if st.session_state.current_view == "home":
     _, col_t1, col_t2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
     with col_t1:
         st.markdown(
-            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">2. مشخص الاختبار الاحصائي (SPSS)</div>',
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">5. مشخص الاختبار الاحصائي (SPSS)</div>',
             unsafe_allow_html=True,
         )
         goal = st.selectbox("هدف الفرضية البحثية:", goal_options)
@@ -315,7 +437,7 @@ if st.session_state.current_view == "home":
 
     with col_t2:
         st.markdown(
-            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">3. حاسبة حجم العينة الممثلة</div>',
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">6. حاسبة حجم العينة الممثلة</div>',
             unsafe_allow_html=True,
         )
         pop_size = st.number_input("حجم مجتمع الدراسة الكلي (N):", min_value=10, value=500, step=10)
@@ -333,10 +455,81 @@ if st.session_state.current_view == "home":
             unsafe_allow_html=True,
         )
 
+    # =================================================================
+    # المسار الثاني: اضافات المستويات المتقدمة (الدكتوراه والاكاديميين)
+    # =================================================================
+    adv_header = """<div id="advanced" style="max-width:1180px; margin:0 auto; padding:45px 6% 10px 6%;"><div class="sl-track-banner adv"><div style="font-size:12px; color:#0284C7; font-weight:800;">المسار المتقدم للدكتوراه والباحثين الاكاديميين</div><div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">مختبر النمذجة البنيوية، ضبط التوثيق (APA 7)، والامانة العلمية</div><p style="font-size:13px; color:#64748B; margin:0;">ادوات وخدمات متخصصة لطلبة الدكتوراه والمقبلين على النشر الدولي في المجلات المحكمة.</p></div></div>"""
+    st.markdown(adv_header, unsafe_allow_html=True)
+
+    _, adv_col1, adv_col2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
+
+    # 1. مولد وضابط المراجع وفق APA 7th
+    with adv_col1:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
+            '1. مولد وضابط المراجع الاحترافي (APA 7th Edition)</div>',
+            unsafe_allow_html=True,
+        )
+        ref_type = st.selectbox("نوع المرجع العلمي:", ["كتاب اكاديمي", "مقال في مجلة علمية محكمة", "رسالة ماجستير / اطروحة دكتوراه"])
+        ref_author = st.text_input("لقب واسم المؤلف:", placeholder="مثال: العلوي، وصال")
+        ref_year = st.text_input("سنة النشر:", placeholder="مثال: 2026")
+        ref_title = st.text_input("عنوان الكتاب او المقال:", placeholder="مثال: اثر جماعة الرفاق في تشكل السلوك الجانح")
+        ref_source = st.text_input("دار النشر / اسم المجلة والعدد / الجامعة:", placeholder="مثال: مجلة العلوم الاجتماعية، 14(2)، 45-68")
+
+        if ref_author and ref_year and ref_title:
+            if ref_type == "كتاب اكاديمي":
+                formatted_ref = f"{ref_author} ({ref_year}). <em>{ref_title}</em>. {ref_source}."
+            elif ref_type == "مقال في مجلة علمية محكمة":
+                formatted_ref = f"{ref_author} ({ref_year}). {ref_title}. <em>{ref_source}</em>."
+            else:
+                formatted_ref = f"{ref_author} ({ref_year}). <em>{ref_title}</em> [اطروحة غير منشورة]. {ref_source}."
+
+            in_text = f"({ref_author.split('،')[0]}، {ref_year})"
+            st.markdown(
+                f'<div class="sl-result-banner">'
+                f'<strong>التوثيق في المتن:</strong> {in_text}<br>'
+                f'<strong>في قائمة المراجع (APA 7):</strong><br>{formatted_ref}</div>',
+                unsafe_allow_html=True,
+            )
+        else:
+            st.markdown(
+                '<div class="sl-result-banner">املا بيانات المرجع اعلاه لتوليد الصيغة المطابقة للاصدار السابع (APA 7) في المتن والقائمة.</div>',
+                unsafe_allow_html=True,
+            )
+
+    # 2. محك فحص الانتحال العلمي وضبط الامانة الاكاديمية + مختبر SEM
+    with adv_col2:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
+            '2. محك ضبط الامانة الاكاديمية ومختبر نمذجة المعادلات (SEM)</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            '<div class="sl-detail-box" style="padding:18px; margin-bottom:14px; border-top:3.5px solid #0284C7;">'
+            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">مختبر نمذجة المعادلات البنية (SmartPLS & Process Macro)</div>'
+            '<p style="font-size:12.5px; color:#475569; line-height:1.7; margin-bottom:10px;">'
+            'لاطروحات الدكتوراه التي تتضمن متغيرات وسيطة (Mediation) او معدلة (Moderation) ونماذج سببية متعددة المسارات تتجاوز حدود SPSS التقليدي.</p>'
+            '<a href="?view=services&srv=s7" target="_self" class="sl-srv-link">انتقل الى صفحة خدمة مختبر SEM واطلبها &larr;</a>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            '<div class="sl-detail-box" style="padding:18px; margin-bottom:0; border-top:3.5px solid #F59E0B;">'
+            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">محك فحص الانتحال العلمي وضبط النزاهة</div>'
+            '<p style="font-size:12.5px; color:#475569; line-height:1.7; margin:0;">'
+            '<strong>قواعد ذهبية لتفادي الاستلال:</strong> 1) لا تنقل فقرة حرفيا لاكثر من 40 كلمة دون وضعها بين مزدوجين ورقم الصفحة. '
+            '2) اعتمد اعادة الصياغة المفاهيمية (Paraphrasing) مع الحفاظ على التوثيق. '
+            '3) احتفظ بملفات البيانات الخام الاصلية لاثبات مصداقية النتائج امام لجان الخبرة.</p>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+    # القسم الرابع: عيادة المنهجية والاحصاء المباشرة + رادار الاتجاهات السوسيولوجية
     clinic_subj = urllib.parse.quote("ارسال حالة منهجية لعيادة Socio Lab")
     clinic_radar_html = f"""<div id="clinic-radar" class="sl-section"><div class="sl-hero-grid" style="align-items:start;"><div class="sl-clinic-box"><span style="background:rgba(245,158,11,0.2); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">ركن تفاعلي دوري</span><h3 style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">عيادة المنهجية والاحصاء المباشرة</h3><p style="color:#CBD5E1; font-size:13.5px; line-height:1.75; margin-bottom:16px;">لقاء علمي دوري نفكك فيه ابرز الاخطاء المنهجية والاحصائية الشائعة في رسائل الماستر والدكتوراه (دون ذكر اسماء) مع تقديم التصحيح العلمي المباشر.</p><div style="background:#0F2942; border:1px solid #1E3A5F; border-radius:12px; padding:14px; margin-bottom:16px;"><div style="font-size:12.5px; color:#38BDF8; font-weight:700; margin-bottom:4px;">ملف الجلسة القادمة:</div><div style="font-size:13.5px; color:#FFFFFF; font-weight:600;">"لماذا يفشل اختبار الفرضيات رغم ارتفاع معامل الثبات؟ اخطاء صياغة مؤشرات الاستبيان"</div></div><a href="mailto:{CONTACT_EMAIL}?subject={clinic_subj}" class="sl-btn-amber" style="display:inline-block;">ارسل اشكاليتك المنهجية عبر البريد لمناقشتها</a></div><div><div style="margin-bottom:14px;"><span class="sl-sec-tag">رؤية استشرافية للظواهر الاجتماعية</span><h3 class="sl-sec-title" style="font-size:20px;">رادار الاتجاهات السوسيولوجية</h3></div><div class="sl-radar-card"><div style="font-size:11.5px; color:#0284C7; font-weight:700;">رصد الظواهر الرقمية</div><div style="font-size:15px; font-weight:800; color:#06182C; margin:3px 0;">تحولات التنشئة الاجتماعية في ظل المنصات الخوارزمية</div><p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">تراجع سلطة الوسائط التقليدية امام صناع المحتوى وتاثير ذلك على القيم الاستهلاكية والسلوكيات المستجدة لدى المراهقين. <strong>فرصة بحثية:</strong> قياس اثر التعرض الانتقائي على التمثل القيمي.</p></div><div class="sl-radar-card" style="border-right-color:#F59E0B;"><div style="font-size:11.5px; color:#D97706; font-weight:700;">رصد السلوكيات المستجدة</div><div style="font-size:15px; font-weight:800; color:#06182C; margin:3px 0;">التطبيب الذاتي وسوء استخدام المؤثرات العقلية في الوسط الشباني</div><p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">انتقال الظاهرة من السياقات الهامشية التقليدية الى الفضاءات شبه الحضرية والرقمية. <strong>فرصة بحثية:</strong> تحليل العوامل السوسيو-مؤسساتية المفسرة للانحراف المستحدث.</p></div></div></div></div>"""
     st.markdown(clinic_radar_html, unsafe_allow_html=True)
 
+    # ميثاق النزاهة العلمية
     integrity_html = """<div id="integrity" class="sl-integrity"><div style="max-width:800px; margin:0 auto;"><span style="background:rgba(245,158,11,0.18); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span><div style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في Socio Lab</div><p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة Socio Lab بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p></div></div>"""
     st.markdown(integrity_html, unsafe_allow_html=True)
 
