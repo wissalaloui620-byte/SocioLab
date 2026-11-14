@@ -175,6 +175,79 @@ SERVICES_DATA = {
     }
 }
 
+PACKAGES_DATA = {
+    "p1": {
+        "badge": "المرحلة الاولى: قبل الميدان",
+        "title": "باقة انطلاق الميدان الامن",
+        "full_label": "باقة انطلاق الميدان الامن (تصميم الاداة + الضبط + العينة)",
+        "desc": "تضمن لك بناء اداة قياس محكمة وعينة ممثلة قبل جمع البيانات لتفادي الاخطاء.",
+        "items": [
+            "تصميم وبناء اداة البحث (استبيان الكتروني/ورقي او دليل مقابلة).",
+            "الضبط المنهجي للاشكالية والفرضيات وتحكيم المقاييس.",
+            "تحديد نوع وحجم العينة الممثلة بدقة احصائية."
+        ],
+        "featured": False,
+        "btn_class": "",
+        "srv_ref": "s1"
+    },
+    "p2": {
+        "badge": "المرحلة الثانية: التحليل والدفاع",
+        "title": "باقة المناقشة المحصنة",
+        "full_label": "باقة المناقشة المحصنة (التحليل الاحصائي + الكيفي + جلسة الدفاع)",
+        "desc": "تجهزك بنتائج احصائية وكيفية دقيقة وتدربك على الدفاع العلمي امام لجنة المناقشة.",
+        "items": [
+            "التحليل الاحصائي الكامل وتنظيف البيانات عبر برنامج SPSS.",
+            "تفريغ وتحليل البيانات الكيفية (المقابلات) ودمجها مع النتائج.",
+            "جلسة تحضيرية افتراضية لشرح الجداول وتوقع اسئلة اللجنة الحرجة."
+        ],
+        "featured": True,
+        "btn_class": "amber",
+        "srv_ref": "s2"
+    },
+    "p3": {
+        "badge": "الاكثر طلبا لطلبة الماستر",
+        "title": "باقة المرافقة الشاملة (من الفكرة الى الايداع)",
+        "full_label": "باقة المرافقة الشاملة (تصميم + تحليل + توثيق APA 7 + جلسة دفاع)",
+        "desc": "مرافقة متكاملة تغطي كافة الجوانب المنهجية والاحصائية والتوثيقية لمذكرتك.",
+        "items": [
+            "ضبط الاشكالية والفرضيات وتصميم الاستبيان او دليل المقابلة.",
+            "التحليل الاحصائي الكامل (SPSS) او التحليل الكيفي للبيانات.",
+            "توثيق المراجع وفق APA 7 + جلسة تحضيرية للمناقشة."
+        ],
+        "featured": True,
+        "btn_class": "amber",
+        "srv_ref": "s2"
+    },
+    "p4": {
+        "badge": "للدكتوراه والنشر الدولي",
+        "title": "باقة الدكتوراه والمجلات المحكمة",
+        "full_label": "باقة الدكتوراه والنشر الدولي (نمذجة SEM + مقال محكم + APA 7)",
+        "desc": "مصممة لاطروحات الدكتوراه والباحثين المقبلين على النشر في المجلات المصنفة.",
+        "items": [
+            "التحليل المتقدم ونمذجة المعادلات البنية (SmartPLS / Process).",
+            "استخلاص وتنسيق ورقة بحثية للنشر في المجلات المحكمة.",
+            "تدقيق وتنظيف قائمة المراجع وفق الاصدار السابع APA 7."
+        ],
+        "featured": False,
+        "btn_class": "",
+        "srv_ref": "s7"
+    },
+    "p5": {
+        "badge": "للمؤسسات والجمعيات والمخابر",
+        "title": "باقة مسوح المؤسسات وقياس الاثر",
+        "full_label": "باقة مسوح المؤسسات وقياس الاثر (تصميم المسح + لوحة مؤشرات + تقرير تنفيذي)",
+        "desc": "حلول بحثية متكاملة للجمعيات والمؤسسات لتقييم المشاريع واستطلاعات الراي.",
+        "items": [
+            "تصميم خطة المسح الميداني او الرقمي وتدريب جامعي البيانات.",
+            "معالجة قواعد البيانات الضخمة واستخراج مؤشرات قياس الاثر.",
+            "تقرير تنفيذي شامل بالرسوم البيانية والتوصيات لصناع القرار."
+        ],
+        "featured": False,
+        "btn_class": "",
+        "srv_ref": "s6"
+    }
+}
+
 query_params = st.query_params
 if "view" in query_params:
     st.session_state.current_view = query_params["view"]
@@ -234,10 +307,12 @@ css_styles = (
     ".sl-srv-title {font-size: 16px; font-weight: 700; color: #06182C; margin-bottom: 8px;}"
     ".sl-srv-desc {font-size: 13px; color: #475569; line-height: 1.7; margin: 0 0 14px 0;}"
     ".sl-srv-link {font-size: 12.5px; font-weight: 700; color: #0284C7; display: inline-flex; align-items: center; gap: 4px;}"
-    ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; margin-top: 20px;}"
-    ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 26px; position: relative; box-shadow: 0 4px 15px rgba(10, 25, 47, 0.04);}"
-    ".sl-pkg-card.featured {border-color: #06182C; background: linear-gradient(to bottom, #FFFFFF, #F8FAFC);}"
+    ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;}"
+    ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(10, 25, 47, 0.04); transition: 0.2s;}"
+    ".sl-pkg-card:hover {transform: translateY(-3px); box-shadow: 0 10px 22px rgba(6, 24, 44, 0.08);}"
+    ".sl-pkg-card.featured {border-color: #06182C; background: linear-gradient(to bottom, #FFFFFF, #F0F9FF);}"
     ".sl-pkg-badge {display: inline-block; background: #FEF3C7; color: #B45309; font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px;}"
+    ".sl-pkg-badge.dark {background: #06182C; color: #38BDF8;}"
     ".sl-pkg-item {font-size: 13px; color: #334155; padding: 6px 0; border-bottom: 1px dashed #E2E8F0;}"
     ".sl-pkg-btn {display: block; text-align: center; background: #06182C; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
     ".sl-pkg-btn.amber {background: #F59E0B; color: #06182C !important;}"
@@ -284,10 +359,10 @@ navbar_html = (
     f'<div class="sl-navbar">{brand_html}'
     f'<div class="sl-nav-links">'
     f'<a href="?view=home" target="_self" class="{active_home}">الرئيسية</a>'
-    f'<a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والحزم</a>'
+    f'<a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والباقات</a>'
+    f'<a href="?view=home#packages" target="_self">باقات الباحثين</a>'
     f'<a href="?view=home#foundation" target="_self">مسار التاسيس</a>'
     f'<a href="?view=home#advanced" target="_self">مسار الدكتوراه</a>'
-    f'<a href="?view=home#clinic-radar" target="_self">العيادة والرادار</a>'
     f'</div>'
     f'<a href="?view=services&srv=s2#order-box" target="_self" class="sl-cta-top">راسلنا لطلب خدمة</a>'
     f'</div>'
@@ -308,7 +383,7 @@ if st.session_state.current_view == "home":
         'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الماستر في بناء الاساس المنهجي السليم، '
         'وندعم باحثي الدكتوراه والمؤسسات بالتحليلات المتقدمة ونمذجة المعادلات البنية.</p>'
         '<div class="sl-hero-btns">'
-        '<a href="?view=services&srv=s1" target="_self" class="sl-btn-amber">استكشف الخدمات والحزم</a>'
+        '<a href="#packages" target="_self" class="sl-btn-amber">استكشف باقات Socio Lab</a>'
         '<a href="#foundation" target="_self" class="sl-btn-outline">مختبر الادوات التفاعلية</a>'
         '</div></div>'
         '<div class="sl-stat-card">'
@@ -344,6 +419,7 @@ if st.session_state.current_view == "home":
     )
     st.markdown(hero_html, unsafe_allow_html=True)
 
+    # القسم الاول: بطاقات الخدمات الفردية
     cards_html = ""
     for key, srv in SERVICES_DATA.items():
         cards_html += (
@@ -367,32 +443,36 @@ if st.session_state.current_view == "home":
     )
     st.markdown(services_section, unsafe_allow_html=True)
 
+    # القسم الثاني: الباقات الخمس المتكاملة للباحثين والمؤسسات
+    pkg_cards_html = ""
+    for pk_key, pk in PACKAGES_DATA.items():
+        card_cls = "sl-pkg-card featured" if pk["featured"] else "sl-pkg-card"
+        badge_cls = "sl-pkg-badge dark" if pk["featured"] else "sl-pkg-badge"
+        items_str = ""
+        for it in pk["items"]:
+            items_str += f'<div class="sl-pkg-item">&#10003; {it}</div>'
+        pkg_cards_html += (
+            f'<div class="{card_cls}">'
+            f'<div>'
+            f'<span class="{badge_cls}">{pk["badge"]}</span>'
+            f'<div style="font-size:18px; font-weight:800; color:#06182C; margin-bottom:8px;">{pk["title"]}</div>'
+            f'<p style="font-size:13px; color:#64748B; margin-bottom:14px;">{pk["desc"]}</p>'
+            f'{items_str}'
+            f'</div>'
+            f'<a href="?view=services&srv={pk["srv_ref"]}&pkg={pk_key}#order-box" target="_self" class="sl-pkg-btn {pk["btn_class"]}">'
+            f'اطلب {pk["title"]}</a>'
+            f'</div>'
+        )
+
     packages_html = (
-        '<div id="packages" class="sl-section" style="padding-top:10px;">'
-        '<div class="sl-sec-head">'
-        '<div class="sl-sec-tag">حلول شاملة لمراحل البحث</div>'
-        '<div class="sl-sec-title">حزم الاستشارة المتكاملة للباحث الميداني</div>'
-        '<p class="sl-sec-sub">باقات عملية مصممة لمرافقتك في اهم محطتين: النزول الى الميدان والاستعداد للمناقشة.</p>'
-        '</div>'
-        '<div class="sl-pkg-grid">'
-        '<div class="sl-pkg-card">'
-        '<span class="sl-pkg-badge">المرحلة الاولى: قبل النزول الى الميدان</span>'
-        '<div style="font-size:19px; font-weight:800; color:#06182C; margin-bottom:8px;">باقة "انطلاق الميدان الامن"</div>'
-        '<p style="font-size:13px; color:#64748B; margin-bottom:14px;">تضمن لك بناء اداة قياس محكمة وعينة ممثلة قبل جمع البيانات لتفادي الاخطاء.</p>'
-        '<div class="sl-pkg-item">&#10003; تصميم وبناء اداة البحث (استبيان الكتروني/ورقي او دليل مقابلة).</div>'
-        '<div class="sl-pkg-item">&#10003; الضبط المنهجي للاشكالية والفرضيات وتحكيم المقاييس.</div>'
-        '<div class="sl-pkg-item">&#10003; تحديد نوع وحجم العينة الممثلة بدقة احصائية.</div>'
-        '<a href="?view=services&srv=s1&pkg=p1#order-box" target="_self" class="sl-pkg-btn">اطلب باقة انطلاق الميدان الامن</a>'
-        '</div>'
-        '<div class="sl-pkg-card featured">'
-        '<span class="sl-pkg-badge" style="background:#06182C; color:#38BDF8;">المرحلة الثانية: التحليل والدفاع</span>'
-        '<div style="font-size:19px; font-weight:800; color:#06182C; margin-bottom:8px;">باقة "المناقشة المحصنة"</div>'
-        '<p style="font-size:13px; color:#64748B; margin-bottom:14px;">تجهزك بنتائج احصائية وكيفية دقيقة وتدربك على الدفاع العلمي امام لجنة المناقشة.</p>'
-        '<div class="sl-pkg-item">&#10003; التحليل الاحصائي الكامل وتنظيف البيانات عبر برنامج SPSS.</div>'
-        '<div class="sl-pkg-item">&#10003; تفريغ وتحليل البيانات الكيفية (المقابلات) ودمجها مع النتائج.</div>'
-        '<div class="sl-pkg-item">&#10003; جلسة تحضيرية افتراضية لشرح الجداول وتوقع اسئلة اللجنة الحرجة.</div>'
-        '<a href="?view=services&srv=s2&pkg=p2#order-box" target="_self" class="sl-pkg-btn amber">اطلب باقة المناقشة المحصنة</a>'
-        '</div></div></div>'
+        f'<div id="packages" class="sl-section" style="padding-top:10px;">'
+        f'<div class="sl-sec-head">'
+        f'<div class="sl-sec-tag">حلول شاملة لمختلف المستويات البحثية</div>'
+        f'<div class="sl-sec-title">باقات Socio Lab الاستشارية</div>'
+        f'<p class="sl-sec-sub">اختر الباقة المناسبة لمرحلتك البحثية، ويمكنك دمج اكثر من باقة او خدمة في طلب واحد.</p>'
+        f'</div>'
+        f'<div class="sl-pkg-grid">{pkg_cards_html}</div>'
+        f'</div>'
     )
     st.markdown(packages_html, unsafe_allow_html=True)
 
@@ -703,7 +783,7 @@ if st.session_state.current_view == "home":
         f'<div class="sl-radar-card" style="border-right-color:#F59E0B;">'
         f'<div style="font-size:11.5px; color:#D97706; font-weight:700;">رصد السلوكيات المستجدة</div>'
         f'<div style="font-size:15px; font-weight:800; color:#06182C; margin:3px 0;">التطبيب الذاتي وسوء استخدام المؤثرات العقلية في الوسط الشباني</div>'
-        f'<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">انتقال الظاهرة من السياقات الهامشية الى الفضاءات شبه الحضرية والرقمية. <strong>فرصة بحثية:</strong> تحليل العوامل السوسيو-مؤسساتية المفسرة للانحراف المستحدث.</p>'
+        f'<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">انتقال الظاهرة من السياقات الهامشية التقليدية الى الفضاءات شبه الحضرية والرقمية. <strong>فرصة بحثية:</strong> تحليل العوامل السوسيو-مؤسساتية المفسرة للانحراف المستحدث.</p>'
         f'</div></div></div></div>'
     )
     st.markdown(clinic_radar_html, unsafe_allow_html=True)
@@ -761,17 +841,12 @@ elif st.session_state.current_view == "services":
         unsafe_allow_html=True,
     )
 
-    pkg1_label = "باقة انطلاق الميدان الامن (تصميم الاداة + الضبط + العينة)"
-    pkg2_label = "باقة المناقشة المحصنة (التحليل الاحصائي + الكيفي + جلسة الدفاع)"
-
     options_list = [v["title"] for v in SERVICES_DATA.values()]
-    options_list.append(pkg1_label)
-    options_list.append(pkg2_label)
+    for pk in PACKAGES_DATA.values():
+        options_list.append(pk["full_label"])
 
-    if selected_pkg == "p1":
-        default_selection = [pkg1_label]
-    elif selected_pkg == "p2":
-        default_selection = [pkg2_label]
+    if selected_pkg in PACKAGES_DATA:
+        default_selection = [PACKAGES_DATA[selected_pkg]["full_label"]]
     else:
         default_selection = [current_srv["title"]]
 
