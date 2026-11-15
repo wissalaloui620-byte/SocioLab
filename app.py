@@ -19,7 +19,7 @@ logo_b64 = get_logo_base64(LOGO_FILENAME)
 icon_val = LOGO_FILENAME if os.path.exists(LOGO_FILENAME) else "📊"
 
 st.set_page_config(
-    page_title="Socio Lab | المختبر الاستشاري للبحث السوسيولوجي",
+    page_title="Socio Lab | فضاء علمي رقمي لانتاج المعرفة وتطوير البحث",
     page_icon=icon_val,
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -371,14 +371,14 @@ navbar_html = (
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية (بدون الخدمات والباقات)
+# الصفحة الاولى: الواجهة الرئيسية (HOME)
 # =====================================================================
 if st.session_state.current_view == "home":
     hero_html = (
         '<div class="sl-hero"><div class="sl-hero-grid">'
         '<div>'
         '<div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق APA 7</div>'
-        '<div class="sl-hero-title">من الفكرة البحثية الى النتائج المحكمة.. '
+        '<div class="sl-hero-title">نحن فضاء علمي رقمي لانتاج المعرفة وتطوير البحث.. '
         '<span>شريكك المنهجي والاحصائي الدقيق</span></div>'
         '<p class="sl-hero-desc">في <strong>Socio Lab</strong> نحول البيانات الميدانية الخام '
         'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الماستر في بناء الاساس المنهجي السليم، '
@@ -750,7 +750,6 @@ elif st.session_state.current_view == "services":
     current_srv = SERVICES_DATA[current_key]
     selected_pkg = query_params.get("pkg", "")
 
-    # 1. قسم عرض كافة الخدمات السبع
     cards_html = ""
     for key, srv in SERVICES_DATA.items():
         act_card = "active-card" if key == current_key else ""
@@ -776,7 +775,6 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(all_services_html, unsafe_allow_html=True)
 
-    # 2. تفاصيل الخدمة المختارة حاليا
     deliv_html = ""
     for item in current_srv["deliverables"]:
         deliv_html += f'<div class="sl-deliv-item">&#10003; &nbsp; {item}</div>'
@@ -796,7 +794,6 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(service_detail_html, unsafe_allow_html=True)
 
-    # 3. قسم الباقات الخمس المتكاملة
     pkg_cards_html = ""
     for pk_key, pk in PACKAGES_DATA.items():
         card_cls = "sl-pkg-card featured" if pk["featured"] else "sl-pkg-card"
@@ -829,7 +826,6 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(packages_html, unsafe_allow_html=True)
 
-    # 4. نموذج الطلب متعدد الخيارات عبر البريد الالكتروني
     st.markdown(
         f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:25px 6% 15px 6%;">'
         f'<div class="sl-sec-head" style="margin-bottom:18px;">'
@@ -908,7 +904,7 @@ else:
 
 footer_html = (
     f'<div class="sl-footer">{footer_brand}'
-    f'<div>المختبر الاستشاري للبحث السوسيولوجي والتحليل الاحصائي</div>'
+    f'<div>فضاء علمي رقمي لانتاج المعرفة وتطوير البحث</div>'
     f'<div style="font-size:12px; color:#38BDF8; margin-top:6px;">البريد الرسمي للتواصل: {CONTACT_EMAIL}</div>'
     f'<div style="font-size:11px; color:#64748B; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 Socio Lab</div>'
     f'</div>'
