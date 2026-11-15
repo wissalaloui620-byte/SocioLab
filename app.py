@@ -39,9 +39,9 @@ SERVICES_DATA = {
         ),
         "deliverables": [
             "صياغة محاور وعبارات الاستبيان بدقة علمية خالية من التحيز.",
-            "بناء النسخة الالكترونية عبر Google Forms او KoboToolbox.",
+            "بناء النسخة الالكترونية عبر <span class='ltr'>Google Forms</span> او <span class='ltr'>KoboToolbox</span>.",
             "اعداد دليل المقابلة المعمقة وشبكة الملاحظة للدراسات الكيفية.",
-            "تسليم دليل الترميز (Codebook) لتسهيل ادخال البيانات لاحقا."
+            "تسليم دليل الترميز (<span class='ltr'>Codebook</span>) لتسهيل ادخال البيانات لاحقا."
         ],
         "duration": "من 2 الى 4 ايام عمل",
         "color": "#14B8A6",
@@ -59,10 +59,10 @@ SERVICES_DATA = {
             "سوسيولوجيا مع اختيار الاختبارات الانسب لطبيعة متغيراتك."
         ),
         "deliverables": [
-            "ادخال البيانات وتنظيفها ومعالجة القيم المفقودة والشاذة.",
+            "ادخال البيانات وتنظيفها (<span class='ltr'>Data Cleaning</span>) ومعالجة القيم المفقودة والشاذة.",
             "حساب الصدق البنائي والاتساق الداخلي معامل الفا كرونباخ.",
             "استخراج الجداول الوصفية والاستدلالية والفروق والارتباط.",
-            "تسليم ملف SPSS الاصلي وتقرير Word بالتعليق السوسيولوجي."
+            "تسليم ملف <span class='ltr'>SPSS</span> الاصلي وتقرير <span class='ltr'>Word</span> بالتعليق السوسيولوجي."
         ],
         "duration": "من 3 الى 5 ايام عمل",
         "color": "#06182C",
@@ -102,7 +102,7 @@ SERVICES_DATA = {
         ),
         "deliverables": [
             "تفريغ التسجيلات الصوتية للمقابلات ومجموعات التركيز بدقة.",
-            "الترميز الموضوعاتي وبناء شبكة الفئات التحليلية.",
+            "الترميز الموضوعاتي (<span class='ltr'>Thematic Coding</span>) وبناء شبكة الفئات التحليلية.",
             "دمج النتائج الكيفية مع المؤشرات الكمية في الدراسات المختلطة.",
             "صياغة تقرير تحليلي مدعم بالشواهد النصية من الميدان."
         ],
@@ -119,7 +119,7 @@ SERVICES_DATA = {
         ),
         "full_desc": (
             "نجهز اوراقك البحثية ومقالاتك ومذكراتك وفق احدث اصدارات "
-            "نظام التوثيق العالمي APA 7th وقوالب المجلات المحكمة."
+            "نظام التوثيق العالمي <span class='ltr'>APA 7th</span> وقوالب المجلات المحكمة."
         ),
         "deliverables": [
             "مطابقة التوثيق في المتن مع قائمة المراجع النهائية بدقة.",
@@ -164,9 +164,9 @@ SERVICES_DATA = {
             "لبناء النماذج السببية واختبار المتغيرات الوسيطة والمعدلة."
         ),
         "deliverables": [
-            "تقييم نموذج القياس والصدق التمييزي (HTMT / Fornell).",
-            "تقييم النموذج البنيوي ومعاملات المسار (Path Coefficients).",
-            "اختبار فرضيات الوساطة والاعتدال عبر Process Macro.",
+            "تقييم نموذج القياس والصدق التمييزي (<span class='ltr'>HTMT / Fornell</span>).",
+            "تقييم النموذج البنيوي ومعاملات المسار (<span class='ltr'>Path Coefficients</span>).",
+            "اختبار فرضيات الوساطة والاعتدال عبر <span class='ltr'>Process Macro</span>.",
             "تقرير اكاديمي متكامل بالجداول والرسوم وفق النشر الدولي."
         ],
         "duration": "من 4 الى 7 ايام عمل",
@@ -196,7 +196,7 @@ PACKAGES_DATA = {
         "full_label": "باقة المناقشة المحصنة (التحليل الاحصائي + الكيفي + جلسة الدفاع)",
         "desc": "تجهزك بنتائج احصائية وكيفية دقيقة وتدربك على الدفاع العلمي امام لجنة المناقشة.",
         "items": [
-            "التحليل الاحصائي الكامل وتنظيف البيانات عبر برنامج SPSS.",
+            "التحليل الاحصائي الكامل وتنظيف البيانات عبر برنامج <span class='ltr'>SPSS</span>.",
             "تفريغ وتحليل البيانات الكيفية (المقابلات) ودمجها مع النتائج.",
             "جلسة تحضيرية افتراضية لشرح الجداول وتوقع اسئلة اللجنة الحرجة."
         ],
@@ -211,8 +211,8 @@ PACKAGES_DATA = {
         "desc": "مرافقة متكاملة تغطي كافة الجوانب المنهجية والاحصائية والتوثيقية لمذكرتك.",
         "items": [
             "ضبط الاشكالية والفرضيات وتصميم الاستبيان او دليل المقابلة.",
-            "التحليل الاحصائي الكامل (SPSS) او التحليل الكيفي للبيانات.",
-            "توثيق المراجع وفق APA 7 + جلسة تحضيرية للمناقشة."
+            "التحليل الاحصائي الكامل (<span class='ltr'>SPSS</span>) او التحليل الكيفي للبيانات.",
+            "توثيق المراجع وفق <span class='ltr'>APA 7</span> + جلسة تحضيرية للمناقشة."
         ],
         "featured": True,
         "btn_class": "amber",
@@ -224,9 +224,9 @@ PACKAGES_DATA = {
         "full_label": "باقة الدكتوراه والنشر الدولي (نمذجة SEM + مقال محكم + APA 7)",
         "desc": "مصممة لاطروحات الدكتوراه والباحثين المقبلين على النشر في المجلات المصنفة.",
         "items": [
-            "التحليل المتقدم ونمذجة المعادلات البنية (SmartPLS / Process).",
+            "التحليل المتقدم ونمذجة المعادلات البنية (<span class='ltr'>SmartPLS / Process</span>).",
             "استخلاص وتنسيق ورقة بحثية للنشر في المجلات المحكمة.",
-            "تدقيق وتنظيف قائمة المراجع وفق الاصدار السابع APA 7."
+            "تدقيق وتنظيف قائمة المراجع وفق الاصدار السابع <span class='ltr'>APA 7</span>."
         ],
         "featured": False,
         "btn_class": "",
@@ -259,6 +259,7 @@ if "srv" in query_params and query_params["srv"] in SERVICES_DATA:
 elif "selected_srv" not in st.session_state:
     st.session_state.selected_srv = "s2"
 
+# قواعد التنسيق مع الفصل الدقيق بين العربية (RTL) واللغات الاجنبية (LTR)
 css_styles = (
     "<style>"
     "@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap');"
@@ -266,17 +267,25 @@ css_styles = (
     ".block-container {padding: 0rem !important; max-width: 100% !important;}"
     ".stApp {background-color: #F8FAFC; font-family: 'Cairo', sans-serif !important; direction: rtl; text-align: right; color: #1E293B;}"
     "h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {font-family: 'Cairo', sans-serif;}"
-    ".sl-navbar {background-color: #06182C; border-bottom: 1px solid #163A5F; padding: 10px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999;}"
+    "/* فئات ضبط الاتجاه التلقائي للغات */"
+    ".rtl {direction: rtl; text-align: right; unicode-bidi: isolate;}"
+    ".ltr {direction: ltr; text-align: left; display: inline-block; unicode-bidi: isolate; font-family: sans-serif;}"
+    ".ltr-block {direction: ltr; text-align: left; display: block; unicode-bidi: isolate;}"
+    "/* حقول الادخال تتكيف تلقائيا مع لغة الكتابة عربية او فرنسية او انجليزية */"
+    "input, textarea {unicode-bidi: plaintext !important; font-size: 13px !important; border-radius: 8px !important;}"
+    "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: 8px !important;}"
+    "label p {direction: rtl !important; text-align: right !important; font-size: 13px !important; font-weight: 700 !important; color: #1E293B !important;}"
+    ".sl-navbar {background-color: #06182C; border-bottom: 1px solid #163A5F; padding: 10px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl;}"
     ".sl-brand {display: flex; align-items: center; gap: 12px; text-decoration: none;}"
     ".sl-logo-img {height: 54px; width: auto; border-radius: 10px; object-fit: cover; border: 1px solid rgba(56, 189, 248, 0.25);}"
     ".sl-sigma {width: 38px; height: 38px; background-color: #0F2942; border: 1px solid rgba(20, 184, 166, 0.45); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #2DD4BF; font-weight: 800; font-size: 18px;}"
-    ".sl-logo-script {font-family: 'Great Vibes', cursive !important; font-size: 26px; color: #FFFFFF; line-height: 1;}"
+    ".sl-logo-script {font-family: 'Great Vibes', cursive !important; font-size: 26px; color: #FFFFFF; line-height: 1; direction: ltr;}"
     ".sl-logo-sub {font-size: 10px; color: #38BDF8; display: block; margin-top: 2px;}"
     ".sl-nav-links {display: flex; gap: 18px; flex-wrap: wrap;}"
     ".sl-nav-links a {color: #E2E8F0; text-decoration: none; font-size: 13px; font-weight: 600;}"
     ".sl-nav-links a:hover, .sl-nav-links a.active {color: #38BDF8;}"
     ".sl-cta-top {background-color: #F59E0B; color: #06182C !important; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 8px; text-decoration: none;}"
-    ".sl-hero {background-color: #06182C; background-image: radial-gradient(rgba(56, 189, 248, 0.14) 1px, transparent 1px); background-size: 26px 26px; color: #FFFFFF; padding: 48px 6%; border-bottom: 1px solid #163A5F;}"
+    ".sl-hero {background-color: #06182C; background-image: radial-gradient(rgba(56, 189, 248, 0.14) 1px, transparent 1px); background-size: 26px 26px; color: #FFFFFF; padding: 48px 6%; border-bottom: 1px solid #163A5F; direction: rtl; text-align: right;}"
     ".sl-hero-grid {max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 36px; align-items: center;}"
     "@media (max-width: 900px) {.sl-hero-grid {grid-template-columns: 1fr;} .sl-nav-links {display: none;}}"
     ".sl-badge {display: inline-block; background-color: #0F2942; border: 1px solid rgba(56, 189, 248, 0.35); color: #38BDF8; font-size: 11.5px; font-weight: 600; padding: 5px 14px; border-radius: 99px; margin-bottom: 14px;}"
@@ -291,25 +300,25 @@ css_styles = (
     ".sl-kpi-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; text-align: center;}"
     ".sl-kpi-box {background-color: #06182C; border: 1px solid #1E3A5F; border-radius: 10px; padding: 8px;}"
     ".sl-kpi-label {font-size: 11px; color: #94A3B8;}"
-    ".sl-kpi-val {font-size: 15px; font-weight: 700; margin-top: 2px;}"
+    ".sl-kpi-val {font-size: 15px; font-weight: 700; margin-top: 2px; direction: ltr;}"
     ".sl-reading-box {background-color: #06182C; border-right: 3px solid #38BDF8; padding: 10px 12px; border-radius: 6px; font-size: 12px; color: #E2E8F0; line-height: 1.65;}"
-    ".sl-section {max-width: 1180px; margin: 0 auto; padding: 40px 6%;}"
+    ".sl-section {max-width: 1180px; margin: 0 auto; padding: 40px 6%; direction: rtl; text-align: right;}"
     ".sl-sec-head {text-align: center; max-width: 680px; margin: 0 auto 30px auto;}"
     ".sl-sec-tag {color: #0284C7; font-size: 12.5px; font-weight: 700;}"
     ".sl-sec-title {color: #06182C; font-size: 22px; font-weight: 800; margin: 4px 0 8px 0;}"
     ".sl-sec-sub {color: #64748B; font-size: 13.5px; margin: 0;}"
     ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px;}"
-    ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3.5px solid #14B8A6; border-radius: 14px; padding: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease;}"
+    ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3.5px solid #14B8A6; border-radius: 14px; padding: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease; text-align: right;}"
     ".sl-srv-card:hover {transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10, 25, 47, 0.08); border-color: #38BDF8;}"
     ".sl-srv-card.active-card {border: 2px solid #0284C7; background: #F0F9FF;}"
     ".sl-srv-card.navy-top {border-top-color: #06182C;}"
     ".sl-srv-card.amber-top {border-top-color: #F59E0B;}"
-    ".sl-srv-num {font-size: 16px; font-weight: 800; color: #14B8A6; margin-bottom: 6px;}"
+    ".sl-srv-num {font-size: 16px; font-weight: 800; color: #14B8A6; margin-bottom: 6px; direction: ltr; display: inline-block;}"
     ".sl-srv-title {font-size: 16px; font-weight: 700; color: #06182C; margin-bottom: 8px;}"
     ".sl-srv-desc {font-size: 13px; color: #475569; line-height: 1.7; margin: 0 0 14px 0;}"
     ".sl-srv-link {font-size: 12.5px; font-weight: 700; color: #0284C7; display: inline-flex; align-items: center; gap: 4px;}"
     ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;}"
-    ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(10, 25, 47, 0.04); transition: 0.2s;}"
+    ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(10, 25, 47, 0.04); transition: 0.2s; text-align: right;}"
     ".sl-pkg-card:hover {transform: translateY(-3px); box-shadow: 0 10px 22px rgba(6, 24, 44, 0.08);}"
     ".sl-pkg-card.featured {border-color: #06182C; background: linear-gradient(to bottom, #FFFFFF, #F0F9FF);}"
     ".sl-pkg-badge {display: inline-block; background: #FEF3C7; color: #B45309; font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px;}"
@@ -317,23 +326,19 @@ css_styles = (
     ".sl-pkg-item {font-size: 13px; color: #334155; padding: 6px 0; border-bottom: 1px dashed #E2E8F0;}"
     ".sl-pkg-btn {display: block; text-align: center; background: #06182C; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
     ".sl-pkg-btn.amber {background: #F59E0B; color: #06182C !important;}"
-    ".sl-clinic-box {background: #06182C; border-radius: 18px; padding: 28px; color: #FFFFFF; border: 1px solid #1E3A5F;}"
-    ".sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 12px; padding: 18px; margin-bottom: 14px;}"
-    ".sl-probe-result {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #06182C; border-radius: 12px; padding: 18px; margin-top: 14px; font-size: 13px; line-height: 1.75; color: #1E293B;}"
-    ".sl-track-banner {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 5px solid #14B8A6; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;}"
+    ".sl-clinic-box {background: #06182C; border-radius: 18px; padding: 28px; color: #FFFFFF; border: 1px solid #1E3A5F; text-align: right;}"
+    ".sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 12px; padding: 18px; margin-bottom: 14px; text-align: right;}"
+    ".sl-probe-result {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #06182C; border-radius: 12px; padding: 18px; margin-top: 14px; font-size: 13px; line-height: 1.75; color: #1E293B; text-align: right;}"
+    ".sl-track-banner {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 5px solid #14B8A6; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px; text-align: right;}"
     ".sl-track-banner.adv {border-right-color: #06182C;}"
-    ".sl-detail-box {background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 24px;}"
-    ".sl-deliv-item {background: #F8FAFC; border: 1px solid #E2E8F0; border-right: 3.5px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #1E293B; margin-bottom: 10px;}"
-    ".sl-pill-tab {display: inline-block; padding: 8px 16px; border-radius: 99px; font-size: 12.5px; font-weight: 700; text-decoration: none !important; margin: 4px; border: 1px solid #CBD5E1; color: #334155 !important; background: #FFFFFF;}"
-    ".sl-pill-tab.active {background: #06182C; color: #38BDF8 !important; border-color: #06182C;}"
+    ".sl-detail-box {background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 24px; text-align: right;}"
+    ".sl-deliv-item {background: #F8FAFC; border: 1px solid #E2E8F0; border-right: 3.5px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #1E293B; margin-bottom: 10px; text-align: right;}"
     ".sl-back-link {display: inline-block; color: #06182C !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; margin-bottom: 18px; background: #E2E8F0; padding: 7px 16px; border-radius: 8px;}"
-    ".sl-result-banner {background-color: #F0F9FF; border: 1px solid #BAE6FD; border-right: 4px solid #0284C7; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #0F2942;}"
-    ".sl-warn-banner {background-color: #FFFBEB; border: 1px solid #FDE68A; border-right: 4px solid #F59E0B; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #78350F;}"
+    ".sl-result-banner {background-color: #F0F9FF; border: 1px solid #BAE6FD; border-right: 4px solid #0284C7; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #0F2942; text-align: right;}"
+    ".sl-warn-banner {background-color: #FFFBEB; border: 1px solid #FDE68A; border-right: 4px solid #F59E0B; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #78350F; text-align: right;}"
     ".sl-email-btn {display: block; text-align: center; background-color: #06182C; color: #38BDF8 !important; border: 1.5px solid #38BDF8; font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 10px; text-decoration: none !important; margin-top: 12px;}"
     ".sl-integrity {background-color: #06182C; color: #FFFFFF; text-align: center; padding: 45px 6%; margin-top: 35px;}"
     ".sl-footer {background-color: #04101E; color: #94A3B8; text-align: center; padding: 32px 6%; font-size: 12.5px; border-top: 1px solid #163A5F;}"
-    "div[data-baseweb='select'] > div, input, textarea {font-size: 13px !important; border-radius: 8px !important;}"
-    "label p {font-size: 13px !important; font-weight: 700 !important; color: #1E293B !important;}"
     "</style>"
 )
 
@@ -377,10 +382,10 @@ if st.session_state.current_view == "home":
     hero_html = (
         '<div class="sl-hero"><div class="sl-hero-grid">'
         '<div>'
-        '<div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق APA 7</div>'
+        '<div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق <span class="ltr">APA 7</span></div>'
         '<div class="sl-hero-title">نحن فضاء علمي رقمي لانتاج المعرفة وتطوير البحث.. '
         '<span>شريكك المنهجي والاحصائي الدقيق</span></div>'
-        '<p class="sl-hero-desc">في <strong>Socio Lab</strong> نحول البيانات الميدانية الخام '
+        '<p class="sl-hero-desc">في <strong class="ltr">Socio Lab</strong> نحول البيانات الميدانية الخام '
         'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الماستر في بناء الاساس المنهجي السليم، '
         'وندعم باحثي الدكتوراه والمؤسسات بالتحليلات المتقدمة ونمذجة المعادلات البنية.</p>'
         '<div class="sl-hero-btns">'
@@ -389,10 +394,10 @@ if st.session_state.current_view == "home":
         '</div></div>'
         '<div class="sl-stat-card">'
         '<div class="sl-stat-header"><div>'
-        '<div style="font-size:11px; color:#38BDF8; font-weight:700;">نموذج مخرجات Socio Lab</div>'
+        '<div style="font-size:11px; color:#38BDF8; font-weight:700;">نموذج مخرجات <span class="ltr">Socio Lab</span></div>'
         '<div style="font-size:14px; font-weight:700; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div>'
         '</div>'
-        '<span style="background:rgba(56,189,248,0.18); color:#38BDF8; font-size:11px; padding:3px 8px; border-radius:6px; font-family:monospace;">SPSS & PLS</span>'
+        '<span class="ltr" style="background:rgba(56,189,248,0.18); color:#38BDF8; font-size:11px; padding:3px 8px; border-radius:6px;">SPSS &amp; PLS</span>'
         '</div>'
         '<div style="background:#06182C; padding:10px; border-radius:10px; border:1px solid #1E3A5F;">'
         '<svg viewBox="0 0 300 95" style="width:100%; height:85px; display:block;">'
@@ -407,11 +412,11 @@ if st.session_state.current_view == "home":
         '<text x="150" y="92" fill="#F59E0B" font-size="9" text-anchor="middle">&mu; = 3.84</text>'
         '</svg></div>'
         '<div class="sl-kpi-grid">'
-        '<div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (&alpha;)</div>'
+        '<div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (<span class="ltr">&alpha;</span>)</div>'
         '<div class="sl-kpi-val" style="color:#38BDF8;">0.892</div></div>'
-        '<div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (N)</div>'
+        '<div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (<span class="ltr">N</span>)</div>'
         '<div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div>'
-        '<div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (Sig)</div>'
+        '<div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (<span class="ltr">Sig</span>)</div>'
         '<div class="sl-kpi-val" style="color:#F59E0B;">0.001</div></div>'
         '</div>'
         '<div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) '
@@ -495,7 +500,7 @@ if st.session_state.current_view == "home":
             f'<strong>التقدير الميداني لدراستك:</strong><br>'
             f'• زمن ملء الاستمارة الواحدة: <strong>{mins_per_form} دقيقة تقريبا</strong><br>'
             f'• المدة الزمنية المقترحة لانجاز الميدان: <strong>{est_days} ايام عمل ميداني</strong><br>'
-            f'• تكلفة الطباعة التقديرية (ورقي): <strong>{print_cost} دج</strong> (او مجاني عبر Google Forms)'
+            f'• تكلفة الطباعة التقديرية (ورقي): <strong>{print_cost} دج</strong> (او مجاني عبر <span class="ltr">Google Forms</span>)'
             f'</div>',
             unsafe_allow_html=True,
         )
@@ -527,7 +532,7 @@ if st.session_state.current_view == "home":
             )
         else:
             st.markdown(
-                f'<div class="sl-warn-banner"><strong>درجة جاهزية الاستمارة ({score}/6):</strong> انتبه! لديك {6 - score} نقاط منهجية غير مكتملة قد تؤدي الى ضعف الصدق في SPSS.</div>',
+                f'<div class="sl-warn-banner"><strong>درجة جاهزية الاستمارة ({score}/6):</strong> انتبه! لديك {6 - score} نقاط منهجية غير مكتملة قد تؤدي الى ضعف الصدق في <span class="ltr">SPSS</span>.</div>',
                 unsafe_allow_html=True,
             )
 
@@ -553,9 +558,9 @@ if st.session_state.current_view == "home":
                 f'<div class="sl-probe-result">'
                 f'<div style="font-weight:800; color:#0284C7; margin-bottom:8px;">التشخيص المنهجي المقترح لدراستك:</div>'
                 f'<div style="margin-bottom:6px;"><strong>• التساؤل الرئيسي:</strong> هل توجد علاقة ذات دلالة احصائية بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {s_txt}؟</div>'
-                f'<div style="margin-bottom:6px;"><strong>• الفرضية الصفرية (H0):</strong> لا توجد علاقة ارتباطية او اثر دال احصائيا عند مستوى (0.05) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {s_txt}.</div>'
-                f'<div style="margin-bottom:6px;"><strong>• الفرضية البديلة (H1):</strong> توجد علاقة ارتباطية او اثر دال احصائيا عند مستوى (0.05) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {s_txt}.</div>'
-                f'<div><strong>• مسار التحليل (SPSS):</strong> احسب الثبات (الفا كرونباخ) اولا، ثم اختبر التوزيع الطبيعي؛ استخدم <strong>بيرسون والانحدار الخطي</strong> للبيانات الطبيعية، او <strong>سبيرمان</strong> للرتبية.</div>'
+                f'<div style="margin-bottom:6px;"><strong>• الفرضية الصفرية (<span class="ltr">H0</span>):</strong> لا توجد علاقة ارتباطية او اثر دال احصائيا عند مستوى (0.05) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {s_txt}.</div>'
+                f'<div style="margin-bottom:6px;"><strong>• الفرضية البديلة (<span class="ltr">H1</span>):</strong> توجد علاقة ارتباطية او اثر دال احصائيا عند مستوى (0.05) بين <strong>{indep_var}</strong> و<strong>{dep_var}</strong> {s_txt}.</div>'
+                f'<div><strong>• مسار التحليل (<span class="ltr">SPSS</span>):</strong> احسب الثبات (الفا كرونباخ) اولا، ثم اختبر التوزيع الطبيعي؛ استخدم <strong>بيرسون والانحدار الخطي</strong> للبيانات الطبيعية، او <strong>سبيرمان</strong> للرتبية.</div>'
                 f'</div>'
             )
             st.markdown(probe_output, unsafe_allow_html=True)
@@ -581,7 +586,7 @@ if st.session_state.current_view == "home":
     _, col_t1, col_t2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
     with col_t1:
         st.markdown(
-            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">5. مشخص الاختبار الاحصائي (SPSS)</div>',
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">5. مشخص الاختبار الاحصائي (<span class="ltr">SPSS</span>)</div>',
             unsafe_allow_html=True,
         )
         goal = st.selectbox("هدف الفرضية البحثية:", goal_options)
@@ -603,7 +608,7 @@ if st.session_state.current_view == "home":
 
         st.markdown(
             f'<div class="sl-result-banner"><strong>الاختبار المناسب:</strong> {t_name}<br>'
-            f'<span style="font-family:monospace; font-size:11.5px; color:#0284C7;">{t_path}</span></div>',
+            f'<span class="ltr-block" style="font-family:monospace; font-size:12px; color:#0284C7; margin-top:4px;">{t_path}</span></div>',
             unsafe_allow_html=True,
         )
 
@@ -622,7 +627,7 @@ if st.session_state.current_view == "home":
 
         st.markdown(
             f'<div class="sl-result-banner" style="display:flex; justify-content:space-between; align-items:center;">'
-            f'<span><strong>الحد الادنى للعينة (n):</strong></span>'
+            f'<span><strong>الحد الادنى للعينة (<span class="ltr">n</span>):</strong></span>'
             f'<span style="font-size:18px; font-weight:800; color:#06182C;">{sample_n} مفردة</span></div>',
             unsafe_allow_html=True,
         )
@@ -634,7 +639,7 @@ if st.session_state.current_view == "home":
         '<div id="advanced" style="max-width:1180px; margin:0 auto; padding:45px 6% 10px 6%;">'
         '<div class="sl-track-banner adv">'
         '<div style="font-size:12px; color:#0284C7; font-weight:800;">المسار المتقدم للدكتوراه والباحثين الاكاديميين</div>'
-        '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">مختبر النمذجة البنيوية، ضبط التوثيق (APA 7)، والامانة العلمية</div>'
+        '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">مختبر النمذجة البنيوية، ضبط التوثيق (<span class="ltr">APA 7</span>)، والامانة العلمية</div>'
         '<p style="font-size:13px; color:#64748B; margin:0;">ادوات وخدمات متخصصة لطلبة الدكتوراه والمقبلين على النشر الدولي في المجلات المحكمة.</p>'
         '</div></div>'
     )
@@ -645,49 +650,58 @@ if st.session_state.current_view == "home":
     with adv_col1:
         st.markdown(
             '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
-            '1. مولد وضابط المراجع الاحترافي (APA 7th Edition)</div>',
+            '1. مولد وضابط المراجع الاحترافي (<span class="ltr">APA 7th Edition</span>)</div>',
             unsafe_allow_html=True,
         )
         ref_opts = ["كتاب اكاديمي", "مقال في مجلة علمية محكمة", "رسالة ماجستير / اطروحة دكتوراه"]
         ref_type = st.selectbox("نوع المرجع العلمي:", ref_opts)
-        ref_author = st.text_input("لقب واسم المؤلف:", placeholder="مثال: العلوي، وصال")
+        ref_author = st.text_input("لقب واسم المؤلف (عربي او اجنبي):", placeholder="مثال: العلوي، وصال / Bourdieu, P.")
         ref_year = st.text_input("سنة النشر:", placeholder="مثال: 2026")
-        ref_title = st.text_input("عنوان الكتاب او المقال:", placeholder="مثال: اثر جماعة الرفاق في تشكل السلوك الجانح")
+        ref_title = st.text_input("عنوان الكتاب او المقال:", placeholder="مثال: اثر جماعة الرفاق / La Distinction")
         ref_source = st.text_input("دار النشر / اسم المجلة والعدد / الجامعة:", placeholder="مثال: مجلة العلوم الاجتماعية، 14(2)، 45-68")
 
         if ref_author and ref_year and ref_title:
+            # كشف اتجاه لغة المرجع تلقائيا (عربي RTL او فرنسي/انجليزي LTR)
+            is_latin = ref_author.strip()[0].isascii()
+            ref_dir_class = "ltr-block" if is_latin else "rtl"
+            sep_comma = ", " if is_latin else "، "
+            thesis_label = "[Unpublished doctoral dissertation]" if is_latin else "[اطروحة غير منشورة]"
+
             if ref_type == "كتاب اكاديمي":
                 formatted_ref = f"{ref_author} ({ref_year}). <em>{ref_title}</em>. {ref_source}."
             elif ref_type == "مقال في مجلة علمية محكمة":
                 formatted_ref = f"{ref_author} ({ref_year}). {ref_title}. <em>{ref_source}</em>."
             else:
-                formatted_ref = f"{ref_author} ({ref_year}). <em>{ref_title}</em> [اطروحة غير منشورة]. {ref_source}."
+                formatted_ref = f"{ref_author} ({ref_year}). <em>{ref_title}</em> {thesis_label}. {ref_source}."
 
-            in_text = f"({ref_author.split('،')[0]}، {ref_year})"
+            author_last = ref_author.split(",")[0].split("،")[0]
+            in_text = f"({author_last}{sep_comma}{ref_year})"
+
             st.markdown(
                 f'<div class="sl-result-banner">'
-                f'<strong>التوثيق في المتن:</strong> {in_text}<br>'
-                f'<strong>في قائمة المراجع (APA 7):</strong><br>{formatted_ref}</div>',
+                f'<strong>التوثيق في المتن:</strong> <span class="{"ltr" if is_latin else "rtl"}">{in_text}</span><br>'
+                f'<strong>في قائمة المراجع (<span class="ltr">APA 7</span>):</strong>'
+                f'<div class="{ref_dir_class}" style="margin-top:4px; font-weight:600;">{formatted_ref}</div></div>',
                 unsafe_allow_html=True,
             )
         else:
             st.markdown(
-                '<div class="sl-result-banner">املا بيانات المرجع اعلاه لتوليد الصيغة المطابقة للاصدار السابع (APA 7).</div>',
+                '<div class="sl-result-banner">املا بيانات المرجع اعلاه (بالعربية او الفرنسية او الانجليزية) لتوليد الصيغة المطابقة للاصدار السابع (<span class="ltr">APA 7</span>) بالاتجاه الصحيح.</div>',
                 unsafe_allow_html=True,
             )
 
     with adv_col2:
         st.markdown(
             '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
-            '2. محك ضبط الامانة الاكاديمية ومختبر نمذجة المعادلات (SEM)</div>',
+            '2. محك ضبط الامانة الاكاديمية ومختبر نمذجة المعادلات (<span class="ltr">SEM</span>)</div>',
             unsafe_allow_html=True,
         )
         st.markdown(
             '<div class="sl-detail-box" style="padding:18px; margin-bottom:14px; border-top:3.5px solid #0284C7;">'
-            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">مختبر نمذجة المعادلات البنية (SmartPLS & Process Macro)</div>'
+            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">مختبر نمذجة المعادلات البنية (<span class="ltr">SmartPLS &amp; Process Macro</span>)</div>'
             '<p style="font-size:12.5px; color:#475569; line-height:1.7; margin-bottom:10px;">'
-            'لاطروحات الدكتوراه التي تتضمن متغيرات وسيطة (Mediation) او معدلة (Moderation) ونماذج سببية متعددة المسارات.</p>'
-            '<a href="?view=services&srv=s7" target="_self" class="sl-srv-link">انتقل الى صفحة خدمة مختبر SEM واطلبها &larr;</a>'
+            'لاطروحات الدكتوراه التي تتضمن متغيرات وسيطة (<span class="ltr">Mediation</span>) او معدلة (<span class="ltr">Moderation</span>) ونماذج سببية متعددة المسارات.</p>'
+            '<a href="?view=services&srv=s7" target="_self" class="sl-srv-link">انتقل الى صفحة خدمة مختبر <span class="ltr">SEM</span> واطلبها &larr;</a>'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -696,7 +710,7 @@ if st.session_state.current_view == "home":
             '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">محك فحص الانتحال العلمي وضبط النزاهة</div>'
             '<p style="font-size:12.5px; color:#475569; line-height:1.7; margin:0;">'
             '<strong>قواعد ذهبية لتفادي الاستلال:</strong> 1) لا تنقل فقرة حرفيا لاكثر من 40 كلمة دون مزدوجين ورقم الصفحة. '
-            '2) اعتمد اعادة الصياغة المفاهيمية مع التوثيق. '
+            '2) اعتمد اعادة الصياغة المفاهيمية (<span class="ltr">Paraphrasing</span>) مع التوثيق. '
             '3) احتفظ بملفات البيانات الخام الاصلية لاثبات مصداقية النتائج.</p>'
             '</div>',
             unsafe_allow_html=True,
@@ -736,8 +750,8 @@ if st.session_state.current_view == "home":
         '<div id="integrity" class="sl-integrity">'
         '<div style="max-width:800px; margin:0 auto;">'
         '<span style="background:rgba(245,158,11,0.18); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>'
-        '<div style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في Socio Lab</div>'
-        '<p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة Socio Lab بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
+        '<div style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في <span class="ltr">Socio Lab</span></div>'
+        '<p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة <span class="ltr">Socio Lab</span> بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
         '</div></div>'
     )
     st.markdown(integrity_html, unsafe_allow_html=True)
@@ -767,7 +781,7 @@ elif st.session_state.current_view == "services":
         f'<a href="?view=home" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
         f'<div class="sl-sec-head">'
         f'<div class="sl-sec-tag">حلول منهجية واحصائية متكاملة</div>'
-        f'<div class="sl-sec-title">خدمات منصة Socio Lab</div>'
+        f'<div class="sl-sec-title">خدمات منصة <span class="ltr">Socio Lab</span></div>'
         f'<p class="sl-sec-sub">اختر اي خدمة للاطلاع على مخرجاتها التفصيلية، او انتقل للاسفل لاختيار باقات متكاملة.</p>'
         f'</div>'
         f'<div class="sl-services-grid">{cards_html}</div>'
@@ -818,7 +832,7 @@ elif st.session_state.current_view == "services":
         f'<div id="packages" class="sl-section" style="padding-top:10px;">'
         f'<div class="sl-sec-head">'
         f'<div class="sl-sec-tag">حلول شاملة لمختلف المستويات البحثية</div>'
-        f'<div class="sl-sec-title">باقات Socio Lab الاستشارية</div>'
+        f'<div class="sl-sec-title">باقات <span class="ltr">Socio Lab</span> الاستشارية</div>'
         f'<p class="sl-sec-sub">اختر الباقة المناسبة لمرحلتك البحثية، ويمكنك دمج اكثر من باقة او خدمة في طلب واحد ادناه.</p>'
         f'</div>'
         f'<div class="sl-pkg-grid">{pkg_cards_html}</div>'
@@ -830,7 +844,7 @@ elif st.session_state.current_view == "services":
         f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:25px 6% 15px 6%;">'
         f'<div class="sl-sec-head" style="margin-bottom:18px;">'
         f'<div class="sl-sec-title">اطلب خدماتك او باقاتك (متعدد الخيارات)</div>'
-        f'<p class="sl-sec-sub">حدد خدمة او اكثر من القائمة ادناه لتجهيز رسالة رسمية موجهة الى ({CONTACT_EMAIL}).</p>'
+        f'<p class="sl-sec-sub">حدد خدمة او اكثر من القائمة ادناه لتجهيز رسالة رسمية موجهة الى (<span class="ltr">{CONTACT_EMAIL}</span>).</p>'
         f'</div></div>',
         unsafe_allow_html=True,
     )
@@ -888,7 +902,7 @@ elif st.session_state.current_view == "services":
 
                     st.success(f"تم تجهيز مسودة طلبك ({len(selected_services)} خيارات مختارة) بنجاح يا {client_name}!")
                     st.markdown(
-                        f'<a href="{mailto_link}" class="sl-email-btn">ارسال الطلب الان عبر البريد الالكتروني ({CONTACT_EMAIL})</a>',
+                        f'<a href="{mailto_link}" class="sl-email-btn">ارسال الطلب الان عبر البريد الالكتروني (<span class="ltr">{CONTACT_EMAIL}</span>)</a>',
                         unsafe_allow_html=True,
                     )
                 else:
@@ -905,8 +919,8 @@ else:
 footer_html = (
     f'<div class="sl-footer">{footer_brand}'
     f'<div>فضاء علمي رقمي لانتاج المعرفة وتطوير البحث</div>'
-    f'<div style="font-size:12px; color:#38BDF8; margin-top:6px;">البريد الرسمي للتواصل: {CONTACT_EMAIL}</div>'
-    f'<div style="font-size:11px; color:#64748B; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 Socio Lab</div>'
+    f'<div style="font-size:12px; color:#38BDF8; margin-top:6px;">البريد الرسمي للتواصل: <span class="ltr">{CONTACT_EMAIL}</span></div>'
+    f'<div style="font-size:11px; color:#64748B; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span></div>'
     f'</div>'
 )
 st.markdown(footer_html, unsafe_allow_html=True)
