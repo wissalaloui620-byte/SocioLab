@@ -293,7 +293,7 @@ css_styles = (
     ".sl-kpi-label {font-size: 11px; color: #94A3B8;}"
     ".sl-kpi-val {font-size: 15px; font-weight: 700; margin-top: 2px;}"
     ".sl-reading-box {background-color: #06182C; border-right: 3px solid #38BDF8; padding: 10px 12px; border-radius: 6px; font-size: 12px; color: #E2E8F0; line-height: 1.65;}"
-    ".sl-section {max-width: 1180px; margin: 0 auto; padding: 45px 6%;}"
+    ".sl-section {max-width: 1180px; margin: 0 auto; padding: 40px 6%;}"
     ".sl-sec-head {text-align: center; max-width: 680px; margin: 0 auto 30px auto;}"
     ".sl-sec-tag {color: #0284C7; font-size: 12.5px; font-weight: 700;}"
     ".sl-sec-title {color: #06182C; font-size: 22px; font-weight: 800; margin: 4px 0 8px 0;}"
@@ -301,6 +301,7 @@ css_styles = (
     ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px;}"
     ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3.5px solid #14B8A6; border-radius: 14px; padding: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease;}"
     ".sl-srv-card:hover {transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10, 25, 47, 0.08); border-color: #38BDF8;}"
+    ".sl-srv-card.active-card {border: 2px solid #0284C7; background: #F0F9FF;}"
     ".sl-srv-card.navy-top {border-top-color: #06182C;}"
     ".sl-srv-card.amber-top {border-top-color: #F59E0B;}"
     ".sl-srv-num {font-size: 16px; font-weight: 800; color: #14B8A6; margin-bottom: 6px;}"
@@ -360,17 +361,17 @@ navbar_html = (
     f'<div class="sl-nav-links">'
     f'<a href="?view=home" target="_self" class="{active_home}">الرئيسية</a>'
     f'<a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والباقات</a>'
-    f'<a href="?view=home#packages" target="_self">باقات الباحثين</a>'
     f'<a href="?view=home#foundation" target="_self">مسار التاسيس</a>'
     f'<a href="?view=home#advanced" target="_self">مسار الدكتوراه</a>'
+    f'<a href="?view=home#clinic-radar" target="_self">العيادة والرادار</a>'
     f'</div>'
-    f'<a href="?view=services&srv=s2#order-box" target="_self" class="sl-cta-top">راسلنا لطلب خدمة</a>'
+    f'<a href="?view=services&srv=s2#order-box" target="_self" class="sl-cta-top">الخدمات والباقات</a>'
     f'</div>'
 )
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية (HOME)
+# الصفحة الاولى: الواجهة الرئيسية (بدون الخدمات والباقات)
 # =====================================================================
 if st.session_state.current_view == "home":
     hero_html = (
@@ -383,7 +384,7 @@ if st.session_state.current_view == "home":
         'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الماستر في بناء الاساس المنهجي السليم، '
         'وندعم باحثي الدكتوراه والمؤسسات بالتحليلات المتقدمة ونمذجة المعادلات البنية.</p>'
         '<div class="sl-hero-btns">'
-        '<a href="#packages" target="_self" class="sl-btn-amber">استكشف باقات Socio Lab</a>'
+        '<a href="?view=services&srv=s1" target="_self" class="sl-btn-amber">تصفح الخدمات والباقات الاستشارية</a>'
         '<a href="#foundation" target="_self" class="sl-btn-outline">مختبر الادوات التفاعلية</a>'
         '</div></div>'
         '<div class="sl-stat-card">'
@@ -419,68 +420,11 @@ if st.session_state.current_view == "home":
     )
     st.markdown(hero_html, unsafe_allow_html=True)
 
-    # القسم الاول: بطاقات الخدمات الفردية
-    cards_html = ""
-    for key, srv in SERVICES_DATA.items():
-        cards_html += (
-            f'<a href="?view=services&srv={key}" target="_self" class="sl-srv-card {srv["top_class"]}">'
-            f'<div class="sl-srv-num" style="color:{srv["color"]};">{srv["num"]}</div>'
-            f'<div class="sl-srv-title">{srv["title"]}</div>'
-            f'<p class="sl-srv-desc">{srv["short_desc"]}</p>'
-            f'<span class="sl-srv-link">عرض تفاصيل الخدمة وطلبها &larr;</span>'
-            f'</a>'
-        )
-
-    services_section = (
-        f'<div id="services" class="sl-section">'
-        f'<div class="sl-sec-head">'
-        f'<div class="sl-sec-tag">حلول منهجية متكاملة</div>'
-        f'<div class="sl-sec-title">خدمات منصة Socio Lab</div>'
-        f'<p class="sl-sec-sub">اضغط على اي خدمة للانتقال الى صفحتها التفصيلية واختيار عدة خدمات او باقات معا.</p>'
-        f'</div>'
-        f'<div class="sl-services-grid">{cards_html}</div>'
-        f'</div>'
-    )
-    st.markdown(services_section, unsafe_allow_html=True)
-
-    # القسم الثاني: الباقات الخمس المتكاملة للباحثين والمؤسسات
-    pkg_cards_html = ""
-    for pk_key, pk in PACKAGES_DATA.items():
-        card_cls = "sl-pkg-card featured" if pk["featured"] else "sl-pkg-card"
-        badge_cls = "sl-pkg-badge dark" if pk["featured"] else "sl-pkg-badge"
-        items_str = ""
-        for it in pk["items"]:
-            items_str += f'<div class="sl-pkg-item">&#10003; {it}</div>'
-        pkg_cards_html += (
-            f'<div class="{card_cls}">'
-            f'<div>'
-            f'<span class="{badge_cls}">{pk["badge"]}</span>'
-            f'<div style="font-size:18px; font-weight:800; color:#06182C; margin-bottom:8px;">{pk["title"]}</div>'
-            f'<p style="font-size:13px; color:#64748B; margin-bottom:14px;">{pk["desc"]}</p>'
-            f'{items_str}'
-            f'</div>'
-            f'<a href="?view=services&srv={pk["srv_ref"]}&pkg={pk_key}#order-box" target="_self" class="sl-pkg-btn {pk["btn_class"]}">'
-            f'اطلب {pk["title"]}</a>'
-            f'</div>'
-        )
-
-    packages_html = (
-        f'<div id="packages" class="sl-section" style="padding-top:10px;">'
-        f'<div class="sl-sec-head">'
-        f'<div class="sl-sec-tag">حلول شاملة لمختلف المستويات البحثية</div>'
-        f'<div class="sl-sec-title">باقات Socio Lab الاستشارية</div>'
-        f'<p class="sl-sec-sub">اختر الباقة المناسبة لمرحلتك البحثية، ويمكنك دمج اكثر من باقة او خدمة في طلب واحد.</p>'
-        f'</div>'
-        f'<div class="sl-pkg-grid">{pkg_cards_html}</div>'
-        f'</div>'
-    )
-    st.markdown(packages_html, unsafe_allow_html=True)
-
     # =================================================================
     # المسار الاول: اضافات الباحثين في المستويات التمهيدية
     # =================================================================
     found_header = (
-        '<div id="foundation" style="max-width:1180px; margin:0 auto; padding:25px 6% 10px 6%;">'
+        '<div id="foundation" style="max-width:1180px; margin:0 auto; padding:40px 6% 10px 6%;">'
         '<div class="sl-track-banner">'
         '<div style="font-size:12px; color:#0D9488; font-weight:800;">المسار التمهيدي وبناء الاساس المنهجي</div>'
         '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">ادوات كسر رهبة المنهجية للباحثين الجدد وطلبة الماستر</div>'
@@ -799,44 +743,98 @@ if st.session_state.current_view == "home":
     st.markdown(integrity_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الثانية: صفحة الخدمات والحزم المستقلة (SERVICES PAGE)
+# الصفحة الثانية: صفحة الخدمات والباقات المستقلة (SERVICES & PACKAGES)
 # =====================================================================
 elif st.session_state.current_view == "services":
     current_key = st.session_state.selected_srv
     current_srv = SERVICES_DATA[current_key]
     selected_pkg = query_params.get("pkg", "")
 
-    pills_html = ""
-    for k, v in SERVICES_DATA.items():
-        act = "active" if k == current_key else ""
-        pills_html += f'<a href="?view=services&srv={k}" target="_self" class="sl-pill-tab {act}">{v["num"]}. {v["title"]}</a>'
+    # 1. قسم عرض كافة الخدمات السبع
+    cards_html = ""
+    for key, srv in SERVICES_DATA.items():
+        act_card = "active-card" if key == current_key else ""
+        cards_html += (
+            f'<a href="?view=services&srv={key}#service-details" target="_self" class="sl-srv-card {srv["top_class"]} {act_card}">'
+            f'<div class="sl-srv-num" style="color:{srv["color"]};">{srv["num"]}</div>'
+            f'<div class="sl-srv-title">{srv["title"]}</div>'
+            f'<p class="sl-srv-desc">{srv["short_desc"]}</p>'
+            f'<span class="sl-srv-link">عرض تفاصيل المخرجات &darr;</span>'
+            f'</a>'
+        )
 
+    all_services_html = (
+        f'<div class="sl-section" style="padding-top:28px;">'
+        f'<a href="?view=home" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
+        f'<div class="sl-sec-head">'
+        f'<div class="sl-sec-tag">حلول منهجية واحصائية متكاملة</div>'
+        f'<div class="sl-sec-title">خدمات منصة Socio Lab</div>'
+        f'<p class="sl-sec-sub">اختر اي خدمة للاطلاع على مخرجاتها التفصيلية، او انتقل للاسفل لاختيار باقات متكاملة.</p>'
+        f'</div>'
+        f'<div class="sl-services-grid">{cards_html}</div>'
+        f'</div>'
+    )
+    st.markdown(all_services_html, unsafe_allow_html=True)
+
+    # 2. تفاصيل الخدمة المختارة حاليا
     deliv_html = ""
     for item in current_srv["deliverables"]:
         deliv_html += f'<div class="sl-deliv-item">&#10003; &nbsp; {item}</div>'
 
-    service_page_html = (
-        f'<div class="sl-section" style="padding-top:30px;">'
-        f'<a href="?view=home" target="_self" class="sl-back-link">&rarr; العودة الى الصفحة الرئيسية</a>'
-        f'<div style="margin-bottom:24px; text-align:center;">{pills_html}</div>'
+    service_detail_html = (
+        f'<div id="service-details" class="sl-section" style="padding-top:0;">'
         f'<div class="sl-detail-box" style="border-top: 4px solid {current_srv["color"]};">'
         f'<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">'
-        f'<span style="background:#06182C; color:#38BDF8; font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">خدمة رقم {current_srv["num"]}</span>'
+        f'<span style="background:#06182C; color:#38BDF8; font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">تفاصيل الخدمة رقم {current_srv["num"]}</span>'
         f'<span style="background:#FEF3C7; color:#B45309; font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">مدة الانجاز التقديرية: {current_srv["duration"]}</span>'
         f'</div>'
-        f'<h1 style="font-size:24px; font-weight:800; color:#06182C; margin:8px 0 12px 0;">{current_srv["title"]}</h1>'
-        f'<p style="font-size:14.5px; color:#475569; line-height:1.8; margin-bottom:22px;">{current_srv["full_desc"]}</p>'
-        f'<h3 style="font-size:16px; font-weight:800; color:#06182C; margin-bottom:12px;">ماذا ستستلم في هذه الخدمة (المخرجات):</h3>'
+        f'<h2 style="font-size:22px; font-weight:800; color:#06182C; margin:8px 0 12px 0;">{current_srv["title"]}</h2>'
+        f'<p style="font-size:14px; color:#475569; line-height:1.8; margin-bottom:20px;">{current_srv["full_desc"]}</p>'
+        f'<h3 style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:12px;">ماذا ستستلم في هذه الخدمة (المخرجات):</h3>'
         f'{deliv_html}'
         f'</div></div>'
     )
-    st.markdown(service_page_html, unsafe_allow_html=True)
+    st.markdown(service_detail_html, unsafe_allow_html=True)
 
+    # 3. قسم الباقات الخمس المتكاملة
+    pkg_cards_html = ""
+    for pk_key, pk in PACKAGES_DATA.items():
+        card_cls = "sl-pkg-card featured" if pk["featured"] else "sl-pkg-card"
+        badge_cls = "sl-pkg-badge dark" if pk["featured"] else "sl-pkg-badge"
+        items_str = ""
+        for it in pk["items"]:
+            items_str += f'<div class="sl-pkg-item">&#10003; {it}</div>'
+        pkg_cards_html += (
+            f'<div class="{card_cls}">'
+            f'<div>'
+            f'<span class="{badge_cls}">{pk["badge"]}</span>'
+            f'<div style="font-size:18px; font-weight:800; color:#06182C; margin-bottom:8px;">{pk["title"]}</div>'
+            f'<p style="font-size:13px; color:#64748B; margin-bottom:14px;">{pk["desc"]}</p>'
+            f'{items_str}'
+            f'</div>'
+            f'<a href="?view=services&srv={pk["srv_ref"]}&pkg={pk_key}#order-box" target="_self" class="sl-pkg-btn {pk["btn_class"]}">'
+            f'تحديد {pk["title"]} في الطلب</a>'
+            f'</div>'
+        )
+
+    packages_html = (
+        f'<div id="packages" class="sl-section" style="padding-top:10px;">'
+        f'<div class="sl-sec-head">'
+        f'<div class="sl-sec-tag">حلول شاملة لمختلف المستويات البحثية</div>'
+        f'<div class="sl-sec-title">باقات Socio Lab الاستشارية</div>'
+        f'<p class="sl-sec-sub">اختر الباقة المناسبة لمرحلتك البحثية، ويمكنك دمج اكثر من باقة او خدمة في طلب واحد ادناه.</p>'
+        f'</div>'
+        f'<div class="sl-pkg-grid">{pkg_cards_html}</div>'
+        f'</div>'
+    )
+    st.markdown(packages_html, unsafe_allow_html=True)
+
+    # 4. نموذج الطلب متعدد الخيارات عبر البريد الالكتروني
     st.markdown(
-        f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:10px 6% 15px 6%;">'
+        f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:25px 6% 15px 6%;">'
         f'<div class="sl-sec-head" style="margin-bottom:18px;">'
-        f'<div class="sl-sec-title">اطلب خدماتك او باقاتك (يمكنك اختيار اكثر من خدمة معا)</div>'
-        f'<p class="sl-sec-sub">حدد الخدمة او الباقات المطلوبة واملا البيانات ادناه لتجهيز رسالة رسمية الى ({CONTACT_EMAIL}).</p>'
+        f'<div class="sl-sec-title">اطلب خدماتك او باقاتك (متعدد الخيارات)</div>'
+        f'<p class="sl-sec-sub">حدد خدمة او اكثر من القائمة ادناه لتجهيز رسالة رسمية موجهة الى ({CONTACT_EMAIL}).</p>'
         f'</div></div>',
         unsafe_allow_html=True,
     )
@@ -856,7 +854,7 @@ elif st.session_state.current_view == "services":
     with form_col:
         with st.form("service_email_form"):
             selected_services = st.multiselect(
-                "الخدمات والباقات المطلوبة (يمكنك اضافة اكثر من خيار من القائمة) *",
+                "الخدمات والباقات المطلوبة (يمكنك اضافة اكثر من خيار معا) *",
                 options=options_list,
                 default=default_selection,
                 placeholder="اضغط هنا لاختيار خدمة او باقة اضافية..."
