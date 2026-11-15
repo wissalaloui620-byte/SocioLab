@@ -4,7 +4,7 @@ import os
 import urllib.parse
 import streamlit as st
 
-CONTACT_EMAIL = "contact@sociolab-dz.com"
+CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
 LOGO_FILENAME = "logo.png.jpg"
 
 
