@@ -343,6 +343,8 @@ css_styles = (
     ".sl-track-banner.aud {border-right-color: #F59E0B;}"
     ".sl-detail-box {background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 24px; text-align: right;}"
     ".sl-deliv-item {background: #F8FAFC; border: 1px solid #E2E8F0; border-right: 3.5px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #1E293B; margin-bottom: 10px; text-align: right;}"
+    ".sl-guar-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 20px;}"
+    ".sl-guar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3px solid #14B8A6; border-radius: 12px; padding: 16px; text-align: right;}"
     ".sl-back-link {display: inline-block; color: #06182C !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; margin-bottom: 18px; background: #E2E8F0; padding: 7px 16px; border-radius: 8px;}"
     ".sl-result-banner {background-color: #F0F9FF; border: 1px solid #BAE6FD; border-right: 4px solid #0284C7; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #0F2942; text-align: right;}"
     ".sl-warn-banner {background-color: #FFFBEB; border: 1px solid #FDE68A; border-right: 4px solid #F59E0B; padding: 12px 15px; border-radius: 10px; margin-top: 12px; font-size: 13px; color: #78350F; text-align: right;}"
@@ -932,6 +934,7 @@ elif st.session_state.current_view == "services":
     current_srv = SERVICES_DATA[current_key]
     selected_pkg = query_params.get("pkg", "")
 
+    # 1. بطاقات الخدمات السبع
     cards_html = ""
     for key, srv in SERVICES_DATA.items():
         act_card = "active-card" if key == current_key else ""
@@ -957,6 +960,7 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(all_services_html, unsafe_allow_html=True)
 
+    # 2. تفاصيل الخدمة المختارة
     deliv_html = ""
     for item in current_srv["deliverables"]:
         deliv_html += f'<div class="sl-deliv-item">&#10003; &nbsp; {item}</div>'
@@ -976,6 +980,7 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(service_detail_html, unsafe_allow_html=True)
 
+    # 3. الباقات الخمس المتكاملة
     pkg_cards_html = ""
     for pk_key, pk in PACKAGES_DATA.items():
         card_cls = "sl-pkg-card featured" if pk["featured"] else "sl-pkg-card"
@@ -1008,6 +1013,58 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(packages_html, unsafe_allow_html=True)
 
+    # 4. ركن الاسئلة الشائعة وضمانات العمل (FAQ & Service Guarantees)
+    faq_header_html = (
+        '<div id="faq-guarantees" class="sl-section" style="padding-top:15px; padding-bottom:15px;">'
+        '<div class="sl-sec-head" style="margin-bottom:22px;">'
+        '<div class="sl-sec-tag">الشفافية والمرافقة المستمرة</div>'
+        '<div class="sl-sec-title">الاسئلة الشائعة وضمانات العمل في <span class="ltr">Socio Lab</span></div>'
+        '<p class="sl-sec-sub">نضمن لك مرافقة علمية موثوقة ومرونة كاملة حتى اجازة بحثك ومناقشته بنجاح.</p>'
+        '</div>'
+        '<div class="sl-guar-grid">'
+        '<div class="sl-guar-card">'
+        '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">1. ضمان تعديلات المشرف</div>'
+        '<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">'
+        'نتكفل مجانا بتنفيذ اي تعديلات احصائية او منهجية يطلبها الاستاذ المشرف على الجداول او الاختبارات المستخرجة.</p>'
+        '</div>'
+        '<div class="sl-guar-card" style="border-top-color:#06182C;">'
+        '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">2. تسليم كافة الملفات الاصلية</div>'
+        '<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">'
+        'تستلم قاعدة البيانات (<span class="ltr">.sav</span>)، ملف المخرجات (<span class="ltr">.spv</span>)، وتقرير <span class="ltr">Word</span> منسق وفق <span class="ltr">APA 7</span>.</p>'
+        '</div>'
+        '<div class="sl-guar-card" style="border-top-color:#F59E0B;">'
+        '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">3. جلسة شرح قبل المناقشة</div>'
+        '<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">'
+        'نوفر شرحا مبسطا لنتائجك وكيفية قراءة المؤشرات الاحصائية لتتمكن من الدفاع عن دراستك بثقة امام اللجنة.</p>'
+        '</div>'
+        '<div class="sl-guar-card" style="border-top-color:#0284C7;">'
+        '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">4. سرية تامة للبيانات</div>'
+        '<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">'
+        'تخضع جميع الاستبيانات وقواعد البيانات المرسلة لبروتوكول سرية صارم ويتم حذفها فور انتهاء المهمة.</p>'
+        '</div>'
+        '</div></div>'
+    )
+    st.markdown(faq_header_html, unsafe_allow_html=True)
+
+    _, faq_col, _ = st.columns([0.08, 0.84, 0.08])
+    with faq_col:
+        with st.expander("كيف ارسل قاعدة بياناتي او مسودة الاستبيان للبدء في العمل؟"):
+            st.write(
+                "بعد اختيار الخدمات والباقات من النموذج ادناه والضغط على زر الارسال عبر البريد الالكتروني، "
+                "يمكنك ارفاق ملف Excel او Word مباشرة في رسالة البريد الموجهة الينا."
+            )
+        with st.expander("ما هي المدة الزمنية المستغرقة لتسليم التحليل الاحصائي؟"):
+            st.write(
+                "تتراوح مدة الانجاز القياسية بين 3 الى 5 ايام عمل حسب حجم العينة وعدد الفرضيات، "
+                "مع توفر خيار التسليم المستعجل لطلبة الماستر والدكتوراه المقبلين على الايداع."
+            )
+        with st.expander("هل تقومون بكتابة الاطار النظري او توفير بحوث جاهزة؟"):
+            st.write(
+                "لا. التزاما بميثاق النزاهة العلمية في Socio Lab، تقتصر خدماتنا على الاستشارة المنهجية، "
+                "بناء ادوات القياس، التحليل الاحصائي والكيفي للبيانات الميدانية الحقيقية، وضبط التوثيق."
+            )
+
+    # 5. نموذج الطلب متعدد الخيارات عبر البريد الالكتروني
     st.markdown(
         f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:25px 6% 15px 6%;">'
         f'<div class="sl-sec-head" style="margin-bottom:18px;">'
