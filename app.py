@@ -194,7 +194,7 @@ SERVICES_DATA = {
         ),
         "full_desc": (
             "نترجم الارقام والجداول الصماء الى سرد بصري علمي جذاب "
-            "(<span class='ltr'>Data Storytelling</span>) يعزز حضورك في المؤتمرات والتقارير المؤسساتية."
+            "(<span class='ltr'>Data Storytelling</span>) يعزز حضورك في المؤتمرات والتقارير."
         ),
         "deliverables": [
             "تصميم ملصق علمي (<span class='ltr'>Scientific Poster</span>) للمؤتمرات والملتقيات.",
@@ -218,7 +218,7 @@ SERVICES_DATA = {
             "او الفرنسية في دراستك بعد تكييفها وتقنينها منهجيا."
         ),
         "deliverables": [
-            "الترجمة العلمية والترجمة العكسية (<span class='ltr'>Back-Translation</span>) للمقياس.",
+            "الترجمة العلمية والترجمة العكسية (<span class='ltr'>Back-Translation</span>).",
             "تكييف المفردات ثقافيا واجتماعيا لتلائم مجتمع البحث المحلي.",
             "حساب الصدق العاملي والثبات على العينة الاستطلاعية.",
             "تسليم النسخة المقننة مرفقة بدليل التصحيح وتفسير الدرجات."
@@ -282,7 +282,7 @@ SERVICES_DATA = {
         ),
         "deliverables": [
             "برمجة الاستمارة على <span class='ltr'>KoboToolbox</span> للعمل بدون انترنت.",
-            "اضافة قواعد التخطي الذكي (<span class='ltr'>Skip Logic</span>) والتحقق من البيانات.",
+            "اضافة قواعد التخطي الذكي (<span class='ltr'>Skip Logic</span>) والتحقق.",
             "تفعيل التتبع الجغرافي (<span class='ltr'>GPS</span>) لضمان مصداقية النزول الميداني.",
             "تصدير قاعدة البيانات جاهزة ومشفرة مباشرة الى <span class='ltr'>SPSS</span>."
         ],
@@ -437,7 +437,7 @@ css_styles = (
     ".sl-sigma {width: 38px; height: 38px; background-color: #0F2942; border: 1px solid rgba(20, 184, 166, 0.45); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #2DD4BF; font-weight: 800; font-size: 18px;}"
     ".sl-logo-script {font-family: 'Great Vibes', cursive !important; font-size: 26px; color: #FFFFFF; line-height: 1; direction: ltr;}"
     ".sl-logo-sub {font-size: 10px; color: #38BDF8; display: block; margin-top: 2px;}"
-    ".sl-nav-links {display: flex; gap: 16px; flex-wrap: wrap;}"
+    ".sl-nav-links {display: flex; gap: 15px; flex-wrap: wrap;}"
     ".sl-nav-links a {color: #E2E8F0; text-decoration: none; font-size: 12.5px; font-weight: 600;}"
     ".sl-nav-links a:hover, .sl-nav-links a.active {color: #38BDF8;}"
     ".sl-cta-top {background-color: #F59E0B; color: #06182C !important; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 8px; text-decoration: none;}"
@@ -482,6 +482,8 @@ css_styles = (
     ".sl-pkg-item {font-size: 13px; color: #334155; padding: 6px 0; border-bottom: 1px dashed #E2E8F0;}"
     ".sl-pkg-btn {display: block; text-align: center; background: #06182C; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
     ".sl-pkg-btn.amber {background: #F59E0B; color: #06182C !important;}"
+    ".sl-scale-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #06182C; border-radius: 12px; padding: 18px; text-align: right;}"
+    ".sl-about-box {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #0284C7; border-radius: 16px; padding: 28px; margin-top: 10px; text-align: right;}"
     ".sl-clinic-box {background: #06182C; border-radius: 18px; padding: 28px; color: #FFFFFF; border: 1px solid #1E3A5F; text-align: right;}"
     ".sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 12px; padding: 18px; margin-bottom: 14px; text-align: right;}"
     ".sl-probe-result {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #06182C; border-radius: 12px; padding: 18px; margin-top: 14px; font-size: 13px; line-height: 1.75; color: #1E293B; text-align: right;}"
@@ -530,9 +532,9 @@ navbar_html = (
     f'<a href="?view=home" target="_self" class="{active_home}">الرئيسية</a>'
     f'<a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والباقات (14)</a>'
     f'<a href="?view=home#data-auditor" target="_self">فحص البيانات</a>'
-    f'<a href="?view=home#portfolio" target="_self">نماذج التقارير</a>'
-    f'<a href="?view=home#foundation" target="_self">مسار التاسيس</a>'
-    f'<a href="?view=home#advanced" target="_self">مسار الدكتوراه</a>'
+    f'<a href="?view=home#templates-gen" target="_self">القوالب والمقاييس</a>'
+    f'<a href="?view=home#quote-estimator" target="_self">حاسبة التكلفة</a>'
+    f'<a href="?view=home#about-us" target="_self">من نحن</a>'
     f'</div>'
     f'<a href="?view=services&srv=s2#order-box" target="_self" class="sl-cta-top">الخدمات والباقات</a>'
     f'</div>'
@@ -540,7 +542,7 @@ navbar_html = (
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية (HOME)
+# الصفحة الاولى: الواجهة الرئيسية (خالية من بطاقات الخدمات والباقات)
 # =====================================================================
 if st.session_state.current_view == "home":
     hero_html = (
@@ -590,7 +592,7 @@ if st.session_state.current_view == "home":
     st.markdown(hero_html, unsafe_allow_html=True)
 
     # =================================================================
-    # الميزة 1: اداة الفحص الفوري لملفات البيانات
+    # 1. اداة الفحص الفوري لملفات البيانات (Excel / CSV)
     # =================================================================
     auditor_header = (
         '<div id="data-auditor" style="max-width:1180px; margin:0 auto; padding:40px 6% 10px 6%;">'
@@ -654,7 +656,7 @@ if st.session_state.current_view == "home":
             )
 
     # =================================================================
-    # الميزة 2: معرض نماذج المخرجات والتقارير الحية
+    # 2. معرض نماذج المخرجات والتقارير الحية
     # =================================================================
     port_header = (
         '<div id="portfolio" style="max-width:1180px; margin:0 auto; padding:35px 6% 10px 6%;">'
@@ -737,14 +739,268 @@ if st.session_state.current_view == "home":
             st.markdown(qual_sample_html, unsafe_allow_html=True)
 
     # =================================================================
-    # المسار الاول: اضافات الباحثين في المستويات التمهيدية
+    # 3. الاضافة الجديدة (1): مولد القوالب الاكاديمية القابلة للتحميل الفوري
+    # =================================================================
+    tpl_header = (
+        '<div id="templates-gen" style="max-width:1180px; margin:0 auto; padding:35px 6% 10px 6%;">'
+        '<div class="sl-track-banner">'
+        '<div style="font-size:12px; color:#0D9488; font-weight:800;">ادوات الخدمة الذاتية للباحثين</div>'
+        '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">مولد القوالب الاكاديمية القابلة للتحميل الفوري</div>'
+        '<p style="font-size:13px; color:#64748B; margin:0;">ادخل بيانات دراستك وحمل مباشرة استمارة تحكيم الاداة الموجهة للاساتذة او ورقة ميثاق السرية للمبحوثين.</p>'
+        '</div></div>'
+    )
+    st.markdown(tpl_header, unsafe_allow_html=True)
+
+    _, tpl_col, _ = st.columns([0.06, 0.88, 0.06])
+    with tpl_col:
+        tc1, tc2 = st.columns(2)
+        with tc1:
+            tpl_researcher = st.text_input("اسم الباحث / الطالبة:", placeholder="مثال: علوي وصال")
+            tpl_uni = st.text_input("الجامعة والكلية:", placeholder="مثال: جامعة سوق اهراس - كلية العلوم الاجتماعية")
+        with tc2:
+            tpl_title = st.text_input("عنوان الدراسة:", placeholder="مثال: اثر جماعة الرفاق في تشكل السلوك الجانح لدى المراهقين")
+            tpl_hypo = st.text_input("الفرضية الرئيسية او الهدف:", placeholder="مثال: توجد علاقة دالة احصائيا بين جماعة الرفاق والسلوك الجانح")
+
+        r_name = tpl_researcher if tpl_researcher else "[اسم الباحث]"
+        r_uni = tpl_uni if tpl_uni else "[اسم الجامعة والكلية]"
+        r_title = tpl_title if tpl_title else "[عنوان الدراسة]"
+        r_hypo = tpl_hypo if tpl_hypo else "[الفرضية الرئيسية للدراسة]"
+
+        arbitration_doc = (
+            f"الجمهورية الجزائرية الديمقراطية الشعبية\n"
+            f"وزارة التعليم العالي والبحث العلمي\n"
+            f"{r_uni}\n"
+            f"------------------------------------------------------------\n"
+            f"استمارة تحكيم اداة الدراسة (الصدق الظاهري)\n"
+            f"------------------------------------------------------------\n\n"
+            f"الاستاذ(ة) الدكتور(ة) الفاضل(ة): ..............................\n"
+            f"تحية علمية طيبة وبعد،\n\n"
+            f"في اطار انجاز بحث اكاديمي موسوم بـ:\n"
+            f"« {r_title} »\n"
+            f"من اعداد الباحث(ة): {r_name}\n\n"
+            f"ونظرا لما نعهده فيكم من خبرة علمية ومنهجية رصينة، نضع بين ايديكم النسخة الاولية "
+            f"لاداة القياس، راجين من سيادتكم التكرم بتحكيم عباراتها من حيث:\n"
+            f"1. وضوح الصياغة اللغوية وسلامتها.\n"
+            f"2. مدى انتماء كل عبارة للبعد الذي تقيسه.\n"
+            f"3. اقتراح اي تعديل او حذف او اضافة ترونها مناسبة.\n\n"
+            f"الفرضية / الهدف المرجعي للدراسة:\n"
+            f"- {r_hypo}\n\n"
+            f"جدول التقييم:\n"
+            f"[ رقم العبارة ] | [ مناسبة ] | [ غير مناسبة ] | [ التعديل المقترح ]\n"
+            f"------------------------------------------------------------\n"
+            f"توقيع وختم الاستاذ المحكم:\n"
+        )
+
+        consent_doc = (
+            f"{r_uni}\n"
+            f"------------------------------------------------------------\n"
+            f"استمارة بحث علمي وميثاق سرية البيانات\n"
+            f"------------------------------------------------------------\n\n"
+            f"اخي المبحوث / اختي المبحوثة، تحية طيبة وبعد:\n\n"
+            f"يجري الباحث(ة) {r_name} دراسة ميدانية حول موضوع:\n"
+            f"« {r_title} »\n\n"
+            f"يرجى منكم التكرم بالاجابة عن فقرات هذه الاستمارة بكل موضوعية وصدق، "
+            f"ونحيطكم علما بان جميع المعلومات المقدمة ستبقى سرية للغاية ولن تستخدم "
+            f"الا لاغراض البحث العلمي الاكاديمي المحض (دون الحاجة لذكر الاسم).\n\n"
+            f"شاكرين لكم حسن تعاونكم ومساهمتكم في خدمة البحث العلمي.\n"
+        )
+
+        dl1, dl2 = st.columns(2)
+        with dl1:
+            st.download_button(
+                label="تحميل نموذج استمارة تحكيم الاداة (جاهز للطباعة)",
+                data=arbitration_doc,
+                file_name="SocioLab_Arbitration_Form.txt",
+                mime="text/plain",
+                use_container_width=True,
+            )
+        with dl2:
+            st.download_button(
+                label="تحميل ديباجة ميثاق سرية البيانات للمبحوثين",
+                data=consent_doc,
+                file_name="SocioLab_Confidentiality_Cover.txt",
+                mime="text/plain",
+                use_container_width=True,
+            )
+
+    # =================================================================
+    # 4. الاضافة الجديدة (2): بنك المقاييس المقننة + مرشد استراتيجية المعاينة
+    # =================================================================
+    scales_header = (
+        '<div id="scales-bank" style="max-width:1180px; margin:0 auto; padding:35px 6% 10px 6%;">'
+        '<div class="sl-sec-head" style="margin-bottom:20px;">'
+        '<div class="sl-sec-tag">مكتبة ادوات القياس</div>'
+        '<div class="sl-sec-title">بنك المقاييس المقننة ومرشد استراتيجية المعاينة</div>'
+        '<p class="sl-sec-sub">استكشف البطاقات التقنية للمقاييس السوسيولوجية والنفسية، وحدد نوع العينة الانسب لمجتمع دراستك.</p>'
+        '</div></div>'
+    )
+    st.markdown(scales_header, unsafe_allow_html=True)
+
+    _, sb_col1, sb_col2, _ = st.columns([0.06, 0.44, 0.44, 0.06], gap="large")
+
+    # بنك المقاييس المقننة
+    with sb_col1:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
+            '1. بنك المقاييس السوسيولوجية والنفسية المقننة</div>',
+            unsafe_allow_html=True,
+        )
+        scales_db = {
+            "مقياس ضغط جماعة الرفاق للمراهقين": {
+                "dims": "الانصياع المعياري، المحاكاة السلوكية، الحاجة للقبول الاجتماعي.",
+                "items": "24 عبارة موزعة على 3 ابعاد.",
+                "key": "مقياس ليكرت الخماسي (من 1 = لا تنطبق ابدا الى 5 = تنطبق تماما).",
+                "alpha": "0.88 (ثبات مرتفع في البيئة المحلية)."
+            },
+            "مقياس الوعي الامني والرقمي لدى الشباب": {
+                "dims": "حماية الخصوصية، التحقق من المعلومات، الوعي بالمخاطر السيبرانية.",
+                "items": "30 عبارة موزعة على 3 ابعاد.",
+                "key": "مقياس ليكرت الثلاثي (دائما = 3 ، احيانا = 2 ، نادرا = 1).",
+                "alpha": "0.85 (مقنن على طلبة الجامعة)."
+            },
+            "مقياس التوافق النفسي والاجتماعي": {
+                "dims": "التوافق الشخصي، التوافق الاسري، التوافق الدراسي والاجتماعي.",
+                "items": "36 عبارة بصياغة موجبة وسالبة.",
+                "key": "بدائل ثنائية (نعم / لا) مع عكس الدرجات للعبارات السالبة.",
+                "alpha": "0.84 (ثبات اعادة التطبيق والاتساق الداخلي)."
+            },
+            "مقياس الرضا الوظيفي والالتزام التنظيمي": {
+                "dims": "بيئة العمل، نظام الحوافز، العلاقة مع القيادة، الانتماء المؤسساتي.",
+                "items": "28 عبارة موزعة على 4 ابعاد.",
+                "key": "مقياس ليكرت الخماسي (من 1 = غير راض تماما الى 5 = راض جدا).",
+                "alpha": "0.91 (مقنن على موظفي الادارات والمؤسسات)."
+            }
+        }
+        sel_scale = st.selectbox("اختر المقياس لعرض بطاقته التقنية:", list(scales_db.keys()))
+        sc_info = scales_db[sel_scale]
+        st.markdown(
+            f'<div class="sl-scale-card">'
+            f'<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">{sel_scale}</div>'
+            f'<div style="font-size:12.5px; color:#334155; margin-bottom:4px;"><strong>• الابعاد:</strong> {sc_info["dims"]}</div>'
+            f'<div style="font-size:12.5px; color:#334155; margin-bottom:4px;"><strong>• البناء:</strong> {sc_info["items"]}</div>'
+            f'<div style="font-size:12.5px; color:#334155; margin-bottom:4px;"><strong>• مفتاح التصحيح:</strong> {sc_info["key"]}</div>'
+            f'<div style="font-size:12.5px; color:#0284C7; margin-bottom:10px;"><strong>• معامل الثبات:</strong> {sc_info["alpha"]}</div>'
+            f'<a href="?view=services&srv=s9#order-box" target="_self" class="sl-srv-link">اطلب تكييف او تحكيم هذا المقياس لدراستك &larr;</a>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+
+    # مرشد استراتيجية المعاينة
+    with sb_col2:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
+            '2. مرشد استراتيجية المعاينة (Sampling Advisor)</div>',
+            unsafe_allow_html=True,
+        )
+        pop_nature = st.selectbox(
+            "ما هي طبيعة مجتمع دراستك؟",
+            [
+                "مجتمع متجانس وتتوفر قائمة اسمية كاملة بافراده",
+                "مجتمع مقسم الى فئات او طبقات (ذكور/اناث، مستويات، اقسام)",
+                "فئات حساسة او يصعب الوصول اليها (مثل: متعاطين، احداث، مهاجرين)",
+                "مجتمع كبير ولا تتوفر قائمة اسمية مسبقة للمبحوثين",
+            ],
+        )
+
+        if "متجانس" in pop_nature:
+            s_type = "العينة العشوائية البسيطة (Simple Random Sample)"
+            s_text = (
+                "اعتمد الباحث على العينة العشوائية البسيطة نظرا لتجانس مفردات مجتمع البحث "
+                "وتوفر اطار معاينة محدد، مما يتيح فرصا متكافئة لجميع الافراد للظهور في العينة."
+            )
+        elif "طبقات" in pop_nature:
+            s_type = "العينة العشوائية الطبقية التناسبية (Stratified Random Sample)"
+            s_text = (
+                "تم اختيار العينة العشوائية الطبقية لضمان التمثيل العادل لمختلف الفئات الفرعية "
+                "داخل مجتمع الدراسة بما يتناسب مع الوزن الحقيقي لكل طبقة."
+            )
+        elif "حساسة" in pop_nature:
+            s_type = "عينة كرة الثلج او العينة القصدية (Snowball / Purposive Sample)"
+            s_text = (
+                "نظرا لخصوصية مجتمع البحث وصعوبة حصر مفرداته في قوائم رسمية، تم الاعتماد على "
+                "العينة القصدية وعينة كرة الثلج للوصول الى الحالات المستهدفة بدقة."
+            )
+        else:
+            s_type = "العينة الحصصية او العشوائية المنتظمة (Quota / Systematic Sample)"
+            s_text = (
+                "في ظل اتساع مجتمع الدراسة وعدم توفر قائمة حصرية شاملة، تم اللجوء الى العينة "
+                "الحصصية لضمان تمثيل الخصائص الديموغرافية الاساسية للمبحوثين."
+            )
+
+        st.markdown(
+            f'<div class="sl-result-banner">'
+            f'<strong>النوع الانسب لدراستك:</strong> {s_type}<br>'
+            f'<div style="margin-top:6px; background:#FFFFFF; padding:8px 10px; border-radius:6px; border:1px dashed #93C5FD; font-size:12px;">'
+            f'<strong>صياغة جاهزة لفصل الاجراءات المنهجية:</strong><br>"{s_text}"'
+            f'</div></div>',
+            unsafe_allow_html=True,
+        )
+
+    # =================================================================
+    # 5. الاضافة الجديدة (3): حاسبة التكلفة والمدة التقديرية الفورية
+    # =================================================================
+    quote_header = (
+        '<div id="quote-estimator" style="max-width:1180px; margin:0 auto; padding:35px 6% 10px 6%;">'
+        '<div class="sl-track-banner aud">'
+        '<div style="font-size:12px; color:#D97706; font-weight:800;">تقدير الميزانية والوقت</div>'
+        '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">حاسبة التكلفة التقديرية الفورية للخدمات</div>'
+        '<p style="font-size:13px; color:#64748B; margin:0;">حدد مواصفات دراستك للحصول على تقدير اولي للتكلفة ومدة الانجاز قبل مراسلتنا.</p>'
+        '</div></div>'
+    )
+    st.markdown(quote_header, unsafe_allow_html=True)
+
+    _, q_col, _ = st.columns([0.06, 0.88, 0.06])
+    with q_col:
+        qc1, qc2, qc3, qc4 = st.columns(4)
+        with qc1:
+            q_srv = st.selectbox(
+                "نوع الخدمة المطلوبة:",
+                [
+                    "تصميم وبناء اداة البحث",
+                    "التحليل الاحصائي (SPSS)",
+                    "تحليل البيانات الكيفية",
+                    "نمذجة المعادلات (SEM)",
+                    "باقة المرافقة الشاملة",
+                ],
+            )
+        with qc2:
+            q_n = st.number_input("حجم العينة (N):", min_value=10, value=60, step=10, key="q_n_input")
+        with qc3:
+            q_axes = st.number_input("عدد المحاور او الفرضيات:", min_value=1, value=4, step=1)
+        with qc4:
+            q_speed = st.selectbox("سرعة التسليم:", ["عادي (3 الى 5 ايام)", "مستعجل (48 ساعة)"])
+
+        base_prices = {
+            "تصميم وبناء اداة البحث": 2500,
+            "التحليل الاحصائي (SPSS)": 4500,
+            "تحليل البيانات الكيفية": 4000,
+            "نمذجة المعادلات (SEM)": 7500,
+            "باقة المرافقة الشاملة": 8500,
+        }
+        est_min = base_prices[q_srv] + (q_axes * 300) + (math.floor(q_n / 50) * 500)
+        if "مستعجل" in q_speed:
+            est_min = round(est_min * 1.25)
+        est_max = est_min + 1500
+        est_time = "48 ساعة عمل" if "مستعجل" in q_speed else "من 3 الى 5 ايام عمل"
+
+        st.markdown(
+            f'<div class="sl-result-banner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">'
+            f'<div><strong>التكلفة التقديرية:</strong> <span style="font-size:17px; font-weight:800; color:#06182C;">{est_min} - {est_max} دج</span> &nbsp;|&nbsp; '
+            f'<strong>مدة الانجاز:</strong> {est_time}</div>'
+            f'<a href="?view=services&srv=s2#order-box" target="_self" class="sl-btn-amber" style="padding:7px 16px; font-size:12.5px;">اطلب هذا العرض الان &larr;</a>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+
+    # =================================================================
+    # 6. المسار التمهيدي (دليل المصطلحات + تشخيص الاستمارة + مسبار الفرضيات + مشخص SPSS)
     # =================================================================
     found_header = (
         '<div id="foundation" style="max-width:1180px; margin:0 auto; padding:40px 6% 10px 6%;">'
         '<div class="sl-track-banner">'
         '<div style="font-size:12px; color:#0D9488; font-weight:800;">المسار التمهيدي وبناء الاساس المنهجي</div>'
         '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">ادوات كسر رهبة المنهجية للباحثين الجدد وطلبة الماستر</div>'
-        '<p style="font-size:13px; color:#64748B; margin:0;">بسطنا لك المفاهيم الغامضة، ووفرنا لك قائمة فحص لاستمارتك قبل الطباعة، وحاسبة لتقدير وقت وتكلفة الميدان.</p>'
+        '<p style="font-size:13px; color:#64748B; margin:0;">بسطنا لك المفاهيم الغامضة، ووفرنا لك قائمة فحص لاستمارتك، ومسبار الفرضيات الذكي.</p>'
         '</div></div>'
     )
     st.markdown(found_header, unsafe_allow_html=True)
@@ -951,14 +1207,14 @@ if st.session_state.current_view == "home":
         )
 
     # =================================================================
-    # المسار الثاني: اضافات المستويات المتقدمة
+    # 7. المسار المتقدم للدكتوراه (مولد APA 7 + محك الامانة)
     # =================================================================
     adv_header = (
         '<div id="advanced" style="max-width:1180px; margin:0 auto; padding:45px 6% 10px 6%;">'
         '<div class="sl-track-banner adv">'
         '<div style="font-size:12px; color:#0284C7; font-weight:800;">المسار المتقدم للدكتوراه والباحثين الاكاديميين</div>'
-        '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">مختبر النمذجة البنيوية، ضبط التوثيق (<span class="ltr">APA 7</span>)، والامانة العلمية</div>'
-        '<p style="font-size:13px; color:#64748B; margin:0;">ادوات وخدمات متخصصة لطلبة الدكتوراه والمقبلين على النشر الدولي في المجلات المحكمة.</p>'
+        '<div style="font-size:20px; font-weight:800; color:#06182C; margin:4px 0;">ضبط التوثيق (<span class="ltr">APA 7</span>) والامانة العلمية</div>'
+        '<p style="font-size:13px; color:#64748B; margin:0;">ادوات متخصصة لطلبة الدكتوراه والمقبلين على النشر الدولي في المجلات المحكمة.</p>'
         '</div></div>'
     )
     st.markdown(adv_header, unsafe_allow_html=True)
@@ -1010,29 +1266,23 @@ if st.session_state.current_view == "home":
     with adv_col2:
         st.markdown(
             '<div style="font-size:15.5px; font-weight:800; color:#06182C; margin-bottom:10px;">'
-            '2. محك ضبط الامانة الاكاديمية ومختبر نمذجة المعادلات (<span class="ltr">SEM</span>)</div>',
+            '2. محك ضبط الامانة الاكاديمية وتفادي الاستلال</div>',
             unsafe_allow_html=True,
         )
         st.markdown(
-            '<div class="sl-detail-box" style="padding:18px; margin-bottom:14px; border-top:3.5px solid #0284C7;">'
-            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">مختبر نمذجة المعادلات البنية (<span class="ltr">SmartPLS &amp; Process Macro</span>)</div>'
-            '<p style="font-size:12.5px; color:#475569; line-height:1.7; margin-bottom:10px;">'
-            'لاطروحات الدكتوراه التي تتضمن متغيرات وسيطة (<span class="ltr">Mediation</span>) او معدلة (<span class="ltr">Moderation</span>) ونماذج سببية متعددة المسارات.</p>'
-            '<a href="?view=services&srv=s7" target="_self" class="sl-srv-link">انتقل الى صفحة خدمة مختبر <span class="ltr">SEM</span> واطلبها &larr;</a>'
-            '</div>',
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            '<div class="sl-detail-box" style="padding:18px; margin-bottom:0; border-top:3.5px solid #F59E0B;">'
-            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:6px;">محك فحص الانتحال العلمي وضبط النزاهة</div>'
-            '<p style="font-size:12.5px; color:#475569; line-height:1.7; margin:0;">'
-            '<strong>قواعد ذهبية لتفادي الاستلال:</strong> 1) لا تنقل فقرة حرفيا لاكثر من 40 كلمة دون مزدوجين ورقم الصفحة. '
-            '2) اعتمد اعادة الصياغة المفاهيمية (<span class="ltr">Paraphrasing</span>) مع التوثيق. '
-            '3) احتفظ بملفات البيانات الخام الاصلية لاثبات مصداقية النتائج.</p>'
+            '<div class="sl-detail-box" style="padding:20px; margin-bottom:0; border-top:3.5px solid #F59E0B;">'
+            '<div style="font-size:14.5px; font-weight:800; color:#06182C; margin-bottom:8px;">قواعد ذهبية لحماية اطروحتك من الانتحال العلمي</div>'
+            '<p style="font-size:13px; color:#475569; line-height:1.75; margin:0;">'
+            '<strong>1. الاقتباس الحرفي:</strong> لا تنقل فقرة حرفيا لاكثر من 40 كلمة دون وضعها بين مزدوجين وذكر رقم الصفحة.<br>'
+            '<strong>2. اعادة الصياغة (<span class="ltr">Paraphrasing</span>):</strong> استوعب الفكرة السوسيولوجية وصغها باسلوبك مع الحفاظ على توثيق المصدر.<br>'
+            '<strong>3. توثيق البيانات الخام:</strong> احتفظ بملفات الاستبيان الاصلية وملفات <span class="ltr">SPSS</span> لاثبات مصداقية النتائج امام لجان الخبرة.</p>'
             '</div>',
             unsafe_allow_html=True,
         )
 
+    # =================================================================
+    # 8. عيادة المنهجية المباشرة + رادار الاتجاهات السوسيولوجية
+    # =================================================================
     clinic_subj = urllib.parse.quote("ارسال حالة منهجية لعيادة Socio Lab")
     clinic_radar_html = (
         f'<div id="clinic-radar" class="sl-section">'
@@ -1063,6 +1313,28 @@ if st.session_state.current_view == "home":
     )
     st.markdown(clinic_radar_html, unsafe_allow_html=True)
 
+    # =================================================================
+    # 9. الاضافة الجديدة (5): ركن من نحن والهوية العلمية للمختبر
+    # =================================================================
+    about_html = (
+        '<div id="about-us" class="sl-section" style="padding-top:10px;">'
+        '<div class="sl-about-box">'
+        '<div style="font-size:12px; color:#0284C7; font-weight:800; margin-bottom:4px;">الهوية العلمية والمرجعية الاكاديمية</div>'
+        '<h3 style="font-size:21px; font-weight:800; color:#06182C; margin:0 0 12px 0;">من نحن؟ رؤية مختبر <span class="ltr">Socio Lab</span></h3>'
+        '<p style="font-size:14px; color:#334155; line-height:1.85; margin-bottom:14px;">'
+        'تاسس <strong class="ltr">Socio Lab</strong> ليكون فضاء علميا رقميا متخصصا في المرافقة المنهجية والتحليل الاحصائي للبحوث السوسيولوجية '
+        'والانسانية. ينطلق المختبر من خبرة اكاديمية وميدانية متعمقة في سوسيولوجيا الانحراف والجريمة، التنظيم والعمل، وديناميكيات التعليم العالي، '
+        'بهدف ردم الفجوة بين التنظير السوسيولوجي والتطبيق الاحصائي الدقيق.</p>'
+        '<p style="font-size:13.5px; color:#475569; line-height:1.75; margin:0;">'
+        'نؤمن في <strong class="ltr">Socio Lab</strong> بان الارقام الاحصائية لا تكتسب قيمتها العلمية الا بقراءة سوسيولوجية واعية تربط المؤشرات '
+        'بالسياق الاجتماعي والثقافي، ولذلك ندمج بين الصرامة التقنية في برامج التحليل (<span class="ltr">SPSS, SmartPLS</span>) والعمق المنهجي الرصين.</p>'
+        '</div></div>'
+    )
+    st.markdown(about_html, unsafe_allow_html=True)
+
+    # =================================================================
+    # 10. ميثاق النزاهة العلمية
+    # =================================================================
     integrity_html = (
         '<div id="integrity" class="sl-integrity">'
         '<div style="max-width:800px; margin:0 auto;">'
@@ -1081,7 +1353,6 @@ elif st.session_state.current_view == "services":
     current_srv = SERVICES_DATA[current_key]
     selected_pkg = query_params.get("pkg", "")
 
-    # 1. بطاقات الخدمات الـ 14
     cards_html = ""
     for key, srv in SERVICES_DATA.items():
         act_card = "active-card" if key == current_key else ""
@@ -1107,7 +1378,6 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(all_services_html, unsafe_allow_html=True)
 
-    # 2. تفاصيل الخدمة المختارة
     deliv_html = ""
     for item in current_srv["deliverables"]:
         deliv_html += f'<div class="sl-deliv-item">&#10003; &nbsp; {item}</div>'
@@ -1127,7 +1397,6 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(service_detail_html, unsafe_allow_html=True)
 
-    # 3. الباقات الخمس المتكاملة
     pkg_cards_html = ""
     for pk_key, pk in PACKAGES_DATA.items():
         card_cls = "sl-pkg-card featured" if pk["featured"] else "sl-pkg-card"
@@ -1160,7 +1429,6 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(packages_html, unsafe_allow_html=True)
 
-    # 4. ركن الاسئلة الشائعة وضمانات العمل
     faq_header_html = (
         '<div id="faq-guarantees" class="sl-section" style="padding-top:15px; padding-bottom:15px;">'
         '<div class="sl-sec-head" style="margin-bottom:22px;">'
@@ -1211,7 +1479,6 @@ elif st.session_state.current_view == "services":
                 "بناء ادوات القياس، التحليل الاحصائي والكيفي للبيانات الميدانية الحقيقية، وضبط التوثيق."
             )
 
-    # 5. نموذج الطلب متعدد الخيارات عبر البريد الالكتروني
     st.markdown(
         f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:25px 6% 15px 6%;">'
         f'<div class="sl-sec-head" style="margin-bottom:18px;">'
