@@ -184,6 +184,153 @@ SERVICES_DATA = {
         "duration": "من 4 الى 7 ايام عمل",
         "color": "#0284C7",
         "top_class": "navy-top"
+    },
+    "s8": {
+        "num": "08",
+        "title": "استوديو السوسيولوجيا البصرية والانفوغرافيك",
+        "short_desc": (
+            "تحويل مخرجات التحليل الاحصائي والكيفي الى لوحات بيانات "
+            "تفاعلية وملصقات علمية احترافية للمؤتمرات والمناقشات."
+        ),
+        "full_desc": (
+            "نترجم الارقام والجداول الصماء الى سرد بصري علمي جذاب "
+            "(<span class='ltr'>Data Storytelling</span>) يعزز حضورك في المؤتمرات والتقارير المؤسساتية."
+        ),
+        "deliverables": [
+            "تصميم ملصق علمي (<span class='ltr'>Scientific Poster</span>) للمؤتمرات والملتقيات.",
+            "انشاء لوحات مؤشرات بصرية (<span class='ltr'>Dashboards</span>) لتقارير الجمعيات.",
+            "رسوم بيانية متقدمة عالية الدقة جاهزة للطباعة والعرض.",
+            "ملخص بصري لاهم نتائج الدراسة بلغة سوسيولوجية واضحة."
+        ],
+        "duration": "من 2 الى 4 ايام عمل",
+        "color": "#14B8A6",
+        "top_class": ""
+    },
+    "s9": {
+        "num": "09",
+        "title": "توطين وتكييف المقاييس العالمية",
+        "short_desc": (
+            "الترجمة العكسية للمقاييس الاجنبية وتكييفها ثقافيا مع البيئة "
+            "المحلية واختبار خصائصها السيكومترية على عينة استطلاعية."
+        ),
+        "full_desc": (
+            "نمكنك من استخدام احدث المقاييس العالمية المنشورة بالانجليزية "
+            "او الفرنسية في دراستك بعد تكييفها وتقنينها منهجيا."
+        ),
+        "deliverables": [
+            "الترجمة العلمية والترجمة العكسية (<span class='ltr'>Back-Translation</span>) للمقياس.",
+            "تكييف المفردات ثقافيا واجتماعيا لتلائم مجتمع البحث المحلي.",
+            "حساب الصدق العاملي والثبات على العينة الاستطلاعية.",
+            "تسليم النسخة المقننة مرفقة بدليل التصحيح وتفسير الدرجات."
+        ],
+        "duration": "من 3 الى 5 ايام عمل",
+        "color": "#06182C",
+        "top_class": "navy-top"
+    },
+    "s10": {
+        "num": "10",
+        "title": "مختبر محاكاة لجنة المناقشة",
+        "short_desc": (
+            "جلسة تدريبية افتراضية لفحص ثغرات المذكرة وتدريب الباحث "
+            "على الدفاع العلمي والرد على اسئلة المنهجية والاحصاء."
+        ),
+        "full_desc": (
+            "نضعك في اجواء المناقشة الحقيقية قبل الموعد الرسمي لتعزيز "
+            "ثقتك وتحصين دفاعك العلمي امام اسئلة الاساتذة المناقشين."
+        ),
+        "deliverables": [
+            "مراجعة نقدية شاملة للفصل المنهجي وجداول التحليل.",
+            "قائمة باهم الاسئلة الحرجة المتوقعة مع اجاباتها النموذجية.",
+            "جلسة محاكاة مباشرة لتدريبك على تبرير العينة والاختبارات.",
+            "توجيهات حول بناء عرض تقديمي (<span class='ltr'>PowerPoint</span>) محكم."
+        ],
+        "duration": "جلسة مكثفة + تقرير",
+        "color": "#F59E0B",
+        "top_class": "amber-top"
+    },
+    "s11": {
+        "num": "11",
+        "title": "الخرائط السوسيولوجية المكانية (Social GIS)",
+        "short_desc": (
+            "ربط الظواهر الاجتماعية بالفضاء الجغرافي وانتاج خرائط "
+            "حرارية توضح التوزيع المجالي للظواهر عبر الاحياء والبلديات."
+        ),
+        "full_desc": (
+            "دمج التحليل الاحصائي مع نظم المعلومات الجغرافية لدراسة "
+            "التفاوتات المجالية، الهشاشة الحضرية، والتوزيع الجغرافي للظواهر."
+        ),
+        "deliverables": [
+            "توطين البيانات الميدانية جغرافيا حسب البلديات او الاحياء.",
+            "انتاج خرائط حرارية (<span class='ltr'>Heatmaps</span>) وخرائط توزيع موضوعاتية.",
+            "تحليل الارتباط المكاني للظواهر الاجتماعية والحضرية.",
+            "تسليم خرائط عالية الدقة مرفقة بقراءة سوسيو-مجالية."
+        ],
+        "duration": "من 4 الى 6 ايام عمل",
+        "color": "#0284C7",
+        "top_class": "navy-top"
+    },
+    "s12": {
+        "num": "12",
+        "title": "هندسة الاستبيانات الرقمية الذكية",
+        "short_desc": (
+            "تصميم استمارات رقمية متقدمة عبر KoboToolbox للعمل بدون "
+            "انترنت مع برمجة المنطق الشرطي وتحديد الموقع الجغرافي."
+        ),
+        "full_desc": (
+            "حلول جمع البيانات الرقمية الاحترافية للمسوح الميدانية الكبرى "
+            "التي تمنع اخطاء الادخال وتختصر وقت التفريغ."
+        ),
+        "deliverables": [
+            "برمجة الاستمارة على <span class='ltr'>KoboToolbox</span> للعمل بدون انترنت.",
+            "اضافة قواعد التخطي الذكي (<span class='ltr'>Skip Logic</span>) والتحقق من البيانات.",
+            "تفعيل التتبع الجغرافي (<span class='ltr'>GPS</span>) لضمان مصداقية النزول الميداني.",
+            "تصدير قاعدة البيانات جاهزة ومشفرة مباشرة الى <span class='ltr'>SPSS</span>."
+        ],
+        "duration": "من 2 الى 3 ايام عمل",
+        "color": "#14B8A6",
+        "top_class": ""
+    },
+    "s13": {
+        "num": "13",
+        "title": "حاضنة تحويل الاطروحات الى مقالات دولية",
+        "short_desc": (
+            "اعادة هيكلة فصول الماستر والدكتوراه الى اوراق علمية "
+            "مكثفة وفق البنية العالمية IMRAD للنشر في المجلات المحكمة."
+        ),
+        "full_desc": (
+            "نرافقك في استخلاص مقال علمي رصين من رسالتك يتوافق مع شروط "
+            "المجلات المصنفة (<span class='ltr'>ASJP / Scopus</span>)."
+        ),
+        "deliverables": [
+            "تفكيك الفصل التطبيقي واعادة صياغته وفق منهجية <span class='ltr'>IMRAD</span>.",
+            "تكثيف العرض الاحصائي والنتائج بما يتناسب مع حجم المقال.",
+            "ضبط الملخص والكلمات المفتاحية والتوثيق وفق قالب المجلة.",
+            "مراجعة لغوية ومنهجية لتفادي الرفض الشكلي الاولي."
+        ],
+        "duration": "من 4 الى 6 ايام عمل",
+        "color": "#F59E0B",
+        "top_class": "amber-top"
+    },
+    "s14": {
+        "num": "14",
+        "title": "مختبر التحليل المختلط والتثليث المنهجي",
+        "short_desc": (
+            "الجمع المنهجي بين التحليل الاحصائي الكمي وتحليل المضمون "
+            "الكيفي لتفسير الظواهر الاجتماعية بعمق وشمولية."
+        ),
+        "full_desc": (
+            "تصميم استراتيجيات التثليث (<span class='ltr'>Triangulation</span>) لدمج دلالة الارقام "
+            "مع عمق الشواهد والمقابلات في فصل تحليلي متجانس."
+        ),
+        "deliverables": [
+            "بناء مصفوفة الدمج بين المؤشرات الكمية والفئات الكيفية.",
+            "تفسير التناقضات او التطابقات بين نتائج الاستبيان والمقابلة.",
+            "صياغة فصل النتائج والمناقشة باسلوب سوسيولوجي متكامل.",
+            "تقديم توصيات عملية مبنية على الادلة المزدوجة."
+        ],
+        "duration": "من 4 الى 7 ايام عمل",
+        "color": "#06182C",
+        "top_class": "navy-top"
     }
 }
 
@@ -210,7 +357,7 @@ PACKAGES_DATA = {
         "items": [
             "التحليل الاحصائي الكامل وتنظيف البيانات عبر <span class='ltr'>SPSS</span>.",
             "تفريغ وتحليل البيانات الكيفية ودمجها مع النتائج.",
-            "جلسة تحضيرية لشرح الجداول وتوقع اسئلة اللجنة."
+            "جلسة محاكاة لشرح الجداول وتوقع اسئلة اللجنة."
         ],
         "featured": True,
         "btn_class": "amber",
@@ -250,9 +397,9 @@ PACKAGES_DATA = {
         "full_label": "باقة مسوح المؤسسات وقياس الاثر (مسح + مؤشرات + تقرير)",
         "desc": "حلول بحثية متكاملة للجمعيات والمؤسسات لتقييم المشاريع.",
         "items": [
-            "تصميم خطة المسح الميداني وتدريب جامعي البيانات.",
-            "معالجة قواعد البيانات الضخمة واستخراج مؤشرات الاثر.",
-            "تقرير تنفيذي شامل بالرسوم البيانية والتوصيات."
+            "هندسة المسح الرقمي (<span class='ltr'>Kobo</span>) وتدريب جامعي البيانات.",
+            "معالجة قواعد البيانات الضخمة واستخراج الخرائط والمؤشرات.",
+            "تقرير تنفيذي شامل بالرسوم البصرية والتوصيات."
         ],
         "featured": False,
         "btn_class": "",
@@ -316,15 +463,15 @@ css_styles = (
     ".sl-sec-tag {color: #0284C7; font-size: 12.5px; font-weight: 700;}"
     ".sl-sec-title {color: #06182C; font-size: 22px; font-weight: 800; margin: 4px 0 8px 0;}"
     ".sl-sec-sub {color: #64748B; font-size: 13.5px; margin: 0;}"
-    ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px;}"
-    ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3.5px solid #14B8A6; border-radius: 14px; padding: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease; text-align: right;}"
+    ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;}"
+    ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3.5px solid #14B8A6; border-radius: 14px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: all 0.2s ease; text-align: right;}"
     ".sl-srv-card:hover {transform: translateY(-4px); box-shadow: 0 12px 24px rgba(10, 25, 47, 0.08); border-color: #38BDF8;}"
     ".sl-srv-card.active-card {border: 2px solid #0284C7; background: #F0F9FF;}"
     ".sl-srv-card.navy-top {border-top-color: #06182C;}"
     ".sl-srv-card.amber-top {border-top-color: #F59E0B;}"
-    ".sl-srv-num {font-size: 16px; font-weight: 800; color: #14B8A6; margin-bottom: 6px; direction: ltr; display: inline-block;}"
-    ".sl-srv-title {font-size: 16px; font-weight: 700; color: #06182C; margin-bottom: 8px;}"
-    ".sl-srv-desc {font-size: 13px; color: #475569; line-height: 1.7; margin: 0 0 14px 0;}"
+    ".sl-srv-num {font-size: 15px; font-weight: 800; color: #14B8A6; margin-bottom: 6px; direction: ltr; display: inline-block;}"
+    ".sl-srv-title {font-size: 15.5px; font-weight: 700; color: #06182C; margin-bottom: 8px;}"
+    ".sl-srv-desc {font-size: 12.8px; color: #475569; line-height: 1.7; margin: 0 0 14px 0;}"
     ".sl-srv-link {font-size: 12.5px; font-weight: 700; color: #0284C7; display: inline-flex; align-items: center; gap: 4px;}"
     ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;}"
     ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 15px rgba(10, 25, 47, 0.04); transition: 0.2s; text-align: right;}"
@@ -381,7 +528,7 @@ navbar_html = (
     f'<div class="sl-navbar">{brand_html}'
     f'<div class="sl-nav-links">'
     f'<a href="?view=home" target="_self" class="{active_home}">الرئيسية</a>'
-    f'<a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والباقات</a>'
+    f'<a href="?view=services&srv=s1" target="_self" class="{active_srv}">الخدمات والباقات (14)</a>'
     f'<a href="?view=home#data-auditor" target="_self">فحص البيانات</a>'
     f'<a href="?view=home#portfolio" target="_self">نماذج التقارير</a>'
     f'<a href="?view=home#foundation" target="_self">مسار التاسيس</a>'
@@ -406,7 +553,7 @@ if st.session_state.current_view == "home":
         'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الماستر في بناء الاساس المنهجي السليم، '
         'وندعم باحثي الدكتوراه والمؤسسات بالتحليلات المتقدمة ونمذجة المعادلات البنية.</p>'
         '<div class="sl-hero-btns">'
-        '<a href="?view=services&srv=s1" target="_self" class="sl-btn-amber">تصفح الخدمات والباقات الاستشارية</a>'
+        '<a href="?view=services&srv=s1" target="_self" class="sl-btn-amber">تصفح الخدمات (14) والباقات الاستشارية</a>'
         '<a href="#data-auditor" target="_self" class="sl-btn-outline">افحص ملف بياناتك مجانا</a>'
         '</div></div>'
         '<div class="sl-stat-card">'
@@ -927,14 +1074,14 @@ if st.session_state.current_view == "home":
     st.markdown(integrity_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الثانية: صفحة الخدمات والباقات المستقلة (SERVICES & PACKAGES)
+# الصفحة الثانية: صفحة الخدمات الـ 14 والباقات المستقلة
 # =====================================================================
 elif st.session_state.current_view == "services":
     current_key = st.session_state.selected_srv
     current_srv = SERVICES_DATA[current_key]
     selected_pkg = query_params.get("pkg", "")
 
-    # 1. بطاقات الخدمات السبع
+    # 1. بطاقات الخدمات الـ 14
     cards_html = ""
     for key, srv in SERVICES_DATA.items():
         act_card = "active-card" if key == current_key else ""
@@ -951,7 +1098,7 @@ elif st.session_state.current_view == "services":
         f'<div class="sl-section" style="padding-top:28px;">'
         f'<a href="?view=home" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
         f'<div class="sl-sec-head">'
-        f'<div class="sl-sec-tag">حلول منهجية واحصائية متكاملة</div>'
+        f'<div class="sl-sec-tag">14 خدمة بحثية واحصائية وابداعية متخصصة</div>'
         f'<div class="sl-sec-title">خدمات منصة <span class="ltr">Socio Lab</span></div>'
         f'<p class="sl-sec-sub">اختر اي خدمة للاطلاع على مخرجاتها التفصيلية، او انتقل للاسفل لاختيار باقات متكاملة.</p>'
         f'</div>'
@@ -1013,7 +1160,7 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(packages_html, unsafe_allow_html=True)
 
-    # 4. ركن الاسئلة الشائعة وضمانات العمل (FAQ & Service Guarantees)
+    # 4. ركن الاسئلة الشائعة وضمانات العمل
     faq_header_html = (
         '<div id="faq-guarantees" class="sl-section" style="padding-top:15px; padding-bottom:15px;">'
         '<div class="sl-sec-head" style="margin-bottom:22px;">'
@@ -1074,14 +1221,14 @@ elif st.session_state.current_view == "services":
         unsafe_allow_html=True,
     )
 
-    options_list = [v["title"] for v in SERVICES_DATA.values()]
+    options_list = [f"{v['num']}. {v['title']}" for v in SERVICES_DATA.values()]
     for pk in PACKAGES_DATA.values():
         options_list.append(pk["full_label"])
 
     if selected_pkg in PACKAGES_DATA:
         default_selection = [PACKAGES_DATA[selected_pkg]["full_label"]]
     else:
-        default_selection = [current_srv["title"]]
+        default_selection = [f"{current_srv['num']}. {current_srv['title']}"]
 
     role_options = ["باحث ماستر", "باحث دكتوراه", "استاذ باحث", "مؤسسة / جمعية"]
 
@@ -1089,7 +1236,7 @@ elif st.session_state.current_view == "services":
     with form_col:
         with st.form("service_email_form"):
             selected_services = st.multiselect(
-                "الخدمات والباقات المطلوبة (يمكنك اضافة اكثر من خيار معا) *",
+                "الخدمات والباقات المطلوبة (يمكنك اضافة اكثر من خيار معا من الـ 14 خدمة والباقات) *",
                 options=options_list,
                 default=default_selection,
                 placeholder="اضغط هنا لاختيار خدمة او باقة اضافية..."
