@@ -1,12 +1,15 @@
 import base64
 import math
 import os
+import random
 import urllib.parse
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
-CONTACT_EMAIL = "contact@sociolab-dz.com"
+CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
 LOGO_FILENAME = "logo.png.jpg"
+APP_URL = "https://sociolab-dz.streamlit.app"
 
 
 def get_logo_base64(file_path):
@@ -491,9 +494,11 @@ css_styles = (
     ".sl-pkg-btn {display: block; text-align: center; background: #06182C; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
     ".sl-pkg-btn.amber {background: #F59E0B; color: #06182C !important;}"
     ".sl-scale-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #06182C; border-radius: 12px; padding: 18px; text-align: right;}"
+    ".sl-testi-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 14px;}"
+    ".sl-testi-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 3px solid #38BDF8; border-radius: 14px; padding: 20px; text-align: right;}"
     ".sl-about-box {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #0284C7; border-radius: 16px; padding: 28px; text-align: right;}"
-    ".sl-clinic-box {background: #06182C; border-radius: 18px; padding: 28px; color: #FFFFFF; border: 1px solid #1E3A5F; text-align: right;}"
-    ".sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 12px; padding: 18px; margin-bottom: 14px; text-align: right;}"
+    ".sl-clinic-box {background: #06182C; border-radius: 18px; padding: 26px; color: #FFFFFF; border: 1px solid #1E3A5F; text-align: right;}"
+    ".sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 12px; padding: 18px; margin-top: 10px; text-align: right;}"
     ".sl-probe-result {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #06182C; border-radius: 12px; padding: 18px; margin-top: 14px; font-size: 13px; line-height: 1.75; color: #1E293B; text-align: right;}"
     ".sl-detail-box {background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 26px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 20px; text-align: right;}"
     ".sl-deliv-item {background: #F8FAFC; border: 1px solid #E2E8F0; border-right: 3.5px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #1E293B; margin-bottom: 10px; text-align: right;}"
@@ -546,10 +551,9 @@ navbar_html = (
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية المنظمة في 4 محطات بصرية
+# الصفحة الاولى: الواجهة الرئيسية المنظمة
 # =====================================================================
 if st.session_state.current_view == "home":
-    # المحطة 1: القسم الترحيبي المزدوج + شريط الثقة
     hero_html = (
         '<div class="sl-hero"><div class="sl-hero-grid">'
         '<div>'
@@ -606,7 +610,7 @@ if st.session_state.current_view == "home":
     )
     st.markdown(trust_bar_html, unsafe_allow_html=True)
 
-    # المحطة 2: بوابة التوجيه الذكي حسب مستوى الباحث
+    # بوابة التوجيه السريع حسب مستوى الباحث
     persona_html = (
         '<div class="sl-section" style="padding-bottom:10px;">'
         '<div class="sl-sec-head" style="margin-bottom:18px;">'
@@ -625,14 +629,14 @@ if st.session_state.current_view == "home":
         '<div style="font-size:12px; color:#0284C7; font-weight:800;">المسار الثاني: الدقة القياسية والنشر الدولي</div>'
         '<div style="font-size:17px; font-weight:800; color:#06182C; margin:4px 0 8px 0;">لطلبة الدكتوراه، الاساتذة، والمؤسسات</div>'
         '<p style="font-size:13px; color:#475569; line-height:1.7; margin-bottom:10px;">'
-        'افحص ملفات بياناتك فورا، حمل قوالب التحكيم، استكشف بنك المقاييس المقننة، واضبط مراجعك وفق <span class="ltr">APA 7</span>.</p>'
+        'افحص ملفات بياناتك فورا مع استخراج تقرير رسمي، حمل قوالب التحكيم، واضبط مراجعك وفق <span class="ltr">APA 7</span>.</p>'
         '<a href="#interactive-lab" class="sl-srv-link">انتقل الى تبويبات الفحص والتوثيق ادناه &darr;</a>'
         '</div>'
         '</div></div>'
     )
     st.markdown(persona_html, unsafe_allow_html=True)
 
-    # المحطة 3: المختبر التفاعلي المبوب (4 تبويبات أفقية تجمع كل الأدوات بذكاء)
+    # المختبر التفاعلي المبوب (4 تبويبات)
     lab_header = (
         '<div id="interactive-lab" style="max-width:1180px; margin:0 auto; padding:25px 6% 10px 6%;">'
         '<div class="sl-sec-head" style="margin-bottom:16px;">'
@@ -646,14 +650,14 @@ if st.session_state.current_view == "home":
     _, lab_col, _ = st.columns([0.05, 0.90, 0.05])
     with lab_col:
         t_audit, t_found, t_scales, t_quote = st.tabs([
-            "1. فحص البيانات ومعرض المخرجات",
+            "1. فحص البيانات وتقرير الجودة",
             "2. ادوات التأسيس المنهجي و SPSS",
             "3. القوالب الجاهزة وبنك المقاييس",
             "4. التوثيق APA 7 وحاسبة التكلفة"
         ])
 
         # -------------------------------------------------------------
-        # التبويب 1: فحص البيانات + معرض المخرجات الحية
+        # التبويب 1: فحص البيانات + رسم بياني + تحميل التقرير + معرض المخرجات
         # -------------------------------------------------------------
         with t_audit:
             st.markdown(
@@ -688,19 +692,42 @@ if st.session_state.current_view == "home":
                     k3.metric("القيم المفقودة", f"{missing_pct}%")
                     k4.metric("الفا كرونباخ", alpha_str)
 
-                    st.dataframe(df.head(5), use_container_width=True)
-
+                    # رسم بياني للقيم المفقودة لكل عمود
+                    missing_by_col = df.isna().sum()
                     if missing_cells > 0:
                         st.markdown(
-                            f'<div class="sl-warn-banner"><strong>تنبيه منهجي:</strong> تم رصد <strong>{missing_cells}</strong> خلية مفقودة ({missing_pct}%). '
-                            f'يوصى بتنظيف البيانات (<span class="ltr">Data Cleaning</span>) قبل التحليل في <span class="ltr">SPSS</span>.</div>',
+                            '<div style="font-size:13px; font-weight:700; color:#06182C; margin:10px 0 4px 0;">'
+                            'توزيع القيم المفقودة حسب المتغيرات:</div>',
                             unsafe_allow_html=True,
                         )
-                    else:
-                        st.markdown(
-                            '<div class="sl-result-banner"><strong>سلامة البيانات:</strong> قاعدة بياناتك مكتملة بنسبة 100% وخالية من القيم المفقودة.</div>',
-                            unsafe_allow_html=True,
-                        )
+                        st.bar_chart(missing_by_col[missing_by_col > 0])
+
+                    st.dataframe(df.head(5), use_container_width=True)
+
+                    # توليد تقرير فحص قابل للتحميل
+                    audit_report_txt = (
+                        f"====================================================\n"
+                        f"تقرير الفحص الاولي لقاعدة البيانات - مختبر Socio Lab\n"
+                        f"====================================================\n"
+                        f"اسم الملف المفحوص: {uploaded_file.name}\n"
+                        f"- حجم العينة الكلي (N): {n_rows} حالة\n"
+                        f"- عدد المتغيرات (الاعمدة): {n_cols} متغير\n"
+                        f"- اجمالي الخلايا المفقودة: {missing_cells} خلية ({missing_pct}%)\n"
+                        f"- معامل الاتساق الداخلي (الفا كرونباخ للمتغيرات الرقمية): {alpha_str}\n\n"
+                        f"التوصية المنهجية:\n"
+                        f"{'يوصى بتنظيف القيم المفقودة قبل التحليل في SPSS.' if missing_cells > 0 else 'البيانات مكتملة وجاهزة للتحليل الاحصائي.'}\n"
+                        f"----------------------------------------------------\n"
+                        f"للطلب الكامل للتحليل الاحصائي: {CONTACT_EMAIL}\n"
+                    )
+
+                    st.download_button(
+                        label="تحميل تقرير الفحص الاولي ممهورا باسم Socio Lab (.txt)",
+                        data=audit_report_txt,
+                        file_name="SocioLab_Data_Audit_Report.txt",
+                        mime="text/plain",
+                        use_container_width=True,
+                    )
+
                 except Exception as exc:
                     st.error(f"تعذر قراءة الملف: {exc}")
             else:
@@ -1176,52 +1203,122 @@ if st.session_state.current_view == "home":
                     unsafe_allow_html=True,
                 )
 
-    # المحطة 4: عيادة المنهجية + رادار الاتجاهات + من نحن + ميثاق النزاهة
-    clinic_subj = urllib.parse.quote("ارسال حالة منهجية لعيادة Socio Lab")
-    clinic_radar_html = (
-        f'<div id="clinic-radar" class="sl-section">'
-        f'<div class="sl-hero-grid" style="align-items:start;">'
-        f'<div class="sl-clinic-box">'
-        f'<span style="background:rgba(245,158,11,0.2); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">ركن تفاعلي دوري</span>'
-        f'<h3 style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">عيادة المنهجية والاحصاء المباشرة</h3>'
-        f'<p style="color:#CBD5E1; font-size:13.5px; line-height:1.75; margin-bottom:16px;">لقاء علمي دوري نفكك فيه ابرز الاخطاء المنهجية والاحصائية الشائعة في رسائل الماستر والدكتوراه (دون ذكر اسماء) مع التصحيح المباشر.</p>'
-        f'<div style="background:#0F2942; border:1px solid #1E3A5F; border-radius:12px; padding:14px; margin-bottom:16px;">'
-        f'<div style="font-size:12.5px; color:#38BDF8; font-weight:700; margin-bottom:4px;">ملف الجلسة القادمة:</div>'
-        f'<div style="font-size:13.5px; color:#FFFFFF; font-weight:600;">"لماذا يفشل اختبار الفرضيات رغم ارتفاع معامل الثبات؟ اخطاء صياغة مؤشرات الاستبيان"</div>'
-        f'</div>'
-        f'<a href="mailto:{CONTACT_EMAIL}?subject={clinic_subj}" class="sl-btn-amber" style="display:inline-block;">ارسل اشكاليتك المنهجية عبر البريد لمناقشتها</a>'
-        f'</div>'
-        f'<div>'
-        f'<div style="margin-bottom:14px;"><span class="sl-sec-tag">رؤية استشرافية للظواهر الاجتماعية</span>'
-        f'<h3 class="sl-sec-title" style="font-size:20px;">رادار الاتجاهات السوسيولوجية</h3></div>'
-        f'<div class="sl-radar-card">'
-        f'<div style="font-size:11.5px; color:#0284C7; font-weight:700;">رصد الظواهر الرقمية</div>'
-        f'<div style="font-size:15px; font-weight:800; color:#06182C; margin:3px 0;">تحولات التنشئة الاجتماعية في ظل المنصات الخوارزمية</div>'
-        f'<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">تراجع سلطة الوسائط التقليدية امام صناع المحتوى وتاثير ذلك على القيم الاستهلاكية لدى المراهقين. <strong>فرصة بحثية:</strong> قياس اثر التعرض الانتقائي على التمثل القيمي.</p>'
-        f'</div>'
-        f'<div class="sl-radar-card" style="border-right-color:#F59E0B;">'
-        f'<div style="font-size:11.5px; color:#D97706; font-weight:700;">رصد السلوكيات المستجدة</div>'
-        f'<div style="font-size:15px; font-weight:800; color:#06182C; margin:3px 0;">التطبيب الذاتي وسوء استخدام المؤثرات العقلية في الوسط الشباني</div>'
-        f'<p style="font-size:12.5px; color:#475569; line-height:1.65; margin:0;">انتقال الظاهرة من السياقات الهامشية التقليدية الى الفضاءات شبه الحضرية والرقمية. <strong>فرصة بحثية:</strong> تحليل العوامل السوسيو-مؤسساتية المفسرة للانحراف المستحدث.</p>'
-        f'</div></div></div></div>'
-    )
-    st.markdown(clinic_radar_html, unsafe_allow_html=True)
+    # =================================================================
+    # الارشيف التفاعلي لعيادة المنهجية ورادار الاتجاهات السوسيولوجية
+    # =================================================================
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    _, cr_col1, cr_col2, _ = st.columns([0.05, 0.44, 0.44, 0.05], gap="large")
 
-    about_html = (
-        '<div id="about-us" class="sl-section" style="padding-top:10px;">'
-        '<div class="sl-about-box">'
-        '<div style="font-size:12px; color:#0284C7; font-weight:800; margin-bottom:4px;">الهوية العلمية والمرجعية الاكاديمية</div>'
-        '<h3 style="font-size:21px; font-weight:800; color:#06182C; margin:0 0 12px 0;">من نحن؟ رؤية مختبر <span class="ltr">Socio Lab</span></h3>'
-        '<p style="font-size:14px; color:#334155; line-height:1.85; margin-bottom:14px;">'
-        'تاسس <strong class="ltr">Socio Lab</strong> ليكون فضاء علميا رقميا متخصصا في المرافقة المنهجية والتحليل الاحصائي للبحوث السوسيولوجية '
-        'والانسانية. ينطلق المختبر من خبرة اكاديمية وميدانية متعمقة في سوسيولوجيا الانحراف والجريمة، التنظيم والعمل، وديناميكيات التعليم العالي، '
-        'بهدف ردم الفجوة بين التنظير السوسيولوجي والتطبيق الاحصائي الدقيق.</p>'
-        '<p style="font-size:13.5px; color:#475569; line-height:1.75; margin:0;">'
-        'نؤمن في <strong class="ltr">Socio Lab</strong> بان الارقام الاحصائية لا تكتسب قيمتها العلمية الا بقراءة سوسيولوجية واعية تربط المؤشرات '
-        'بالسياق الاجتماعي والثقافي، ولذلك ندمج بين الصرامة التقنية في برامج التحليل (<span class="ltr">SPSS, SmartPLS</span>) والعمق المنهجي الرصين.</p>'
+    with cr_col1:
+        st.markdown(
+            '<div class="sl-clinic-box">'
+            '<span style="background:rgba(245,158,11,0.2); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">ارشيف العيادة المنهجية</span>'
+            '<h3 style="color:#FFFFFF; font-size:19px; font-weight:800; margin:10px 0 6px 0;">عيادة المنهجية والاحصاء المباشرة</h3>'
+            '<p style="color:#CBD5E1; font-size:13px; line-height:1.7; margin-bottom:10px;">تصفح ابرز الحالات المنهجية التي تم تشخيصها وتصحيحها في المختبر:</p>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+        clinic_cases = {
+            "حالة 01: ارتفاع معامل الثبات مع فشل اختبار الفرضيات": (
+                "السبب المنهجي: صياغة عبارات الاستبيان بشكل عام لا يقيس المتغير التابع بدقة. "
+                "التصحيح: اعادة ربط كل عبارة بمؤشر اجرائي محدد من الاطار النظري."
+            ),
+            "حالة 02: استخدام اختبار T-Test لعينة صغيرة غير طبيعية": (
+                "السبب المنهجي: تطبيق اختبارات معلمية دون فحص التوزيع الطبيعي (شابيرو-ويلك). "
+                "التصحيح: التحول الى اختبار مان-ويتني (Mann-Whitney) اللامعلمي."
+            ),
+            "حالة 03: تداخل المتغير الوسيط مع المتغير المعدل": (
+                "السبب المنهجي: الخلط بين تفسير الية الانتقال (الوساطة) وتحديد شروط القوة (الاعتدال). "
+                "التصحيح: ضبط النموذج السببي عبر Process Macro."
+            )
+        }
+        sel_case = st.selectbox("اختر الحالة المنهجية لقراءة التشخيص:", list(clinic_cases.keys()))
+        st.markdown(
+            f'<div class="sl-result-banner">{clinic_cases[sel_case]}</div>',
+            unsafe_allow_html=True,
+        )
+
+    with cr_col2:
+        st.markdown(
+            '<div><span class="sl-sec-tag">رؤية استشرافية للظواهر الاجتماعية</span>'
+            '<h3 class="sl-sec-title" style="font-size:19px; margin-bottom:8px;">رادار الاتجاهات السوسيولوجية</h3></div>',
+            unsafe_allow_html=True,
+        )
+        radar_topics = {
+            "1. تحولات التنشئة الاجتماعية في ظل المنصات الخوارزمية": (
+                "تراجع سلطة الوسائط التقليدية امام صناع المحتوى وتاثير ذلك على القيم الاستهلاكية لدى المراهقين. "
+                "فرصة بحثية: قياس اثر التعرض الانتقائي على التمثل القيمي."
+            ),
+            "2. التطبيب الذاتي وسوء استخدام المؤثرات العقلية في الوسط الشباني": (
+                "انتقال الظاهرة من السياقات الهامشية التقليدية الى الفضاءات شبه الحضرية والرقمية. "
+                "فرصة بحثية: تحليل العوامل السوسيو-مؤسساتية المفسرة للانحراف المستحدث."
+            ),
+            "3. الهشاشة الرقمية والفجوة المعرفية في التعليم العالي": (
+                "تفاوت قدرة الطلبة على توظيف ادوات الذكاء الاصطناعي في البحث العلمي بين التمكين المنهجي والاتكالية. "
+                "فرصة بحثية: دراسة اخلاقيات البحث العلمي في البيئة الجامعية الرقمية."
+            )
+        }
+        sel_radar = st.selectbox("تصفح ملفات الرصد السوسيولوجي:", list(radar_topics.keys()))
+        st.markdown(
+            f'<div class="sl-radar-card"><p style="font-size:13px; color:#334155; line-height:1.7; margin:0;">{radar_topics[sel_radar]}</p></div>',
+            unsafe_allow_html=True,
+        )
+
+    # =================================================================
+    # شريط شهادات وتجارب الباحثين (Social Proof)
+    # =================================================================
+    testi_html = (
+        '<div class="sl-section" style="padding-bottom:10px;">'
+        '<div class="sl-sec-head" style="margin-bottom:18px;">'
+        '<div class="sl-sec-tag">ثقة المجتمع البحثي</div>'
+        '<div class="sl-sec-title">اصداء وتجارب الباحثين مع <span class="ltr">Socio Lab</span></div>'
+        '</div>'
+        '<div class="sl-testi-grid">'
+        '<div class="sl-testi-card">'
+        '<div style="font-size:12px; color:#0284C7; font-weight:700;">باحثة ماستر - علم اجتماع الجريمة</div>'
+        '<p style="font-size:13px; color:#334155; line-height:1.7; margin:8px 0;">'
+        '"ساعدتني القراءة السوسيولوجية المرفقة بجداول SPSS في فهم دلالة النتائج والدفاع عنها بثقة امام لجنة المناقشة."</p>'
+        '<div style="font-size:11.5px; color:#64748B;">الخدمة: التحليل الاحصائي وتنظيف البيانات</div>'
+        '</div>'
+        '<div class="sl-testi-card" style="border-top-color:#14B8A6;">'
+        '<div style="font-size:12px; color:#0D9488; font-weight:700;">طالب دكتوراه - علوم التسيير</div>'
+        '<p style="font-size:13px; color:#334155; line-height:1.7; margin:8px 0;">'
+        '"دقة عالية في نمذجة المعادلات البنية عبر SmartPLS وضبط قائمة المراجع وفق الاصدار السابع APA 7 دون اي ملاحظات شكلية."</p>'
+        '<div style="font-size:11.5px; color:#64748B;">الخدمة: باقة الدكتوراه والمجلات المحكمة</div>'
+        '</div>'
+        '<div class="sl-testi-card" style="border-top-color:#F59E0B;">'
+        '<div style="font-size:12px; color:#D97706; font-weight:700;">رئيس جمعية شبانية تنموية</div>'
+        '<p style="font-size:13px; color:#334155; line-height:1.7; margin:8px 0;">'
+        '"تصميم الاستبيان الرقمي وتقرير قياس الاثر الاجتماعي منح جمعيتنا وثيقة احترافية لعرض نتائج مشاريعنا على الشركاء."</p>'
+        '<div style="font-size:11.5px; color:#64748B;">الخدمة: باقة مسوح المؤسسات وقياس الاثر</div>'
+        '</div>'
         '</div></div>'
     )
-    st.markdown(about_html, unsafe_allow_html=True)
+    st.markdown(testi_html, unsafe_allow_html=True)
+
+    # =================================================================
+    # ركن من نحن + بطاقة المشاركة الرقمية (QR Code)
+    # =================================================================
+    qr_img_url = f"https://api.qrserver.com/v1/create-qr-code/?size=130x130&data={urllib.parse.quote(APP_URL)}"
+    about_qr_html = (
+        f'<div id="about-us" class="sl-section" style="padding-top:15px;">'
+        f'<div class="sl-about-box" style="display:grid; grid-template-columns: 1fr auto; gap:24px; align-items:center;">'
+        f'<div>'
+        f'<div style="font-size:12px; color:#0284C7; font-weight:800; margin-bottom:4px;">الهوية العلمية والمرجعية الاكاديمية</div>'
+        f'<h3 style="font-size:21px; font-weight:800; color:#06182C; margin:0 0 10px 0;">من نحن؟ رؤية مختبر <span class="ltr">Socio Lab</span></h3>'
+        f'<p style="font-size:13.5px; color:#334155; line-height:1.8; margin-bottom:10px;">'
+        f'تاسس <strong class="ltr">Socio Lab</strong> ليكون فضاء علميا رقميا متخصصا في المرافقة المنهجية والتحليل الاحصائي للبحوث السوسيولوجية '
+        f'والانسانية. ينطلق المختبر من خبرة اكاديمية وميدانية متعمقة في سوسيولوجيا الانحراف والجريمة، التنظيم والعمل، وديناميكيات التعليم العالي.</p>'
+        f'<p style="font-size:13px; color:#475569; line-height:1.75; margin:0;">'
+        f'نؤمن بان الارقام الاحصائية لا تكتسب قيمتها العلمية الا بقراءة سوسيولوجية واعية تربط المؤشرات بالسياق الاجتماعي والثقافي.</p>'
+        f'</div>'
+        f'<div style="text-align:center; background:#F8FAFC; padding:14px; border-radius:12px; border:1px solid #E2E8F0;">'
+        f'<img src="{qr_img_url}" alt="QR Code" style="width:120px; height:120px; display:block; margin:0 auto 6px auto;">'
+        f'<div style="font-size:11px; font-weight:700; color:#06182C;">امسح الرمز لمشاركة المنصة</div>'
+        f'</div>'
+        f'</div></div>'
+    )
+    st.markdown(about_qr_html, unsafe_allow_html=True)
 
     integrity_html = (
         '<div id="integrity" class="sl-integrity">'
@@ -1234,7 +1331,7 @@ if st.session_state.current_view == "home":
     st.markdown(integrity_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الثانية: صفحة الخدمات الـ 14 والباقات المستقلة
+# الصفحة الثانية: صفحة الخدمات الـ 14 والباقات + الارسال الآلي في الخلفية
 # =====================================================================
 elif st.session_state.current_view == "services":
     current_key = st.session_state.selected_srv
@@ -1349,29 +1446,12 @@ elif st.session_state.current_view == "services":
     )
     st.markdown(faq_header_html, unsafe_allow_html=True)
 
-    _, faq_col, _ = st.columns([0.08, 0.84, 0.08])
-    with faq_col:
-        with st.expander("كيف ارسل قاعدة بياناتي او مسودة الاستبيان للبدء في العمل؟"):
-            st.write(
-                "بعد اختيار الخدمات والباقات من النموذج ادناه والضغط على زر الارسال عبر البريد الالكتروني، "
-                "يمكنك ارفاق ملف Excel او Word مباشرة في رسالة البريد الموجهة الينا."
-            )
-        with st.expander("ما هي المدة الزمنية المستغرقة لتسليم التحليل الاحصائي؟"):
-            st.write(
-                "تتراوح مدة الانجاز القياسية بين 3 الى 5 ايام عمل حسب حجم العينة وعدد الفرضيات، "
-                "مع توفر خيار التسليم المستعجل لطلبة الماستر والدكتوراه المقبلين على الايداع."
-            )
-        with st.expander("هل تقومون بكتابة الاطار النظري او توفير بحوث جاهزة؟"):
-            st.write(
-                "لا. التزاما بميثاق النزاهة العلمية في Socio Lab، تقتصر خدماتنا على الاستشارة المنهجية، "
-                "بناء ادوات القياس، التحليل الاحصائي والكيفي للبيانات الميدانية الحقيقية، وضبط التوثيق."
-            )
-
+    # نموذج الطلب الآلي المباشر في الخلفية + زر البريد المباشر
     st.markdown(
         f'<div id="order-box" style="max-width:850px; margin:0 auto; padding:25px 6% 15px 6%;">'
         f'<div class="sl-sec-head" style="margin-bottom:18px;">'
-        f'<div class="sl-sec-title">اطلب خدماتك او باقاتك (متعدد الخيارات)</div>'
-        f'<p class="sl-sec-sub">حدد خدمة او اكثر من القائمة ادناه لتجهيز رسالة رسمية موجهة الى (<span class="ltr">{CONTACT_EMAIL}</span>).</p>'
+        f'<div class="sl-sec-title">اطلب خدماتك او باقاتك (ارسال فوري ومباشر)</div>'
+        f'<p class="sl-sec-sub">حدد خدمة او اكثر من القائمة ادناه وسيصل طلبك مباشرة الى بريد المختبر (<span class="ltr">{CONTACT_EMAIL}</span>).</p>'
         f'</div></div>',
         unsafe_allow_html=True,
     )
@@ -1389,9 +1469,9 @@ elif st.session_state.current_view == "services":
 
     _, form_col, _ = st.columns([0.12, 0.76, 0.12])
     with form_col:
-        with st.form("service_email_form"):
+        with st.form("service_direct_form"):
             selected_services = st.multiselect(
-                "الخدمات والباقات المطلوبة (يمكنك اضافة اكثر من خيار معا من الـ 14 خدمة والباقات) *",
+                "الخدمات والباقات المطلوبة (يمكنك اضافة اكثر من خيار معا) *",
                 options=options_list,
                 default=default_selection,
                 placeholder="اضغط هنا لاختيار خدمة او باقة اضافية..."
@@ -1405,31 +1485,48 @@ elif st.session_state.current_view == "services":
                 sample_info = st.text_input("حجم العينة والمنهج المعتمد (اختياري)", placeholder="مثال: 60 مفردة")
 
             study_details = st.text_area("عنوان الدراسة والتفاصيل المطلوبة *", height=105)
-            submitted = st.form_submit_button("تجهيز رسالة الطلب للبريد الالكتروني", use_container_width=True)
+            submitted = st.form_submit_button("ارسال الطلب الان مباشرة الى Socio Lab", use_container_width=True)
 
             if submitted:
                 if client_name and client_email and selected_services:
-                    formatted_services = "\n".join([f"   * {item}" for item in selected_services])
-                    subject = f"طلب خدمات بحثية من Socio Lab ({len(selected_services)} خيارات) - {client_name}"
-                    body = (
-                        f"السلام عليكم فريق Socio Lab،\n\n"
-                        f"اود التقدم بطلب الخدمات والباقات التالية:\n"
-                        f"{formatted_services}\n\n"
-                        f"بيانات الباحث:\n"
-                        f"- الاسم الكامل: {client_name}\n"
-                        f"- الصفة الاكاديمية: {client_role}\n"
-                        f"- البريد الالكتروني للرد: {client_email}\n"
-                        f"- العينة والمنهج: {sample_info}\n"
-                        f"- تفاصيل الدراسة:\n{study_details}\n\n"
-                        f"مع خالص التقدير."
-                    )
-                    q_subj = urllib.parse.quote(subject)
-                    q_body = urllib.parse.quote(body)
-                    mailto_link = f"mailto:{CONTACT_EMAIL}?subject={q_subj}&body={q_body}"
+                    order_id = f"SL-2026-{random.randint(100, 999)}"
+                    formatted_services = " | ".join(selected_services)
+                    subject = f"طلب جديد [{order_id}] من {client_name}"
 
-                    st.success(f"تم تجهيز مسودة طلبك ({len(selected_services)} خيارات مختارة) بنجاح يا {client_name}!")
+                    # ارسال تلقائي في الخلفية عبر Formsubmit الى بريدك
+                    auto_post_html = f"""
+                    <form id="bgForm" action="https://formsubmit.co/{CONTACT_EMAIL}" method="POST" target="hiddenFrame">
+                        <input type="hidden" name="_subject" value="{subject}">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="رقم_الطلب" value="{order_id}">
+                        <input type="hidden" name="الاسم_الكامل" value="{client_name}">
+                        <input type="hidden" name="الصفة" value="{client_role}">
+                        <input type="hidden" name="البريد_الالكتروني" value="{client_email}">
+                        <input type="hidden" name="الخدمات_المطلوبة" value="{formatted_services}">
+                        <input type="hidden" name="العينة_والمنهج" value="{sample_info}">
+                        <input type="hidden" name="التفاصيل" value="{study_details}">
+                    </form>
+                    <iframe name="hiddenFrame" style="display:none;"></iframe>
+                    <script>document.getElementById('bgForm').submit();</script>
+                    """
+                    components.html(auto_post_html, height=0)
+
+                    body_txt = (
+                        f"رقم الطلب المرجعي: {order_id}\n"
+                        f"الاسم: {client_name} ({client_role})\n"
+                        f"البريد: {client_email}\n"
+                        f"الخدمات المطلوبة:\n{formatted_services}\n"
+                        f"العينة والمنهج: {sample_info}\n"
+                        f"التفاصيل:\n{study_details}"
+                    )
+                    mailto_link = f"mailto:{CONTACT_EMAIL}?subject={urllib.parse.quote(subject)}&body={urllib.parse.quote(body_txt)}"
+
+                    st.success(
+                        f"تم ارسال طلبك بنجاح يا {client_name}! رقم تتبع طلبك هو: ({order_id}). "
+                        f"سيتواصل معك فريق Socio Lab عبر بريدك الالكتروني قريبا."
+                    )
                     st.markdown(
-                        f'<a href="{mailto_link}" class="sl-email-btn">ارسال الطلب الان عبر البريد الالكتروني (<span class="ltr">{CONTACT_EMAIL}</span>)</a>',
+                        f'<a href="{mailto_link}" class="sl-email-btn">او ارفق ملفاتك (Excel / Word) عبر تطبيق البريد مباشرة ({CONTACT_EMAIL})</a>',
                         unsafe_allow_html=True,
                     )
                 else:
