@@ -1,18 +1,13 @@
-import base64
-import datetime
-import math
-import os
-import random
-import re
-import urllib.parse
-from collections import Counter
-import numpy as np
-import pandas as pd
-import streamlit as st
-import streamlit.components.v1 as components
-
 CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
-LOGO_FILENAME = "logo.png"
+LOGO_FILENAME = "En-tête élégant Socio Lab et analytics.png"
+APP_URL = "https://sociolab-dz.streamlit.app"
+
+
+def get_logo_base64(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    return None
 APP_URL = "https://sociolab-dz.streamlit.app"
 
 
