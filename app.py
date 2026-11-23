@@ -1,18 +1,29 @@
+import base64
+import datetime
+import math
+import os
+import random
+import re
+import urllib.parse
+from collections import Counter
+import numpy as np
+import pandas as pd
+import streamlit as st
+import streamlit.components.v1 as components
+
 CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
 LOGO_FILENAME = "En-tête élégant Socio Lab et analytics.png"
 APP_URL = "https://sociolab-dz.streamlit.app"
 
 
 def get_logo_base64(file_path):
-    if os.path.exists(file_path):
-        with open(file_path, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    return None
-APP_URL = "https://sociolab-dz.streamlit.app"
-
-
-def get_logo_base64(file_path):
-    for candidate in [file_path, "En-tête élégant Socio Lab et analytics.png", "logo.png.jpg", "logo.jpg"]:
+    candidates = [
+        file_path,
+        "En-tête élégant Socio Lab et analytics.png",
+        "En-tete elegant Socio Lab et analytics.png",
+        "logo.png",
+    ]
+    for candidate in candidates:
         if os.path.exists(candidate):
             with open(candidate, "rb") as f:
                 return base64.b64encode(f.read()).decode()
@@ -309,7 +320,6 @@ css_styles = (
     "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: 10px !important; border-color: #E5C6DC !important;}"
     "label p {direction: rtl !important; text-align: right !important; font-size: 13px !important; font-weight: 700 !important; color: #2E0938 !important;}"
 
-    "/* Royal Plum & Rose Gold Glass Navbar */"
     ".sl-navbar {background: linear-gradient(90deg, #24072C 0%, #4A1259 100%); border-bottom: 2px solid #C87D65; padding: 10px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: 0 8px 25px rgba(46, 9, 56, 0.25);}"
     ".sl-brand {display: flex; align-items: center; gap: 12px; text-decoration: none;}"
     ".sl-logo-img {height: 56px; width: auto; border-radius: 12px; object-fit: cover; border: 1.5px solid #E5A996; background: #FFFFFF; padding: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);}"
@@ -322,7 +332,6 @@ css_styles = (
     ".sl-cta-top {background: linear-gradient(135deg, #D98E76, #B5654D); color: #FFFFFF !important; font-weight: 800; font-size: 13px; padding: 9px 20px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 15px rgba(200, 125, 101, 0.4); transition: transform 0.2s ease;}"
     ".sl-cta-top:hover {transform: translateY(-2px);}"
 
-    "/* Royal Plum & Rose Gold Hero Section */"
     ".sl-hero {background: linear-gradient(125deg, #24072C 0%, #4A1259 55%, #75276C 100%); color: #FFFFFF; padding: 52px 6%; border-bottom: 3px solid #C87D65; direction: rtl; text-align: right; position: relative; overflow: hidden;}"
     ".sl-hero-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center;}"
     "@media (max-width: 900px) {.sl-hero-grid {grid-template-columns: 1fr;} .sl-nav-links {display: none;}}"
@@ -336,7 +345,6 @@ css_styles = (
     ".sl-btn-outline {background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px); border: 1.5px solid #E5A996; color: #FFFFFF !important; font-weight: 700; font-size: 13.5px; padding: 12px 24px; border-radius: 12px; text-decoration: none; transition: all 0.2s ease;}"
     ".sl-btn-outline:hover {background: rgba(229, 169, 150, 0.25); transform: translateY(-2px);}"
 
-    "/* Brand Banner Showcase Card inside Hero */"
     ".sl-stat-card {background: rgba(36, 7, 44, 0.65); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1.5px solid rgba(229, 169, 150, 0.45); border-radius: 22px; padding: 20px; box-shadow: 0 20px 45px rgba(20, 4, 25, 0.35);}"
     ".sl-stat-header {display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(229, 169, 150, 0.25); padding-bottom: 10px; margin-bottom: 12px;}"
     ".sl-kpi-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; text-align: center;}"
@@ -345,7 +353,6 @@ css_styles = (
     ".sl-kpi-val {font-size: 16px; font-weight: 800; margin-top: 2px; direction: ltr;}"
     ".sl-reading-box {background: rgba(36, 7, 44, 0.85); border-right: 4px solid #E5A996; padding: 11px 14px; border-radius: 10px; font-size: 12.2px; color: #FFFFFF; line-height: 1.65;}"
 
-    "/* Trust Strip & Bento Persona Cards */"
     ".sl-trust-bar {background: #FFFFFF; border-bottom: 1px solid #E8D5E6; padding: 20px 6%; box-shadow: 0 4px 15px rgba(74, 18, 89, 0.05);}"
     ".sl-trust-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; text-align: center;}"
     ".sl-trust-num {font-size: 21px; font-weight: 800; background: linear-gradient(90deg, #4A1259, #C87D65); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
@@ -356,7 +363,6 @@ css_styles = (
     ".sl-persona-card.adv {border-top-color: #2E0938;}"
     ".sl-persona-card.inst {border-top-color: #C87D65;}"
 
-    "/* Sections & Cards */"
     ".sl-section {max-width: 1200px; margin: 0 auto; padding: 40px 6%; direction: rtl; text-align: right;}"
     ".sl-sec-head {text-align: center; max-width: 740px; margin: 0 auto 28px auto;}"
     ".sl-sec-tag {color: #6B217F; font-size: 13px; font-weight: 800; background: #F3E8F2; border: 1px solid #E5C6DC; display: inline-block; padding: 4px 14px; border-radius: 99px; margin-bottom: 6px;}"
@@ -372,7 +378,6 @@ css_styles = (
     ".sl-srv-desc {font-size: 13px; color: #5C3A63; line-height: 1.7; margin: 0 0 14px 0;}"
     ".sl-srv-link {font-size: 12.5px; font-weight: 800; color: #B5654D; display: inline-flex; align-items: center; gap: 4px;}"
 
-    "/* Packages & Details */"
     ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;}"
     ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E8D5E6; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 22px rgba(74, 18, 89, 0.06); transition: transform 0.2s ease; text-align: right;}"
     ".sl-pkg-card:hover {transform: translateY(-4px);}"
@@ -383,7 +388,6 @@ css_styles = (
     ".sl-pkg-btn {display: block; text-align: center; background: #4A1259; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 11px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
     ".sl-pkg-btn.rose {background: linear-gradient(135deg, #D98E76, #B5654D); color: #FFFFFF !important; font-weight: 800;}"
 
-    "/* Clinic, Observatory, About & Banners */"
     ".sl-about-box {background: #FFFFFF; border: 1px solid #E8D5E6; border-top: 5px solid #C87D65; border-radius: 18px; padding: 30px; box-shadow: 0 8px 25px rgba(74, 18, 89, 0.06); text-align: right;}"
     ".sl-clinic-box {background: linear-gradient(135deg, #2E0938 0%, #6B217F 100%); border-radius: 18px; padding: 26px; color: #FFFFFF; border: 1px solid #C87D65; box-shadow: 0 12px 28px rgba(46, 9, 56, 0.2); text-align: right;}"
     ".sl-radar-card {background: #FFFFFF; border: 1px solid #E8D5E6; border-right: 5px solid #C87D65; border-radius: 14px; padding: 18px; margin-top: 10px; box-shadow: 0 6px 18px rgba(74, 18, 89, 0.06); text-align: right;}"
@@ -396,7 +400,6 @@ css_styles = (
     ".sl-warn-banner {background-color: #FDF6F4; border: 1px solid #E5A996; border-right: 4px solid #C87D65; padding: 13px 16px; border-radius: 12px; margin-top: 12px; font-size: 13px; color: #7C3626; text-align: right;}"
     ".sl-cert-box {background: linear-gradient(135deg, #2E0938 0%, #6B217F 100%); border: 2px solid #E5A996; border-radius: 16px; padding: 24px; color: #FFFFFF; text-align: center; margin-top: 14px; box-shadow: 0 12px 28px rgba(46, 9, 56, 0.22);}"
 
-    "/* APA 7 Tables */"
     ".sl-apa-table {width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.8px; direction: rtl;}"
     ".sl-apa-table th {border-top: 2px solid #4A1259; border-bottom: 1.5px solid #4A1259; padding: 10px; color: #2E0938; background: #F3E8F2; text-align: right; font-weight: 800;}"
     ".sl-apa-table td {padding: 10px; border-bottom: 1px solid #E8D5E6; text-align: right; vertical-align: middle;}"
