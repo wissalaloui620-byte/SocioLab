@@ -12,22 +12,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
-LOGO_FILENAME = "En-tête élégant Socio Lab et analytics.png"
 APP_URL = "https://sociolab-dz.streamlit.app"
-
-
-def get_logo_base64(file_path):
-    candidates = [
-        file_path,
-        "En-tête élégant Socio Lab et analytics.png",
-        "En-tete elegant Socio Lab et analytics.png",
-        "logo.png",
-    ]
-    for candidate in candidates:
-        if os.path.exists(candidate):
-            with open(candidate, "rb") as f:
-                return base64.b64encode(f.read()).decode()
-    return None
 
 
 def compute_cronbach_alpha(df_num):
@@ -41,12 +26,9 @@ def compute_cronbach_alpha(df_num):
     return (k / (k - 1)) * (1 - (item_vars / total_var))
 
 
-logo_b64 = get_logo_base64(LOGO_FILENAME)
-icon_val = LOGO_FILENAME if os.path.exists(LOGO_FILENAME) else "📊"
-
 st.set_page_config(
-    page_title="Socio Lab | فضاء علمي رقمي لانتاج المعرفة وتطوير البحث",
-    page_icon=icon_val,
+    page_title="Socio Lab | Arctic Blue Intelligence Platform",
+    page_icon="💠",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -259,7 +241,7 @@ PACKAGES_DATA = {
             "اعداد الجداول وفق APA 7 + تقرير بالتفسير السوسيولوجي."
         ],
         "featured": True,
-        "btn_class": "rose",
+        "btn_class": "mint",
         "ref": "p01"
     },
     "pk3": {
@@ -273,7 +255,7 @@ PACKAGES_DATA = {
             "مراجعة منهجية شاملة للجداول والاشكال البيانية."
         ],
         "featured": True,
-        "btn_class": "rose",
+        "btn_class": "mint",
         "ref": "p04"
     },
     "pk4": {
@@ -292,6 +274,9 @@ PACKAGES_DATA = {
     }
 }
 
+# =====================================================================
+# ادارة حالة الصفحة ووضع الاضاءة (Light / Dark Mode)
+# =====================================================================
 query_params = st.query_params
 if "view" in query_params:
     st.session_state.current_view = query_params["view"]
@@ -303,154 +288,164 @@ if "pil" in query_params and query_params["pil"] in PILLARS_DATA:
 elif "selected_pil" not in st.session_state:
     st.session_state.selected_pil = "p01"
 
+if "theme" in query_params and query_params["theme"] in ["light", "dark"]:
+    st.session_state.theme_mode = query_params["theme"]
+elif "theme_mode" not in st.session_state:
+    st.session_state.theme_mode = "light"
+
+is_dark = st.session_state.theme_mode == "dark"
+toggle_target = "light" if is_dark else "dark"
+toggle_label = "☀️ الوضع الفاتح" if is_dark else "🌙 الوضع الداكن"
+
 # =====================================================================
-# SOCIO LAB — DESIGN SYSTEM (Light & Dark Modes + CSS Variables)
+# ARCTIC BLUE INTELLIGENCE — DESIGN SYSTEM (Glassmorphism + Light/Dark)
 # =====================================================================
+if is_dark:
+    theme_vars = (
+        "--bg: #071120;"
+        "--bg-grad: radial-gradient(circle at 12% 10%, #102647 0%, #071120 65%);"
+        "--surface: rgba(16, 33, 62, 0.72);"
+        "--surface-solid: #0F203D;"
+        "--surface-soft: rgba(24, 48, 88, 0.65);"
+        "--text: #EBF5FF;"
+        "--text-muted: #93B4D8;"
+        "--border: rgba(56, 189, 248, 0.24);"
+        "--shadow-card: 0 8px 32px rgba(2, 8, 23, 0.45);"
+    )
+else:
+    theme_vars = (
+        "--bg: #EEF6FC;"
+        "--bg-grad: linear-gradient(180deg, #E2F1FC 0%, #F2F8FD 45%, #EAF4FB 100%);"
+        "--surface: rgba(255, 255, 255, 0.78);"
+        "--surface-solid: #F7FBFF;"
+        "--surface-soft: rgba(224, 242, 254, 0.65);"
+        "--text: #0B2545;"
+        "--text-muted: #47688A;"
+        "--border: rgba(14, 165, 233, 0.25);"
+        "--shadow-card: 0 8px 28px rgba(14, 116, 144, 0.08);"
+    )
+
 css_styles = (
     "<style>"
-    "@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap');"
+    "@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');"
     ":root {"
-    "  --plum: #3E0B4F;"
-    "  --purple: #6F2DBD;"
-    "  --rose: #D58A9B;"
-    "  --lavender: #E8D7F1;"
-    "  --navy: #0F2D5B;"
-    "  --cyan: #00B4D8;"
-    "  --bg: #F4F6FA;"
-    "  --surface: #FFFFFF;"
-    "  --surface-soft: #FAF8FC;"
-    "  --text: #3E0B4F;"
-    "  --text-muted: #667085;"
-    "  --border: #E8D7F1;"
-    "  --primary: #6F2DBD;"
-    "  --radius-card: 16px;"
-    "  --radius-button: 10px;"
-    "  --shadow-card: 0 4px 20px rgba(62, 11, 79, 0.06);"
-    "}"
-    "@media (prefers-color-scheme: dark) {"
-    "  :root {"
-    "    --bg: #130D1C;"
-    "    --surface: #20172B;"
-    "    --surface-soft: #291D36;"
-    "    --text: #F4EAF8;"
-    "    --text-muted: #B9AFC4;"
-    "    --border: #493453;"
-    "    --primary: #8A45CE;"
-    "    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.22);"
-    "  }"
-    "}"
-    "[data-theme='dark'] {"
-    "  --bg: #130D1C;"
-    "  --surface: #20172B;"
-    "  --surface-soft: #291D36;"
-    "  --text: #F4EAF8;"
-    "  --text-muted: #B9AFC4;"
-    "  --border: #493453;"
-    "  --primary: #8A45CE;"
-    "  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.22);"
+    "  --ice-blue: #E0F2FE;"
+    "  --sky-blue: #0EA5E9;"
+    "  --digital-indigo: #3B389C;"
+    "  --mint-green: #10B981;"
+    "  --mint-glow: #34D399;"
+    "  --radius-card: 18px;"
+    "  --radius-button: 11px;"
+    f"  {theme_vars}"
     "}"
     "#MainMenu, header, footer {visibility: hidden;}"
     ".block-container {padding: 0rem !important; max-width: 100% !important;}"
-    ".stApp, body {background-color: var(--bg) !important; font-family: 'Cairo', sans-serif !important; direction: rtl; text-align: right; color: var(--text);}"
+    ".stApp {background: var(--bg-grad) !important; background-color: var(--bg) !important; font-family: 'Cairo', sans-serif !important; direction: rtl; text-align: right; color: var(--text);}"
     "h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {font-family: 'Cairo', sans-serif;}"
     ".rtl {direction: rtl; text-align: right; unicode-bidi: isolate;}"
-    ".ltr {direction: ltr; text-align: left; display: inline-block; unicode-bidi: isolate; font-family: sans-serif;}"
+    ".ltr {direction: ltr; text-align: left; display: inline-block; unicode-bidi: isolate; font-family: 'Plus Jakarta Sans', sans-serif;}"
     ".ltr-block {direction: ltr; text-align: left; display: block; unicode-bidi: isolate;}"
-    "input, textarea {unicode-bidi: plaintext !important; font-size: 13px !important; border-radius: var(--radius-button) !important; border: 1px solid var(--border) !important; background-color: var(--surface) !important; color: var(--text) !important;}"
-    "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: var(--radius-button) !important; border-color: var(--border) !important; background-color: var(--surface) !important;}"
+    "input, textarea {unicode-bidi: plaintext !important; font-size: 13px !important; border-radius: var(--radius-button) !important; border: 1px solid var(--border) !important; background-color: var(--surface-solid) !important; color: var(--text) !important;}"
+    "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: var(--radius-button) !important; border-color: var(--border) !important; background-color: var(--surface-solid) !important; color: var(--text) !important;}"
     "label p {direction: rtl !important; text-align: right !important; font-size: 13px !important; font-weight: 700 !important; color: var(--text) !important;}"
 
-    "/* Navbar */"
-    ".sl-navbar {background: var(--plum); border-bottom: 2px solid var(--rose); padding: 10px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: var(--shadow-card);}"
+    "/* Glassmorphic Floating Navbar */"
+    ".sl-navbar {background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1.5px solid var(--border); padding: 11px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: var(--shadow-card);}"
     ".sl-brand {display: flex; align-items: center; gap: 12px; text-decoration: none;}"
-    ".sl-logo-img {height: 54px; width: auto; border-radius: 10px; object-fit: cover; border: 1.5px solid var(--rose); background: var(--surface); padding: 2px;}"
-    ".sl-sigma {width: 38px; height: 38px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-weight: 800; font-size: 18px;}"
-    ".sl-logo-script {font-family: 'Great Vibes', cursive !important; font-size: 26px; color: #FFFFFF; line-height: 1; direction: ltr;}"
-    ".sl-logo-sub {font-size: 10px; color: var(--lavender); display: block; margin-top: 2px;}"
-    ".sl-nav-links {display: flex; gap: 14px; flex-wrap: wrap;}"
-    ".sl-nav-links a {color: var(--lavender); text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: var(--radius-button); transition: all 0.2s ease;}"
-    ".sl-nav-links a:hover, .sl-nav-links a.active {color: #FFFFFF; background: var(--primary);}"
-    ".sl-cta-top {background: var(--primary); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 9px 20px; border-radius: var(--radius-button); text-decoration: none; border: 1px solid var(--rose);}"
+    ".sl-brand-title {font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 21px; font-weight: 800; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo), var(--mint-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; direction: ltr;}"
+    ".sl-brand-sub {font-size: 10.5px; color: var(--text-muted); font-weight: 700; display: block;}"
+    ".sl-nav-links {display: flex; gap: 12px; flex-wrap: wrap; align-items: center;}"
+    ".sl-nav-links a {color: var(--text); text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 9px; transition: all 0.25s ease;}"
+    ".sl-nav-links a:hover, .sl-nav-links a.active {color: #FFFFFF; background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);}"
+    ".sl-nav-actions {display: flex; gap: 10px; align-items: center;}"
+    ".sl-theme-btn {background: var(--surface-soft); border: 1px solid var(--border); color: var(--text) !important; font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 9px; text-decoration: none; transition: all 0.2s ease;}"
+    ".sl-theme-btn:hover {border-color: var(--sky-blue); transform: translateY(-1px);}"
+    ".sl-cta-top {background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: var(--radius-button); text-decoration: none; box-shadow: 0 4px 14px rgba(59, 56, 156, 0.28); transition: transform 0.2s ease;}"
+    ".sl-cta-top:hover {transform: translateY(-2px);}"
 
-    "/* Hero */"
-    ".sl-hero {background: linear-gradient(135deg, var(--plum) 0%, var(--navy) 100%); color: #FFFFFF; padding: 50px 6%; border-bottom: 3px solid var(--rose); direction: rtl; text-align: right;}"
+    "/* Arctic Hero Section */"
+    ".sl-hero {background: linear-gradient(135deg, #091E3A 0%, #162B5C 55%, #1E3A70 100%); color: #FFFFFF; padding: 52px 6%; border-bottom: 2px solid var(--sky-blue); direction: rtl; text-align: right; position: relative; overflow: hidden;}"
     ".sl-hero-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 38px; align-items: center;}"
     "@media (max-width: 900px) {.sl-hero-grid {grid-template-columns: 1fr;} .sl-nav-links {display: none;}}"
-    ".sl-badge {display: inline-flex; align-items: center; gap: 6px; background: rgba(213, 138, 155, 0.18); border: 1px solid var(--rose); color: var(--lavender); font-size: 12px; font-weight: 700; padding: 5px 15px; border-radius: 99px; margin-bottom: 15px;}"
+    ".sl-badge {display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.16); border: 1px solid var(--mint-glow); color: #A7F3D0; font-size: 12px; font-weight: 700; padding: 5px 15px; border-radius: 99px; margin-bottom: 15px;}"
     ".sl-hero-title {font-size: 29px; font-weight: 800; line-height: 1.45; color: #FFFFFF; margin-bottom: 15px;}"
-    ".sl-hero-title span {color: var(--rose);}"
-    ".sl-hero-desc {color: var(--lavender); font-size: 14.2px; line-height: 1.85; margin-bottom: 24px;}"
+    ".sl-hero-title span {background: linear-gradient(90deg, #38BDF8, #34D399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
+    ".sl-hero-desc {color: #CBD5E1; font-size: 14.2px; line-height: 1.85; margin-bottom: 24px;}"
     ".sl-hero-btns {display: flex; gap: 14px; flex-wrap: wrap;}"
-    ".sl-btn-amber {background: var(--primary); color: #FFFFFF !important; font-weight: 800; font-size: 13.5px; padding: 11px 24px; border-radius: var(--radius-button); text-decoration: none; border: 1px solid var(--rose);}"
-    ".sl-btn-outline {background: rgba(255, 255, 255, 0.1); border: 1.5px solid var(--cyan); color: #FFFFFF !important; font-weight: 700; font-size: 13.5px; padding: 11px 24px; border-radius: var(--radius-button); text-decoration: none;}"
+    ".sl-btn-mint {background: linear-gradient(135deg, var(--mint-green), #059669); color: #FFFFFF !important; font-weight: 800; font-size: 13.5px; padding: 11px 24px; border-radius: var(--radius-button); text-decoration: none; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3); transition: all 0.25s ease;}"
+    ".sl-btn-mint:hover {transform: translateY(-2px);}"
+    ".sl-btn-outline {background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); border: 1.5px solid #38BDF8; color: #FFFFFF !important; font-weight: 700; font-size: 13.5px; padding: 11px 24px; border-radius: var(--radius-button); text-decoration: none; transition: all 0.25s ease;}"
+    ".sl-btn-outline:hover {background: rgba(56, 189, 248, 0.18); transform: translateY(-2px);}"
 
-    "/* Hero Preview Card */"
-    ".sl-stat-card {background: rgba(15, 45, 91, 0.72); backdrop-filter: blur(14px); border: 1px solid rgba(213, 138, 155, 0.4); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card);}"
-    ".sl-stat-header {display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(232, 215, 241, 0.25); padding-bottom: 10px; margin-bottom: 12px;}"
+    "/* Glassmorphic Analytics Dashboard Preview */"
+    ".sl-stat-card {background: rgba(15, 34, 66, 0.68); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: var(--radius-card); padding: 20px; box-shadow: 0 20px 45px rgba(4, 13, 28, 0.4);}"
+    ".sl-stat-header {display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(56, 189, 248, 0.22); padding-bottom: 10px; margin-bottom: 12px;}"
     ".sl-kpi-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; text-align: center;}"
-    ".sl-kpi-box {background: rgba(62, 11, 79, 0.75); border: 1px solid rgba(213, 138, 155, 0.35); border-radius: 10px; padding: 9px;}"
-    ".sl-kpi-label {font-size: 11px; color: var(--lavender);}"
+    ".sl-kpi-box {background: rgba(9, 24, 48, 0.78); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 9px;}"
+    ".sl-kpi-label {font-size: 11px; color: #94A3B8;}"
     ".sl-kpi-val {font-size: 15.5px; font-weight: 800; margin-top: 2px; direction: ltr;}"
-    ".sl-reading-box {background: rgba(62, 11, 79, 0.8); border-right: 3.5px solid var(--cyan); padding: 11px 14px; border-radius: 8px; font-size: 12.2px; color: #FFFFFF; line-height: 1.65;}"
+    ".sl-reading-box {background: rgba(9, 24, 48, 0.82); border-right: 3.5px solid var(--mint-glow); padding: 11px 14px; border-radius: 9px; font-size: 12.2px; color: #E2E8F0; line-height: 1.65;}"
 
-    "/* Trust Bar & Bento Cards */"
-    ".sl-trust-bar {background: var(--surface); border-bottom: 1px solid var(--border); padding: 18px 6%; box-shadow: var(--shadow-card);}"
+    "/* Trust Bar & Glass Bento Cards */"
+    ".sl-trust-bar {background: var(--surface); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 18px 6%; box-shadow: var(--shadow-card);}"
     ".sl-trust-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; text-align: center;}"
-    ".sl-trust-num {font-size: 20px; font-weight: 800; color: var(--primary);}"
+    ".sl-trust-num {font-size: 20px; font-weight: 800; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
     ".sl-trust-txt {font-size: 12.2px; color: var(--text-muted); font-weight: 700;}"
     ".sl-persona-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px; margin-top: 12px;}"
-    ".sl-persona-card {background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--primary); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-persona-card.adv {border-top-color: var(--navy);}"
-    ".sl-persona-card.inst {border-top-color: var(--rose);}"
+    ".sl-persona-card {background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-top: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow-card); transition: all 0.25s ease; text-align: right;}"
+    ".sl-persona-card:hover {transform: translateY(-4px); border-color: var(--sky-blue);}"
+    ".sl-persona-card.adv {border-top-color: var(--digital-indigo);}"
+    ".sl-persona-card.inst {border-top-color: var(--mint-green);}"
 
-    "/* Sections & Cards */"
+    "/* Sections & Dashboard Cards */"
     ".sl-section {max-width: 1200px; margin: 0 auto; padding: 38px 6%; direction: rtl; text-align: right;}"
     ".sl-sec-head {text-align: center; max-width: 740px; margin: 0 auto 26px auto;}"
-    ".sl-sec-tag {color: var(--primary); font-size: 12.5px; font-weight: 800; background: var(--surface-soft); border: 1px solid var(--border); display: inline-block; padding: 4px 14px; border-radius: 99px; margin-bottom: 6px;}"
+    ".sl-sec-tag {color: var(--sky-blue); font-size: 12.5px; font-weight: 800; background: var(--surface-soft); border: 1px solid var(--border); display: inline-block; padding: 4px 14px; border-radius: 99px; margin-bottom: 6px;}"
     ".sl-sec-title {color: var(--text); font-size: 23px; font-weight: 800; margin: 4px 0 8px 0;}"
     ".sl-sec-sub {color: var(--text-muted); font-size: 13.8px; margin: 0;}"
     ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(295px, 1fr)); gap: 18px;}"
-    ".sl-srv-card {display: block; text-decoration: none !important; background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--primary); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); transition: all 0.2s ease; text-align: right;}"
-    ".sl-srv-card:hover {transform: translateY(-3px); border-color: var(--rose);}"
-    ".sl-srv-card.active-card {border: 2px solid var(--primary); background: var(--surface-soft);}"
-    ".sl-srv-num {font-size: 14px; font-weight: 800; color: var(--rose); margin-bottom: 4px; direction: ltr; display: inline-block;}"
-    ".sl-srv-cat {font-size: 11px; font-weight: 700; color: var(--primary); background: var(--surface-soft); border: 1px solid var(--border); padding: 2px 10px; border-radius: 99px; float: left;}"
+    ".sl-srv-card {display: block; text-decoration: none !important; background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-top: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); transition: all 0.25s ease; text-align: right;}"
+    ".sl-srv-card:hover {transform: translateY(-4px); border-color: var(--mint-green);}"
+    ".sl-srv-card.active-card {border: 2px solid var(--sky-blue); background: var(--surface-soft);}"
+    ".sl-srv-num {font-size: 14px; font-weight: 800; color: var(--mint-green); margin-bottom: 4px; direction: ltr; display: inline-block;}"
+    ".sl-srv-cat {font-size: 11px; font-weight: 700; color: var(--sky-blue); background: var(--surface-soft); border: 1px solid var(--border); padding: 2px 10px; border-radius: 99px; float: left;}"
     ".sl-srv-title {font-size: 15.5px; font-weight: 800; color: var(--text); margin: 8px 0; clear: both;}"
     ".sl-srv-desc {font-size: 12.8px; color: var(--text-muted); line-height: 1.7; margin: 0 0 12px 0;}"
-    ".sl-srv-link {font-size: 12.5px; font-weight: 800; color: var(--primary); display: inline-flex; align-items: center; gap: 4px;}"
+    ".sl-srv-link {font-size: 12.5px; font-weight: 800; color: var(--sky-blue); display: inline-flex; align-items: center; gap: 4px;}"
 
     "/* Packages */"
     ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;}"
-    ".sl-pkg-card {background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-pkg-card.featured {border: 2px solid var(--primary); background: var(--surface-soft);}"
+    ".sl-pkg-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-card); transition: transform 0.25s ease; text-align: right;}"
+    ".sl-pkg-card:hover {transform: translateY(-4px);}"
+    ".sl-pkg-card.featured {border: 2px solid var(--sky-blue); background: var(--surface-soft);}"
     ".sl-pkg-badge {display: inline-block; background: var(--surface-soft); border: 1px solid var(--border); color: var(--text); font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px;}"
-    ".sl-pkg-badge.dark {background: var(--plum); color: #FFFFFF; border-color: var(--rose);}"
+    ".sl-pkg-badge.dark {background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF; border: none;}"
     ".sl-pkg-item {font-size: 13px; color: var(--text); padding: 6px 0; border-bottom: 1px dashed var(--border);}"
-    ".sl-pkg-btn {display: block; text-align: center; background: var(--navy); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 16px;}"
-    ".sl-pkg-btn.rose {background: var(--primary); color: #FFFFFF !important; font-weight: 800;}"
+    ".sl-pkg-btn {display: block; text-align: center; background: var(--digital-indigo); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 16px; transition: opacity 0.2s;}"
+    ".sl-pkg-btn.mint {background: linear-gradient(135deg, var(--mint-green), #059669); color: #FFFFFF !important; font-weight: 800;}"
 
     "/* Containers & Banners */"
-    ".sl-about-box, .sl-detail-box {background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 24px; margin-bottom: 18px; box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-clinic-box {background: linear-gradient(135deg, var(--plum) 0%, var(--navy) 100%); border-radius: var(--radius-card); padding: 24px; color: #FFFFFF; border-right: 4px solid var(--cyan); box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-radar-card {background: var(--surface); border: 1px solid var(--border); border-right: 4px solid var(--primary); border-radius: var(--radius-card); padding: 16px; margin-top: 10px; box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-probe-result {background: var(--surface); border: 1px solid var(--border); border-right: 4px solid var(--primary); border-radius: var(--radius-card); padding: 16px; margin-top: 12px; font-size: 13px; line-height: 1.75; color: var(--text); box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-deliv-item {background: var(--surface-soft); border: 1px solid var(--border); border-right: 3.5px solid var(--primary); padding: 10px 14px; border-radius: var(--radius-button); font-size: 13px; color: var(--text); margin-bottom: 8px; text-align: right;}"
-    ".sl-back-link {display: inline-block; color: var(--text) !important; font-weight: 800; font-size: 13px; text-decoration: none !important; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 7px 16px; border-radius: var(--radius-button);}"
-    ".sl-back-link:hover {border-color: var(--primary); color: var(--primary) !important;}"
-    ".sl-result-banner {background-color: var(--surface-soft); border: 1px solid var(--border); border-right: 4px solid var(--primary); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
-    ".sl-warn-banner {background-color: var(--surface-soft); border: 1px solid var(--rose); border-right: 4px solid var(--rose); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
-    ".sl-cert-box {background: linear-gradient(135deg, var(--plum) 0%, var(--navy) 100%); border: 2px solid var(--rose); border-radius: var(--radius-card); padding: 20px; color: #FFFFFF; text-align: center; margin-top: 12px;}"
+    ".sl-about-box, .sl-detail-box {background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 24px; margin-bottom: 18px; box-shadow: var(--shadow-card); text-align: right;}"
+    ".sl-clinic-box {background: linear-gradient(135deg, #091E3A 0%, #1E3A70 100%); border-radius: var(--radius-card); padding: 24px; color: #FFFFFF; border-right: 4px solid var(--mint-glow); box-shadow: var(--shadow-card); text-align: right;}"
+    ".sl-radar-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 16px; margin-top: 10px; box-shadow: var(--shadow-card); text-align: right;}"
+    ".sl-probe-result {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 16px; margin-top: 12px; font-size: 13px; line-height: 1.75; color: var(--text); box-shadow: var(--shadow-card); text-align: right;}"
+    ".sl-deliv-item {background: var(--surface-soft); border: 1px solid var(--border); border-right: 3.5px solid var(--mint-green); padding: 10px 14px; border-radius: var(--radius-button); font-size: 13px; color: var(--text); margin-bottom: 8px; text-align: right;}"
+    ".sl-back-link {display: inline-block; color: var(--text) !important; font-weight: 800; font-size: 13px; text-decoration: none !important; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 7px 16px; border-radius: var(--radius-button); transition: all 0.2s;}"
+    ".sl-back-link:hover {border-color: var(--sky-blue); color: var(--sky-blue) !important;}"
+    ".sl-result-banner {background-color: var(--surface-soft); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
+    ".sl-warn-banner {background-color: var(--surface-soft); border: 1px solid var(--mint-green); border-right: 4px solid var(--mint-green); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
+    ".sl-cert-box {background: linear-gradient(135deg, #091E3A 0%, #1E3A70 100%); border: 2px solid var(--mint-glow); border-radius: var(--radius-card); padding: 20px; color: #FFFFFF; text-align: center; margin-top: 12px; box-shadow: var(--shadow-card);}"
 
     "/* APA 7 Tables */"
-    ".sl-apa-table {width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.8px; direction: rtl; background: var(--surface);}"
-    ".sl-apa-table th {border-top: 2px solid var(--plum); border-bottom: 1.5px solid var(--plum); padding: 9px; color: var(--text); background: var(--surface-soft); text-align: right; font-weight: 800;}"
+    ".sl-apa-table {width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.8px; direction: rtl; background: var(--surface-solid);}"
+    ".sl-apa-table th {border-top: 2px solid var(--sky-blue); border-bottom: 1.5px solid var(--sky-blue); padding: 9px; color: var(--text); background: var(--surface-soft); text-align: right; font-weight: 800;}"
     ".sl-apa-table td {padding: 9px; border-bottom: 1px solid var(--border); text-align: right; vertical-align: middle; color: var(--text);}"
-    ".sl-apa-table td.num-cell {direction: ltr; text-align: right; font-family: sans-serif; display: table-cell;}"
-    ".sl-apa-table tr:last-child td {border-bottom: 2px solid var(--plum);}"
+    ".sl-apa-table td.num-cell {direction: ltr; text-align: right; font-family: 'Plus Jakarta Sans', sans-serif; display: table-cell;}"
+    ".sl-apa-table tr:last-child td {border-bottom: 2px solid var(--sky-blue);}"
 
-    ".sl-email-btn {display: block; text-align: center; background: var(--primary); color: #FFFFFF !important; font-weight: 800; font-size: 14px; padding: 12px 20px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 12px;}"
-    ".sl-integrity {background: linear-gradient(125deg, var(--plum) 0%, var(--navy) 100%); color: #FFFFFF; text-align: center; padding: 42px 6%; margin-top: 25px; border-top: 2px solid var(--rose);}"
-    ".sl-footer {background-color: var(--plum); color: var(--lavender); text-align: center; padding: 30px 6%; font-size: 12.5px; border-top: 2px solid var(--rose);}"
+    ".sl-email-btn {display: block; text-align: center; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF !important; font-weight: 800; font-size: 14px; padding: 12px 20px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 12px;}"
+    ".sl-integrity {background: linear-gradient(135deg, #091E3A 0%, #162B5C 100%); color: #FFFFFF; text-align: center; padding: 42px 6%; margin-top: 25px; border-top: 2px solid var(--sky-blue);}"
+    ".sl-footer {background-color: #051224; color: #93B4D8; text-align: center; padding: 30px 6%; font-size: 12.5px; border-top: 1.5px solid var(--digital-indigo);}"
     "</style>"
 )
 
@@ -460,110 +455,95 @@ active_home = "active" if st.session_state.current_view == "home" else ""
 active_srv = "active" if st.session_state.current_view == "services" else ""
 active_app = "active" if st.session_state.current_view == "applied_lab" else ""
 
-if logo_b64:
-    brand_html = (
-        f'<a href="?view=home" target="_self" class="sl-brand">'
-        f'<img src="data:image/png;base64,{logo_b64}" alt="Socio Lab Logo" class="sl-logo-img">'
-        f'</a>'
-    )
-else:
-    brand_html = (
-        '<a href="?view=home" target="_self" class="sl-brand">'
-        '<div class="sl-sigma">&Sigma;</div>'
-        '<div><div class="sl-logo-script">Socio Lab</div>'
-        '<span class="sl-logo-sub">للتحليل الاحصائي والمنهجية</span></div></a>'
-    )
+# شعار متجه (SVG) مطور بهوية Arctic Blue Intelligence (Sky Blue + Digital Indigo + Mint Green)
+arctic_logo_svg = (
+    '<svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">'
+    '<defs>'
+    '<linearGradient id="arcticGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">'
+    '<stop offset="0%" stop-color="#0EA5E9"/>'
+    '<stop offset="55%" stop-color="#3B389C"/>'
+    '<stop offset="100%" stop-color="#10B981"/>'
+    '</linearGradient>'
+    '</defs>'
+    '<rect width="48" height="48" rx="13" fill="url(#arcticGrad)"/>'
+    '<rect x="11" y="25" width="5" height="12" rx="2.5" fill="#E0F2FE"/>'
+    '<rect x="19" y="19" width="5" height="18" rx="2.5" fill="#7DD3FC"/>'
+    '<rect x="27" y="13" width="5" height="24" rx="2.5" fill="#34D399"/>'
+    '<path d="M12 22L21.5 16L30 11L37 14" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
+    '<circle cx="37" cy="14" r="3" fill="#34D399"/>'
+    '</svg>'
+)
+
+brand_html = (
+    f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self" class="sl-brand">'
+    f'{arctic_logo_svg}'
+    f'<div><div class="sl-brand-title">Socio Lab</div>'
+    f'<span class="sl-brand-sub">Arctic Blue Intelligence • Research &amp; SPSS</span></div></a>'
+)
 
 navbar_html = (
     f'<div class="sl-navbar">{brand_html}'
     f'<div class="sl-nav-links">'
-    f'<a href="?view=home" target="_self" class="{active_home}">الرئيسية</a>'
-    f'<a href="?view=services&pil=p01" target="_self" class="{active_srv}">الخدمات والباقات (14)</a>'
-    f'<a href="?view=applied_lab" target="_self" class="{active_app}">استوديو البحث الميداني</a>'
-    f'<a href="?view=home#interactive-lab" target="_self">المختبر الذكي</a>'
-    f'<a href="?view=home#about-us" target="_self">من نحن</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self" class="{active_home}">الرئيسية</a>'
+    f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self" class="{active_srv}">الخدمات والباقات (14)</a>'
+    f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="{active_app}">استوديو البحث الميداني</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#interactive-lab" target="_self">المختبر الذكي</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#about-us" target="_self">من نحن</a>'
     f'</div>'
-    f'<a href="?view=services&pil=p01#order-box" target="_self" class="sl-cta-top">اطلب خدمة الان</a>'
-    f'</div>'
+    f'<div class="sl-nav-actions">'
+    f'<a href="?view={st.session_state.current_view}&theme={toggle_target}" target="_self" class="sl-theme-btn">{toggle_label}</a>'
+    f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-cta-top">اطلب خدمة الان</a>'
+    f'</div></div>'
 )
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية
+# الصفحة الاولى: الواجهة الرئيسية (Arctic Blue Analytics Dashboard)
 # =====================================================================
 if st.session_state.current_view == "home":
-    if logo_b64:
-        hero_right_card = (
-            f'<div class="sl-stat-card">'
-            f'<div class="sl-stat-header"><div>'
-            f'<div style="font-size:11px; color:var(--rose); font-weight:700;">الهوية البصرية الرسمية</div>'
-            f'<div style="font-size:14.5px; font-weight:800; color:#FFFFFF;">معا .. نحو معرفة اعمق لمجتمع افضل</div>'
-            f'</div>'
-            f'<span class="ltr" style="background:rgba(0,180,216,0.2); color:var(--cyan); font-size:11px; padding:4px 10px; border-radius:8px; font-weight:700;">SPSS &amp; PLS</span>'
-            f'</div>'
-            f'<div style="background:var(--surface); padding:8px; border-radius:14px; border:1.5px solid var(--rose); margin-bottom:12px;">'
-            f'<img src="data:image/png;base64,{logo_b64}" alt="Socio Lab Banner" style="width:100%; height:auto; border-radius:10px; display:block;">'
-            f'</div>'
-            f'<div class="sl-kpi-grid">'
-            f'<div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (<span class="ltr">&alpha;</span>)</div>'
-            f'<div class="sl-kpi-val" style="color:var(--cyan);">0.892</div></div>'
-            f'<div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (<span class="ltr">N</span>)</div>'
-            f'<div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div>'
-            f'<div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (<span class="ltr">Sig</span>)</div>'
-            f'<div class="sl-kpi-val" style="color:var(--rose);">0.001</div></div>'
-            f'</div>'
-            f'<div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) '
-            f'الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.</div>'
-            f'</div>'
-        )
-    else:
-        hero_right_card = (
-            '<div class="sl-stat-card">'
-            '<div class="sl-stat-header"><div>'
-            '<div style="font-size:11px; color:var(--rose); font-weight:700;">محاكاة حية لمخرجات <span class="ltr">Socio Lab</span></div>'
-            '<div style="font-size:14.5px; font-weight:800; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div>'
-            '</div>'
-            '<span class="ltr" style="background:rgba(0,180,216,0.2); color:var(--cyan); font-size:11px; padding:4px 10px; border-radius:8px; font-weight:700;">SPSS &amp; PLS</span>'
-            '</div>'
-            '<div style="background:rgba(62,11,79,0.75); padding:12px; border-radius:12px; border:1px solid rgba(213,138,155,0.3);">'
-            '<svg viewBox="0 0 300 95" style="width:100%; height:88px; display:block;">'
-            '<defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">'
-            '<stop offset="0%" stop-color="#00B4D8" stop-opacity="0.55"/>'
-            '<stop offset="100%" stop-color="#3E0B4F" stop-opacity="0.0"/>'
-            '</linearGradient></defs>'
-            '<line x1="10" y1="80" x2="290" y2="80" stroke="rgba(232,215,241,0.35)" stroke-width="1"/>'
-            '<line x1="150" y1="12" x2="150" y2="80" stroke="#D58A9B" stroke-dasharray="3,3" stroke-width="1.6"/>'
-            '<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80 Z" fill="url(#g1)"/>'
-            '<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#00B4D8" stroke-width="2.6"/>'
-            '<text x="150" y="92" fill="#D58A9B" font-size="9.5" font-weight="bold" text-anchor="middle">&mu; = 3.84</text>'
-            '</svg></div>'
-            '<div class="sl-kpi-grid">'
-            '<div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (<span class="ltr">&alpha;</span>)</div>'
-            '<div class="sl-kpi-val" style="color:var(--cyan);">0.892</div></div>'
-            '<div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (<span class="ltr">N</span>)</div>'
-            '<div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div>'
-            '<div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (<span class="ltr">Sig</span>)</div>'
-            '<div class="sl-kpi-val" style="color:var(--rose);">0.001</div></div>'
-            '</div>'
-            '<div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) '
-            'الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.</div>'
-            '</div>'
-        )
-
     hero_html = (
         f'<div class="sl-hero"><div class="sl-hero-grid">'
         f'<div>'
-        f'<div class="sl-badge">&mu; دقة منهجية • قراءة سوسيولوجية • توثيق <span class="ltr">APA 7</span></div>'
+        f'<div class="sl-badge">&mu; ذكاء احصائي • قراءة سوسيولوجية • توثيق <span class="ltr">APA 7</span></div>'
         f'<div class="sl-hero-title">نحن فضاء علمي رقمي لانتاج المعرفة وتطوير البحث.. '
         f'<span>شريكك المنهجي والاحصائي الدقيق</span></div>'
         f'<p class="sl-hero-desc">في <strong class="ltr">Socio Lab</strong> نحول البيانات الميدانية الخام '
         f'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الليسانس والماستر والدكتوراه، والاساتذة، '
         f'ومخابر البحث، والمؤسسات في التحليل الاحصائي، التصميم المنهجي، والبحث النوعي والمختلط.</p>'
         f'<div class="sl-hero-btns">'
-        f'<a href="?view=services&pil=p01" target="_self" class="sl-btn-amber">تصفح اقسام المنصة (14) والباقات</a>'
-        f'<a href="?view=applied_lab" target="_self" class="sl-btn-outline">استوديو البحث الميداني التطبيقي</a>'
+        f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self" class="sl-btn-mint">تصفح اقسام المنصة (14) والباقات</a>'
+        f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="sl-btn-outline">استوديو البحث الميداني التطبيقي</a>'
         f'</div></div>'
-        f'{hero_right_card}'
+        f'<div class="sl-stat-card">'
+        f'<div class="sl-stat-header"><div>'
+        f'<div style="font-size:11px; color:#34D399; font-weight:700;">لوحة المؤشرات الذكية <span class="ltr">Analytics Dashboard</span></div>'
+        f'<div style="font-size:14.5px; font-weight:800; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div>'
+        f'</div>'
+        f'<span class="ltr" style="background:rgba(56,189,248,0.2); color:#38BDF8; font-size:11px; padding:4px 10px; border-radius:8px; font-weight:700;">SPSS &amp; PLS</span>'
+        f'</div>'
+        f'<div style="background:rgba(9,24,48,0.85); padding:12px; border-radius:12px; border:1px solid rgba(56,189,248,0.25);">'
+        f'<svg viewBox="0 0 300 95" style="width:100%; height:88px; display:block;">'
+        f'<defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">'
+        f'<stop offset="0%" stop-color="#38BDF8" stop-opacity="0.55"/>'
+        f'<stop offset="100%" stop-color="#10B981" stop-opacity="0.0"/>'
+        f'</linearGradient></defs>'
+        f'<line x1="10" y1="80" x2="290" y2="80" stroke="rgba(148,163,184,0.35)" stroke-width="1"/>'
+        f'<line x1="150" y1="12" x2="150" y2="80" stroke="#34D399" stroke-dasharray="3,3" stroke-width="1.6"/>'
+        f'<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80 Z" fill="url(#g1)"/>'
+        f'<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#38BDF8" stroke-width="2.6"/>'
+        f'<text x="150" y="92" fill="#34D399" font-size="9.5" font-weight="bold" text-anchor="middle">&mu; = 3.84</text>'
+        f'</svg></div>'
+        f'<div class="sl-kpi-grid">'
+        f'<div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (<span class="ltr">&alpha;</span>)</div>'
+        f'<div class="sl-kpi-val" style="color:#38BDF8;">0.892</div></div>'
+        f'<div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (<span class="ltr">N</span>)</div>'
+        f'<div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div>'
+        f'<div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (<span class="ltr">Sig</span>)</div>'
+        f'<div class="sl-kpi-val" style="color:#34D399;">0.001</div></div>'
+        f'</div>'
+        f'<div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) '
+        f'الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.</div>'
+        f'</div>'
         f'</div></div>'
     )
     st.markdown(hero_html, unsafe_allow_html=True)
@@ -579,34 +559,34 @@ if st.session_state.current_view == "home":
     st.markdown(trust_bar_html, unsafe_allow_html=True)
 
     persona_html = (
-        '<div class="sl-section" style="padding-bottom:10px;">'
-        '<div class="sl-sec-head" style="margin-bottom:20px;">'
-        '<div class="sl-sec-tag">الفئات المستهدفة والمسارات البحثية</div>'
-        '<div class="sl-sec-title">من تخدم منصة <span class="ltr">Socio Lab</span>؟</div>'
-        '</div>'
-        '<div class="sl-persona-grid">'
-        '<div class="sl-persona-card">'
-        '<div style="font-size:12px; color:var(--primary); font-weight:800;">01 • طلبة الليسانس والماستر</div>'
-        '<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">بناء الاساس المنهجي ومذكرات التخرج</div>'
-        '<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
-        'صياغة الاشكالية والفرضيات، تصميم الاستبيانات، التحليل الوصفي والاستدلالي عبر SPSS، وتنسيق الجداول وفق APA 7.</p>'
-        '<a href="#interactive-lab" class="sl-srv-link">استخدم الادوات التفاعلية المجانية ادناه &darr;</a>'
-        '</div>'
-        '<div class="sl-persona-card adv">'
-        '<div style="font-size:12px; color:var(--navy); font-weight:800;">02 • طلبة الدكتوراه والاساتذة الباحثون</div>'
-        '<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">النمذجة المتقدمة والنشر الدولي المحكم</div>'
-        '<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
-        'تحليل المسار، النمذجة الهيكلية SEM (SmartPLS / AMOS)، التحليل العاملي EFA/CFA، والبحث النوعي والمختلط.</p>'
-        '<a href="?view=applied_lab" target="_self" class="sl-srv-link">انتقل الى استوديو البحث الميداني التطبيقي &larr;</a>'
-        '</div>'
-        '<div class="sl-persona-card inst">'
-        '<div style="font-size:12px; color:var(--rose); font-weight:800;">03 • مخابر البحث، الجامعات، والمؤسسات</div>'
-        '<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">استطلاعات الراي، المرصد، ولوحات القيادة</div>'
-        '<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
-        'الدراسات الميدانية، قياس الرضا الوظيفي والمناخ التنظيمي، تقييم البرامج، واعداد اوراق السياسات Policy Briefs.</p>'
-        '<a href="?view=services&pil=p11" target="_self" class="sl-srv-link">تصفح حلول المؤسسات ومخابر البحث &larr;</a>'
-        '</div>'
-        '</div></div>'
+        f'<div class="sl-section" style="padding-bottom:10px;">'
+        f'<div class="sl-sec-head" style="margin-bottom:20px;">'
+        f'<div class="sl-sec-tag">الفئات المستهدفة والمسارات البحثية</div>'
+        f'<div class="sl-sec-title">من تخدم منصة <span class="ltr">Socio Lab</span>؟</div>'
+        f'</div>'
+        f'<div class="sl-persona-grid">'
+        f'<div class="sl-persona-card">'
+        f'<div style="font-size:12px; color:var(--sky-blue); font-weight:800;">01 • طلبة الليسانس والماستر</div>'
+        f'<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">بناء الاساس المنهجي ومذكرات التخرج</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
+        f'صياغة الاشكالية والفرضيات، تصميم الاستبيانات، التحليل الوصفي والاستدلالي عبر SPSS، وتنسيق الجداول وفق APA 7.</p>'
+        f'<a href="#interactive-lab" class="sl-srv-link">استخدم الادوات التفاعلية المجانية ادناه &darr;</a>'
+        f'</div>'
+        f'<div class="sl-persona-card adv">'
+        f'<div style="font-size:12px; color:var(--digital-indigo); font-weight:800;">02 • طلبة الدكتوراه والاساتذة الباحثون</div>'
+        f'<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">النمذجة المتقدمة والنشر الدولي المحكم</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
+        f'تحليل المسار، النمذجة الهيكلية SEM (SmartPLS / AMOS)، التحليل العاملي EFA/CFA، والبحث النوعي والمختلط.</p>'
+        f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="sl-srv-link">انتقل الى استوديو البحث الميداني التطبيقي &larr;</a>'
+        f'</div>'
+        f'<div class="sl-persona-card inst">'
+        f'<div style="font-size:12px; color:var(--mint-green); font-weight:800;">03 • مخابر البحث، الجامعات، والمؤسسات</div>'
+        f'<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">استطلاعات الراي، المرصد، ولوحات القيادة</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
+        f'الدراسات الميدانية، قياس الرضا الوظيفي والمناخ التنظيمي، تقييم البرامج، واعداد اوراق السياسات Policy Briefs.</p>'
+        f'<a href="?view=services&pil=p11&theme={st.session_state.theme_mode}" target="_self" class="sl-srv-link">تصفح حلول المؤسسات ومخابر البحث &larr;</a>'
+        f'</div>'
+        f'</div></div>'
     )
     st.markdown(persona_html, unsafe_allow_html=True)
 
@@ -768,9 +748,9 @@ if st.session_state.current_view == "home":
                     '<td class="num-cell">0.468</td>'
                     '<td class="num-cell">51.02</td>'
                     '<td class="num-cell">0.684</td>'
-                    '<td class="num-cell" style="color:var(--primary); font-weight:700;">0.000</td>'
+                    '<td class="num-cell" style="color:var(--mint-green); font-weight:700;">0.000</td>'
                     '</tr></tbody></table>'
-                    '<div class="sl-reading-box" style="background:var(--surface-soft); color:var(--text); border-right-color:var(--primary);">'
+                    '<div class="sl-reading-box" style="background:var(--surface-soft); color:var(--text); border-right-color:var(--sky-blue);">'
                     '<strong>نموذج القراءة السوسيولوجية المرفقة:</strong> تكشف المؤشرات الاحصائية في الجدول اعلاه عن وجود اثر دال احصائيا '
                     'عند مستوى (0.01) لضغط جماعة الرفاق في تشكل السلوك الجانح لدى المراهقين؛ اذ يفسر هذا المتغير ما نسبته <strong>46.8%</strong> '
                     'من التباين الكلي في السلوك الجانح، وهو ما يتسق مع مقاربة التعلم الاجتماعي لسذرلاند.'
@@ -895,7 +875,7 @@ if st.session_state.current_view == "home":
 
             selector_card = (
                 f'<div class="sl-probe-result">'
-                f'<div style="font-size:16px; font-weight:800; color:var(--primary); margin-bottom:10px;">الاختبار المقترح: {t_title}</div>'
+                f'<div style="font-size:16px; font-weight:800; color:var(--sky-blue); margin-bottom:10px;">الاختبار المقترح: {t_title}</div>'
                 f'<div style="margin-bottom:6px;"><strong>• لماذا ومتى نستخدمه؟</strong> {t_why}</div>'
                 f'<div style="margin-bottom:6px;"><strong>• شروط الاستخدام:</strong> {t_cond}</div>'
                 f'<div style="margin-bottom:6px;"><strong>• مسار التطبيق في SPSS:</strong> <span class="ltr" style="font-family:monospace; color:var(--text); font-weight:700;">{t_spss}</span></div>'
@@ -944,22 +924,22 @@ if st.session_state.current_view == "home":
                 v_dep = st.text_input("المتغير التابع (Y):", value="السلوك الجانح", key="v_dep")
 
             svg_diagram = (
-                f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 220" style="width:100%; max-height:220px; background:var(--surface); border:1px solid var(--border); border-radius:16px;">'
+                f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 220" style="width:100%; max-height:220px; background:var(--surface-solid); border:1px solid var(--border); border-radius:16px;">'
                 f'<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">'
-                f'<path d="M 0 1 L 10 5 L 0 9 z" fill="#6F2DBD"/></marker></defs>'
-                f'<rect x="460" y="110" width="200" height="55" rx="10" fill="#3E0B4F" stroke="#D58A9B" stroke-width="2"/>'
-                f'<text x="560" y="133" fill="#E8D7F1" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير المستقل (X)</text>'
+                f'<path d="M 0 1 L 10 5 L 0 9 z" fill="#0EA5E9"/></marker></defs>'
+                f'<rect x="460" y="110" width="200" height="55" rx="10" fill="#091E3A" stroke="#38BDF8" stroke-width="2"/>'
+                f'<text x="560" y="133" fill="#38BDF8" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير المستقل (X)</text>'
                 f'<text x="560" y="152" fill="#FFFFFF" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_indep}</text>'
-                f'<rect x="250" y="25" width="200" height="55" rx="10" fill="#E8D7F1" stroke="#6F2DBD" stroke-width="2"/>'
-                f'<text x="350" y="48" fill="#6F2DBD" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير الوسيط (M)</text>'
-                f'<text x="350" y="67" fill="#3E0B4F" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_med}</text>'
-                f'<rect x="40" y="110" width="200" height="55" rx="10" fill="#0F2D5B" stroke="#00B4D8" stroke-width="2"/>'
-                f'<text x="140" y="133" fill="#00B4D8" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير التابع (Y)</text>'
+                f'<rect x="250" y="25" width="200" height="55" rx="10" fill="#3B389C" stroke="#7DD3FC" stroke-width="2"/>'
+                f'<text x="350" y="48" fill="#E0F2FE" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير الوسيط (M)</text>'
+                f'<text x="350" y="67" fill="#FFFFFF" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_med}</text>'
+                f'<rect x="40" y="110" width="200" height="55" rx="10" fill="#065F46" stroke="#34D399" stroke-width="2"/>'
+                f'<text x="140" y="133" fill="#A7F3D0" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير التابع (Y)</text>'
                 f'<text x="140" y="152" fill="#FFFFFF" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_dep}</text>'
-                f'<line x1="460" y1="138" x2="246" y2="138" stroke="#6F2DBD" stroke-width="2.2" marker-end="url(#arrow)"/>'
-                f'<text x="350" y="155" fill="#6F2DBD" font-size="11" font-weight="bold" text-anchor="middle">الاثر المباشر (H1)</text>'
-                f'<line x1="520" y1="110" x2="410" y2="82" stroke="#D58A9B" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
-                f'<line x1="290" y1="80" x2="180" y2="108" stroke="#D58A9B" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
+                f'<line x1="460" y1="138" x2="246" y2="138" stroke="#0EA5E9" stroke-width="2.2" marker-end="url(#arrow)"/>'
+                f'<text x="350" y="155" fill="#0EA5E9" font-size="11" font-weight="bold" text-anchor="middle">الاثر المباشر (H1)</text>'
+                f'<line x1="520" y1="110" x2="410" y2="82" stroke="#10B981" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
+                f'<line x1="290" y1="80" x2="180" y2="108" stroke="#10B981" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
                 f'</svg>'
             )
             st.markdown(svg_diagram, unsafe_allow_html=True)
@@ -1023,7 +1003,7 @@ if st.session_state.current_view == "home":
                 }
                 st.markdown(
                     f'<div class="sl-probe-result" style="margin-top:0;">'
-                    f'<strong style="color:var(--primary);">الصياغة السوسيولوجية المقترحة للتقرير:</strong><br>'
+                    f'<strong style="color:var(--sky-blue);">الصياغة السوسيولوجية المقترحة للتقرير:</strong><br>'
                     f'"{socio_templates[res_pattern]}"</div>',
                     unsafe_allow_html=True,
                 )
@@ -1101,7 +1081,7 @@ if st.session_state.current_view == "home":
                     cert_code = f"SL-CERT-{random.randint(1000, 9999)}"
                     st.markdown(
                         f'<div class="sl-cert-box" style="padding:16px;">'
-                        f'<div style="font-size:11px; color:var(--rose); font-weight:700;">مختبر Socio Lab</div>'
+                        f'<div style="font-size:11px; color:#34D399; font-weight:700;">مختبر Socio Lab</div>'
                         f'<div style="font-size:16px; font-weight:800; margin:4px 0;">شهادة اجتياز الفحص المنهجي الاولي</div>'
                         f'<div style="font-size:12.5px;">الباحث(ة): <strong>{cert_name}</strong> | رمز: <span class="ltr">{cert_code}</span> ({today_str})</div>'
                         f'</div>',
@@ -1117,9 +1097,9 @@ if st.session_state.current_view == "home":
     with cr_col1:
         st.markdown(
             '<div class="sl-clinic-box">'
-            '<span style="background:rgba(0, 180, 216, 0.2); color:var(--cyan); font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">عيادة المنهجية</span>'
+            '<span style="background:rgba(16, 185, 129, 0.2); color:#34D399; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">عيادة المنهجية</span>'
             '<h3 style="color:#FFFFFF; font-size:19px; font-weight:800; margin:10px 0 6px 0;">عيادة المنهجية والاحصاء المباشرة</h3>'
-            '<p style="color:var(--lavender); font-size:13px; line-height:1.7; margin-bottom:0;">تشخيص وتصحيح ابرز الاخطاء المنهجية والاحصائية الشائعة في الرسائل الجامعية:</p>'
+            '<p style="color:#CBD5E1; font-size:13px; line-height:1.7; margin-bottom:0;">تشخيص وتصحيح ابرز الاخطاء المنهجية والاحصائية الشائعة في الرسائل الجامعية:</p>'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -1169,9 +1149,9 @@ if st.session_state.current_view == "home":
     integrity_html = (
         '<div id="integrity" class="sl-integrity">'
         '<div style="max-width:800px; margin:0 auto;">'
-        '<span style="background:rgba(213, 138, 155, 0.22); color:var(--lavender); font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>'
+        '<span style="background:rgba(56, 189, 248, 0.2); color:#38BDF8; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>'
         '<div style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في <span class="ltr">Socio Lab</span></div>'
-        '<p style="color:var(--lavender); font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة <span class="ltr">Socio Lab</span> بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او شراء النشر او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
+        '<p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة <span class="ltr">Socio Lab</span> بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او شراء النشر او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
         '</div></div>'
     )
     st.markdown(integrity_html, unsafe_allow_html=True)
@@ -1185,13 +1165,13 @@ elif st.session_state.current_view == "services":
     selected_pkg = query_params.get("pkg", "")
 
     st.markdown(
-        '<div class="sl-section" style="padding-top:28px; padding-bottom:10px;">'
-        '<a href="?view=home" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
-        '<div class="sl-sec-head" style="margin-bottom:18px;">'
-        '<div class="sl-sec-tag">الهيكلة الشاملة لمنصة Socio Lab</div>'
-        '<div class="sl-sec-title">الاقسام والخدمات العلمية والاحصائية (14 محورا)</div>'
-        '<p class="sl-sec-sub">تصفح الاقسام حسب التخصص، واضغط على اي قسم لعرض خدماته التفصيلية او اطلب خدماتك مباشرة في الاسفل.</p>'
-        '</div></div>',
+        f'<div class="sl-section" style="padding-top:28px; padding-bottom:10px;">'
+        f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
+        f'<div class="sl-sec-head" style="margin-bottom:18px;">'
+        f'<div class="sl-sec-tag">الهيكلة الشاملة لمنصة Socio Lab</div>'
+        f'<div class="sl-sec-title">الاقسام والخدمات العلمية والاحصائية (14 محورا)</div>'
+        f'<p class="sl-sec-sub">تصفح الاقسام حسب التخصص، واضغط على اي قسم لعرض خدماته التفصيلية او اطلب خدماتك مباشرة في الاسفل.</p>'
+        f'</div></div>',
         unsafe_allow_html=True,
     )
 
@@ -1212,7 +1192,7 @@ elif st.session_state.current_view == "services":
                     continue
                 act_cls = "active-card" if k == current_key else ""
                 html_out += (
-                    f'<a href="?view=services&pil={k}#pillar-details" target="_self" class="sl-srv-card {act_cls}">'
+                    f'<a href="?view=services&pil={k}&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-srv-card {act_cls}">'
                     f'<span class="sl-srv-num">{p["num"]}</span>'
                     f'<span class="sl-srv-cat">{p["cat"]}</span>'
                     f'<div class="sl-srv-title">{p["title"]}</div>'
@@ -1240,9 +1220,9 @@ elif st.session_state.current_view == "services":
 
     detail_html = (
         f'<div id="pillar-details" class="sl-section" style="padding-top:20px;">'
-        f'<div class="sl-detail-box" style="border-top: 4px solid var(--primary);">'
+        f'<div class="sl-detail-box" style="border-top: 4px solid var(--sky-blue);">'
         f'<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">'
-        f'<span style="background:var(--plum); color:var(--lavender); font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">القسم رقم {current_pil["num"]} • {current_pil["cat"]}</span>'
+        f'<span style="background:linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); color:#FFFFFF; font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">القسم رقم {current_pil["num"]} • {current_pil["cat"]}</span>'
         f'</div>'
         f'<h2 style="font-size:21px; font-weight:800; color:var(--text); margin:6px 0 10px 0;">{current_pil["title"]}</h2>'
         f'<p style="font-size:13.8px; color:var(--text-muted); line-height:1.8; margin-bottom:16px;">{current_pil["desc"]}</p>'
@@ -1284,7 +1264,7 @@ elif st.session_state.current_view == "services":
             f'<p style="font-size:12.8px; color:var(--text-muted); margin-bottom:12px;">{pk["desc"]}</p>'
             f'{items_str}'
             f'</div>'
-            f'<a href="?view=services&pil={pk["ref"]}&pkg={pk_key}#order-box" target="_self" class="sl-pkg-btn {pk["btn_class"]}">'
+            f'<a href="?view=services&pil={pk["ref"]}&pkg={pk_key}&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-pkg-btn {pk["btn_class"]}">'
             f'تحديد {pk["title"]} في الطلب</a>'
             f'</div>'
         )
@@ -1395,20 +1375,20 @@ elif st.session_state.current_view == "services":
 # =====================================================================
 elif st.session_state.current_view == "applied_lab":
     lab_page_header = (
-        '<div class="sl-section" style="padding-top:28px; padding-bottom:10px;">'
-        '<a href="?view=home" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
-        '<div class="sl-sec-head" style="margin-bottom:22px;">'
-        '<div class="sl-sec-tag">بيئة العمل التطبيقية المتقدمة</div>'
-        '<div class="sl-sec-title">استوديو البحث الميداني والاحصائي (<span class="ltr">Applied Research Studio</span>)</div>'
-        '<p class="sl-sec-sub">اجراء الاختبارات الاحصائية الفورية على ملفات البيانات، بناء الاستبيانات ودليل الترميز، تحليل المقابلات الكيفية، وصياغة فصل الاجراءات المنهجية.</p>'
-        '</div></div>'
+        f'<div class="sl-section" style="padding-top:28px; padding-bottom:10px;">'
+        f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self" class="sl-back-link">&rarr; العودة الى الواجهة الرئيسية</a>'
+        f'<div class="sl-sec-head" style="margin-bottom:22px;">'
+        f'<div class="sl-sec-tag">بيئة العمل التطبيقية المتقدمة</div>'
+        f'<div class="sl-sec-title">استوديو البحث الميداني والاحصائي (<span class="ltr">Applied Research Studio</span>)</div>'
+        f'<p class="sl-sec-sub">اجراء الاختبارات الاحصائية الفورية على ملفات البيانات، بناء الاستبيانات ودليل الترميز، تحليل المقابلات الكيفية، وصياغة فصل الاجراءات المنهجية.</p>'
+        f'</div></div>'
     )
     st.markdown(lab_page_header, unsafe_allow_html=True)
 
     _, ap_col, _ = st.columns([0.05, 0.90, 0.05])
     with ap_col:
         st.markdown(
-            '<div class="sl-detail-box" style="border-top:4px solid var(--primary);">'
+            '<div class="sl-detail-box" style="border-top:4px solid var(--sky-blue);">'
             '<div style="font-size:17px; font-weight:800; color:var(--text); margin-bottom:6px;">'
             '1. حاسبة الاختبارات الاحصائية الفورية (<span class="ltr">Live Statistical Workspace</span>)</div>'
             '<p style="font-size:13px; color:var(--text-muted); margin-bottom:0;">'
@@ -1479,7 +1459,7 @@ elif st.session_state.current_view == "applied_lab":
         st.markdown("<hr style='margin:28px 0; border-color:var(--border);'>", unsafe_allow_html=True)
 
         st.markdown(
-            '<div class="sl-detail-box" style="border-top:4px solid var(--rose);">'
+            '<div class="sl-detail-box" style="border-top:4px solid var(--mint-green);">'
             '<div style="font-size:17px; font-weight:800; color:var(--text); margin-bottom:6px;">'
             '2. مولد استمارة الاستبيان المتكاملة ودليل الترميز (<span class="ltr">Questionnaire &amp; Codebook</span>)</div>'
             '</div>',
@@ -1538,7 +1518,7 @@ elif st.session_state.current_view == "applied_lab":
         st.markdown("<hr style='margin:28px 0; border-color:var(--border);'>", unsafe_allow_html=True)
 
         st.markdown(
-            '<div class="sl-detail-box" style="border-top:4px solid var(--navy);">'
+            '<div class="sl-detail-box" style="border-top:4px solid var(--digital-indigo);">'
             '<div style="font-size:17px; font-weight:800; color:var(--text); margin-bottom:6px;">'
             '3. اداة ترميز وتحليل النصوص الكيفية (<span class="ltr">Qualitative Text Coder</span>)</div>'
             '</div>',
@@ -1568,7 +1548,7 @@ elif st.session_state.current_view == "applied_lab":
         st.markdown("<hr style='margin:28px 0; border-color:var(--border);'>", unsafe_allow_html=True)
 
         st.markdown(
-            '<div class="sl-detail-box" style="border-top:4px solid var(--cyan);">'
+            '<div class="sl-detail-box" style="border-top:4px solid var(--sky-blue);">'
             '<div style="font-size:17px; font-weight:800; color:var(--text); margin-bottom:6px;">'
             '4. مولد مسودة فصل الاجراءات المنهجية الجاهزة (<span class="ltr">Methodology Chapter Drafter</span>)</div>'
             '</div>',
@@ -1604,19 +1584,12 @@ elif st.session_state.current_view == "applied_lab":
             use_container_width=True,
         )
 
-if logo_b64:
-    footer_brand = (
-        f'<img src="data:image/png;base64,{logo_b64}" alt="Socio Lab Logo" '
-        f'style="height:76px; width:auto; border-radius:14px; margin:0 auto 10px auto; display:block; background:var(--surface); padding:4px; border:1.5px solid var(--rose);">'
-    )
-else:
-    footer_brand = '<div class="sl-logo-script" style="font-size:24px; margin-bottom:4px;">Socio Lab</div>'
-
 footer_html = (
-    f'<div class="sl-footer">{footer_brand}'
-    f'<div style="color:#FFFFFF; font-weight:700;">معا .. نحو معرفة اعمق لمجتمع افضل</div>'
-    f'<div style="font-size:12px; color:var(--rose); margin-top:6px;">البريد الرسمي للتواصل: <span class="ltr">{CONTACT_EMAIL}</span></div>'
-    f'<div style="font-size:11px; color:var(--lavender); margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span></div>'
+    f'<div class="sl-footer">'
+    f'<div style="display:flex; justify-content:center; margin-bottom:10px;">{arctic_logo_svg}</div>'
+    f'<div style="color:#FFFFFF; font-weight:700;">Socio Lab • فضاء علمي رقمي لانتاج المعرفة وتطوير البحث</div>'
+    f'<div style="font-size:12px; color:#38BDF8; margin-top:6px;">البريد الرسمي للتواصل: <span class="ltr">{CONTACT_EMAIL}</span></div>'
+    f'<div style="font-size:11px; color:#93B4D8; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span></div>'
     f'</div>'
 )
 st.markdown(footer_html, unsafe_allow_html=True)
