@@ -297,119 +297,119 @@ elif "selected_pil" not in st.session_state:
     st.session_state.selected_pil = "p01"
 
 # =====================================================================
-# نظام التصميم العصري: Glassmorphism + Bento Grid + Deep Navy & Crisp Ice
+# نظام الالوان البهيجة والمشرقة (Vibrant Azure, Teal & Sunny Amber)
 # =====================================================================
 css_styles = (
     "<style>"
     "@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Great+Vibes&display=swap');"
     "#MainMenu, header, footer {visibility: hidden;}"
     ".block-container {padding: 0rem !important; max-width: 100% !important;}"
-    ".stApp {background-color: #F4F7FB; font-family: 'Cairo', sans-serif !important; direction: rtl; text-align: right; color: #0F172A;}"
+    ".stApp {background-color: #F0F7FF; font-family: 'Cairo', sans-serif !important; direction: rtl; text-align: right; color: #0F172A;}"
     "h1, h2, h3, h4, p, span, div, label, input, select, textarea, button {font-family: 'Cairo', sans-serif;}"
     ".rtl {direction: rtl; text-align: right; unicode-bidi: isolate;}"
     ".ltr {direction: ltr; text-align: left; display: inline-block; unicode-bidi: isolate; font-family: sans-serif;}"
     ".ltr-block {direction: ltr; text-align: left; display: block; unicode-bidi: isolate;}"
-    "input, textarea {unicode-bidi: plaintext !important; font-size: 13px !important; border-radius: 10px !important; border: 1px solid #CBD5E1 !important;}"
-    "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: 10px !important;}"
+    "input, textarea {unicode-bidi: plaintext !important; font-size: 13px !important; border-radius: 10px !important; border: 1px solid #BAE6FD !important; background-color: #FFFFFF !important;}"
+    "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: 10px !important; border-color: #BAE6FD !important;}"
     "label p {direction: rtl !important; text-align: right !important; font-size: 13px !important; font-weight: 700 !important; color: #0F172A !important;}"
 
-    "/* Floating Glass Navbar */"
-    ".sl-navbar {background: rgba(4, 19, 38, 0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(56, 189, 248, 0.22); padding: 12px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: 0 8px 30px rgba(4, 19, 38, 0.18);}"
+    "/* Vibrant Glass Navbar */"
+    ".sl-navbar {background: linear-gradient(90deg, #072F54 0%, #0369A1 100%); border-bottom: 2px solid #38BDF8; padding: 12px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: 0 8px 25px rgba(3, 105, 161, 0.22);}"
     ".sl-brand {display: flex; align-items: center; gap: 12px; text-decoration: none;}"
-    ".sl-logo-img {height: 52px; width: auto; border-radius: 12px; object-fit: cover; border: 1px solid rgba(56, 189, 248, 0.35); box-shadow: 0 4px 12px rgba(0,0,0,0.2);}"
-    ".sl-sigma {width: 40px; height: 40px; background: linear-gradient(135deg, #0284C7, #0F2942); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #38BDF8; font-weight: 800; font-size: 20px;}"
+    ".sl-logo-img {height: 52px; width: auto; border-radius: 12px; object-fit: cover; border: 2px solid #7DD3FC; box-shadow: 0 4px 12px rgba(0,0,0,0.15);}"
+    ".sl-sigma {width: 40px; height: 40px; background: linear-gradient(135deg, #38BDF8, #14B8A6); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-weight: 800; font-size: 20px; box-shadow: 0 4px 10px rgba(20, 184, 166, 0.35);}"
     ".sl-logo-script {font-family: 'Great Vibes', cursive !important; font-size: 28px; color: #FFFFFF; line-height: 1; direction: ltr;}"
-    ".sl-logo-sub {font-size: 10.5px; color: #38BDF8; display: block; margin-top: 2px;}"
-    ".sl-nav-links {display: flex; gap: 18px; flex-wrap: wrap;}"
-    ".sl-nav-links a {color: #E2E8F0; text-decoration: none; font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 8px; transition: all 0.2s ease;}"
-    ".sl-nav-links a:hover, .sl-nav-links a.active {color: #38BDF8; background: rgba(56, 189, 248, 0.12);}"
-    ".sl-cta-top {background: linear-gradient(135deg, #F59E0B, #D97706); color: #041326 !important; font-weight: 800; font-size: 13px; padding: 9px 20px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3); transition: transform 0.2s ease;}"
+    ".sl-logo-sub {font-size: 10.5px; color: #BAE6FD; display: block; margin-top: 2px;}"
+    ".sl-nav-links {display: flex; gap: 16px; flex-wrap: wrap;}"
+    ".sl-nav-links a {color: #F0F9FF; text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 9px; transition: all 0.2s ease;}"
+    ".sl-nav-links a:hover, .sl-nav-links a.active {color: #072F54; background: #7DD3FC;}"
+    ".sl-cta-top {background: linear-gradient(135deg, #FBBF24, #F97316); color: #FFFFFF !important; font-weight: 800; font-size: 13px; padding: 9px 20px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.38); transition: transform 0.2s ease; text-shadow: 0 1px 2px rgba(0,0,0,0.15);}"
     ".sl-cta-top:hover {transform: translateY(-2px);}"
 
-    "/* Modern Hero Command Center */"
-    ".sl-hero {background: radial-gradient(circle at 15% 20%, #0D2B4E 0%, #041326 65%); color: #FFFFFF; padding: 54px 6%; border-bottom: 1px solid rgba(56, 189, 248, 0.2); direction: rtl; text-align: right; position: relative; overflow: hidden;}"
+    "/* Vibrant Ocean Hero Section */"
+    ".sl-hero {background: linear-gradient(125deg, #083358 0%, #0284C7 55%, #0D9488 100%); color: #FFFFFF; padding: 54px 6%; border-bottom: 3px solid #38BDF8; direction: rtl; text-align: right; position: relative; overflow: hidden;}"
     ".sl-hero-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center;}"
     "@media (max-width: 900px) {.sl-hero-grid {grid-template-columns: 1fr;} .sl-nav-links {display: none;}}"
-    ".sl-badge {display: inline-flex; align-items: center; gap: 6px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38BDF8; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;}"
-    ".sl-hero-title {font-size: 30px; font-weight: 800; line-height: 1.45; color: #FFFFFF; margin-bottom: 16px;}"
-    ".sl-hero-title span {background: linear-gradient(90deg, #38BDF8, #7DD3FC); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
-    ".sl-hero-desc {color: #CBD5E1; font-size: 14.5px; line-height: 1.85; margin-bottom: 26px;}"
+    ".sl-badge {display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.38); color: #FFFFFF; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 99px; margin-bottom: 16px;}"
+    ".sl-hero-title {font-size: 30px; font-weight: 800; line-height: 1.45; color: #FFFFFF; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0,0,0,0.12);}"
+    ".sl-hero-title span {color: #FDE047;}"
+    ".sl-hero-desc {color: #F0F9FF; font-size: 14.5px; line-height: 1.85; margin-bottom: 26px;}"
     ".sl-hero-btns {display: flex; gap: 14px; flex-wrap: wrap;}"
-    ".sl-btn-amber {background: linear-gradient(135deg, #F59E0B, #D97706); color: #041326 !important; font-weight: 800; font-size: 13.5px; padding: 11px 24px; border-radius: 12px; text-decoration: none; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25); transition: all 0.2s ease;}"
+    ".sl-btn-amber {background: linear-gradient(135deg, #FBBF24, #F97316); color: #FFFFFF !important; font-weight: 800; font-size: 13.5px; padding: 12px 24px; border-radius: 12px; text-decoration: none; box-shadow: 0 8px 22px rgba(249, 115, 22, 0.35); transition: all 0.2s ease; text-shadow: 0 1px 2px rgba(0,0,0,0.15);}"
     ".sl-btn-amber:hover {transform: translateY(-2px);}"
-    ".sl-btn-outline {background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(8px); border: 1px solid rgba(56, 189, 248, 0.35); color: #FFFFFF !important; font-weight: 700; font-size: 13.5px; padding: 11px 24px; border-radius: 12px; text-decoration: none; transition: all 0.2s ease;}"
-    ".sl-btn-outline:hover {background: rgba(56, 189, 248, 0.15); transform: translateY(-2px);}"
+    ".sl-btn-outline {background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px); border: 1.5px solid #FFFFFF; color: #FFFFFF !important; font-weight: 700; font-size: 13.5px; padding: 12px 24px; border-radius: 12px; text-decoration: none; transition: all 0.2s ease;}"
+    ".sl-btn-outline:hover {background: rgba(255, 255, 255, 0.28); transform: translateY(-2px);}"
 
-    "/* Glassmorphism Live Stat Card */"
-    ".sl-stat-card {background: rgba(15, 41, 66, 0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(56, 189, 248, 0.28); border-radius: 20px; padding: 22px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);}"
-    ".sl-stat-header {display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 14px;}"
+    "/* Bright Glassmorphism Live Stat Card */"
+    ".sl-stat-card {background: rgba(255, 255, 255, 0.14); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1.5px solid rgba(255, 255, 255, 0.35); border-radius: 22px; padding: 22px; box-shadow: 0 20px 45px rgba(7, 47, 84, 0.25);}"
+    ".sl-stat-header {display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.22); padding-bottom: 12px; margin-bottom: 14px;}"
     ".sl-kpi-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; text-align: center;}"
-    ".sl-kpi-box {background: rgba(4, 19, 38, 0.85); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 10px;}"
-    ".sl-kpi-label {font-size: 11px; color: #94A3B8;}"
+    ".sl-kpi-box {background: rgba(7, 47, 84, 0.55); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 10px;}"
+    ".sl-kpi-label {font-size: 11px; color: #E0F2FE;}"
     ".sl-kpi-val {font-size: 16px; font-weight: 800; margin-top: 2px; direction: ltr;}"
-    ".sl-reading-box {background: rgba(4, 19, 38, 0.85); border-right: 3.5px solid #38BDF8; padding: 11px 14px; border-radius: 8px; font-size: 12.2px; color: #E2E8F0; line-height: 1.65;}"
+    ".sl-reading-box {background: rgba(7, 47, 84, 0.6); border-right: 4px solid #FDE047; padding: 11px 14px; border-radius: 10px; font-size: 12.2px; color: #FFFFFF; line-height: 1.65;}"
 
-    "/* Trust Strip & Bento Persona Cards */"
-    ".sl-trust-bar {background: #FFFFFF; border-bottom: 1px solid #E2E8F0; padding: 20px 6%; box-shadow: 0 2px 10px rgba(15,23,42,0.02);}"
+    "/* Cheerful Trust Strip & Bento Persona Cards */"
+    ".sl-trust-bar {background: #FFFFFF; border-bottom: 1px solid #BAE6FD; padding: 20px 6%; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.05);}"
     ".sl-trust-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; text-align: center;}"
-    ".sl-trust-num {font-size: 20px; font-weight: 800; color: #0284C7;}"
-    ".sl-trust-txt {font-size: 12.2px; color: #475569; font-weight: 600;}"
+    ".sl-trust-num {font-size: 21px; font-weight: 800; background: linear-gradient(90deg, #0284C7, #0D9488); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
+    ".sl-trust-txt {font-size: 12.5px; color: #334155; font-weight: 700;}"
     ".sl-persona-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; margin-top: 12px;}"
-    ".sl-persona-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #0284C7; border-radius: 16px; padding: 24px; box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04); transition: all 0.25s ease; text-align: right;}"
-    ".sl-persona-card:hover {transform: translateY(-4px); box-shadow: 0 14px 28px rgba(2, 132, 199, 0.1); border-color: #7DD3FC;}"
-    ".sl-persona-card.adv {border-top-color: #041326;}"
-    ".sl-persona-card.inst {border-top-color: #F59E0B;}"
+    ".sl-persona-card {background: #FFFFFF; border: 1px solid #BAE6FD; border-top: 5px solid #0EA5E9; border-radius: 18px; padding: 24px; box-shadow: 0 8px 24px rgba(14, 165, 233, 0.08); transition: all 0.25s ease; text-align: right;}"
+    ".sl-persona-card:hover {transform: translateY(-5px); box-shadow: 0 16px 32px rgba(14, 165, 233, 0.16);}"
+    ".sl-persona-card.adv {border-top-color: #14B8A6; box-shadow: 0 8px 24px rgba(20, 184, 166, 0.08);}"
+    ".sl-persona-card.inst {border-top-color: #F59E0B; box-shadow: 0 8px 24px rgba(245, 158, 11, 0.08);}"
 
     "/* Sections & Cards */"
     ".sl-section {max-width: 1200px; margin: 0 auto; padding: 40px 6%; direction: rtl; text-align: right;}"
     ".sl-sec-head {text-align: center; max-width: 740px; margin: 0 auto 28px auto;}"
-    ".sl-sec-tag {color: #0284C7; font-size: 12.5px; font-weight: 800; letter-spacing: 0.3px;}"
-    ".sl-sec-title {color: #041326; font-size: 23px; font-weight: 800; margin: 4px 0 8px 0;}"
-    ".sl-sec-sub {color: #64748B; font-size: 13.8px; margin: 0;}"
+    ".sl-sec-tag {color: #0284C7; font-size: 13px; font-weight: 800; background: #E0F2FE; display: inline-block; padding: 4px 14px; border-radius: 99px; margin-bottom: 6px;}"
+    ".sl-sec-title {color: #072F54; font-size: 24px; font-weight: 800; margin: 4px 0 8px 0;}"
+    ".sl-sec-sub {color: #475569; font-size: 13.8px; margin: 0;}"
     ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(295px, 1fr)); gap: 18px;}"
-    ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #0284C7; border-radius: 16px; padding: 22px; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03); transition: all 0.25s ease; text-align: right;}"
-    ".sl-srv-card:hover {transform: translateY(-4px); box-shadow: 0 14px 28px rgba(2, 132, 199, 0.12); border-color: #38BDF8;}"
-    ".sl-srv-card.active-card {border: 2px solid #0284C7; background: #F0F9FF;}"
+    ".sl-srv-card {display: block; text-decoration: none !important; background: #FFFFFF; border: 1px solid #BAE6FD; border-top: 4px solid #0EA5E9; border-radius: 16px; padding: 22px; box-shadow: 0 6px 18px rgba(14, 165, 233, 0.06); transition: all 0.25s ease; text-align: right;}"
+    ".sl-srv-card:hover {transform: translateY(-4px); box-shadow: 0 14px 28px rgba(14, 165, 233, 0.15); border-color: #38BDF8;}"
+    ".sl-srv-card.active-card {border: 2px solid #0284C7; background: #E0F2FE;}"
     ".sl-srv-num {font-size: 14px; font-weight: 800; color: #0284C7; margin-bottom: 4px; direction: ltr; display: inline-block;}"
-    ".sl-srv-cat {font-size: 11px; font-weight: 700; color: #0284C7; background: #E0F2FE; padding: 3px 10px; border-radius: 99px; float: left;}"
-    ".sl-srv-title {font-size: 16px; font-weight: 800; color: #041326; margin: 8px 0; clear: both;}"
+    ".sl-srv-cat {font-size: 11px; font-weight: 700; color: #0F766E; background: #CCFBF1; padding: 3px 10px; border-radius: 99px; float: left;}"
+    ".sl-srv-title {font-size: 16px; font-weight: 800; color: #072F54; margin: 8px 0; clear: both;}"
     ".sl-srv-desc {font-size: 13px; color: #475569; line-height: 1.7; margin: 0 0 14px 0;}"
-    ".sl-srv-link {font-size: 12.5px; font-weight: 700; color: #0284C7; display: inline-flex; align-items: center; gap: 4px;}"
+    ".sl-srv-link {font-size: 12.5px; font-weight: 800; color: #0284C7; display: inline-flex; align-items: center; gap: 4px;}"
 
     "/* Packages & Details */"
     ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;}"
-    ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04); transition: transform 0.2s ease; text-align: right;}"
+    ".sl-pkg-card {background: #FFFFFF; border: 1.5px solid #BAE6FD; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 22px rgba(2, 132, 199, 0.06); transition: transform 0.2s ease; text-align: right;}"
     ".sl-pkg-card:hover {transform: translateY(-4px);}"
-    ".sl-pkg-card.featured {border-color: #0284C7; background: linear-gradient(to bottom, #FFFFFF, #F0F9FF);}"
+    ".sl-pkg-card.featured {border-color: #0EA5E9; background: linear-gradient(to bottom, #FFFFFF, #E0F2FE);}"
     ".sl-pkg-badge {display: inline-block; background: #FEF3C7; color: #B45309; font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px;}"
-    ".sl-pkg-badge.dark {background: #041326; color: #38BDF8;}"
-    ".sl-pkg-item {font-size: 13px; color: #334155; padding: 7px 0; border-bottom: 1px dashed #E2E8F0;}"
-    ".sl-pkg-btn {display: block; text-align: center; background: #041326; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 11px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
-    ".sl-pkg-btn.amber {background: linear-gradient(135deg, #F59E0B, #D97706); color: #041326 !important; font-weight: 800;}"
+    ".sl-pkg-badge.dark {background: linear-gradient(90deg, #0284C7, #0D9488); color: #FFFFFF;}"
+    ".sl-pkg-item {font-size: 13px; color: #334155; padding: 7px 0; border-bottom: 1px dashed #BAE6FD;}"
+    ".sl-pkg-btn {display: block; text-align: center; background: #0284C7; color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 11px; border-radius: 10px; text-decoration: none !important; margin-top: 16px;}"
+    ".sl-pkg-btn.amber {background: linear-gradient(135deg, #FBBF24, #F97316); color: #FFFFFF !important; font-weight: 800;}"
 
     "/* Clinic, Observatory, About & Banners */"
-    ".sl-about-box {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #0284C7; border-radius: 18px; padding: 30px; box-shadow: 0 6px 24px rgba(15,23,42,0.04); text-align: right;}"
-    ".sl-clinic-box {background: linear-gradient(145deg, #041326, #0D2B4E); border-radius: 18px; padding: 26px; color: #FFFFFF; border: 1px solid rgba(56, 189, 248, 0.25); box-shadow: 0 10px 25px rgba(4,19,38,0.15); text-align: right;}"
-    ".sl-radar-card {background: #FFFFFF; border: 1px solid #E2E8F0; border-right: 4px solid #0284C7; border-radius: 14px; padding: 18px; margin-top: 10px; box-shadow: 0 4px 14px rgba(15,23,42,0.03); text-align: right;}"
-    ".sl-probe-result {background: #FFFFFF; border: 1px solid #CBD5E1; border-top: 4px solid #0284C7; border-radius: 14px; padding: 20px; margin-top: 14px; font-size: 13.2px; line-height: 1.8; color: #0F172A; box-shadow: 0 4px 16px rgba(15,23,42,0.03); text-align: right;}"
-    ".sl-detail-box {background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 26px; box-shadow: 0 6px 24px rgba(15,23,42,0.03); margin-bottom: 20px; text-align: right;}"
-    ".sl-deliv-item {background: #F8FAFC; border: 1px solid #E2E8F0; border-right: 3.5px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #0F172A; margin-bottom: 10px; text-align: right;}"
-    ".sl-back-link {display: inline-block; color: #041326 !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; margin-bottom: 18px; background: #E2E8F0; padding: 8px 18px; border-radius: 10px; transition: background 0.2s;}"
-    ".sl-back-link:hover {background: #CBD5E1;}"
-    ".sl-result-banner {background-color: #F0F9FF; border: 1px solid #BAE6FD; border-right: 4px solid #0284C7; padding: 13px 16px; border-radius: 12px; margin-top: 12px; font-size: 13px; color: #0C4A6E; text-align: right;}"
-    ".sl-warn-banner {background-color: #FFFBEB; border: 1px solid #FDE68A; border-right: 4px solid #F59E0B; padding: 13px 16px; border-radius: 12px; margin-top: 12px; font-size: 13px; color: #78350F; text-align: right;}"
-    ".sl-cert-box {background: linear-gradient(135deg, #041326 0%, #0D2B4E 100%); border: 2px solid #F59E0B; border-radius: 16px; padding: 24px; color: #FFFFFF; text-align: center; margin-top: 14px; box-shadow: 0 10px 25px rgba(4,19,38,0.2);}"
+    ".sl-about-box {background: #FFFFFF; border: 1px solid #BAE6FD; border-top: 5px solid #0EA5E9; border-radius: 18px; padding: 30px; box-shadow: 0 8px 25px rgba(14, 165, 233, 0.07); text-align: right;}"
+    ".sl-clinic-box {background: linear-gradient(135deg, #0284C7 0%, #0D9488 100%); border-radius: 18px; padding: 26px; color: #FFFFFF; box-shadow: 0 12px 28px rgba(2, 132, 199, 0.22); text-align: right;}"
+    ".sl-radar-card {background: #FFFFFF; border: 1px solid #BAE6FD; border-right: 5px solid #14B8A6; border-radius: 14px; padding: 18px; margin-top: 10px; box-shadow: 0 6px 18px rgba(20, 184, 166, 0.07); text-align: right;}"
+    ".sl-probe-result {background: #FFFFFF; border: 1px solid #BAE6FD; border-top: 4px solid #0EA5E9; border-radius: 14px; padding: 20px; margin-top: 14px; font-size: 13.2px; line-height: 1.8; color: #0F172A; box-shadow: 0 6px 18px rgba(14, 165, 233, 0.06); text-align: right;}"
+    ".sl-detail-box {background: #FFFFFF; border: 1px solid #BAE6FD; border-radius: 18px; padding: 26px; box-shadow: 0 6px 22px rgba(14, 165, 233, 0.05); margin-bottom: 20px; text-align: right;}"
+    ".sl-deliv-item {background: #F0F9FF; border: 1px solid #BAE6FD; border-right: 4px solid #0284C7; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; color: #0F172A; margin-bottom: 10px; text-align: right;}"
+    ".sl-back-link {display: inline-block; color: #072F54 !important; font-weight: 800; font-size: 13.5px; text-decoration: none !important; margin-bottom: 18px; background: #BAE6FD; padding: 8px 18px; border-radius: 10px; transition: background 0.2s;}"
+    ".sl-back-link:hover {background: #7DD3FC;}"
+    ".sl-result-banner {background-color: #E0F2FE; border: 1px solid #7DD3FC; border-right: 4px solid #0284C7; padding: 13px 16px; border-radius: 12px; margin-top: 12px; font-size: 13px; color: #072F54; text-align: right;}"
+    ".sl-warn-banner {background-color: #FEF3C7; border: 1px solid #FCD34D; border-right: 4px solid #F59E0B; padding: 13px 16px; border-radius: 12px; margin-top: 12px; font-size: 13px; color: #78350F; text-align: right;}"
+    ".sl-cert-box {background: linear-gradient(135deg, #0284C7 0%, #0D9488 100%); border: 2px solid #FDE047; border-radius: 16px; padding: 24px; color: #FFFFFF; text-align: center; margin-top: 14px; box-shadow: 0 12px 28px rgba(2, 132, 199, 0.25);}"
 
     "/* APA 7 Tables */"
     ".sl-apa-table {width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12.8px; direction: rtl;}"
-    ".sl-apa-table th {border-top: 2px solid #041326; border-bottom: 1.5px solid #041326; padding: 10px; color: #041326; background: #F8FAFC; text-align: right; font-weight: 800;}"
-    ".sl-apa-table td {padding: 10px; border-bottom: 1px solid #E2E8F0; text-align: right; vertical-align: middle;}"
+    ".sl-apa-table th {border-top: 2px solid #0284C7; border-bottom: 1.5px solid #0284C7; padding: 10px; color: #072F54; background: #E0F2FE; text-align: right; font-weight: 800;}"
+    ".sl-apa-table td {padding: 10px; border-bottom: 1px solid #BAE6FD; text-align: right; vertical-align: middle;}"
     ".sl-apa-table td.num-cell {direction: ltr; text-align: right; font-family: sans-serif; display: table-cell;}"
-    ".sl-apa-table tr:last-child td {border-bottom: 2px solid #041326;}"
+    ".sl-apa-table tr:last-child td {border-bottom: 2px solid #0284C7;}"
 
-    ".sl-email-btn {display: block; text-align: center; background-color: #041326; color: #38BDF8 !important; border: 1.5px solid #38BDF8; font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 12px; text-decoration: none !important; margin-top: 12px;}"
-    ".sl-integrity {background: radial-gradient(circle at 80% 50%, #0D2B4E 0%, #041326 70%); color: #FFFFFF; text-align: center; padding: 48px 6%; margin-top: 25px;}"
-    ".sl-footer {background-color: #020B17; color: #94A3B8; text-align: center; padding: 34px 6%; font-size: 12.5px; border-top: 1px solid rgba(56, 189, 248, 0.15);}"
+    ".sl-email-btn {display: block; text-align: center; background: linear-gradient(90deg, #0284C7, #0D9488); color: #FFFFFF !important; font-weight: 800; font-size: 14px; padding: 12px 20px; border-radius: 12px; text-decoration: none !important; margin-top: 12px;}"
+    ".sl-integrity {background: linear-gradient(125deg, #072F54 0%, #0369A1 100%); color: #FFFFFF; text-align: center; padding: 48px 6%; margin-top: 25px;}"
+    ".sl-footer {background-color: #05223E; color: #BAE6FD; text-align: center; padding: 34px 6%; font-size: 12.5px; border-top: 2px solid #0284C7;}"
     "</style>"
 )
 
@@ -448,7 +448,7 @@ navbar_html = (
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية العصرية (Glassmorphism + Bento Grid)
+# الصفحة الاولى: الواجهة الرئيسية بالالوان البهيجة والمشرقة
 # =====================================================================
 if st.session_state.current_view == "home":
     hero_html = (
@@ -466,30 +466,30 @@ if st.session_state.current_view == "home":
         '</div></div>'
         '<div class="sl-stat-card">'
         '<div class="sl-stat-header"><div>'
-        '<div style="font-size:11px; color:#38BDF8; font-weight:700;">محاكاة حية لمخرجات <span class="ltr">Socio Lab</span></div>'
+        '<div style="font-size:11px; color:#FDE047; font-weight:700;">محاكاة حية لمخرجات <span class="ltr">Socio Lab</span></div>'
         '<div style="font-size:14.5px; font-weight:800; color:#FFFFFF;">تحليل التوزيع الطبيعي ومؤشرات الثبات</div>'
         '</div>'
-        '<span class="ltr" style="background:rgba(56,189,248,0.18); color:#38BDF8; font-size:11px; padding:4px 10px; border-radius:8px; font-weight:700;">SPSS &amp; PLS</span>'
+        '<span class="ltr" style="background:rgba(255,255,255,0.2); color:#FFFFFF; font-size:11px; padding:4px 10px; border-radius:8px; font-weight:700;">SPSS &amp; PLS</span>'
         '</div>'
-        '<div style="background:rgba(4, 19, 38, 0.85); padding:12px; border-radius:12px; border:1px solid rgba(56,189,248,0.2);">'
+        '<div style="background:rgba(7, 47, 84, 0.55); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.25);">'
         '<svg viewBox="0 0 300 95" style="width:100%; height:88px; display:block;">'
         '<defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">'
-        '<stop offset="0%" stop-color="#38BDF8" stop-opacity="0.5"/>'
+        '<stop offset="0%" stop-color="#FDE047" stop-opacity="0.55"/>'
         '<stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>'
         '</linearGradient></defs>'
-        '<line x1="10" y1="80" x2="290" y2="80" stroke="#334155" stroke-width="1"/>'
-        '<line x1="150" y1="12" x2="150" y2="80" stroke="#F59E0B" stroke-dasharray="3,3" stroke-width="1.5"/>'
+        '<line x1="10" y1="80" x2="290" y2="80" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>'
+        '<line x1="150" y1="12" x2="150" y2="80" stroke="#FDE047" stroke-dasharray="3,3" stroke-width="1.6"/>'
         '<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80 Z" fill="url(#g1)"/>'
-        '<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#38BDF8" stroke-width="2.5"/>'
-        '<text x="150" y="92" fill="#F59E0B" font-size="9.5" font-weight="bold" text-anchor="middle">&mu; = 3.84</text>'
+        '<path d="M 15 80 C 75 80, 105 12, 150 12 C 195 12, 225 80, 285 80" fill="none" stroke="#FFFFFF" stroke-width="2.6"/>'
+        '<text x="150" y="92" fill="#FDE047" font-size="9.5" font-weight="bold" text-anchor="middle">&mu; = 3.84</text>'
         '</svg></div>'
         '<div class="sl-kpi-grid">'
         '<div class="sl-kpi-box"><div class="sl-kpi-label">الفا كرونباخ (<span class="ltr">&alpha;</span>)</div>'
-        '<div class="sl-kpi-val" style="color:#38BDF8;">0.892</div></div>'
+        '<div class="sl-kpi-val" style="color:#7DD3FC;">0.892</div></div>'
         '<div class="sl-kpi-box"><div class="sl-kpi-label">حجم العينة (<span class="ltr">N</span>)</div>'
         '<div class="sl-kpi-val" style="color:#FFFFFF;">60</div></div>'
         '<div class="sl-kpi-box"><div class="sl-kpi-label">الدلالة (<span class="ltr">Sig</span>)</div>'
-        '<div class="sl-kpi-val" style="color:#F59E0B;">0.001</div></div>'
+        '<div class="sl-kpi-val" style="color:#FDE047;">0.001</div></div>'
         '</div>'
         '<div class="sl-reading-box"><strong>القراءة السوسيولوجية:</strong> تشير قيمة الفا كرونباخ (0.892) '
         'الى اتساق داخلي مرتفع جدا لاداة القياس، مع دلالة احصائية تؤكد اثر المتغير المستقل عند مستوى 0.01.</div>'
@@ -507,7 +507,6 @@ if st.session_state.current_view == "home":
     )
     st.markdown(trust_bar_html, unsafe_allow_html=True)
 
-    # الفئات المستهدفة بتصميم Bento Grid
     persona_html = (
         '<div class="sl-section" style="padding-bottom:10px;">'
         '<div class="sl-sec-head" style="margin-bottom:20px;">'
@@ -517,21 +516,21 @@ if st.session_state.current_view == "home":
         '<div class="sl-persona-grid">'
         '<div class="sl-persona-card">'
         '<div style="font-size:12px; color:#0284C7; font-weight:800;">01 • طلبة الليسانس والماستر</div>'
-        '<div style="font-size:16.5px; font-weight:800; color:#041326; margin:6px 0 8px 0;">بناء الاساس المنهجي ومذكرات التخرج</div>'
+        '<div style="font-size:16.5px; font-weight:800; color:#072F54; margin:6px 0 8px 0;">بناء الاساس المنهجي ومذكرات التخرج</div>'
         '<p style="font-size:13px; color:#475569; line-height:1.75; margin-bottom:12px;">'
         'صياغة الاشكالية والفرضيات، تصميم الاستبيانات، التحليل الوصفي والاستدلالي عبر SPSS، وتنسيق الجداول وفق APA 7.</p>'
         '<a href="#interactive-lab" class="sl-srv-link">استخدم الادوات التفاعلية المجانية ادناه &darr;</a>'
         '</div>'
         '<div class="sl-persona-card adv">'
-        '<div style="font-size:12px; color:#041326; font-weight:800;">02 • طلبة الدكتوراه والاساتذة الباحثون</div>'
-        '<div style="font-size:16.5px; font-weight:800; color:#041326; margin:6px 0 8px 0;">النمذجة المتقدمة والنشر الدولي المحكم</div>'
+        '<div style="font-size:12px; color:#0D9488; font-weight:800;">02 • طلبة الدكتوراه والاساتذة الباحثون</div>'
+        '<div style="font-size:16.5px; font-weight:800; color:#072F54; margin:6px 0 8px 0;">النمذجة المتقدمة والنشر الدولي المحكم</div>'
         '<p style="font-size:13px; color:#475569; line-height:1.75; margin-bottom:12px;">'
         'تحليل المسار، النمذجة الهيكلية SEM (SmartPLS / AMOS)، التحليل العاملي EFA/CFA، والبحث النوعي والمختلط.</p>'
         '<a href="?view=applied_lab" target="_self" class="sl-srv-link">انتقل الى استوديو البحث الميداني التطبيقي &larr;</a>'
         '</div>'
         '<div class="sl-persona-card inst">'
         '<div style="font-size:12px; color:#D97706; font-weight:800;">03 • مخابر البحث، الجامعات، والمؤسسات</div>'
-        '<div style="font-size:16.5px; font-weight:800; color:#041326; margin:6px 0 8px 0;">استطلاعات الراي، المرصد، ولوحات القيادة</div>'
+        '<div style="font-size:16.5px; font-weight:800; color:#072F54; margin:6px 0 8px 0;">استطلاعات الراي، المرصد، ولوحات القيادة</div>'
         '<p style="font-size:13px; color:#475569; line-height:1.75; margin-bottom:12px;">'
         'الدراسات الميدانية، قياس الرضا الوظيفي والمناخ التنظيمي، تقييم البرامج، واعداد اوراق السياسات Policy Briefs.</p>'
         '<a href="?view=services&pil=p11" target="_self" class="sl-srv-link">تصفح حلول المؤسسات ومخابر البحث &larr;</a>'
@@ -565,7 +564,7 @@ if st.session_state.current_view == "home":
 
         with tab_data:
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin:10px 0;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin:10px 0;">'
                 'أ. فاحص البيانات الفوري (<span class="ltr">Excel / CSV Data Auditor</span>)</div>',
                 unsafe_allow_html=True,
             )
@@ -628,10 +627,10 @@ if st.session_state.current_view == "home":
                     unsafe_allow_html=True,
                 )
 
-            st.markdown("<hr style='margin:22px 0; border-color:#E2E8F0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:22px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
 
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin-bottom:8px;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin-bottom:8px;">'
                 'ب. مولد الجداول الاحصائية المطابقة لمعايير <span class="ltr">APA 7</span></div>',
                 unsafe_allow_html=True,
             )
@@ -651,7 +650,7 @@ if st.session_state.current_view == "home":
 
             generated_apa_table = (
                 f'<div class="sl-detail-box" style="margin-top:10px; padding:18px;">'
-                f'<div style="font-weight:800; color:#041326; font-size:13.5px;">جدول رقم ({apa_tbl_num})</div>'
+                f'<div style="font-weight:800; color:#072F54; font-size:13.5px;">جدول رقم ({apa_tbl_num})</div>'
                 f'<div style="font-style:italic; color:#475569; font-size:13px; margin-bottom:8px;">{apa_tbl_title}</div>'
                 f'<table class="sl-apa-table">'
                 f'<thead><tr>'
@@ -671,9 +670,9 @@ if st.session_state.current_view == "home":
             )
             st.markdown(generated_apa_table, unsafe_allow_html=True)
 
-            st.markdown("<hr style='margin:22px 0; border-color:#E2E8F0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:22px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin-bottom:10px;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin-bottom:10px;">'
                 'ج. معرض نماذج المخرجات الحية (جدول الانحدار + دليل الترميز)</div>',
                 unsafe_allow_html=True,
             )
@@ -681,7 +680,7 @@ if st.session_state.current_view == "home":
             with sub_t1:
                 sample_apa_html = (
                     '<div class="sl-detail-box" style="margin-bottom:0; padding:18px;">'
-                    '<div style="font-size:13px; font-weight:800; color:#041326; margin-bottom:4px;">'
+                    '<div style="font-size:13px; font-weight:800; color:#072F54; margin-bottom:4px;">'
                     'جدول رقم (04): نتائج اختبار الانحدار الخطي البسيط لاثر ضغط جماعة الرفاق في السلوك الجانح (N = 60)</div>'
                     '<table class="sl-apa-table">'
                     '<thead><tr>'
@@ -700,7 +699,7 @@ if st.session_state.current_view == "home":
                     '<td class="num-cell">0.684</td>'
                     '<td class="num-cell" style="color:#0284C7; font-weight:700;">0.000</td>'
                     '</tr></tbody></table>'
-                    '<div class="sl-reading-box" style="background:#F8FAFC; color:#0F172A; border-right-color:#041326;">'
+                    '<div class="sl-reading-box" style="background:#F0F9FF; color:#072F54; border-right-color:#0284C7;">'
                     '<strong>نموذج القراءة السوسيولوجية المرفقة:</strong> تكشف المؤشرات الاحصائية في الجدول اعلاه عن وجود اثر دال احصائيا '
                     'عند مستوى (0.01) لضغط جماعة الرفاق في تشكل السلوك الجانح لدى المراهقين؛ اذ يفسر هذا المتغير ما نسبته <strong>46.8%</strong> '
                     'من التباين الكلي في السلوك الجانح، وهو ما يتسق مع مقاربة التعلم الاجتماعي لسذرلاند.'
@@ -721,7 +720,7 @@ if st.session_state.current_view == "home":
 
         with tab_selector:
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin:10px 0;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin:10px 0;">'
                 'مختبر اختيار الاختبار الاحصائي (<span class="ltr">Statistical Test Selector</span>)</div>',
                 unsafe_allow_html=True,
             )
@@ -828,16 +827,16 @@ if st.session_state.current_view == "home":
                 f'<div style="font-size:16px; font-weight:800; color:#0284C7; margin-bottom:10px;">الاختبار المقترح: {t_title}</div>'
                 f'<div style="margin-bottom:6px;"><strong>• لماذا ومتى نستخدمه؟</strong> {t_why}</div>'
                 f'<div style="margin-bottom:6px;"><strong>• شروط الاستخدام:</strong> {t_cond}</div>'
-                f'<div style="margin-bottom:6px;"><strong>• مسار التطبيق في SPSS:</strong> <span class="ltr" style="font-family:monospace; color:#041326; font-weight:700;">{t_spss}</span></div>'
+                f'<div style="margin-bottom:6px;"><strong>• مسار التطبيق في SPSS:</strong> <span class="ltr" style="font-family:monospace; color:#072F54; font-weight:700;">{t_spss}</span></div>'
                 f'<div><strong>• كيفية تفسير النتائج:</strong> {t_interp}</div>'
                 f'</div>'
             )
             st.markdown(selector_card, unsafe_allow_html=True)
 
-            st.markdown("<hr style='margin:20px 0; border-color:#E2E8F0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:20px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
             sc_c1, sc_c2 = st.columns(2, gap="large")
             with sc_c1:
-                st.markdown('<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:6px;">حاسبة حجم العينة (معادلة ستيفن ثامبسون)</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:6px;">حاسبة حجم العينة (معادلة ستيفن ثامبسون)</div>', unsafe_allow_html=True)
                 pop_size = st.number_input("حجم مجتمع الدراسة الكلي (N):", min_value=10, value=500, step=10)
                 margin_label = st.selectbox("هامش الخطا المسموح به:", ["5% (مستوى ثقة 95%)", "1% (مستوى ثقة 99%)", "10% (مستوى ثقة 90%)"])
                 e = 0.05 if "5%" in margin_label else (0.01 if "1%" in margin_label else 0.10)
@@ -847,7 +846,7 @@ if st.session_state.current_view == "home":
                 st.markdown(f'<div class="sl-result-banner"><strong>الحد الادنى للعينة (n):</strong> <span style="font-size:17px; font-weight:800;">{sample_n} مفردة</span></div>', unsafe_allow_html=True)
 
             with sc_c2:
-                st.markdown('<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:6px;">حاسبة حجم الاثر (<span class="ltr">Cohen\'s d</span>)</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:6px;">حاسبة حجم الاثر (<span class="ltr">Cohen\'s d</span>)</div>', unsafe_allow_html=True)
                 ef1, ef2, ef3 = st.columns(3)
                 with ef1:
                     m1_val = st.number_input("متوسط 1:", value=3.90, step=0.1)
@@ -861,7 +860,7 @@ if st.session_state.current_view == "home":
 
         with tab_visual:
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin:10px 0;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin:10px 0;">'
                 '1. مصور النماذج السببية والمسارات (<span class="ltr">Causal Path Diagram Builder</span>)</div>',
                 unsafe_allow_html=True,
             )
@@ -874,22 +873,22 @@ if st.session_state.current_view == "home":
                 v_dep = st.text_input("المتغير التابع (Y):", value="السلوك الجانح", key="v_dep")
 
             svg_diagram = (
-                f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 220" style="width:100%; max-height:220px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:14px;">'
+                f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 220" style="width:100%; max-height:220px; background:#FFFFFF; border:1px solid #7DD3FC; border-radius:14px;">'
                 f'<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">'
-                f'<path d="M 0 1 L 10 5 L 0 9 z" fill="#041326"/></marker></defs>'
-                f'<rect x="460" y="110" width="200" height="55" rx="10" fill="#041326" stroke="#38BDF8" stroke-width="2"/>'
-                f'<text x="560" y="133" fill="#38BDF8" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير المستقل (X)</text>'
+                f'<path d="M 0 1 L 10 5 L 0 9 z" fill="#0284C7"/></marker></defs>'
+                f'<rect x="460" y="110" width="200" height="55" rx="10" fill="#0284C7" stroke="#38BDF8" stroke-width="2"/>'
+                f'<text x="560" y="133" fill="#E0F2FE" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير المستقل (X)</text>'
                 f'<text x="560" y="152" fill="#FFFFFF" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_indep}</text>'
-                f'<rect x="250" y="25" width="200" height="55" rx="10" fill="#F0F9FF" stroke="#0284C7" stroke-width="2"/>'
-                f'<text x="350" y="48" fill="#0284C7" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير الوسيط (M)</text>'
-                f'<text x="350" y="67" fill="#041326" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_med}</text>'
-                f'<rect x="40" y="110" width="200" height="55" rx="10" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2"/>'
+                f'<rect x="250" y="25" width="200" height="55" rx="10" fill="#CCFBF1" stroke="#14B8A6" stroke-width="2"/>'
+                f'<text x="350" y="48" fill="#0F766E" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير الوسيط (M)</text>'
+                f'<text x="350" y="67" fill="#072F54" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_med}</text>'
+                f'<rect x="40" y="110" width="200" height="55" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>'
                 f'<text x="140" y="133" fill="#B45309" font-size="11" text-anchor="middle" font-family="Cairo, sans-serif">المتغير التابع (Y)</text>'
-                f'<text x="140" y="152" fill="#041326" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_dep}</text>'
-                f'<line x1="460" y1="138" x2="246" y2="138" stroke="#041326" stroke-width="2" marker-end="url(#arrow)"/>'
-                f'<text x="350" y="155" fill="#475569" font-size="11" text-anchor="middle">الاثر المباشر (H1)</text>'
-                f'<line x1="520" y1="110" x2="410" y2="82" stroke="#0284C7" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
-                f'<line x1="290" y1="80" x2="180" y2="108" stroke="#0284C7" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
+                f'<text x="140" y="152" fill="#072F54" font-size="13" font-weight="bold" text-anchor="middle" font-family="Cairo, sans-serif">{v_dep}</text>'
+                f'<line x1="460" y1="138" x2="246" y2="138" stroke="#0284C7" stroke-width="2.2" marker-end="url(#arrow)"/>'
+                f'<text x="350" y="155" fill="#072F54" font-size="11" font-weight="bold" text-anchor="middle">الاثر المباشر (H1)</text>'
+                f'<line x1="520" y1="110" x2="410" y2="82" stroke="#14B8A6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
+                f'<line x1="290" y1="80" x2="180" y2="108" stroke="#14B8A6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>'
                 f'</svg>'
             )
             st.markdown(svg_diagram, unsafe_allow_html=True)
@@ -901,9 +900,9 @@ if st.session_state.current_view == "home":
                 use_container_width=True,
             )
 
-            st.markdown("<hr style='margin:20px 0; border-color:#E2E8F0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:20px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
             st.markdown(
-                '<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:6px;">'
+                '<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:6px;">'
                 '2. محاكي التوزيع الطبيعي والالتواء (<span class="ltr">Skewness Visualizer</span>)</div>',
                 unsafe_allow_html=True,
             )
@@ -915,7 +914,7 @@ if st.session_state.current_view == "home":
 
         with tab_socio:
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin:10px 0;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin:10px 0;">'
                 '1. مترجم الاحصاء الى خطاب سوسيولوجي (<span class="ltr">Stats-to-Sociology Translator</span>)</div>',
                 unsafe_allow_html=True,
             )
@@ -958,10 +957,10 @@ if st.session_state.current_view == "home":
                     unsafe_allow_html=True,
                 )
 
-            st.markdown("<hr style='margin:20px 0; border-color:#E2E8F0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:20px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
             sc_l1, sc_l2 = st.columns(2, gap="large")
             with sc_l1:
-                st.markdown('<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:8px;">2. مفسر مستويات مقياس ليكرت وطول الفئة</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:8px;">2. مفسر مستويات مقياس ليكرت وطول الفئة</div>', unsafe_allow_html=True)
                 likert_type = st.selectbox("نوع المقياس:", ["مقياس ليكرت الخماسي (1 الى 5)", "مقياس ليكرت الثلاثي (1 الى 3)", "مقياس ليكرت الرباعي (1 الى 4)"])
                 mean_input = st.number_input("قيمة المتوسط الحسابي:", min_value=1.0, max_value=5.0, value=3.68, step=0.05)
 
@@ -980,7 +979,7 @@ if st.session_state.current_view == "home":
                 )
 
             with sc_l2:
-                st.markdown('<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:8px;">3. كاشف التحيز في صياغة اسئلة الاستبيان</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:8px;">3. كاشف التحيز في صياغة اسئلة الاستبيان</div>', unsafe_allow_html=True)
                 q_draft = st.text_input("اكتب عبارة من استبيانك لفحصها:", placeholder="مثال: هل توافق على ان الادارة سيئة ومقصرة؟")
                 if q_draft:
                     issues = []
@@ -995,7 +994,7 @@ if st.session_state.current_view == "home":
 
         with tab_defense:
             st.markdown(
-                '<div style="font-size:16px; font-weight:800; color:#041326; margin:10px 0;">'
+                '<div style="font-size:16px; font-weight:800; color:#072F54; margin:10px 0;">'
                 '1. قاموس المصطلحات الاحصائية (<span class="ltr">عربي - Français - English</span>)</div>',
                 unsafe_allow_html=True,
             )
@@ -1009,10 +1008,10 @@ if st.session_state.current_view == "home":
             sel_dterm = st.selectbox("ابحث في القاموس الثلاثي:", list(dict_terms.keys()))
             st.markdown(f'<div class="sl-result-banner"><strong>التعريف والاستخدام:</strong> {dict_terms[sel_dterm]}</div>', unsafe_allow_html=True)
 
-            st.markdown("<hr style='margin:20px 0; border-color:#E2E8F0;'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:20px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
             dc1, dc2 = st.columns(2, gap="large")
             with dc1:
-                st.markdown('<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:8px;">2. مولد المراجع (<span class="ltr">APA 7th</span>)</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:8px;">2. مولد المراجع (<span class="ltr">APA 7th</span>)</div>', unsafe_allow_html=True)
                 ref_author = st.text_input("المؤلف:", placeholder="مثال: العلوي، وصال / Bourdieu, P.")
                 ref_year = st.text_input("السنة:", placeholder="2026")
                 ref_title = st.text_input("العنوان:", placeholder="اثر جماعة الرفاق في السلوك الجانح")
@@ -1023,7 +1022,7 @@ if st.session_state.current_view == "home":
                     st.markdown(f'<div class="sl-result-banner"><div class="{ref_dir_class}">{ref_author} ({ref_year}). <em>{ref_title}</em>. {ref_source}.</div></div>', unsafe_allow_html=True)
 
             with dc2:
-                st.markdown('<div style="font-size:15px; font-weight:800; color:#041326; margin-bottom:8px;">3. شهادة الجاهزية المنهجية الاولية</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:8px;">3. شهادة الجاهزية المنهجية الاولية</div>', unsafe_allow_html=True)
                 cert_name = st.text_input("اسم الباحث(ة):", placeholder="مثال: علوي وصال")
                 cert_study = st.text_input("عنوان البحث:", placeholder="مثال: اثر جماعة الرفاق في السلوك الجانح")
                 if cert_name and cert_study:
@@ -1031,7 +1030,7 @@ if st.session_state.current_view == "home":
                     cert_code = f"SL-CERT-{random.randint(1000, 9999)}"
                     st.markdown(
                         f'<div class="sl-cert-box" style="padding:16px;">'
-                        f'<div style="font-size:11px; color:#FBBF24;">مختبر Socio Lab</div>'
+                        f'<div style="font-size:11px; color:#FDE047; font-weight:700;">مختبر Socio Lab</div>'
                         f'<div style="font-size:16px; font-weight:800; margin:4px 0;">شهادة اجتياز الفحص المنهجي الاولي</div>'
                         f'<div style="font-size:12.5px;">الباحث(ة): <strong>{cert_name}</strong> | رمز: <span class="ltr">{cert_code}</span> ({today_str})</div>'
                         f'</div>',
@@ -1047,9 +1046,9 @@ if st.session_state.current_view == "home":
     with cr_col1:
         st.markdown(
             '<div class="sl-clinic-box">'
-            '<span style="background:rgba(245,158,11,0.2); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">عيادة المنهجية</span>'
+            '<span style="background:rgba(253, 224, 71, 0.25); color:#FDE047; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">عيادة المنهجية</span>'
             '<h3 style="color:#FFFFFF; font-size:19px; font-weight:800; margin:10px 0 6px 0;">عيادة المنهجية والاحصاء المباشرة</h3>'
-            '<p style="color:#CBD5E1; font-size:13px; line-height:1.7; margin-bottom:0;">تشخيص وتصحيح ابرز الاخطاء المنهجية والاحصائية الشائعة في الرسائل الجامعية:</p>'
+            '<p style="color:#F0F9FF; font-size:13px; line-height:1.7; margin-bottom:0;">تشخيص وتصحيح ابرز الاخطاء المنهجية والاحصائية الشائعة في الرسائل الجامعية:</p>'
             '</div>',
             unsafe_allow_html=True,
         )
@@ -1080,17 +1079,17 @@ if st.session_state.current_view == "home":
         f'<div id="about-us" class="sl-section" style="padding-top:20px;">'
         f'<div class="sl-about-box" style="display:grid; grid-template-columns: 1fr auto; gap:24px; align-items:center;">'
         f'<div>'
-        f'<div style="font-size:12px; color:#0284C7; font-weight:800; margin-bottom:4px;">الهوية العلمية والمرجعية الاكاديمية</div>'
-        f'<h3 style="font-size:21px; font-weight:800; color:#041326; margin:0 0 10px 0;">من نحن؟ رؤية <span class="ltr">Socio Lab</span></h3>'
+        f'<div class="sl-sec-tag">الهوية العلمية والمرجعية الاكاديمية</div>'
+        f'<h3 style="font-size:21px; font-weight:800; color:#072F54; margin:4px 0 10px 0;">من نحن؟ رؤية <span class="ltr">Socio Lab</span></h3>'
         f'<p style="font-size:13.5px; color:#334155; line-height:1.8; margin-bottom:10px;">'
         f'<strong class="ltr">Socio Lab</strong> منصة علمية رقمية متخصصة في الاحصاء وتحليل البيانات والبحث العلمي، تجمع بين التكنولوجيا، '
         f'المنهجية العلمية، والابتكار البحثي. نهدف الى ان نكون المرجع العربي الرائد والموثوق في الاحصاء التطبيقي باستخدام SPSS والبيئات المتقدمة.</p>'
         f'<p style="font-size:13px; color:#475569; line-height:1.75; margin:0;">'
         f'نخدم طلبة الليسانس والماستر والدكتوراه، الاساتذة، مخابر البحث، الجامعات، والمؤسسات العمومية والخاصة ومراكز الدراسات.</p>'
         f'</div>'
-        f'<div style="text-align:center; background:#F8FAFC; padding:14px; border-radius:14px; border:1px solid #E2E8F0;">'
+        f'<div style="text-align:center; background:#F0F9FF; padding:14px; border-radius:14px; border:1px solid #BAE6FD;">'
         f'<img src="{qr_img_url}" alt="QR Code" style="width:120px; height:120px; display:block; margin:0 auto 6px auto;">'
-        f'<div style="font-size:11px; font-weight:700; color:#041326;">امسح الرمز لمشاركة المنصة</div>'
+        f'<div style="font-size:11px; font-weight:700; color:#072F54;">امسح الرمز لمشاركة المنصة</div>'
         f'</div>'
         f'</div></div>'
     )
@@ -1099,9 +1098,9 @@ if st.session_state.current_view == "home":
     integrity_html = (
         '<div id="integrity" class="sl-integrity">'
         '<div style="max-width:800px; margin:0 auto;">'
-        '<span style="background:rgba(245,158,11,0.18); color:#FBBF24; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>'
+        '<span style="background:rgba(253, 224, 71, 0.22); color:#FDE047; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>'
         '<div style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في <span class="ltr">Socio Lab</span></div>'
-        '<p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة <span class="ltr">Socio Lab</span> بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او شراء النشر او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
+        '<p style="color:#E0F2FE; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة <span class="ltr">Socio Lab</span> بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او شراء النشر او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
         '</div></div>'
     )
     st.markdown(integrity_html, unsafe_allow_html=True)
@@ -1172,11 +1171,11 @@ elif st.session_state.current_view == "services":
         f'<div id="pillar-details" class="sl-section" style="padding-top:20px;">'
         f'<div class="sl-detail-box" style="border-top: 4px solid #0284C7;">'
         f'<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">'
-        f'<span style="background:#041326; color:#38BDF8; font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">القسم رقم {current_pil["num"]} • {current_pil["cat"]}</span>'
+        f'<span style="background:linear-gradient(90deg, #0284C7, #0D9488); color:#FFFFFF; font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px;">القسم رقم {current_pil["num"]} • {current_pil["cat"]}</span>'
         f'</div>'
-        f'<h2 style="font-size:21px; font-weight:800; color:#041326; margin:6px 0 10px 0;">{current_pil["title"]}</h2>'
+        f'<h2 style="font-size:21px; font-weight:800; color:#072F54; margin:6px 0 10px 0;">{current_pil["title"]}</h2>'
         f'<p style="font-size:13.8px; color:#475569; line-height:1.8; margin-bottom:16px;">{current_pil["desc"]}</p>'
-        f'<h3 style="font-size:15px; font-weight:800; color:#041326; margin-bottom:10px;">الخدمات والحلول المتوفرة في هذا القسم:</h3>'
+        f'<h3 style="font-size:15px; font-weight:800; color:#072F54; margin-bottom:10px;">الخدمات والحلول المتوفرة في هذا القسم:</h3>'
         f'{items_html}'
         f'</div></div>'
     )
@@ -1185,7 +1184,7 @@ elif st.session_state.current_view == "services":
     soft_table_html = (
         '<div class="sl-section" style="padding-top:0;">'
         '<div class="sl-detail-box" style="padding:22px;">'
-        '<h3 style="font-size:16.5px; font-weight:800; color:#041326; margin:0 0 10px 0;">بيئات وبرامج التحليل الاحصائي والنوعي المدعومة في <span class="ltr">Socio Lab</span></h3>'
+        '<h3 style="font-size:16.5px; font-weight:800; color:#072F54; margin:0 0 10px 0;">بيئات وبرامج التحليل الاحصائي والنوعي المدعومة في <span class="ltr">Socio Lab</span></h3>'
         '<table class="sl-apa-table">'
         '<thead><tr><th>البرنامج / البيئة</th><th>مجال الاستخدام والتطبيق</th></tr></thead>'
         '<tbody>'
@@ -1210,7 +1209,7 @@ elif st.session_state.current_view == "services":
             f'<div class="{card_cls}">'
             f'<div>'
             f'<span class="{badge_cls}">{pk["badge"]}</span>'
-            f'<div style="font-size:17.5px; font-weight:800; color:#041326; margin-bottom:8px;">{pk["title"]}</div>'
+            f'<div style="font-size:17.5px; font-weight:800; color:#072F54; margin-bottom:8px;">{pk["title"]}</div>'
             f'<p style="font-size:12.8px; color:#64748B; margin-bottom:12px;">{pk["desc"]}</p>'
             f'{items_str}'
             f'</div>'
@@ -1339,7 +1338,7 @@ elif st.session_state.current_view == "applied_lab":
     with ap_col:
         st.markdown(
             '<div class="sl-detail-box" style="border-top:4px solid #0284C7;">'
-            '<div style="font-size:17px; font-weight:800; color:#041326; margin-bottom:6px;">'
+            '<div style="font-size:17px; font-weight:800; color:#072F54; margin-bottom:6px;">'
             '1. حاسبة الاختبارات الاحصائية الفورية (<span class="ltr">Live Statistical Workspace</span>)</div>'
             '<p style="font-size:13px; color:#475569; margin-bottom:0;">'
             'ارفع ملف بياناتك الميدانية (Excel او CSV) لحساب معامل الارتباط او مقارنة المتوسطات بين المجموعات فورا.</p>'
@@ -1406,11 +1405,11 @@ elif st.session_state.current_view == "applied_lab":
             except Exception as exc:
                 st.error(f"حدث خطا اثناء معالجة الملف: {exc}")
 
-        st.markdown("<hr style='margin:28px 0; border-color:#CBD5E1;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='margin:28px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
 
         st.markdown(
             '<div class="sl-detail-box" style="border-top:4px solid #14B8A6;">'
-            '<div style="font-size:17px; font-weight:800; color:#041326; margin-bottom:6px;">'
+            '<div style="font-size:17px; font-weight:800; color:#072F54; margin-bottom:6px;">'
             '2. مولد استمارة الاستبيان المتكاملة ودليل الترميز (<span class="ltr">Questionnaire &amp; Codebook</span>)</div>'
             '</div>',
             unsafe_allow_html=True,
@@ -1465,11 +1464,11 @@ elif st.session_state.current_view == "applied_lab":
                     use_container_width=True,
                 )
 
-        st.markdown("<hr style='margin:28px 0; border-color:#CBD5E1;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='margin:28px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
 
         st.markdown(
-            '<div class="sl-detail-box" style="border-top:4px solid #041326;">'
-            '<div style="font-size:17px; font-weight:800; color:#041326; margin-bottom:6px;">'
+            '<div class="sl-detail-box" style="border-top:4px solid #0EA5E9;">'
+            '<div style="font-size:17px; font-weight:800; color:#072F54; margin-bottom:6px;">'
             '3. اداة ترميز وتحليل النصوص الكيفية (<span class="ltr">Qualitative Text Coder</span>)</div>'
             '</div>',
             unsafe_allow_html=True,
@@ -1495,11 +1494,11 @@ elif st.session_state.current_view == "applied_lab":
                 )
                 st.dataframe(freq_df, use_container_width=True)
 
-        st.markdown("<hr style='margin:28px 0; border-color:#CBD5E1;'>", unsafe_allow_html=True)
+        st.markdown("<hr style='margin:28px 0; border-color:#BAE6FD;'>", unsafe_allow_html=True)
 
         st.markdown(
-            '<div class="sl-detail-box" style="border-top:4px solid #0284C7;">'
-            '<div style="font-size:17px; font-weight:800; color:#041326; margin-bottom:6px;">'
+            '<div class="sl-detail-box" style="border-top:4px solid #F59E0B;">'
+            '<div style="font-size:17px; font-weight:800; color:#072F54; margin-bottom:6px;">'
             '4. مولد مسودة فصل الاجراءات المنهجية الجاهزة (<span class="ltr">Methodology Chapter Drafter</span>)</div>'
             '</div>',
             unsafe_allow_html=True,
@@ -1545,8 +1544,8 @@ else:
 footer_html = (
     f'<div class="sl-footer">{footer_brand}'
     f'<div>فضاء علمي رقمي لانتاج المعرفة وتطوير البحث</div>'
-    f'<div style="font-size:12px; color:#38BDF8; margin-top:6px;">البريد الرسمي للتواصل: <span class="ltr">{CONTACT_EMAIL}</span></div>'
-    f'<div style="font-size:11px; color:#64748B; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span></div>'
+    f'<div style="font-size:12px; color:#7DD3FC; margin-top:6px;">البريد الرسمي للتواصل: <span class="ltr">{CONTACT_EMAIL}</span></div>'
+    f'<div style="font-size:11px; color:#BAE6FD; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span></div>'
     f'</div>'
 )
 st.markdown(footer_html, unsafe_allow_html=True)
