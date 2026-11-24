@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
-
+from spss_guide_module import render_spss_output_lab
 CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
 APP_URL = "https://sociolab-dz.streamlit.app"
 
