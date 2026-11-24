@@ -1,3 +1,4 @@
+import math
 import streamlit as st
 
 
@@ -45,13 +46,46 @@ def _classify_mean(mean_val: float, rows: list, min_v: float, max_v: float) -> s
     return rows[-1]["المستوى / الوصف"]
 
 
+def _estimate_corr_reg_sample(mode_choice: str, effect_choice: str, num_predictors: int) -> tuple[int, str]:
+    # تقدير تقريبي وفق قوة إحصائية 0.80 ومستوى دلالة alpha = 0.05
+    if "الارتباط" in mode_choice:
+        r_map = {
+            "أثر صغير (r ≈ 0.10)": 0.10,
+            "أثر متوسط (r ≈ 0.30)": 0.30,
+            "أثر كبير (r ≈ 0.50)": 0.50,
+        }
+        r_val = r_map[effect_choice]
+        # تقريب شائع: N ≈ ((z_alpha + z_beta) / z_r)^2 + 3 حيث z_alpha=1.96, z_beta=0.842
+        z_r = 0.5 * math.log((1 + r_val) / (1 - r_val))
+        n_est = math.ceil(((1.96 + 0.842) / z_r) ** 2 + 3)
+        formula_note = f"تقدير أولي لعلاقة ارتباطية بحجم أثر ({r_val:.2f}) عند قوة إحصائية 0.80 ومستوى دلالة 0.05."
+        return max(n_est, 15), formula_note
+
+    # الانحدار الخطي / المتعدد (قاعدة عملية شائعة: 50 + 8*k للانحدار العام، أو 10-15 حالة لكل متنبئ)
+    f2_map = {
+        "أثر صغير (f² ≈ 0.02)": 0.02,
+        "أثر متوسط (f² ≈ 0.15)": 0.15,
+        "أثر كبير (f² ≈ 0.35)": 0.35,
+    }
+    f2_val = f2_map[effect_choice]
+    # قاعدة Green للانحدار المتعدد: max(50 + 8*k, 104 + k)
+    n_green = max(50 + 8 * num_predictors, 104 + num_predictors)
+    factor = 1.35 if f2_val <= 0.02 else (1.0 if f2_val <= 0.15 else 0.72)
+    n_est = math.ceil(n_green * factor)
+    formula_note = (
+        f"تقدير أولي لنموذج انحدار يضم ({num_predictors}) متغير(ات) مستقلة وحجم أثر ({f2_val:.2f}) "
+        f"باستخدام معيار Green والحد الأدنى المنهجي للانحدار."
+    )
+    return max(n_est, 30), formula_note
+
+
 def render_spss_output_lab():
     st.markdown(
         '<div class="sl-detail-box" style="border-top:4px solid var(--digital-indigo); margin-top:10px;">'
         '<div style="font-size:17px; font-weight:800; color:var(--text); margin-bottom:6px;">'
         'مختبر فحص الشروط وقراءة مخرجات <span class="ltr">SPSS</span> (<span class="ltr">Output &amp; Assumptions Lab</span>)</div>'
         '<p style="font-size:13px; color:var(--text-muted); margin-bottom:0;">'
-        'أدخل القيم الظاهرة في جداول مخرجات برنامج SPSS للحصول على القرار الإحصائي، التوجيه المنهجي، طول الفئة، وصياغة أكاديمية جاهزة وفق APA 7.</p>'
+        'أدخل القيم الظاهرة في جداول مخرجات برنامج SPSS للحصول على القرار الإحصائي، التوجيه المنهجي، طول الفئة، مصفوفة الاختبارات، وقائمة المراجعة قبل التسليم.</p>'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -61,7 +95,9 @@ def render_spss_output_lab():
         "2. قارئ جدول الثبات (Cronbach's Alpha)",
         "3. مترجم جداول الفروق والارتباط والانحدار",
         "4. حاسبة طول الفئة لمقياس ليكرت",
-        "5. دليل حل مآزق البيانات الميدانية"
+        "5. مصفوفة المعلمي واللامعلمي",
+        "6. عينة الارتباط والانحدار",
+        "7. قائمة مراجعة ما قبل التسليم"
     ])
 
     # =================================================================
@@ -308,32 +344,129 @@ def render_spss_output_lab():
         st.dataframe(interval_rows, use_container_width=True, hide_index=True)
 
     # =================================================================
-    # التبويب 5: دليل حل مآزق البيانات الميدانية في SPSS
+    # التبويب 5: مقارن الاختبارات المعلمية واللامعلمية
     # =================================================================
     with spss_subtabs[4]:
-        pitfalls = [
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin:10px 0;">'
+            'مصفوفة المقارنة السريعة: الاختبارات المعلمية واللامعلمية (<span class="ltr">Parametric vs. Non-Parametric</span>)</div>',
+            unsafe_allow_html=True,
+        )
+        matrix_rows = [
             {
-                "q": "1. مأزق العبارات السالبة (Reverse Coding)",
-                "sol": "إذا تضمن الاستبيان عبارات معاكسة لاتجاه المقياس (مثل: 'أشعر بالرضا عن القوانين' مقابل 'أميل لمخالفة القوانين')، يجب عكس درجاتها قبل حساب ألفا كرونباخ أو المتوسط العام عبر: Transform > Recode into Different Variables (1->5, 2->4, 3->3, 4->2, 5->1)."
+                "الهدف البحثي": "الارتباط بين متغيرين",
+                "الاختبار المعلمي": "Pearson Correlation (r)",
+                "البديل اللامعلمي": "Spearman's Rho (ρ)",
+                "الشروط الأساسية": "المعلمي: متغيران كميان متصلان + توزيع طبيعي وخطية. اللامعلمي: بيانات رتبية أو غير طبيعية."
             },
             {
-                "q": "2. مأزق القيم المفقودة (Missing Values)",
-                "sol": "إذا كانت نسبة الفراغات في الاستمارة أقل من 5% وعشوائية، يمكن تعويضها بمتوسط السلسلة عبر: Transform > Replace Missing Values > Series Mean. أما إذا تجاوزت الفراغات 20% في استمارة واحدة، فيُفضّل استبعاد الاستمارة وتوثيق ذلك في وصف العينة."
+                "الهدف البحثي": "الفروق بين مجموعتين مستقلتين",
+                "الاختبار المعلمي": "Independent-Samples T-Test (t)",
+                "البديل اللامعلمي": "Mann-Whitney U Test (U)",
+                "الشروط الأساسية": "المعلمي: متغير تابع كمي + توزيع طبيعي وتجانس تباين. اللامعلمي: رتبي أو تباين/توزيع غير متحقق."
             },
             {
-                "q": "3. مأزق ظهور قيمة (Sig = .000) في جدول SPSS",
-                "sol": "برنامج SPSS يقرب الأرقام إلى 3 خانات عشرية؛ لذلك لا نكتب في البحث (p = 0.000) أبداً لأن الاحتمال لا يساوي صفراً مطلقاً، بل نكتبها وفق معايير APA 7 بصيغة: (p < .001)."
+                "الهدف البحثي": "الفروق بين 3 مجموعات فأكثر",
+                "الاختبار المعلمي": "One-Way ANOVA (F)",
+                "البديل اللامعلمي": "Kruskal-Wallis H Test (H)",
+                "الشروط الأساسية": "المعلمي: متغير تابع كمي + توزيع طبيعي وتجانس تباين. اللامعلمي: مجموعات مستقلة ببيانات رتبية/ملتوية."
             },
             {
-                "q": "4. مأزق عدم دلالة الفرضية (Sig > 0.05)",
-                "sol": "الفرضية غير الدالة ليست خطأً إحصائياً؛ بل تعني أن البيانات الميدانية لم تدعم وجود فرق أو علاقة. ناقشها سوسيولوجياً من خلال تجانس العينة، أو تدخل متغيرات ضابطة، أو خصوصية المجال المدروس."
+                "الهدف البحثي": "الفروق القبلية والبعدية (نفس العينة)",
+                "الاختبار المعلمي": "Paired-Samples T-Test (t)",
+                "البديل اللامعلمي": "Wilcoxon Signed-Rank Test (Z)",
+                "الشروط الأساسية": "المعلمي: قياسان مرتبطان لنفس العينة + الفروق تتبع التوزيع الطبيعي. اللامعلمي: بيانات رتبية أو غير طبيعية."
+            },
+            {
+                "الهدف البحثي": "العلاقة بين متغيرين فئويين (اسمي)",
+                "الاختبار المعلمي": "Chi-Square Test of Independence (χ²)",
+                "البديل اللامعلمي": "Fisher's Exact Test (للجداول الصغيرة)",
+                "الشروط الأساسية": "بيانات اسمية/فئوية؛ يُراعى أن لا يقل التكرار المتوقع عن 5 في أكثر من 20% من الخلايا."
             }
         ]
-        for p_item in pitfalls:
+        st.dataframe(matrix_rows, use_container_width=True, hide_index=True)
+
+    # =================================================================
+    # التبويب 6: حاسبة حجم العينة للارتباط أو الانحدار
+    # =================================================================
+    with spss_subtabs[5]:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin:10px 0;">'
+            'حاسبة تقدير حجم العينة للارتباط والانحدار (<span class="ltr">Correlation &amp; Regression Sample Estimator</span>)</div>',
+            unsafe_allow_html=True,
+        )
+        cr1, cr2, cr3 = st.columns(3)
+        with cr1:
+            cr_mode = st.selectbox(
+                "نوع التحليل المستهدف:",
+                ["تحليل الارتباط (Correlation)", "تحليل الانحدار (Regression)"],
+                key="cr_mode_select",
+            )
+        with cr2:
+            if "الارتباط" in cr_mode:
+                cr_effect = st.selectbox(
+                    "حجم الأثر المتوقع (r):",
+                    ["أثر صغير (r ≈ 0.10)", "أثر متوسط (r ≈ 0.30)", "أثر كبير (r ≈ 0.50)"],
+                    index=1,
+                    key="cr_eff_corr",
+                )
+                n_preds = 1
+            else:
+                cr_effect = st.selectbox(
+                    "حجم الأثر المتوقع (f²):",
+                    ["أثر صغير (f² ≈ 0.02)", "أثر متوسط (f² ≈ 0.15)", "أثر كبير (f² ≈ 0.35)"],
+                    index=1,
+                    key="cr_eff_reg",
+                )
+                n_preds = st.number_input("عدد المتغيرات المستقلة / المتنبئة:", min_value=1, max_value=30, value=3, step=1, key="cr_preds")
+        with cr3:
+            st.markdown("<div style='height:26px;'></div>", unsafe_allow_html=True)
+            est_n, est_note = _estimate_corr_reg_sample(cr_mode, cr_effect, int(n_preds))
             st.markdown(
-                f'<div class="sl-deliv-item" style="padding:13px 16px;">'
-                f'<div style="font-weight:800; color:var(--text); margin-bottom:4px;">{p_item["q"]}</div>'
-                f'<div style="font-size:12.8px; color:var(--text-muted); line-height:1.7;">{p_item["sol"]}</div>'
+                f'<div class="sl-result-banner" style="margin-top:0;">'
+                f'<strong>التقدير الأولي للعينة:</strong> <span style="font-size:17px; font-weight:800;">{est_n} مفردة</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
+
+        st.markdown(
+            f'<div class="sl-probe-result">'
+            f'<div style="font-size:12.8px; margin-bottom:4px;">• <strong>الأساس المنهجي للتقدير:</strong> {est_note}</div>'
+            f'<div style="font-size:12.2px; color:var(--text-muted);">• ملاحظة: هذا تقدير استرشادي أولي؛ يُنصح برفع الحجم المستهدف قليلاً لمراعاة الاستمارات غير الصالحة أو القيم المفقودة.</div>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+
+    # =================================================================
+    # التبويب 7: قائمة مراجعة جاهزية الفصل الإحصائي قبل التسليم
+    # =================================================================
+    with spss_subtabs[6]:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin:10px 0;">'
+            'قائمة مراجعة جاهزية الفصل الإحصائي قبل التسليم (<span class="ltr">Pre-Submission Checklist</span>)</div>',
+            unsafe_allow_html=True,
+        )
+
+        chk_items = [
+            ("chk_reverse", "هل تم توحيد اتجاه العبارات السالبة (Reverse Coding) قبل حساب المتوسطات أو معامل الثبات؟"),
+            ("chk_n_match", "هل تتطابق أرقام حجم العينة (N) في الجداول الإحصائية مع النص المذكور في منهجية الدراسة وعرض النتائج؟"),
+            ("chk_p_val", "هل كُتبت الدلالة الإحصائية بصيغة (p < .001) بدلاً من (0.000) وفق معايير APA 7؟"),
+            ("chk_socio_comment", "هل توجد تعليقات منهجية وسوسيولوجية تربط الأرقام بالفرضيات والإطار النظري أسفل كل جدول؟"),
+            ("chk_assumptions", "هل تم فحص الشروط القبلية (التوزيع الطبيعي / تجانس التباين / التعدد الخطي VIF) وتبرير الاختيار؟"),
+            ("chk_tables_fmt", "هل عناوين الجداول وأرقامها منسقة بشكل متسلسل وواضح دون خلط بين المتغيرات والفرضيات؟"),
+        ]
+
+        checked_count = 0
+        for key_id, label_txt in chk_items:
+            if st.checkbox(label_txt, key=key_id):
+                checked_count += 1
+
+        total_chk = len(chk_items)
+        if checked_count == total_chk:
+            status_msg = f"ممتاز! اكتملت جميع بنود المراجعة ({checked_count}/{total_chk}) — الفصل الإحصائي جاهز للمراجعة النهائية أو التسليم."
+            banner_cls = "sl-warn-banner"
+        else:
+            status_msg = f"تم التحقق من ({checked_count} من {total_chk}) بنود — راجعي البنود المتبقية قبل إرسال الفصل للمشرف أو النشر."
+            banner_cls = "sl-result-banner"
+
+        st.markdown(f'<div class="{banner_cls}"><strong>{status_msg}</strong></div>', unsafe_allow_html=True)
