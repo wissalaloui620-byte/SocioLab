@@ -1,7 +1,5 @@
-import base64
 import datetime
 import math
-import os
 import random
 import re
 import urllib.parse
@@ -298,7 +296,7 @@ toggle_target = "light" if is_dark else "dark"
 toggle_label = "☀️ الوضع الفاتح" if is_dark else "🌙 الوضع الداكن"
 
 # =====================================================================
-# ARCTIC BLUE INTELLIGENCE — DESIGN SYSTEM (Glassmorphism + Light/Dark)
+# ARCTIC BLUE INTELLIGENCE — DESIGN SYSTEM (Lucida Calligraphy + Glassmorphism)
 # =====================================================================
 if is_dark:
     theme_vars = (
@@ -349,24 +347,24 @@ css_styles = (
     "div[data-baseweb='select'] > div {direction: rtl; text-align: right; font-size: 13px !important; border-radius: var(--radius-button) !important; border-color: var(--border) !important; background-color: var(--surface-solid) !important; color: var(--text) !important;}"
     "label p {direction: rtl !important; text-align: right !important; font-size: 13px !important; font-weight: 700 !important; color: var(--text) !important;}"
 
-    "/* Glassmorphic Floating Navbar */"
+    "/* 01. Glassmorphic Floating Navbar */"
     ".sl-navbar {background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1.5px solid var(--border); padding: 11px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: var(--shadow-card);}"
     ".sl-brand {display: flex; align-items: center; gap: 12px; text-decoration: none;}"
-    ".sl-brand-title {font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 21px; font-weight: 800; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo), var(--mint-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; direction: ltr;}"
+    ".sl-brand-title {font-family: 'Lucida Calligraphy', 'Brush Script MT', cursive !important; font-size: 24px; font-weight: 700; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo), var(--mint-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; direction: ltr;}"
     ".sl-brand-sub {font-size: 10.5px; color: var(--text-muted); font-weight: 700; display: block;}"
-    ".sl-nav-links {display: flex; gap: 12px; flex-wrap: wrap; align-items: center;}"
-    ".sl-nav-links a {color: var(--text); text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 9px; transition: all 0.25s ease;}"
+    ".sl-nav-links {display: flex; gap: 10px; flex-wrap: wrap; align-items: center;}"
+    ".sl-nav-links a {color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 700; padding: 6px 10px; border-radius: 9px; transition: all 0.25s ease;}"
     ".sl-nav-links a:hover, .sl-nav-links a.active {color: #FFFFFF; background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);}"
     ".sl-nav-actions {display: flex; gap: 10px; align-items: center;}"
-    ".sl-theme-btn {background: var(--surface-soft); border: 1px solid var(--border); color: var(--text) !important; font-size: 12px; font-weight: 700; padding: 7px 13px; border-radius: 9px; text-decoration: none; transition: all 0.2s ease;}"
+    ".sl-theme-btn {background: var(--surface-soft); border: 1px solid var(--border); color: var(--text) !important; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 9px; text-decoration: none; transition: all 0.2s ease;}"
     ".sl-theme-btn:hover {border-color: var(--sky-blue); transform: translateY(-1px);}"
-    ".sl-cta-top {background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: var(--radius-button); text-decoration: none; box-shadow: 0 4px 14px rgba(59, 56, 156, 0.28); transition: transform 0.2s ease;}"
+    ".sl-cta-top {background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF !important; font-weight: 700; font-size: 12.5px; padding: 8px 16px; border-radius: var(--radius-button); text-decoration: none; box-shadow: 0 4px 14px rgba(59, 56, 156, 0.28); transition: transform 0.2s ease;}"
     ".sl-cta-top:hover {transform: translateY(-2px);}"
 
-    "/* Arctic Hero Section */"
+    "/* 02. Arctic Hero Section */"
     ".sl-hero {background: linear-gradient(135deg, #091E3A 0%, #162B5C 55%, #1E3A70 100%); color: #FFFFFF; padding: 52px 6%; border-bottom: 2px solid var(--sky-blue); direction: rtl; text-align: right; position: relative; overflow: hidden;}"
     ".sl-hero-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 38px; align-items: center;}"
-    "@media (max-width: 900px) {.sl-hero-grid {grid-template-columns: 1fr;} .sl-nav-links {display: none;}}"
+    "@media (max-width: 960px) {.sl-hero-grid {grid-template-columns: 1fr;} .sl-nav-links {display: none;}}"
     ".sl-badge {display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.16); border: 1px solid var(--mint-glow); color: #A7F3D0; font-size: 12px; font-weight: 700; padding: 5px 15px; border-radius: 99px; margin-bottom: 15px;}"
     ".sl-hero-title {font-size: 29px; font-weight: 800; line-height: 1.45; color: #FFFFFF; margin-bottom: 15px;}"
     ".sl-hero-title span {background: linear-gradient(90deg, #38BDF8, #34D399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
@@ -386,23 +384,37 @@ css_styles = (
     ".sl-kpi-val {font-size: 15.5px; font-weight: 800; margin-top: 2px; direction: ltr;}"
     ".sl-reading-box {background: rgba(9, 24, 48, 0.82); border-right: 3.5px solid var(--mint-glow); padding: 11px 14px; border-radius: 9px; font-size: 12.2px; color: #E2E8F0; line-height: 1.65;}"
 
-    "/* Trust Bar & Glass Bento Cards */"
-    ".sl-trust-bar {background: var(--surface); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 18px 6%; box-shadow: var(--shadow-card);}"
-    ".sl-trust-grid {max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; text-align: center;}"
-    ".sl-trust-num {font-size: 20px; font-weight: 800; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
-    ".sl-trust-txt {font-size: 12.2px; color: var(--text-muted); font-weight: 700;}"
-    ".sl-persona-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px; margin-top: 12px;}"
-    ".sl-persona-card {background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-top: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow-card); transition: all 0.25s ease; text-align: right;}"
-    ".sl-persona-card:hover {transform: translateY(-4px); border-color: var(--sky-blue);}"
-    ".sl-persona-card.adv {border-top-color: var(--digital-indigo);}"
-    ".sl-persona-card.inst {border-top-color: var(--mint-green);}"
-
-    "/* Sections & Dashboard Cards */"
-    ".sl-section {max-width: 1200px; margin: 0 auto; padding: 38px 6%; direction: rtl; text-align: right;}"
-    ".sl-sec-head {text-align: center; max-width: 740px; margin: 0 auto 26px auto;}"
+    "/* Sections & Grids */"
+    ".sl-section {max-width: 1200px; margin: 0 auto; padding: 40px 6%; direction: rtl; text-align: right;}"
+    ".sl-sec-head {text-align: center; max-width: 740px; margin: 0 auto 28px auto;}"
+    ".sl-sec-num {font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 800; color: var(--mint-green); letter-spacing: 1px; display: block; margin-bottom: 4px;}"
     ".sl-sec-tag {color: var(--sky-blue); font-size: 12.5px; font-weight: 800; background: var(--surface-soft); border: 1px solid var(--border); display: inline-block; padding: 4px 14px; border-radius: 99px; margin-bottom: 6px;}"
-    ".sl-sec-title {color: var(--text); font-size: 23px; font-weight: 800; margin: 4px 0 8px 0;}"
+    ".sl-sec-title {color: var(--text); font-size: 24px; font-weight: 800; margin: 4px 0 8px 0;}"
     ".sl-sec-sub {color: var(--text-muted); font-size: 13.8px; margin: 0;}"
+
+    "/* 03. Core Services (6 Cards) */"
+    ".sl-core-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px;}"
+    ".sl-core-card {display: block; text-decoration: none !important; background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-top: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow-card); transition: all 0.25s ease; text-align: right;}"
+    ".sl-core-card:hover {transform: translateY(-4px); border-color: var(--mint-green);}"
+    ".sl-core-card.ind {border-top-color: var(--digital-indigo);}"
+    ".sl-core-card.mnt {border-top-color: var(--mint-green);}"
+
+    "/* 05. How It Works (4 Steps) */"
+    ".sl-steps-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px;}"
+    ".sl-step-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow-card); position: relative; text-align: right; transition: transform 0.25s ease;}"
+    ".sl-step-card:hover {transform: translateY(-3px); border-color: var(--sky-blue);}"
+    ".sl-step-badge {width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;}"
+
+    "/* 06 & 07. Academy & Scientific Resources */"
+    ".sl-acad-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px;}"
+    ".sl-acad-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--digital-indigo); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); text-align: right;}"
+    ".sl-res-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-top: 3.5px solid var(--mint-green); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); text-align: right;}"
+
+    "/* 08. Why Socio Lab */"
+    ".sl-why-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px;}"
+    ".sl-why-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow-card); text-align: right;}"
+
+    "/* Service Cards & Packages */"
     ".sl-services-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(295px, 1fr)); gap: 18px;}"
     ".sl-srv-card {display: block; text-decoration: none !important; background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-top: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); transition: all 0.25s ease; text-align: right;}"
     ".sl-srv-card:hover {transform: translateY(-4px); border-color: var(--mint-green);}"
@@ -413,7 +425,6 @@ css_styles = (
     ".sl-srv-desc {font-size: 12.8px; color: var(--text-muted); line-height: 1.7; margin: 0 0 12px 0;}"
     ".sl-srv-link {font-size: 12.5px; font-weight: 800; color: var(--sky-blue); display: inline-flex; align-items: center; gap: 4px;}"
 
-    "/* Packages */"
     ".sl-pkg-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;}"
     ".sl-pkg-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-card); transition: transform 0.25s ease; text-align: right;}"
     ".sl-pkg-card:hover {transform: translateY(-4px);}"
@@ -421,17 +432,14 @@ css_styles = (
     ".sl-pkg-badge {display: inline-block; background: var(--surface-soft); border: 1px solid var(--border); color: var(--text); font-size: 11.5px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px;}"
     ".sl-pkg-badge.dark {background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF; border: none;}"
     ".sl-pkg-item {font-size: 13px; color: var(--text); padding: 6px 0; border-bottom: 1px dashed var(--border);}"
-    ".sl-pkg-btn {display: block; text-align: center; background: var(--digital-indigo); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 16px; transition: opacity 0.2s;}"
+    ".sl-pkg-btn {display: block; text-align: center; background: var(--digital-indigo); color: #FFFFFF !important; font-weight: 700; font-size: 13px; padding: 10px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 16px;}"
     ".sl-pkg-btn.mint {background: linear-gradient(135deg, var(--mint-green), #059669); color: #FFFFFF !important; font-weight: 800;}"
 
     "/* Containers & Banners */"
     ".sl-about-box, .sl-detail-box {background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 24px; margin-bottom: 18px; box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-clinic-box {background: linear-gradient(135deg, #091E3A 0%, #1E3A70 100%); border-radius: var(--radius-card); padding: 24px; color: #FFFFFF; border-right: 4px solid var(--mint-glow); box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-radar-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 16px; margin-top: 10px; box-shadow: var(--shadow-card); text-align: right;}"
     ".sl-probe-result {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 16px; margin-top: 12px; font-size: 13px; line-height: 1.75; color: var(--text); box-shadow: var(--shadow-card); text-align: right;}"
     ".sl-deliv-item {background: var(--surface-soft); border: 1px solid var(--border); border-right: 3.5px solid var(--mint-green); padding: 10px 14px; border-radius: var(--radius-button); font-size: 13px; color: var(--text); margin-bottom: 8px; text-align: right;}"
-    ".sl-back-link {display: inline-block; color: var(--text) !important; font-weight: 800; font-size: 13px; text-decoration: none !important; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 7px 16px; border-radius: var(--radius-button); transition: all 0.2s;}"
-    ".sl-back-link:hover {border-color: var(--sky-blue); color: var(--sky-blue) !important;}"
+    ".sl-back-link {display: inline-block; color: var(--text) !important; font-weight: 800; font-size: 13px; text-decoration: none !important; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 7px 16px; border-radius: var(--radius-button);}"
     ".sl-result-banner {background-color: var(--surface-soft); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
     ".sl-warn-banner {background-color: var(--surface-soft); border: 1px solid var(--mint-green); border-right: 4px solid var(--mint-green); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
     ".sl-cert-box {background: linear-gradient(135deg, #091E3A 0%, #1E3A70 100%); border: 2px solid var(--mint-glow); border-radius: var(--radius-card); padding: 20px; color: #FFFFFF; text-align: center; margin-top: 12px; box-shadow: var(--shadow-card);}"
@@ -444,8 +452,10 @@ css_styles = (
     ".sl-apa-table tr:last-child td {border-bottom: 2px solid var(--sky-blue);}"
 
     ".sl-email-btn {display: block; text-align: center; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF !important; font-weight: 800; font-size: 14px; padding: 12px 20px; border-radius: var(--radius-button); text-decoration: none !important; margin-top: 12px;}"
-    ".sl-integrity {background: linear-gradient(135deg, #091E3A 0%, #162B5C 100%); color: #FFFFFF; text-align: center; padding: 42px 6%; margin-top: 25px; border-top: 2px solid var(--sky-blue);}"
-    ".sl-footer {background-color: #051224; color: #93B4D8; text-align: center; padding: 30px 6%; font-size: 12.5px; border-top: 1.5px solid var(--digital-indigo);}"
+    ".sl-footer {background-color: #051224; color: #93B4D8; text-align: center; padding: 36px 6%; font-size: 12.5px; border-top: 2px solid var(--sky-blue); margin-top: 30px;}"
+    ".sl-footer-links {display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin: 14px 0;}"
+    ".sl-footer-links a {color: #CBD5E1; text-decoration: none; font-size: 12.5px; font-weight: 600;}"
+    ".sl-footer-links a:hover {color: #38BDF8;}"
     "</style>"
 )
 
@@ -455,7 +465,7 @@ active_home = "active" if st.session_state.current_view == "home" else ""
 active_srv = "active" if st.session_state.current_view == "services" else ""
 active_app = "active" if st.session_state.current_view == "applied_lab" else ""
 
-# شعار متجه (SVG) مطور بهوية Arctic Blue Intelligence (Sky Blue + Digital Indigo + Mint Green)
+# شعار متجه (SVG) بهوية Arctic Blue Intelligence + اسم الصفحة بخط Lucida Calligraphy
 arctic_logo_svg = (
     '<svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">'
     '<defs>'
@@ -474,33 +484,38 @@ arctic_logo_svg = (
     '</svg>'
 )
 
+# =====================================================================
+# 01. NAVIGATION BAR (الشعار والتنقل والحساب)
+# =====================================================================
 brand_html = (
     f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self" class="sl-brand">'
     f'{arctic_logo_svg}'
     f'<div><div class="sl-brand-title">Socio Lab</div>'
-    f'<span class="sl-brand-sub">Arctic Blue Intelligence • Research &amp; SPSS</span></div></a>'
+    f'<span class="sl-brand-sub">Arctic Blue Intelligence</span></div></a>'
 )
 
 navbar_html = (
     f'<div class="sl-navbar">{brand_html}'
     f'<div class="sl-nav-links">'
     f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self" class="{active_home}">الرئيسية</a>'
-    f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self" class="{active_srv}">الخدمات والباقات (14)</a>'
-    f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="{active_app}">استوديو البحث الميداني</a>'
-    f'<a href="?view=home&theme={st.session_state.theme_mode}#interactive-lab" target="_self">المختبر الذكي</a>'
-    f'<a href="?view=home&theme={st.session_state.theme_mode}#about-us" target="_self">من نحن</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#core-services" target="_self">الخدمات</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#research-tools" target="_self">الادوات</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#training-academy" target="_self">الاكاديمية</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#scientific-resources" target="_self">المكتبة</a>'
+    f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="{active_app}">استوديو البحث</a>'
     f'</div>'
     f'<div class="sl-nav-actions">'
     f'<a href="?view={st.session_state.current_view}&theme={toggle_target}" target="_self" class="sl-theme-btn">{toggle_label}</a>'
-    f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-cta-top">اطلب خدمة الان</a>'
+    f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-cta-top">بوابة الباحث / اطلب</a>'
     f'</div></div>'
 )
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية (Arctic Blue Analytics Dashboard)
+# الصفحة الاولى: الواجهة الرئيسية وفق معمارية Socio Lab (01 -> 10)
 # =====================================================================
 if st.session_state.current_view == "home":
+    # 02. HERO SECTION (التعريف بالمنصة والرسالة الرئيسية)
     hero_html = (
         f'<div class="sl-hero"><div class="sl-hero-grid">'
         f'<div>'
@@ -511,8 +526,8 @@ if st.session_state.current_view == "home":
         f'الى رؤى سوسيولوجية وعلمية رصينة. نرافق طلبة الليسانس والماستر والدكتوراه، والاساتذة، '
         f'ومخابر البحث، والمؤسسات في التحليل الاحصائي، التصميم المنهجي، والبحث النوعي والمختلط.</p>'
         f'<div class="sl-hero-btns">'
-        f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self" class="sl-btn-mint">تصفح اقسام المنصة (14) والباقات</a>'
-        f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="sl-btn-outline">استوديو البحث الميداني التطبيقي</a>'
+        f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self" class="sl-btn-mint">تصفح المنظومة الكاملة (14 محورا)</a>'
+        f'<a href="#research-tools" class="sl-btn-outline">جرب الادوات التفاعلية المجانية</a>'
         f'</div></div>'
         f'<div class="sl-stat-card">'
         f'<div class="sl-stat-header"><div>'
@@ -548,57 +563,68 @@ if st.session_state.current_view == "home":
     )
     st.markdown(hero_html, unsafe_allow_html=True)
 
-    trust_bar_html = (
-        '<div class="sl-trust-bar"><div class="sl-trust-grid">'
-        '<div><div class="sl-trust-num">14 محورا</div><div class="sl-trust-txt">منظومة علمية واحصائية وتكوينية شاملة</div></div>'
-        '<div><div class="sl-trust-num">11 بيئة تحليل</div><div class="sl-trust-txt ltr">SPSS, R, Python, SmartPLS, NVivo...</div></div>'
-        '<div><div class="sl-trust-num ltr">APA 7th</div><div class="sl-trust-txt">التزام صارم بمعايير التوثيق العالمي</div></div>'
-        '<div><div class="sl-trust-num">100%</div><div class="sl-trust-txt">بيانات ميدانية حقيقية وسرية تامة</div></div>'
-        '</div></div>'
+    # 03. CORE SERVICES (الخدمات الست الرئيسية)
+    core_services_html = (
+        f'<div id="core-services" class="sl-section">'
+        f'<div class="sl-sec-head">'
+        f'<span class="sl-sec-num">03 • CORE SERVICES</span>'
+        f'<div class="sl-sec-title">الخدمات العلمية والاحصائية الست الرئيسية</div>'
+        f'<p class="sl-sec-sub">حلول متكاملة تغطي كافة مراحل البحث العلمي من التصميم المنهجي الى النمذجة المتقدمة والنشر الدولي.</p>'
+        f'</div>'
+        f'<div class="sl-core-grid">'
+        f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-core-card">'
+        f'<div style="font-size:12px; color:var(--sky-blue); font-weight:800;">01 • التحليل الاساسي والمتقدم</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">التحليل الاحصائي الشامل عبر SPSS</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">الاختبارات الوصفية والاستدلالية، المعلمية واللامعلمية، الانحدار، والتحليل العاملي EFA/CFA مع جداول APA 7.</p>'
+        f'<span class="sl-srv-link">استكشف التفاصيل &larr;</span>'
+        f'</a>'
+        f'<a href="?view=services&pil=p02&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-core-card ind">'
+        f'<div style="font-size:12px; color:var(--digital-indigo); font-weight:800;">02 • الضبط المنهجي</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">الاستشارات المنهجية وتحديد العينات</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">بناء الاشكالية، صياغة الفرضيات، تحديد مجتمع الدراسة وحساب حجم العينة وخطة التحليل قبل جمع البيانات.</p>'
+        f'<span class="sl-srv-link">استكشف التفاصيل &larr;</span>'
+        f'</a>'
+        f'<a href="?view=services&pil=p03&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-core-card mnt">'
+        f'<div style="font-size:12px; color:var(--mint-green); font-weight:800;">03 • ادوات القياس</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">تصميم الاستبيانات والمقاييس</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">تحويل المفاهيم النظرية الى مؤشرات قابلة للقياس، التحكيم العلمي، وبرمجة الاستمارات الرقمية وقاعدة الترميز.</p>'
+        f'<span class="sl-srv-link">استكشف التفاصيل &larr;</span>'
+        f'</a>'
+        f'<a href="?view=services&pil=p04&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-core-card ind">'
+        f'<div style="font-size:12px; color:var(--digital-indigo); font-weight:800;">04 • النمذجة المتعددة</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">تحليل البيانات المتقدم (SmartPLS / R / Python)</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">نمذجة المعادلات الهيكلية SEM، تحليل المسار، الوساطة والتعديل، وبناء لوحات البيانات التفاعلية Dashboards.</p>'
+        f'<span class="sl-srv-link">استكشف التفاصيل &larr;</span>'
+        f'</a>'
+        f'<a href="?view=services&pil=p05&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-core-card">'
+        f'<div style="font-size:12px; color:var(--sky-blue); font-weight:800;">05 • المقاربات الكيفية</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">مختبر البحث النوعي والمختلط (NVivo)</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">تحليل المقابلات المعمقة، مجموعات التركيز، التحليل الموضوعاتي، ودمج النتائج الكمية والنوعية.</p>'
+        f'<span class="sl-srv-link">استكشف التفاصيل &larr;</span>'
+        f'</a>'
+        f'<a href="?view=services&pil=p09&theme={st.session_state.theme_mode}#pillar-details" target="_self" class="sl-core-card mnt">'
+        f'<div style="font-size:12px; color:var(--mint-green); font-weight:800;">06 • النشر الدولي</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">مركز النشر الاكاديمي والتوثيق</div>'
+        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">هيكلة المقالات وفق IMRAD، التوجيه لاختيار المجلات المحكمة، وضبط المراجع عبر Zotero و APA 7.</p>'
+        f'<span class="sl-srv-link">استكشف التفاصيل &larr;</span>'
+        f'</a>'
+        f'</div>'
+        f'<div style="text-align:center; margin-top:20px;">'
+        f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self" class="sl-srv-link" style="font-size:13.5px;">'
+        f'عرض كافة اقسام المنصة الـ 14 والباقات الاستشارية &larr;</a></div>'
+        f'</div>'
     )
-    st.markdown(trust_bar_html, unsafe_allow_html=True)
-
-    persona_html = (
-        f'<div class="sl-section" style="padding-bottom:10px;">'
-        f'<div class="sl-sec-head" style="margin-bottom:20px;">'
-        f'<div class="sl-sec-tag">الفئات المستهدفة والمسارات البحثية</div>'
-        f'<div class="sl-sec-title">من تخدم منصة <span class="ltr">Socio Lab</span>؟</div>'
-        f'</div>'
-        f'<div class="sl-persona-grid">'
-        f'<div class="sl-persona-card">'
-        f'<div style="font-size:12px; color:var(--sky-blue); font-weight:800;">01 • طلبة الليسانس والماستر</div>'
-        f'<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">بناء الاساس المنهجي ومذكرات التخرج</div>'
-        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
-        f'صياغة الاشكالية والفرضيات، تصميم الاستبيانات، التحليل الوصفي والاستدلالي عبر SPSS، وتنسيق الجداول وفق APA 7.</p>'
-        f'<a href="#interactive-lab" class="sl-srv-link">استخدم الادوات التفاعلية المجانية ادناه &darr;</a>'
-        f'</div>'
-        f'<div class="sl-persona-card adv">'
-        f'<div style="font-size:12px; color:var(--digital-indigo); font-weight:800;">02 • طلبة الدكتوراه والاساتذة الباحثون</div>'
-        f'<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">النمذجة المتقدمة والنشر الدولي المحكم</div>'
-        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
-        f'تحليل المسار، النمذجة الهيكلية SEM (SmartPLS / AMOS)، التحليل العاملي EFA/CFA، والبحث النوعي والمختلط.</p>'
-        f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self" class="sl-srv-link">انتقل الى استوديو البحث الميداني التطبيقي &larr;</a>'
-        f'</div>'
-        f'<div class="sl-persona-card inst">'
-        f'<div style="font-size:12px; color:var(--mint-green); font-weight:800;">03 • مخابر البحث، الجامعات، والمؤسسات</div>'
-        f'<div style="font-size:16.5px; font-weight:800; color:var(--text); margin:6px 0 8px 0;">استطلاعات الراي، المرصد، ولوحات القيادة</div>'
-        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin-bottom:12px;">'
-        f'الدراسات الميدانية، قياس الرضا الوظيفي والمناخ التنظيمي، تقييم البرامج، واعداد اوراق السياسات Policy Briefs.</p>'
-        f'<a href="?view=services&pil=p11&theme={st.session_state.theme_mode}" target="_self" class="sl-srv-link">تصفح حلول المؤسسات ومخابر البحث &larr;</a>'
-        f'</div>'
-        f'</div></div>'
-    )
-    st.markdown(persona_html, unsafe_allow_html=True)
+    st.markdown(core_services_html, unsafe_allow_html=True)
 
     # =================================================================
-    # المختبر التفاعلي المبوب (5 تبويبات)
+    # 04. RESEARCH TOOLS (الأدوات الرقمية والتفاعلية)
     # =================================================================
     lab_header = (
-        '<div id="interactive-lab" style="max-width:1200px; margin:0 auto; padding:25px 6% 10px 6%;">'
+        '<div id="research-tools" style="max-width:1200px; margin:0 auto; padding:25px 6% 10px 6%;">'
         '<div class="sl-sec-head" style="margin-bottom:16px;">'
-        '<div class="sl-sec-tag">مختبر الادوات الاحصائية والمنهجية المجانية</div>'
-        '<div class="sl-sec-title">المختبر التفاعلي الذكي (<span class="ltr">Statistical &amp; Methodological Tools</span>)</div>'
-        '<p class="sl-sec-sub">تنقل بين التبويبات الخمسة ادناه لاستخدام فاحص البيانات، اختيار الاختبار الاحصائي، الهندسة البصرية، والتوثيق.</p>'
+        '<span class="sl-sec-num">04 • RESEARCH TOOLS</span>'
+        '<div class="sl-sec-title">الادوات الرقمية والتفاعلية المجانية</div>'
+        '<p class="sl-sec-sub">ادوات حسابية ومنهجية فورية داخل المتصفح لفحص قواعد البيانات، اختيار الاختبار الاحصائي، وبناء الجداول.</p>'
         '</div></div>'
     )
     st.markdown(lab_header, unsafe_allow_html=True)
@@ -1089,72 +1115,173 @@ if st.session_state.current_view == "home":
                     )
 
     # =================================================================
-    # الارشيف التفاعلي لعيادة المنهجية ومرصد الدراسات الاجتماعية
+    # 05. HOW IT WORKS (طريقة الاستفادة من الخدمات)
     # =================================================================
-    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
-    _, cr_col1, cr_col2, _ = st.columns([0.05, 0.44, 0.44, 0.05], gap="large")
+    how_html = (
+        '<div id="how-it-works" class="sl-section" style="padding-bottom:15px;">'
+        '<div class="sl-sec-head">'
+        '<span class="sl-sec-num">05 • HOW IT WORKS</span>'
+        '<div class="sl-sec-title">طريقة الاستفادة من خدمات <span class="ltr">Socio Lab</span></div>'
+        '<p class="sl-sec-sub">اربع خطوات منهجية واضحة تضمن لك الدقة العلمية وسرعة الانجاز.</p>'
+        '</div>'
+        '<div class="sl-steps-grid">'
+        '<div class="sl-step-card">'
+        '<div class="sl-step-badge">1</div>'
+        '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">تحديد المسار او الخدمة</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">اختر الخدمة المطلوبة من بين المحاور الـ 14 او حدد احدى الباقات المتكاملة حسب مستواك البحثي.</p>'
+        '</div>'
+        '<div class="sl-step-card">'
+        '<div class="sl-step-badge">2</div>'
+        '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">ارسال البيانات والاشكالية</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">ارسل عنوان دراستك، فرضياتك، او قاعدة بياناتك الميدانية (Excel / SPSS) عبر نموذج الطلب المباشر.</p>'
+        '</div>'
+        '<div class="sl-step-card">'
+        '<div class="sl-step-badge">3</div>'
+        '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">المعالجة والتحليل السوسيولوجي</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">يقوم فريقنا بتنظيف البيانات، اجراء الاختبارات الدقيقة، وصياغة القراءة السوسيولوجية للجداول.</p>'
+        '</div>'
+        '<div class="sl-step-card">'
+        '<div class="sl-step-badge">4</div>'
+        '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">الاستلام والمرافقة للمناقشة</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">تستلم ملفاتك الاصلية (.sav / .spv / Word) منسقة وفق APA 7 مع ضمان تنفيذ تعديلات المشرف.</p>'
+        '</div>'
+        '</div></div>'
+    )
+    st.markdown(how_html, unsafe_allow_html=True)
 
-    with cr_col1:
-        st.markdown(
-            '<div class="sl-clinic-box">'
-            '<span style="background:rgba(16, 185, 129, 0.2); color:#34D399; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">عيادة المنهجية</span>'
-            '<h3 style="color:#FFFFFF; font-size:19px; font-weight:800; margin:10px 0 6px 0;">عيادة المنهجية والاحصاء المباشرة</h3>'
-            '<p style="color:#CBD5E1; font-size:13px; line-height:1.7; margin-bottom:0;">تشخيص وتصحيح ابرز الاخطاء المنهجية والاحصائية الشائعة في الرسائل الجامعية:</p>'
-            '</div>',
-            unsafe_allow_html=True,
-        )
-        clinic_cases = {
-            "حالة 01: ارتفاع معامل الثبات مع فشل اختبار الفرضيات": "السبب المنهجي: صياغة عبارات الاستبيان بشكل عام لا يقيس المتغير التابع بدقة. التصحيح: ربط كل عبارة بمؤشر اجرائي محدد.",
-            "حالة 02: استخدام اختبار T-Test لعينة صغيرة غير طبيعية": "السبب المنهجي: تطبيق اختبارات معلمية دون فحص التوزيع الطبيعي. التصحيح: التحول الى اختبار مان-ويتني (Mann-Whitney).",
-            "حالة 03: تداخل المتغير الوسيط مع المتغير المعدل": "السبب المنهجي: الخلط بين تفسير الية الانتقال (الوساطة) وشروط القوة (الاعتدال). التصحيح: ضبط النموذج عبر Process Macro."
-        }
-        sel_case = st.selectbox("اختر الحالة المنهجية لقراءة التشخيص:", list(clinic_cases.keys()))
-        st.markdown(f'<div class="sl-result-banner">{clinic_cases[sel_case]}</div>', unsafe_allow_html=True)
-
-    with cr_col2:
-        st.markdown(
-            '<div><span class="sl-sec-tag">مرصد الدراسات الاجتماعية (Socio Observatory)</span>'
-            '<h3 class="sl-sec-title" style="font-size:19px; margin-bottom:8px;">رادار الظواهر والاتجاهات السوسيولوجية</h3></div>',
-            unsafe_allow_html=True,
-        )
-        radar_topics = {
-            "1. السلوك الرقمي والتنمر الالكتروني لدى المراهقين": "رصد تحولات التنشئة الاجتماعية في ظل المنصات الخوارزمية وتاثيرها على القيم. فرصة بحثية: قياس اثر التعرض الانتقائي.",
-            "2. الجريمة، الانحراف، وتعاطي المؤثرات العقلية": "تحليل العوامل السوسيو-مؤسساتية المفسرة للتداوي الذاتي وسوء استخدام المؤثرات العقلية في الوسط الشباني.",
-            "3. التعليم العالي والفجوة الرقمية": "دراسة اخلاقيات البحث العلمي وتوظيف الذكاء الاصطناعي في البيئة الجامعية بين التمكين والاتكالية."
-        }
-        sel_radar = st.selectbox("تصفح ملفات الرصد الاجتماعي:", list(radar_topics.keys()))
-        st.markdown(f'<div class="sl-radar-card"><p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin:0;">{radar_topics[sel_radar]}</p></div>', unsafe_allow_html=True)
-
-    qr_img_url = f"https://api.qrserver.com/v1/create-qr-code/?size=130x130&data={urllib.parse.quote(APP_URL)}"
-    about_qr_html = (
-        f'<div id="about-us" class="sl-section" style="padding-top:20px;">'
-        f'<div class="sl-about-box" style="display:grid; grid-template-columns: 1fr auto; gap:24px; align-items:center;">'
-        f'<div>'
-        f'<div class="sl-sec-tag">الهوية العلمية والمرجعية الاكاديمية</div>'
-        f'<h3 style="font-size:21px; font-weight:800; color:var(--text); margin:4px 0 10px 0;">من نحن؟ رؤية <span class="ltr">Socio Lab</span></h3>'
-        f'<p style="font-size:13.5px; color:var(--text); line-height:1.8; margin-bottom:10px;">'
-        f'<strong class="ltr">Socio Lab</strong> منصة علمية رقمية متخصصة في الاحصاء وتحليل البيانات والبحث العلمي، تجمع بين التكنولوجيا، '
-        f'المنهجية العلمية، والابتكار البحثي. نهدف الى ان نكون المرجع العربي الرائد والموثوق في الاحصاء التطبيقي باستخدام SPSS والبيئات المتقدمة.</p>'
-        f'<p style="font-size:13px; color:var(--text-muted); line-height:1.75; margin:0;">'
-        f'نخدم طلبة الليسانس والماستر والدكتوراه، الاساتذة، مخابر البحث، الجامعات، والمؤسسات العمومية والخاصة ومراكز الدراسات.</p>'
+    # =================================================================
+    # 06. TRAINING ACADEMY (الدورات والتكوين)
+    # =================================================================
+    academy_html = (
+        f'<div id="training-academy" class="sl-section" style="padding-bottom:15px;">'
+        f'<div class="sl-sec-head">'
+        f'<span class="sl-sec-num">06 • TRAINING ACADEMY</span>'
+        f'<div class="sl-sec-title">اكاديمية <span class="ltr">Socio Lab</span> للتكوين الاحصائي والمنهجي</div>'
+        f'<p class="sl-sec-sub">مسارات تدريبية تطبيقية مصممة لتمكين الباحثين من ادوات التحليل الحديث.</p>'
         f'</div>'
-        f'<div style="text-align:center; background:var(--surface-soft); padding:14px; border-radius:14px; border:1px solid var(--border);">'
-        f'<img src="{qr_img_url}" alt="QR Code" style="width:120px; height:120px; display:block; margin:0 auto 6px auto;">'
-        f'<div style="font-size:11px; font-weight:700; color:var(--text);">امسح الرمز لمشاركة المنصة</div>'
+        f'<div class="sl-acad-grid">'
+        f'<div class="sl-acad-card">'
+        f'<div style="font-size:11.5px; color:var(--sky-blue); font-weight:800;">مسار 01 • تكوين تطبيقي</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">SPSS من الصفر الى الاحتراف</div>'
+        f'<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">الترميز، تنظيف البيانات، الاختبارات المعلمية واللامعلمية، التحليل العاملي، وتفسير الجداول.</p>'
+        f'<a href="?view=services&pil=p06&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-srv-link">سجل في المسار &larr;</a>'
+        f'</div>'
+        f'<div class="sl-acad-card" style="border-right-color:var(--mint-green);">'
+        f'<div style="font-size:11.5px; color:var(--mint-green); font-weight:800;">مسار 02 • منهجية البحث</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">هندسة البحث العلمي وبناء المقاييس</div>'
+        f'<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">صياغة الاشكالية والفرضيات، اختيار العينات، بناء الاستبيانات والمقابلات، وضبط الصدق والثبات.</p>'
+        f'<a href="?view=services&pil=p06&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-srv-link">سجل في المسار &larr;</a>'
+        f'</div>'
+        f'<div class="sl-acad-card" style="border-right-color:var(--sky-blue);">'
+        f'<div style="font-size:11.5px; color:var(--sky-blue); font-weight:800;">مسار 03 • النمذجة المتقدمة</div>'
+        f'<div style="font-size:16px; font-weight:800; color:var(--text); margin:6px 0;">SmartPLS, R, Python &amp; NVivo</div>'
+        f'<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">ورشات متقدمة في نمذجة المعادلات الهيكلية SEM، تحليل البيانات الضخمة، وتحليل المحتوى الكيفي.</p>'
+        f'<a href="?view=services&pil=p06&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-srv-link">سجل في المسار &larr;</a>'
         f'</div>'
         f'</div></div>'
     )
-    st.markdown(about_qr_html, unsafe_allow_html=True)
+    st.markdown(academy_html, unsafe_allow_html=True)
 
-    integrity_html = (
-        '<div id="integrity" class="sl-integrity">'
-        '<div style="max-width:800px; margin:0 auto;">'
-        '<span style="background:rgba(56, 189, 248, 0.2); color:#38BDF8; font-size:11.5px; font-weight:700; padding:4px 12px; border-radius:99px;">الالتزام الاخلاقي والعلمي</span>'
-        '<div style="color:#FFFFFF; font-size:20px; font-weight:800; margin:12px 0 8px 0;">ميثاق النزاهة العلمية وسرية البيانات في <span class="ltr">Socio Lab</span></div>'
-        '<p style="color:#CBD5E1; font-size:13.5px; line-height:1.8; margin:0;">تلتزم منصة <span class="ltr">Socio Lab</span> بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، وترفض رفضا قاطعا فبركة البيانات او بيع البحوث الجاهزة او شراء النشر او اي ممارسة تخل بالامانة العلمية، مع ضمان السرية التامة لافكار الباحثين وبياناتهم.</p>'
+    # =================================================================
+    # 07. SCIENTIFIC RESOURCES (المكتبة والادلة العلمية)
+    # =================================================================
+    resources_html = (
+        f'<div id="scientific-resources" class="sl-section" style="padding-bottom:15px;">'
+        f'<div class="sl-sec-head">'
+        f'<span class="sl-sec-num">07 • SCIENTIFIC RESOURCES</span>'
+        f'<div class="sl-sec-title">المكتبة الرقمية والادلة العلمية (<span class="ltr">Socio Library</span>)</div>'
+        f'<p class="sl-sec-sub">مصادر منهجية وقوالب جاهزة تدعم جودة انتاجك الاكاديمي.</p>'
+        f'</div>'
+        f'<div class="sl-acad-grid">'
+        f'<div class="sl-res-card">'
+        f'<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">قوالب الجداول الاحصائية (APA 7)</div>'
+        f'<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">نماذج منسقة لتقارير الارتباط، الفروق، والانحدار جاهزة للادراج المباشر في الرسائل والمقالات.</p>'
+        f'<a href="#research-tools" class="sl-srv-link">استخدم مولد الجداول اعلاه &uarr;</a>'
+        f'</div>'
+        f'<div class="sl-res-card" style="border-top-color:var(--sky-blue);">'
+        f'<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">الادلة التطبيقية لبرامج التحليل</div>'
+        f'<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">شروحات مبسطة خطوة بخطوة لاختبارات SPSS و Jamovi و JASP وكيفية قراءة دلالاتها.</p>'
+        f'<a href="?view=services&pil=p07&theme={st.session_state.theme_mode}" target="_self" class="sl-srv-link">تصفح المكتبة &larr;</a>'
+        f'</div>'
+        f'<div class="sl-res-card" style="border-top-color:var(--digital-indigo);">'
+        f'<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">قاموس المصطلحات الثلاثي</div>'
+        f'<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin-bottom:10px;">توحيد المصطلحات الاحصائية والمنهجية بين العربية والفرنسية والانجليزية مع الامثلة.</p>'
+        f'<a href="#research-tools" class="sl-srv-link">ابحث في القاموس اعلاه &uarr;</a>'
+        f'</div>'
+        f'</div></div>'
+    )
+    st.markdown(resources_html, unsafe_allow_html=True)
+
+    # =================================================================
+    # 08. WHY SOCIO LAB (القيمة المضافة ومميزات المنصة)
+    # =================================================================
+    why_html = (
+        '<div id="why-sociolab" class="sl-section" style="padding-bottom:15px;">'
+        '<div class="sl-sec-head">'
+        '<span class="sl-sec-num">08 • WHY SOCIO LAB</span>'
+        '<div class="sl-sec-title">لماذا يختار الباحثون منصة <span class="ltr">Socio Lab</span>؟</div>'
+        '</div>'
+        '<div class="sl-why-grid">'
+        '<div class="sl-why-card">'
+        '<div style="font-size:18px; font-weight:800; color:var(--sky-blue); margin-bottom:4px;">01. قراءة سوسيولوجية عميقة</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">لا نكتفي باستخراج الارقام الصماء، بل نربط المؤشرات الاحصائية بالاطر النظرية والسياق الاجتماعي.</p>'
+        '</div>'
+        '<div class="sl-why-card">'
+        '<div style="font-size:18px; font-weight:800; color:var(--mint-green); margin-bottom:4px;">02. التزام صارم بالنزاهة العلمية</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">نعمل حصريا على البيانات الميدانية الحقيقية ونرفض فبركة البيانات او بيع البحوث الجاهزة.</p>'
+        '</div>'
+        '<div class="sl-why-card">'
+        '<div style="font-size:18px; font-weight:800; color:var(--digital-indigo); margin-bottom:4px;">03. معايير النشر الدولي APA 7</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">تسليم كافة الجداول والمراجع والملاحق وفق احدث معايير النشر الاكاديمي المعتمدة عالميا.</p>'
+        '</div>'
+        '<div class="sl-why-card">'
+        '<div style="font-size:18px; font-weight:800; color:var(--sky-blue); margin-bottom:4px;">04. سرية تامة ومرافقة مستمرة</div>'
+        '<p style="font-size:12.8px; color:var(--text-muted); line-height:1.7; margin:0;">حماية كاملة لافكار الباحثين وملفاتهم، مع ضمان تنفيذ اي تعديلات يطلبها الاستاذ المشرف.</p>'
+        '</div>'
         '</div></div>'
     )
-    st.markdown(integrity_html, unsafe_allow_html=True)
+    st.markdown(why_html, unsafe_allow_html=True)
+
+    # =================================================================
+    # 09. FAQ & CONTACT (الاسئلة الشائعة وطلب الخدمات)
+    # =================================================================
+    st.markdown(
+        '<div id="faq-contact" class="sl-section" style="padding-bottom:10px;">'
+        '<div class="sl-sec-head" style="margin-bottom:20px;">'
+        '<span class="sl-sec-num">09 • FAQ &amp; CONTACT</span>'
+        '<div class="sl-sec-title">الاسئلة الشائعة والتواصل المباشر</div>'
+        '</div></div>',
+        unsafe_allow_html=True,
+    )
+
+    _, faq_col, contact_col, _ = st.columns([0.05, 0.45, 0.45, 0.05], gap="large")
+    with faq_col:
+        st.markdown('<div style="font-size:16px; font-weight:800; color:var(--text); margin-bottom:10px;">الاسئلة الشائعة للباحثين</div>', unsafe_allow_html=True)
+        faq_items = {
+            "ما هي الملفات التي استلمها بعد انتهاء التحليل الاحصائي؟": "تستلم قاعدة البيانات المرمزة (.sav)، ملف مخرجات البرنامج (.spv)، وتقرير Word منسق وفق معايير APA 7 يتضمن الجداول والقراءة السوسيولوجية.",
+            "هل تلتزمون بتنفيذ ملاحظات وتعديلات الاستاذ المشرف؟": "نعم، نتكفل مجانا بتنفيذ كافة التعديلات الاحصائية او المنهجية التي يطلبها الاستاذ المشرف حتى اجازة البحث.",
+            "هل بيانات الاستبيان او اطروحتي محفوظة بسرية؟": "بكل تاكيد؛ تخضع جميع البيانات لبروتوكول سرية صارم ويتم حذف الملفات فور انتهاء المهمة وتسليمها للباحث."
+        }
+        sel_faq = st.selectbox("اختر سؤالا للاطلاع على الاجابة:", list(faq_items.keys()))
+        st.markdown(f'<div class="sl-result-banner">{faq_items[sel_faq]}</div>', unsafe_allow_html=True)
+
+    with contact_col:
+        qr_img_url = f"https://api.qrserver.com/v1/create-qr-code/?size=115x115&data={urllib.parse.quote(APP_URL)}"
+        contact_card_html = (
+            f'<div class="sl-about-box" style="display:grid; grid-template-columns: 1fr auto; gap:18px; align-items:center; margin-bottom:0;">'
+            f'<div>'
+            f'<div style="font-size:16px; font-weight:800; color:var(--text); margin-bottom:6px;">ابدأ مشروعك البحثي الان</div>'
+            f'<p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:12px;">'
+            f'فريق <strong class="ltr">Socio Lab</strong> جاهز لمرافقتك في التحليل الاحصائي والاستشارات المنهجية.</p>'
+            f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}#order-box" target="_self" class="sl-btn-mint" style="display:inline-block; padding:9px 18px; font-size:13px;">انتقل الى نموذج الطلب &larr;</a>'
+            f'</div>'
+            f'<div style="text-align:center; background:var(--surface-soft); padding:10px; border-radius:12px; border:1px solid var(--border);">'
+            f'<img src="{qr_img_url}" alt="QR Code" style="width:105px; height:105px; display:block; margin:0 auto 4px auto;">'
+            f'<div style="font-size:10.5px; font-weight:700; color:var(--text);">امسح للمشاركة</div>'
+            f'</div>'
+            f'</div>'
+        )
+        st.markdown(contact_card_html, unsafe_allow_html=True)
 
 # =====================================================================
 # الصفحة الثانية: المنظومة المتكاملة للخدمات والباقات (14 محورا)
@@ -1231,23 +1358,6 @@ elif st.session_state.current_view == "services":
         f'</div></div>'
     )
     st.markdown(detail_html, unsafe_allow_html=True)
-
-    soft_table_html = (
-        '<div class="sl-section" style="padding-top:0;">'
-        '<div class="sl-detail-box" style="padding:22px;">'
-        '<h3 style="font-size:16.5px; font-weight:800; color:var(--text); margin:0 0 10px 0;">بيئات وبرامج التحليل الاحصائي والنوعي المدعومة في <span class="ltr">Socio Lab</span></h3>'
-        '<table class="sl-apa-table">'
-        '<thead><tr><th>البرنامج / البيئة</th><th>مجال الاستخدام والتطبيق</th></tr></thead>'
-        '<tbody>'
-        '<tr><td class="num-cell" style="font-weight:700;">IBM SPSS</td><td>التحليل الاحصائي الاساسي والمتقدم للعلوم الاجتماعية والانسانية</td></tr>'
-        '<tr><td class="num-cell" style="font-weight:700;">SmartPLS &amp; AMOS</td><td>نمذجة المعادلات الهيكلية (SEM) وتحليل المسار والوساطة والتعديل</td></tr>'
-        '<tr><td class="num-cell" style="font-weight:700;">R &amp; Python</td><td>التحليل الاحصائي المتقدم، الاتمتة، تصور البيانات، والتعلم الالي</td></tr>'
-        '<tr><td class="num-cell" style="font-weight:700;">Stata, Jamovi &amp; JASP</td><td>الاقتصاد القياسي، العلوم الاجتماعية، والاختبارات البايزية</td></tr>'
-        '<tr><td class="num-cell" style="font-weight:700;">NVivo &amp; MAXQDA</td><td>تحليل البيانات النوعية، المقابلات المعمقة، وتحليل المضمون والخطاب</td></tr>'
-        '<tr><td class="num-cell" style="font-weight:700;">Excel</td><td>تنظيم قواعد البيانات، التنظيف، وبناء لوحات المؤشرات</td></tr>'
-        '</tbody></table></div></div>'
-    )
-    st.markdown(soft_table_html, unsafe_allow_html=True)
 
     pkg_cards_html = ""
     for pk_key, pk in PACKAGES_DATA.items():
@@ -1584,12 +1694,27 @@ elif st.session_state.current_view == "applied_lab":
             use_container_width=True,
         )
 
+# =====================================================================
+# 10. FOOTER (الروابط والمعلومات القانونية وميثاق النزاهة)
+# =====================================================================
 footer_html = (
     f'<div class="sl-footer">'
-    f'<div style="display:flex; justify-content:center; margin-bottom:10px;">{arctic_logo_svg}</div>'
-    f'<div style="color:#FFFFFF; font-weight:700;">Socio Lab • فضاء علمي رقمي لانتاج المعرفة وتطوير البحث</div>'
+    f'<div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:10px;">'
+    f'{arctic_logo_svg}'
+    f'<span style="font-family:\'Lucida Calligraphy\', cursive; font-size:22px; color:#FFFFFF; font-weight:700;">Socio Lab</span>'
+    f'</div>'
+    f'<div style="color:#E2E8F0; font-weight:700; max-width:750px; margin:0 auto 10px auto; line-height:1.7;">'
+    f'ميثاق النزاهة العلمية: تلتزم منصة Socio Lab بتقديم الاستشارات المنهجية والتحليل الاحصائي للبيانات الميدانية الحقيقية فقط، '
+    f'وترفض فبركة البيانات او بيع البحوث الجاهزة مع ضمان السرية التامة لبيانات الباحثين.</div>'
+    f'<div class="sl-footer-links">'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}" target="_self">الرئيسية</a>'
+    f'<a href="?view=services&pil=p01&theme={st.session_state.theme_mode}" target="_self">الخدمات الـ 14 والباقات</a>'
+    f'<a href="?view=applied_lab&theme={st.session_state.theme_mode}" target="_self">استوديو البحث الميداني</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#training-academy" target="_self">الاكاديمية</a>'
+    f'<a href="?view=home&theme={st.session_state.theme_mode}#scientific-resources" target="_self">المكتبة</a>'
+    f'</div>'
     f'<div style="font-size:12px; color:#38BDF8; margin-top:6px;">البريد الرسمي للتواصل: <span class="ltr">{CONTACT_EMAIL}</span></div>'
-    f'<div style="font-size:11px; color:#93B4D8; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span></div>'
+    f'<div style="font-size:11px; color:#93B4D8; margin-top:6px;">جميع الحقوق محفوظة &copy; 2026 <span class="ltr">Socio Lab</span> • Arctic Blue Intelligence</div>'
     f'</div>'
 )
 st.markdown(footer_html, unsafe_allow_html=True)
