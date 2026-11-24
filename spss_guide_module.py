@@ -1,13 +1,57 @@
 import streamlit as st
 
 
+def _build_likert_intervals(scale_choice: str):
+    if "الثلاثي" in scale_choice:
+        min_v, max_v, k = 1.0, 3.0, 3
+        labels = ["منخفض", "متوسط", "مرتفع"]
+    elif "السباعي" in scale_choice:
+        min_v, max_v, k = 1.0, 7.0, 7
+        labels = [
+            "منخفض جداً",
+            "منخفض",
+            "منخفض نسبياً",
+            "متوسط",
+            "مرتفع نسبياً",
+            "مرتفع",
+            "مرتفع جداً",
+        ]
+    else:
+        min_v, max_v, k = 1.0, 5.0, 5
+        labels = ["منخفض جداً", "منخفض", "متوسط", "مرتفع", "مرتفع جداً"]
+
+    interval_len = (max_v - min_v) / k
+    rows = []
+    for idx, lbl in enumerate(labels):
+        low = min_v + idx * interval_len
+        high = max_v if idx == k - 1 else (low + interval_len - 0.01)
+        rows.append({
+            "المستوى / الوصف": lbl,
+            "الحد الأدنى": round(low, 2),
+            "الحد الأعلى": round(high, 2),
+            "المدى": f"{low:.2f} – {high:.2f}",
+        })
+    return interval_len, rows
+
+
+def _classify_mean(mean_val: float, rows: list, min_v: float, max_v: float) -> str:
+    if mean_val < min_v or mean_val > max_v:
+        return "خارج حدود المقياس المختار — يرجى التحقق من قيمة المتوسط أو نوع المقياس."
+    for idx, r in enumerate(rows):
+        low = r["الحد الأدنى"]
+        high = max_v if idx == len(rows) - 1 else (r["الحد الأعلى"] + 0.009)
+        if low <= mean_val <= high:
+            return f"يقع المتوسط ({mean_val:.2f}) ضمن فئة: «{r['المستوى / الوصف']}» (المدى: {r['المدى']})."
+    return rows[-1]["المستوى / الوصف"]
+
+
 def render_spss_output_lab():
     st.markdown(
         '<div class="sl-detail-box" style="border-top:4px solid var(--digital-indigo); margin-top:10px;">'
         '<div style="font-size:17px; font-weight:800; color:var(--text); margin-bottom:6px;">'
         'مختبر فحص الشروط وقراءة مخرجات <span class="ltr">SPSS</span> (<span class="ltr">Output &amp; Assumptions Lab</span>)</div>'
         '<p style="font-size:13px; color:var(--text-muted); margin-bottom:0;">'
-        'أدخل القيم الظاهرة في جداول مخرجات برنامج SPSS للحصول على القرار الإحصائي، التوجيه المنهجي، وصياغة أكاديمية جاهزة وفق APA 7.</p>'
+        'أدخل القيم الظاهرة في جداول مخرجات برنامج SPSS للحصول على القرار الإحصائي، التوجيه المنهجي، طول الفئة، وصياغة أكاديمية جاهزة وفق APA 7.</p>'
         '</div>',
         unsafe_allow_html=True,
     )
@@ -16,7 +60,8 @@ def render_spss_output_lab():
         "1. فحص الشروط (الطبيعية والتجانس)",
         "2. قارئ جدول الثبات (Cronbach's Alpha)",
         "3. مترجم جداول الفروق والارتباط والانحدار",
-        "4. دليل حل مآزق البيانات الميدانية"
+        "4. حاسبة طول الفئة لمقياس ليكرت",
+        "5. دليل حل مآزق البيانات الميدانية"
     ])
 
     # =================================================================
@@ -215,9 +260,57 @@ def render_spss_output_lab():
         )
 
     # =================================================================
-    # التبويب 4: دليل حل مآزق البيانات الميدانية في SPSS
+    # التبويب 4: حاسبة طول الفئة لمقياس ليكرت (الثلاثي، الخماسي، السباعي)
     # =================================================================
     with spss_subtabs[3]:
+        st.markdown(
+            '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin:10px 0;">'
+            'حاسبة طول الفئة لمقاييس ليكرت (<span class="ltr">Likert Scale Interval Calculator</span>)</div>',
+            unsafe_allow_html=True,
+        )
+        lk1, lk2 = st.columns(2, gap="large")
+        with lk1:
+            likert_scale = st.selectbox(
+                "اختر نوع مقياس ليكرت:",
+                [
+                    "مقياس ليكرت الخماسي (1 إلى 5)",
+                    "مقياس ليكرت الثلاثي (1 إلى 3)",
+                    "مقياس ليكرت السباعي (1 إلى 7)"
+                ],
+                key="likert_scale_choice",
+            )
+        with lk2:
+            observed_mean = st.number_input(
+                "أدخل قيمة المتوسط الحسابي (Mean) من SPSS لتصنيفها:",
+                min_value=0.00,
+                max_value=10.00,
+                value=3.84,
+                step=0.01,
+                format="%.2f",
+                key="likert_mean_val",
+            )
+
+        interval_len, interval_rows = _build_likert_intervals(likert_scale)
+        min_bound = 1.0
+        max_bound = 3.0 if "الثلاثي" in likert_scale else (7.0 if "السباعي" in likert_scale else 5.0)
+        mean_msg = _classify_mean(observed_mean, interval_rows, min_bound, max_bound)
+
+        st.markdown(
+            f'<div class="sl-probe-result">'
+            f'<div style="font-weight:800; color:var(--sky-blue); margin-bottom:6px;">'
+            f'• طول الفئة المحسوب: <span class="ltr">{interval_len:.2f}</span> درجة '
+            f'(المدى الكلي {max_bound - min_bound:.0f} ÷ {len(interval_rows)} فئات)</div>'
+            f'<div style="font-weight:800; color:var(--mint-green);">• تصنيف المتوسط المدخل: {mean_msg}</div>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+
+        st.dataframe(interval_rows, use_container_width=True, hide_index=True)
+
+    # =================================================================
+    # التبويب 5: دليل حل مآزق البيانات الميدانية في SPSS
+    # =================================================================
+    with spss_subtabs[4]:
         pitfalls = [
             {
                 "q": "1. مأزق العبارات السالبة (Reverse Coding)",
