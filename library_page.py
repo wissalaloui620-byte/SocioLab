@@ -74,40 +74,152 @@ DICTIONARY_DB = [
         "def": "حالة من تفكك المعايير والقيم الاجتماعية وضعف الضبط الاجتماعي في فترات التحول السريع.",
         "usage": "مفهوم مركزي عند إميل دوركايم وروبرت ميرتون لتفسير الانحراف والجريمة والسلوك الانتحاري.",
         "spss": "يُقاس ميدانياً عبر مقاييس الاغتراب القيمي وضعف الامتثال المعياري"
+    },
+    {
+        "ar": "المخالطة الفارقة",
+        "fr": "Association différentielle",
+        "en": "Differential Association",
+        "cat": "المفاهيم السوسيولوجية",
+        "def": "نظرية تفسر السلوك الإجرامي والانحرافي بوصفه سلوكاً متعلماً عبر التفاعل مع جماعات الرفاق.",
+        "usage": "تُستخدم لتحليل أثر جماعة الأقران في اكتساب تقنيات الانحراف وتبريراته لدى الأحداث والشباب.",
+        "spss": "يُقاس عبر مقاييس ضغط الرفاق والانتماء للجماعات غير المعيارية"
     }
 ]
 
-# قاعدة بيانات المراجع الأكاديمية المنسقة وفق APA 7
+# قاعدة بيانات المراجع الأكاديمية المصنفة والموثقة وفق APA 7th
 BIBLIOGRAPHY_DB = [
+    # 1. مراجع المنهجية ومناهج البحث العلمي
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "title": "مناهج البحث العلمي وطرق إعداد البحوث",
+        "apa": "بوحوش، عمار، والذنيبات، محمد محمود. (2019). مناهج البحث العلمي وطرق إعداد البحوث. ديوان المطبوعات الجامعية.",
+        "note": "مرجع منهجي أساسي في الجامعات الجزائرية والعربية لبناء الإشكالية، الفرضيات، وتحديد العينات."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "title": "مناهج البحث في العلوم الاجتماعية",
+        "apa": "غرايبة، فوزي، وآخرون. (2015). أساليب البحث العلمي في العلوم الاجتماعية والإنسانية. دار وائل للنشر.",
+        "note": "يتناول تصميم أدوات جمع البيانات الميدانية (الاستبيان، المقابلة، والملاحظة) وضبط الصدق والثبات."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "title": "البحث الكيفي في العلوم الاجتماعية",
+        "apa": "قباري، محمد إسماعيل. (2014). مناهج البحث في علم الاجتماع والأنثروبولوجيا. منشأة المعارف.",
+        "note": "مرجع معمق في المنهج الوصفي، دراسة الحالة، وتحليل المضمون في الدراسات السوسيولوجية."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "title": "Research Design: Qualitative, Quantitative, and Mixed Methods Approaches",
+        "apa": "Creswell, J. W., & Creswell, J. D. (2023). Research design: Qualitative, quantitative, and mixed methods approaches (6th ed.). SAGE Publications.",
+        "note": "المرجع الدولي الأول في هندسة البحوث الكمية والكيفية والمختلطة."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "title": "Manuel de recherche en sciences sociales",
+        "apa": "Van Campenhoudt, L., Marquet, J., & Quivy, R. (2022). Manuel de recherche en sciences sociales (6e éd.). Dunod.",
+        "note": "المرجع الفرانكفوني الكلاسيكي لبناء الإشكالية السوسيولوجية والقطيعة الإبستمولوجية."
+    },
+
+    # 2. مراجع الإحصاء التطبيقي و SPSS
     {
         "field": "الإحصاء التطبيقي و SPSS",
-        "title": "تحليل البيانات باستخدام برنامج SPSS: من الإدخال إلى النمذجة",
+        "title": "التحليل الإحصائي للبيانات باستخدام برنامج SPSS",
         "apa": "أبو علام، رجاء محمود. (2021). التحليل الإحصائي للبيانات باستخدام برنامج SPSS. دار النشر للجامعات.",
-        "note": "مرجع تأسيسي شامل في الاختبارات المعلمية واللامعلمية وتحليل التباين."
+        "note": "يغطي الإحصاء الوصفي، الاختبارات المعلمية واللامعلمية، تحليل التباين، والانحدار خطوة بخطوة."
+    },
+    {
+        "field": "الإحصاء التطبيقي و SPSS",
+        "title": "الإحصاء التطبيقي في العلوم الاجتماعية والتربوية",
+        "apa": "البياتي، عبد الجبار توفيق. (2016). الإحصاء وتطبيقاته في العلوم التربوية والنفسية والاجتماعية. دار الثقافة.",
+        "note": "مرجع تطبيقي لشرح شروط استخدام الاختبارات الإحصائية وحساب حجم العينة وطول الفئة."
+    },
+    {
+        "field": "الإحصاء التطبيقي و SPSS",
+        "title": "التحليل الإحصائي المتقدم باستخدام SPSS و AMOS",
+        "apa": "تيغزة، أمحمد بوزيان. (2012). التحليل العاملي الاستكشافي والتوكيدي: مفاهيمهما ومنهجيتهما بتوظيف حزمة SPSS وليزرل. دار المسيرة.",
+        "note": "أفضل مرجع عربي لفهم الصدق البنائي والتحليل العاملي EFA و CFA."
     },
     {
         "field": "الإحصاء التطبيقي و SPSS",
         "title": "Discovering Statistics Using IBM SPSS Statistics",
         "apa": "Field, A. (2024). Discovering statistics using IBM SPSS statistics (6th ed.). SAGE Publications.",
-        "note": "المرجع العالمي الأبرز لفهم المنطق الإحصائي وتفسير مخرجات SPSS بأسلوب مبسط."
+        "note": "المرجع العالمي الأبرز لفهم المنطق الإحصائي وتفسير مخرجات SPSS بأسلوب تطبيقي."
     },
     {
-        "field": "مناهج البحث العلمي",
-        "title": "البحث العلمي: أساسياته النظرية وممارسته العملية",
-        "apa": "بوحوش، عمار، والذنيبات، محمد محمود. (2019). مناهج البحث العلمي وطرق إعداد البحوث. ديوان المطبوعات الجامعية.",
-        "note": "دليل منهجي معتمد في الجامعات الجزائرية والعربية لبناء الإشكالية والعينات."
+        "field": "الإحصاء التطبيقي و SPSS",
+        "title": "SPSS Survival Manual",
+        "apa": "Pallant, J. (2020). SPSS survival manual: A step by step guide to data analysis using IBM SPSS (7th ed.). Open University Press.",
+        "note": "دليل عملي سريع لتجهيز البيانات، فحص الثبات، وكتابة النتائج وفق معايير APA."
+    },
+
+    # 3. مراجع علم الاجتماع العام
+    {
+        "field": "علم الاجتماع العام",
+        "title": "قواعد المنهج في علم الاجتماع",
+        "apa": "دوركايم، إميل. (2014). قواعد المنهج في علم الاجتماع (ترجمة محمود قاسم). دار المعرفة الجامعية.",
+        "note": "النص التأسيسي لدراسة الظواهر الاجتماعية بوصفها أشياء مستقلة وتفسير الاجتماعي بالاجتماعي."
+    },
+    {
+        "field": "علم الاجتماع العام",
+        "title": "الخيال السوسيولوجي",
+        "apa": "ميلز، تشارلز رايت. (2017). الخيال السوسيولوجي (ترجمة عبد الباسط عبد المعطي). المركز القومي للترجمة.",
+        "note": "مرجع جوهري للربط بين المشكلات الفردية والبنى الاجتماعية والتاريخية."
+    },
+    {
+        "field": "علم الاجتماع العام",
+        "title": "التمييز: نقد اجتماعي للحكم",
+        "apa": "بورديو، بيير. (2016). الرمز والسلطة (ترجمة عبد السلام بنعبد العالي). دار توبقال للنشر.",
+        "note": "مدخل لفهم مفاهيم الهابيتوس، الحقل، ورأس المال الثقافي والاجتماعي."
+    },
+    {
+        "field": "علم الاجتماع العام",
+        "title": "الاقتصاد والمجتمع",
+        "apa": "فيبر، ماكس. (2015). مفاهيم أساسية في علم الاجتماع (ترجمة صلاح هلال). المركز القومي للترجمة.",
+        "note": "تأسيس السوسيولوجيا الفهمية وتحليل الفعل الاجتماعي والعقلانية والبيروقراطية."
+    },
+
+    # 4. مراجع تخصص انحراف وجريمة
+    {
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "title": "علم اجتماع الانحراف والجريمة",
+        "apa": "الوريكات، عايد عواد. (2017). نظريات علم الجريمة. دار الشروق للنشر والتوزيع.",
+        "note": "عرض شامل للنظريات السوسيولوجية المفسرة للجريمة: المخالطة الفارقة، الضبط الاجتماعي، الوصم، والأنومي."
     },
     {
         "field": "سوسيولوجيا الانحراف والجريمة",
-        "title": "الانتحار: دراسة في علم الاجتماع (نظرية الأنومي)",
-        "apa": "دوركايم، إميل. (2018). الانتحار: دراسة في علم الاجتماع (ترجمة حسن عودة). الهيئة العامة السورية للكتاب.",
-        "note": "نموذج تطبيقي رائد في توظيف البيانات الإحصائية لتفسير الظواهر الاجتماعية."
+        "title": "جنوح الأحداث والانحراف الاجتماعي",
+        "apa": "رشوان، حسين عبد الحميد أحمد. (2015). الجريمة والانحراف: دراسة في علم الاجتماع الجنائي. المكتب الجامعي الحديث.",
+        "note": "يتناول العوامل الأسرية، جماعة الرفاق، والبيئة المدرسية في تشكل السلوك الجانح لدى الأحداث."
     },
     {
-        "field": "النمذجة الهيكلية SmartPLS",
-        "title": "A Primer on Partial Least Squares Structural Equation Modeling (PLS-SEM)",
-        "apa": "Hair, J. F., Hult, G. T. M., Ringle, C. M., & Sarstedt, M. (2022). A primer on partial least squares structural equation modeling (PLS-SEM) (3rd ed.). SAGE.",
-        "note": "المرجع المعتمد لتقييم نماذج القياس والنماذج الهيكلية عبر SmartPLS."
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "title": "الانتحار: دراسة في علم الاجتماع",
+        "apa": "دوركايم، إميل. (2018). الانتحار: دراسة في علم الاجتماع (ترجمة حسن عودة). الهيئة العامة السورية للكتاب.",
+        "note": "النموذج الكلاسيكي لتوظيف الإحصاء السوسيولوجي ونظرية اللامعيارية (Anomie) في تفسير الانحراف."
+    },
+    {
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "title": "الضبط الاجتماعي والانحراف في المجتمع المعاصر",
+        "apa": "عكاشة، محمد فتحي. (2016). علم الاجتماع الجنائي والانحراف. دار الوفاء لدنيا الطباعة والنشر.",
+        "note": "دراسة في آليات الضبط الاجتماعي الرسمي وغير الرسمي وتأثير التغير القيمي والرقمي."
+    },
+    {
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "title": "Outsiders: Studies in the Sociology of Deviance",
+        "apa": "Becker, H. S. (2018). Outsiders: Studies in the sociology of deviance. Free Press.",
+        "note": "المرجع التأسيسي لنظرية الوصم الاجتماعي (Labeling Theory) في سوسيولوجيا الانحراف."
+    },
+    {
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "title": "Social Theory and Social Structure (Anomie & Strain)",
+        "apa": "Merton, R. K. (1968). Social theory and social structure. Free Press.",
+        "note": "يتضمن صياغة ميرتون لنظرية الضغط البنائي واللامعيارية وتكيفات الفرد مع الأهداف والوسائل."
+    },
+    {
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "title": "Causes of Delinquency (Social Bond Theory)",
+        "apa": "Hirschi, T. (2017). Causes of delinquency. Routledge.",
+        "note": "المرجع الأساسي لنظرية الروابط الاجتماعية (التعلق، الالتزام، الانشغال، والمعتقد) في تفسير جنوح الأحداث."
     }
 ]
 
@@ -127,18 +239,91 @@ def render_library_page(theme_mode):
     _, lib_wrap, _ = st.columns([0.05, 0.90, 0.05])
     with lib_wrap:
         lib_tabs = st.tabs([
-            "1. محرك البحث في القاموس الثلاثي (AR / FR / EN)",
-            "2. مستودع القوالب والأدلة القابلة للتحميل",
-            "3. فهرس المراجع الأكاديمية (APA 7th)"
+            "1. فهرس المراجع الأكاديمية المتخصصة (APA 7th)",
+            "2. محرك البحث في القاموس الثلاثي (AR / FR / EN)",
+            "3. مستودع القوالب والأدلة القابلة للتحميل"
         ])
 
-        # التبويب 1: القاموس الثلاثي التفاعلي
+        # التبويب 1: فهرس المراجع الأكاديمية المصنفة (المنهجية، الإحصاء/SPSS، علم الاجتماع، انحراف وجريمة)
         with lib_tabs[0]:
+            f_col1, f_col2 = st.columns([0.45, 0.55])
+            with f_col1:
+                fields = [
+                    "جميع التخصصات",
+                    "سوسيولوجيا الانحراف والجريمة",
+                    "المنهجية ومناهج البحث العلمي",
+                    "الإحصاء التطبيقي و SPSS",
+                    "علم الاجتماع العام"
+                ]
+                sel_field = st.selectbox("تصفية المراجع حسب التخصص العلمي:", fields)
+            with f_col2:
+                bib_search = st.text_input(
+                    "ابحث باسم المؤلف أو عنوان المرجع أو النظرية:",
+                    placeholder="مثال: دوركايم ، بوحوش ، سذرلاند ، جنوح ، SPSS..."
+                ).strip().lower()
+
+            matched_books = []
+            for book in BIBLIOGRAPHY_DB:
+                match_f = (sel_field == "جميع التخصصات") or (book["field"] == sel_field)
+                match_s = (
+                    not bib_search
+                    or bib_search in book["title"].lower()
+                    or bib_search in book["apa"].lower()
+                    or bib_search in book["note"].lower()
+                )
+                if match_f and match_s:
+                    matched_books.append(book)
+
+            st.markdown(
+                f'<div style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">'
+                f'عدد المراجع المعروضة: <strong>{len(matched_books)}</strong> مرجع أكاديمي موثق</div>',
+                unsafe_allow_html=True,
+            )
+
+            # زر تحميل القائمة الببليوغرافية المعروضة كاملة بصيغة نصية جاهزة
+            if matched_books:
+                bib_export_lines = [
+                    f"قائمة المراجع الأكاديمية ({sel_field}) - مكتبة Socio Lab",
+                    "==========================================================",
+                    ""
+                ]
+                for idx, b in enumerate(matched_books, start=1):
+                    bib_export_lines.append(f"{idx}. {b['apa']}")
+                st.download_button(
+                    label=f"تحميل قائمة المراجع المعروضة بصيغة APA 7 (.txt)",
+                    data="\n".join(bib_export_lines),
+                    file_name="SocioLab_Bibliography_APA7.txt",
+                    mime="text/plain",
+                    use_container_width=True,
+                )
+                st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
+
+            for book in matched_books:
+                is_en = book["apa"][0].isascii()
+                dir_cls = "ltr-block" if is_en else "rtl"
+                badge_color = "var(--mint-green)" if "انحراف" in book["field"] else (
+                    "var(--sky-blue)" if "SPSS" in book["field"] else "var(--digital-indigo)"
+                )
+                book_html = (
+                    f'<div class="sl-detail-box" style="padding:18px; margin-bottom:12px; border-right:4px solid {badge_color};">'
+                    f'<span class="sl-sec-tag" style="margin-bottom:6px;">{book["field"]}</span>'
+                    f'<div style="font-size:15.5px; font-weight:800; color:var(--text); margin-bottom:6px;">{book["title"]}</div>'
+                    f'<div class="sl-result-banner" style="margin-top:6px;">'
+                    f'<div style="font-size:11.5px; font-weight:700; color:var(--sky-blue); margin-bottom:3px;">التوثيق الجاهز للنسخ (APA 7th):</div>'
+                    f'<div class="{dir_cls}" style="font-size:13.2px; font-weight:600;">{book["apa"]}</div>'
+                    f'</div>'
+                    f'<div style="font-size:12.2px; color:var(--text-muted); margin-top:8px;">• {book["note"]}</div>'
+                    f'</div>'
+                )
+                st.markdown(book_html, unsafe_allow_html=True)
+
+        # التبويب 2: القاموس الثلاثي التفاعلي
+        with lib_tabs[1]:
             s_col1, s_col2 = st.columns([0.65, 0.35])
             with s_col1:
                 search_q = st.text_input(
                     "ابحث عن مصطلح بالعربية أو الفرنسية أو الإنجليزية:",
-                    placeholder="مثال: ألفا كرونباخ ، Normal ، Médiatrice ، دلالة..."
+                    placeholder="مثال: ألفا كرونباخ ، Anomie ، المخالطة الفارقة ، Normal..."
                 ).strip().lower()
             with s_col2:
                 cats = ["الكل"] + sorted(list({item["cat"] for item in DICTIONARY_DB}))
@@ -157,12 +342,6 @@ def render_library_page(theme_mode):
                 if match_cat and match_txt:
                     filtered_terms.append(item)
 
-            st.markdown(
-                f'<div style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">'
-                f'عدد المصطلحات المطابقة: <strong>{len(filtered_terms)}</strong></div>',
-                unsafe_allow_html=True,
-            )
-
             for term in filtered_terms:
                 term_card = (
                     f'<div class="sl-detail-box" style="padding:18px; margin-bottom:14px; border-right:4px solid var(--sky-blue);">'
@@ -174,13 +353,13 @@ def render_library_page(theme_mode):
                     f'<div style="font-size:13.2px; color:var(--text); margin-bottom:6px;"><strong>التعريف العلمي:</strong> {term["def"]}</div>'
                     f'<div style="font-size:12.8px; color:var(--text-muted); margin-bottom:6px;"><strong>الاستخدام والتفسير:</strong> {term["usage"]}</div>'
                     f'<div style="font-size:12px; color:var(--mint-green); font-weight:700;">'
-                    f'المسار في SPSS: <span class="ltr" style="font-family:monospace;">{term["spss"]}</span></div>'
+                    f'المسار / القياس: <span class="ltr" style="font-family:monospace;">{term["spss"]}</span></div>'
                     f'</div>'
                 )
                 st.markdown(term_card, unsafe_allow_html=True)
 
-        # التبويب 2: مستودع القوالب والأدلة الجاهزة
-        with lib_tabs[1]:
+        # التبويب 3: مستودع القوالب والأدلة الجاهزة
+        with lib_tabs[2]:
             st.markdown(
                 '<div style="font-size:15.5px; font-weight:800; color:var(--text); margin:10px 0 14px 0;">'
                 'قوالب وأدلة منهجية وإحصائية جاهزة للتحميل الفوري:</div>',
@@ -307,26 +486,3 @@ def render_library_page(theme_mode):
                     mime="text/plain",
                     use_container_width=True,
                 )
-
-        # التبويب 3: فهرس المراجع الأكاديمية
-        with lib_tabs[2]:
-            fields = ["جميع التخصصات"] + sorted(list({b["field"] for b in BIBLIOGRAPHY_DB}))
-            sel_field = st.selectbox("تصفية المراجع حسب التخصص العلمي:", fields)
-
-            for book in BIBLIOGRAPHY_DB:
-                if sel_field != "جميع التخصصات" and book["field"] != sel_field:
-                    continue
-                is_en = book["apa"][0].isascii()
-                dir_cls = "ltr-block" if is_en else "rtl"
-                book_html = (
-                    f'<div class="sl-detail-box" style="padding:18px; margin-bottom:12px;">'
-                    f'<span class="sl-sec-tag" style="margin-bottom:6px;">{book["field"]}</span>'
-                    f'<div style="font-size:15px; font-weight:800; color:var(--text); margin-bottom:6px;">{book["title"]}</div>'
-                    f'<div class="sl-result-banner" style="margin-top:6px;">'
-                    f'<div style="font-size:11.5px; font-weight:700; color:var(--sky-blue); margin-bottom:3px;">التوثيق الجاهز (APA 7th):</div>'
-                    f'<div class="{dir_cls}" style="font-size:13px;">{book["apa"]}</div>'
-                    f'</div>'
-                    f'<div style="font-size:12px; color:var(--text-muted); margin-top:8px;">• {book["note"]}</div>'
-                    f'</div>'
-                )
-                st.markdown(book_html, unsafe_allow_html=True)
