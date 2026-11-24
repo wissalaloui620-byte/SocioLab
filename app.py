@@ -1,3 +1,4 @@
+from library_references_rich import render_rich_references_library
 import datetime
 import math
 import random
