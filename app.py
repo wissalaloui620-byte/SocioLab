@@ -1,26 +1,26 @@
-from library_references_rich import render_rich_references_library
 import datetime
 import math
 import random
-import re
 import urllib.parse
-from collections import Counter
 import numpy as np
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
-from spss_guide_module import render_spss_output_lab
+
 CONTACT_EMAIL = "sociolab.dz2026@gmail.com"
 APP_URL = "https://sociolab-dz.streamlit.app"
 
 
-def compute_cronbach_alpha(df_num):
-    k = df_num.shape[1]
-    if k < 2:
+def compute_cronbach_alpha(df_num: pd.DataFrame):
+    if df_num is None or df_num.shape[1] < 2:
         return None
-    item_vars = df_num.var(axis=0, ddof=1).sum()
-    total_var = df_num.sum(axis=1).var(ddof=1)
-    if total_var == 0:
+    clean_num = df_num.dropna()
+    if len(clean_num) < 2:
+        return None
+    k = clean_num.shape[1]
+    item_vars = clean_num.var(axis=0, ddof=1).sum()
+    total_var = clean_num.sum(axis=1).var(ddof=1)
+    if total_var == 0 or pd.isna(total_var):
         return None
     return (k / (k - 1)) * (1 - (item_vars / total_var))
 
@@ -274,91 +274,208 @@ PACKAGES_DATA = {
 }
 
 # =====================================================================
-# قاعدة بيانات المراجع العلمية (المنهجية، الإحصاء/SPSS، علم الاجتماع، انحراف وجريمة)
+# الفهرس المرجعي الموسّع (سوسيولوجيا الانحراف والجريمة، الإحصاء/SPSS، المنهجية، علم الاجتماع)
 # =====================================================================
-REFERENCES_LIST = [
-    # سوسيولوجيا الانحراف والجريمة
+RICH_REFERENCES_DB = [
+    # --- 1. سوسيولوجيا الانحراف والجريمة ---
     {
         "field": "سوسيولوجيا الانحراف والجريمة",
+        "lang": "AR",
         "title": "الانتحار: دراسة في علم الاجتماع",
+        "author_year": "دوركايم، إميل (2018)",
         "apa": "دوركايم، إميل. (2018). الانتحار: دراسة في علم الاجتماع (ترجمة حسن عودة). الهيئة العامة السورية للكتاب.",
-        "note": "مرجع كلاسيكي في توظيف الإحصاء السوسيولوجي ونظرية اللامعيارية (Anomie) لتفسير الانحراف."
+        "benefit": "توظيف الإحصاء السوسيولوجي والاندماج/الضبط الاجتماعي ومفهوم اللامعيارية (Anomie) في تفسير الانحراف."
     },
     {
         "field": "سوسيولوجيا الانحراف والجريمة",
-        "title": "جنوح الأحداث والانحراف الاجتماعي",
+        "lang": "AR",
+        "title": "الجريمة والانحراف: دراسة في علم الاجتماع الجنائي",
+        "author_year": "رشوان، حسين عبد الحميد أحمد (2015)",
         "apa": "رشوان، حسين عبد الحميد أحمد. (2015). الجريمة والانحراف: دراسة في علم الاجتماع الجنائي. المكتب الجامعي الحديث.",
-        "note": "يتناول أثر الأسرة، جماعة الرفاق، والوسط المدرسي في جنوح الأحداث."
+        "benefit": "دراسة الأسرة، جماعة الرفاق، التنشئة، والبيئة الحضرية في جنوح الأحداث والانحراف الاجتماعي."
     },
     {
         "field": "سوسيولوجيا الانحراف والجريمة",
+        "lang": "AR",
         "title": "نظريات علم الجريمة والانحراف",
+        "author_year": "الوريكات، عايد عواد (2017)",
         "apa": "الوريكات، عايد عواد. (2017). نظريات علم الجريمة. دار الشروق للنشر والتوزيع.",
-        "note": "عرض للنظريات السوسيولوجية: المخالطة الفارقة، الضبط الاجتماعي، الوصم، والضغط."
+        "benefit": "مقارنة بين المخالطة الفارقة، الضبط الاجتماعي، الوصم، والضغط البنائي."
     },
     {
         "field": "سوسيولوجيا الانحراف والجريمة",
+        "lang": "AR",
+        "title": "علم الاجتماع الجنائي والانحراف",
+        "author_year": "عكاشة، محمد فتحي (2016)",
+        "apa": "عكاشة، محمد فتحي. (2016). علم الاجتماع الجنائي والانحراف. دار الوفاء لدنيا الطباعة والنشر.",
+        "benefit": "تحليل آليات الضبط الاجتماعي الرسمي وغير الرسمي والظواهر الإجرامية المستحدثة."
+    },
+    {
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "lang": "EN",
         "title": "Outsiders: Studies in the Sociology of Deviance",
+        "author_year": "Becker, H. S. (2018)",
         "apa": "Becker, H. S. (2018). Outsiders: Studies in the sociology of deviance. Free Press.",
-        "note": "المرجع التأسيسي لنظرية الوصم الاجتماعي (Labeling Theory) في سوسيولوجيا الانحراف."
+        "benefit": "المرجع التأسيسي لنظرية الوصم الاجتماعي (Labeling Theory) وكيفية تعريف السلوك المنحرف."
     },
     {
         "field": "سوسيولوجيا الانحراف والجريمة",
+        "lang": "EN",
         "title": "Causes of Delinquency",
+        "author_year": "Hirschi, T. (2017)",
         "apa": "Hirschi, T. (2017). Causes of delinquency. Routledge.",
-        "note": "المرجع الأساسي لنظرية الروابط الاجتماعية في تفسير جنوح الأحداث."
-    },
-    # المنهجية ومناهج البحث العلمي
-    {
-        "field": "المنهجية ومناهج البحث العلمي",
-        "title": "مناهج البحث العلمي وطرق إعداد البحوث",
-        "apa": "بوحوش، عمار، والذنيبات، محمد محمود. (2019). مناهج البحث العلمي وطرق إعداد البحوث. ديوان المطبوعات الجامعية.",
-        "note": "دليل منهجي لبناء الإشكالية، الفرضيات، وتحديد العينات في العلوم الاجتماعية."
+        "benefit": "نظرية الروابط الاجتماعية (التعلق، الالتزام، الانشغال، المعتقد) في فهم جنوح الأحداث."
     },
     {
-        "field": "المنهجية ومناهج البحث العلمي",
-        "title": "Research Design: Qualitative, Quantitative, and Mixed Methods",
-        "apa": "Creswell, J. W., & Creswell, J. D. (2023). Research design: Qualitative, quantitative, and mixed methods approaches (6th ed.). SAGE Publications.",
-        "note": "مرجع دولي في تصميم البحوث الكمية والكيفية والمختلطة."
+        "field": "سوسيولوجيا الانحراف والجريمة",
+        "lang": "EN",
+        "title": "Social Theory and Social Structure",
+        "author_year": "Merton, R. K. (1968)",
+        "apa": "Merton, R. K. (1968). Social theory and social structure. Free Press.",
+        "benefit": "صياغة الضغط البنائي واللامعيارية وأنماط التكيف الفردي مع الأهداف والوسائل المشروعة."
     },
-    {
-        "field": "المنهجية ومناهج البحث العلمي",
-        "title": "Manuel de recherche en sciences sociales",
-        "apa": "Van Campenhoudt, L., Marquet, J., & Quivy, R. (2022). Manuel de recherche en sciences sociales (6e éd.). Dunod.",
-        "note": "مرجع منهجي في صياغة الإشكالية السوسيولوجية والعمل الميداني."
-    },
-    # الإحصاء التطبيقي و SPSS
+
+    # --- 2. الإحصاء التطبيقي و SPSS ---
     {
         "field": "الإحصاء التطبيقي و SPSS",
+        "lang": "AR",
         "title": "التحليل الإحصائي للبيانات باستخدام برنامج SPSS",
+        "author_year": "أبو علام، رجاء محمود (2021)",
         "apa": "أبو علام، رجاء محمود. (2021). التحليل الإحصائي للبيانات باستخدام برنامج SPSS. دار النشر للجامعات.",
-        "note": "شرح تطبيقي للاختبارات المعلمية واللامعلمية وتحليل التباين والانحدار."
+        "benefit": "تطبيق الاختبارات المعلمية واللامعلمية وتحليل التباين والارتباط والانحدار."
     },
     {
         "field": "الإحصاء التطبيقي و SPSS",
-        "title": "التحليل العاملي الاستكشافي والتوكيدي (SPSS & AMOS)",
+        "lang": "AR",
+        "title": "الإحصاء وتطبيقاته في العلوم التربوية والنفسية والاجتماعية",
+        "author_year": "البياتي، عبد الجبار توفيق (2016)",
+        "apa": "البياتي، عبد الجبار توفيق. (2016). الإحصاء وتطبيقاته في العلوم التربوية والنفسية والاجتماعية. دار الثقافة.",
+        "benefit": "حساب العينات، مقاييس النزعة والتشتت، وشروط اختيار الاختبارات الإحصائية."
+    },
+    {
+        "field": "الإحصاء التطبيقي و SPSS",
+        "lang": "AR",
+        "title": "التحليل العاملي الاستكشافي والتوكيدي",
+        "author_year": "تيغزة، أمحمد بوزيان (2012)",
         "apa": "تيغزة، أمحمد بوزيان. (2012). التحليل العاملي الاستكشافي والتوكيدي: مفاهيمهما ومنهجيتهما بتوظيف حزمة SPSS وليزرل. دار المسيرة.",
-        "note": "مرجع في الصدق البنائي والتحليل العاملي EFA و CFA."
+        "benefit": "فحص الصدق البنائي والتحليل العاملي الاستكشافي (EFA) والتوكيدي (CFA)."
     },
     {
         "field": "الإحصاء التطبيقي و SPSS",
+        "lang": "EN",
         "title": "Discovering Statistics Using IBM SPSS Statistics",
+        "author_year": "Field, A. (2024)",
         "apa": "Field, A. (2024). Discovering statistics using IBM SPSS statistics (6th ed.). SAGE Publications.",
-        "note": "مرجع شامل لتفسير مخرجات SPSS وفهم المنطق الإحصائي."
+        "benefit": "فهم المنطق الإحصائي، فحص الافتراضات، وقراءة مخرجات SPSS واختبارات الدلالة وحجم الأثر."
     },
-    # علم الاجتماع العام
     {
-        "field": "علم الاجتماع العام",
+        "field": "الإحصاء التطبيقي و SPSS",
+        "lang": "EN",
+        "title": "SPSS Survival Manual",
+        "author_year": "Pallant, J. (2020)",
+        "apa": "Pallant, J. (2020). SPSS survival manual: A step by step guide to data analysis using IBM SPSS (7th ed.). Open University Press.",
+        "benefit": "خطوات عملية لتجهيز البيانات، حساب الثبات، اختبار الفروق والارتباط، وتقديم النتائج."
+    },
+    {
+        "field": "الإحصاء التطبيقي و SPSS",
+        "lang": "EN",
+        "title": "Using Multivariate Statistics",
+        "author_year": "Tabachnick, B. G., & Fidell, L. S. (2019)",
+        "apa": "Tabachnick, B. G., & Fidell, L. S. (2019). Using multivariate statistics (7th ed.). Pearson.",
+        "benefit": "مرجع متقدم للانحدار المتعدد، التحليل العاملي، وتحليل التباين متعدد المتغيرات."
+    },
+
+    # --- 3. المنهجية ومناهج البحث العلمي ---
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "lang": "AR",
+        "title": "مناهج البحث العلمي وطرق إعداد البحوث",
+        "author_year": "بوحوش، عمار، والذنيبات، محمد محمود (2019)",
+        "apa": "بوحوش، عمار، والذنيبات، محمد محمود. (2019). مناهج البحث العلمي وطرق إعداد البحوث. ديوان المطبوعات الجامعية.",
+        "benefit": "بناء الإشكالية، صياغة الفرضيات، اختيار المنهج والعينة، وتنظيم خطة البحث."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "lang": "AR",
+        "title": "أساليب البحث العلمي في العلوم الاجتماعية والإنسانية",
+        "author_year": "غرايبة، فوزي، وآخرون (2015)",
+        "apa": "غرايبة، فوزي، وآخرون. (2015). أساليب البحث العلمي في العلوم الاجتماعية والإنسانية. دار وائل للنشر.",
+        "benefit": "تصميم الاستبيانات والمقابلات والملاحظة الميدانية وضبط الصدق والثبات."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "lang": "AR",
+        "title": "البحث العلمي: مفهومه، أدواته، وأساليبه",
+        "author_year": "عبيدات، ذوقان، وعدس، عبد الرحمن، وعبد الحق، كايد (2018)",
+        "apa": "عبيدات، ذوقان، وعدس، عبد الرحمن، وعبد الحق، كايد. (2018). البحث العلمي: مفهومه، أدواته، وأساليبه. دار الفكر.",
+        "benefit": "أساسيات المنهج الوصفي والمسحي والتجريبي وأدوات جمع البيانات."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "lang": "EN",
+        "title": "Research Design: Qualitative, Quantitative, and Mixed Methods Approaches",
+        "author_year": "Creswell, J. W., & Creswell, J. D. (2023)",
+        "apa": "Creswell, J. W., & Creswell, J. D. (2023). Research design: Qualitative, quantitative, and mixed methods approaches (6th ed.). SAGE Publications.",
+        "benefit": "تصميم البحوث الكمية والكيفية والمختلطة والربط بين السؤال البحثي والمنهج."
+    },
+    {
+        "field": "المنهجية ومناهج البحث العلمي",
+        "lang": "FR",
+        "title": "Manuel de recherche en sciences sociales",
+        "author_year": "Van Campenhoudt, L., Marquet, J., & Quivy, R. (2022)",
+        "apa": "Van Campenhoudt, L., Marquet, J., & Quivy, R. (2022). Manuel de recherche en sciences sociales (6e éd.). Dunod.",
+        "benefit": "مراحل البحث السوسيولوجي: الإشكالية، البناء النظري، الملاحظة، وتحليل المعطيات."
+    },
+
+    # --- 4. علم الاجتماع العام والظواهر المعاصرة ---
+    {
+        "field": "علم الاجتماع العام والرقمية",
+        "lang": "AR",
         "title": "قواعد المنهج في علم الاجتماع",
+        "author_year": "دوركايم، إميل (2014)",
         "apa": "دوركايم، إميل. (2014). قواعد المنهج في علم الاجتماع (ترجمة محمود قاسم). دار المعرفة الجامعية.",
-        "note": "النص التأسيسي لدراسة الظواهر الاجتماعية كحقائق مستقلة."
+        "benefit": "تأسيس الموضوعية السوسيولوجية ومعالجة الظواهر الاجتماعية كحقائق مستقلة."
     },
     {
-        "field": "علم الاجتماع العام",
+        "field": "علم الاجتماع العام والرقمية",
+        "lang": "AR",
         "title": "الخيال السوسيولوجي",
+        "author_year": "ميلز، تشارلز رايت (2017)",
         "apa": "ميلز، تشارلز رايت. (2017). الخيال السوسيولوجي (ترجمة عبد الباسط عبد المعطي). المركز القومي للترجمة.",
-        "note": "الربط بين التجارب الفردية والبنى الاجتماعية والتاريخية."
+        "benefit": "الربط بين مشكلات الأفراد اليومية والبنى الاجتماعية والتاريخية الأوسع."
+    },
+    {
+        "field": "علم الاجتماع العام والرقمية",
+        "lang": "AR",
+        "title": "مفاهيم أساسية في علم الاجتماع",
+        "author_year": "فيبر، ماكس (2015)",
+        "apa": "فيبر، ماكس. (2015). مفاهيم أساسية في علم الاجتماع (ترجمة صلاح هلال). المركز القومي للترجمة.",
+        "benefit": "فهم الفعل الاجتماعي، التنظيم، العقلانية، والسلطة والشرعية."
+    },
+    {
+        "field": "علم الاجتماع العام والرقمية",
+        "lang": "AR",
+        "title": "الرمز والسلطة (الهابيتوس والحقل)",
+        "author_year": "بورديو، بيير (2016)",
+        "apa": "بورديو، بيير. (2016). الرمز والسلطة (ترجمة عبد السلام بنعبد العالي). دار توبقال للنشر.",
+        "benefit": "تحليل رأس المال الثقافي والاجتماعي والحقول الاجتماعية والممارسات الرمزية."
+    },
+    {
+        "field": "علم الاجتماع العام والرقمية",
+        "lang": "EN",
+        "title": "The Rise of the Network Society",
+        "author_year": "Castells, M. (2010)",
+        "apa": "Castells, M. (2010). The rise of the network society (2nd ed.). Wiley-Blackwell.",
+        "benefit": "فهم التحولات الرقمية، الشبكات الاجتماعية، والفجوة الرقمية في المجتمع المعاصر."
     }
+]
+
+QUICK_CATEGORIES = [
+    "الكل",
+    "سوسيولوجيا الانحراف والجريمة",
+    "الإحصاء التطبيقي و SPSS",
+    "المنهجية ومناهج البحث العلمي",
+    "علم الاجتماع العام والرقمية",
 ]
 
 # =====================================================================
@@ -380,36 +497,39 @@ if "theme" in query_params and query_params["theme"] in ["light", "dark"]:
 elif "theme_mode" not in st.session_state:
     st.session_state.theme_mode = "light"
 
+if "rich_ref_cat" not in st.session_state:
+    st.session_state.rich_ref_cat = "الكل"
+
 is_dark = st.session_state.theme_mode == "dark"
 toggle_target = "light" if is_dark else "dark"
 toggle_label = "☀️ الوضع الفاتح" if is_dark else "🌙 الوضع الداكن"
 
 # =====================================================================
-# ARCTIC BLUE INTELLIGENCE — DESIGN SYSTEM (Lucida Calligraphy + Glassmorphism)
+# ARCTIC BLUE INTELLIGENCE — DESIGN SYSTEM (Glassmorphism + Modern UX)
 # =====================================================================
 if is_dark:
     theme_vars = (
         "--bg: #071120;"
         "--bg-grad: radial-gradient(circle at 12% 10%, #102647 0%, #071120 65%);"
-        "--surface: rgba(16, 33, 62, 0.72);"
+        "--surface: rgba(16, 33, 62, 0.76);"
         "--surface-solid: #0F203D;"
-        "--surface-soft: rgba(24, 48, 88, 0.65);"
+        "--surface-soft: rgba(24, 48, 88, 0.68);"
         "--text: #EBF5FF;"
         "--text-muted: #93B4D8;"
-        "--border: rgba(56, 189, 248, 0.24);"
-        "--shadow-card: 0 8px 32px rgba(2, 8, 23, 0.45);"
+        "--border: rgba(56, 189, 248, 0.25);"
+        "--shadow-card: 0 10px 30px rgba(2, 8, 23, 0.45);"
     )
 else:
     theme_vars = (
         "--bg: #EEF6FC;"
         "--bg-grad: linear-gradient(180deg, #E2F1FC 0%, #F2F8FD 45%, #EAF4FB 100%);"
-        "--surface: rgba(255, 255, 255, 0.78);"
+        "--surface: rgba(255, 255, 255, 0.82);"
         "--surface-solid: #F7FBFF;"
-        "--surface-soft: rgba(224, 242, 254, 0.65);"
+        "--surface-soft: rgba(224, 242, 254, 0.68);"
         "--text: #0B2545;"
         "--text-muted: #47688A;"
         "--border: rgba(14, 165, 233, 0.25);"
-        "--shadow-card: 0 8px 28px rgba(14, 116, 144, 0.08);"
+        "--shadow-card: 0 10px 28px rgba(14, 116, 144, 0.08);"
     )
 
 css_styles = (
@@ -425,6 +545,7 @@ css_styles = (
     "  --radius-button: 11px;"
     f"  {theme_vars}"
     "}"
+    "html {scroll-behavior: smooth;}"
     "#MainMenu, header, footer {visibility: hidden;}"
     ".block-container {padding: 0rem !important; max-width: 100% !important;}"
     ".stApp {background: var(--bg-grad) !important; background-color: var(--bg) !important; font-family: 'Cairo', sans-serif !important; direction: rtl; text-align: right; color: var(--text);}"
@@ -437,12 +558,12 @@ css_styles = (
     "label p {direction: rtl !important; text-align: right !important; font-size: 13px !important; font-weight: 700 !important; color: var(--text) !important;}"
 
     "/* 01. Glassmorphic Floating Navbar */"
-    ".sl-navbar {background: var(--surface); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1.5px solid var(--border); padding: 11px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: var(--shadow-card);}"
+    ".sl-navbar {background: var(--surface); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1.5px solid var(--border); padding: 11px 6%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; direction: rtl; box-shadow: var(--shadow-card);}"
     ".sl-brand {display: flex; align-items: center; gap: 12px; text-decoration: none;}"
     ".sl-brand-title {font-family: 'Lucida Calligraphy', 'Brush Script MT', cursive !important; font-size: 24px; font-weight: 700; background: linear-gradient(90deg, var(--sky-blue), var(--digital-indigo), var(--mint-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; direction: ltr;}"
     ".sl-brand-sub {font-size: 10.5px; color: var(--text-muted); font-weight: 700; display: block;}"
     ".sl-nav-links {display: flex; gap: 10px; flex-wrap: wrap; align-items: center;}"
-    ".sl-nav-links a {color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 700; padding: 6px 10px; border-radius: 9px; transition: all 0.25s ease;}"
+    ".sl-nav-links a {color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 700; padding: 6px 10px; border-radius: 9px; transition: all 0.22s ease;}"
     ".sl-nav-links a:hover, .sl-nav-links a.active {color: #FFFFFF; background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);}"
     ".sl-nav-actions {display: flex; gap: 10px; align-items: center;}"
     ".sl-theme-btn {background: var(--surface-soft); border: 1px solid var(--border); color: var(--text) !important; font-size: 12px; font-weight: 700; padding: 7px 12px; border-radius: 9px; text-decoration: none; transition: all 0.2s ease;}"
@@ -465,7 +586,7 @@ css_styles = (
     ".sl-btn-outline:hover {background: rgba(56, 189, 248, 0.18); transform: translateY(-2px);}"
 
     "/* Glassmorphic Analytics Dashboard Preview */"
-    ".sl-stat-card {background: rgba(15, 34, 66, 0.68); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: var(--radius-card); padding: 20px; box-shadow: 0 20px 45px rgba(4, 13, 28, 0.4);}"
+    ".sl-stat-card {background: rgba(15, 34, 66, 0.72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: var(--radius-card); padding: 20px; box-shadow: 0 20px 45px rgba(4, 13, 28, 0.4);}"
     ".sl-stat-header {display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(56, 189, 248, 0.22); padding-bottom: 10px; margin-bottom: 12px;}"
     ".sl-kpi-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; text-align: center;}"
     ".sl-kpi-box {background: rgba(9, 24, 48, 0.78); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 9px;}"
@@ -475,9 +596,9 @@ css_styles = (
 
     "/* Sections & Grids */"
     ".sl-section {max-width: 1200px; margin: 0 auto; padding: 40px 6%; direction: rtl; text-align: right;}"
-    ".sl-sec-head {text-align: center; max-width: 740px; margin: 0 auto 28px auto;}"
+    ".sl-sec-head {text-align: center; max-width: 780px; margin: 0 auto 28px auto;}"
     ".sl-sec-num {font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11.5px; font-weight: 800; color: var(--mint-green); letter-spacing: 1px; display: block; margin-bottom: 4px;}"
-    ".sl-sec-tag {color: var(--sky-blue); font-size: 12.5px; font-weight: 800; background: var(--surface-soft); border: 1px solid var(--border); display: inline-block; padding: 4px 14px; border-radius: 99px; margin-bottom: 6px;}"
+    ".sl-sec-tag {color: var(--sky-blue); font-size: 12px; font-weight: 800; background: var(--surface-soft); border: 1px solid var(--border); display: inline-block; padding: 3px 12px; border-radius: 99px;}"
     ".sl-sec-title {color: var(--text); font-size: 24px; font-weight: 800; margin: 4px 0 8px 0;}"
     ".sl-sec-sub {color: var(--text-muted); font-size: 13.8px; margin: 0;}"
 
@@ -494,10 +615,9 @@ css_styles = (
     ".sl-step-card:hover {transform: translateY(-3px); border-color: var(--sky-blue);}"
     ".sl-step-badge {width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, var(--sky-blue), var(--digital-indigo)); color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;}"
 
-    "/* 06 & 07. Academy & Scientific Resources */"
+    "/* 06. Academy */"
     ".sl-acad-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px;}"
     ".sl-acad-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--digital-indigo); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); text-align: right;}"
-    ".sl-res-card {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-top: 3.5px solid var(--mint-green); border-radius: var(--radius-card); padding: 20px; box-shadow: var(--shadow-card); text-align: right;}"
 
     "/* 08. Why Socio Lab */"
     ".sl-why-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px;}"
@@ -525,12 +645,12 @@ css_styles = (
     ".sl-pkg-btn.mint {background: linear-gradient(135deg, var(--mint-green), #059669); color: #FFFFFF !important; font-weight: 800;}"
 
     "/* Containers & Banners */"
-    ".sl-about-box, .sl-detail-box {background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 24px; margin-bottom: 18px; box-shadow: var(--shadow-card); text-align: right;}"
+    ".sl-about-box, .sl-detail-box {background: var(--surface); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 22px; margin-bottom: 14px; box-shadow: var(--shadow-card); text-align: right; transition: border-color 0.2s ease;}"
+    ".sl-detail-box:hover {border-color: var(--sky-blue);}"
     ".sl-probe-result {background: var(--surface); backdrop-filter: blur(12px); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); border-radius: var(--radius-card); padding: 16px; margin-top: 12px; font-size: 13px; line-height: 1.75; color: var(--text); box-shadow: var(--shadow-card); text-align: right;}"
     ".sl-deliv-item {background: var(--surface-soft); border: 1px solid var(--border); border-right: 3.5px solid var(--mint-green); padding: 10px 14px; border-radius: var(--radius-button); font-size: 13px; color: var(--text); margin-bottom: 8px; text-align: right;}"
     ".sl-back-link {display: inline-block; color: var(--text) !important; font-weight: 800; font-size: 13px; text-decoration: none !important; margin-bottom: 16px; background: var(--surface); border: 1px solid var(--border); padding: 7px 16px; border-radius: var(--radius-button);}"
     ".sl-result-banner {background-color: var(--surface-soft); border: 1px solid var(--border); border-right: 4px solid var(--sky-blue); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
-    ".sl-warn-banner {background-color: var(--surface-soft); border: 1px solid var(--mint-green); border-right: 4px solid var(--mint-green); padding: 12px 15px; border-radius: var(--radius-button); margin-top: 10px; font-size: 13px; color: var(--text); text-align: right;}"
     ".sl-cert-box {background: linear-gradient(135deg, #091E3A 0%, #1E3A70 100%); border: 2px solid var(--mint-glow); border-radius: var(--radius-card); padding: 20px; color: #FFFFFF; text-align: center; margin-top: 12px; box-shadow: var(--shadow-card);}"
 
     "/* APA 7 Tables */"
@@ -551,7 +671,6 @@ css_styles = (
 st.markdown(css_styles, unsafe_allow_html=True)
 
 active_home = "active" if st.session_state.current_view == "home" else ""
-active_srv = "active" if st.session_state.current_view == "services" else ""
 active_app = "active" if st.session_state.current_view == "applied_lab" else ""
 
 arctic_logo_svg = (
@@ -600,7 +719,7 @@ navbar_html = (
 st.markdown(navbar_html, unsafe_allow_html=True)
 
 # =====================================================================
-# الصفحة الاولى: الواجهة الرئيسية وفق معمارية Socio Lab (01 -> 10)
+# الصفحة الاولى: الواجهة الرئيسية وفق معمارية Socio Lab
 # =====================================================================
 if st.session_state.current_view == "home":
     # 02. HERO SECTION
@@ -741,7 +860,7 @@ if st.session_state.current_view == "home":
 
             if uploaded_file is not None:
                 try:
-                    if uploaded_file.name.endswith(".csv"):
+                    if uploaded_file.name.lower().endswith(".csv"):
                         df = pd.read_csv(uploaded_file)
                     else:
                         df = pd.read_excel(uploaded_file)
@@ -1109,73 +1228,95 @@ if st.session_state.current_view == "home":
     st.markdown(academy_html, unsafe_allow_html=True)
 
     # =================================================================
-    # 07. SCIENTIFIC RESOURCES (المكتبة والمراجع العلمية الموثقة APA 7)
+    # 07. SCIENTIFIC RESOURCES (فهرس المراجع الموسّع مع وصول سريع APA 7)
     # =================================================================
     st.markdown(
         '<div id="scientific-resources" class="sl-section" style="padding-bottom:10px;">'
         '<div class="sl-sec-head" style="margin-bottom:18px;">'
         '<span class="sl-sec-num">07 • SCIENTIFIC RESOURCES &amp; BIBLIOGRAPHY</span>'
-        '<div class="sl-sec-title">المكتبة العلمية وفهرس المراجع (المنهجية، الإحصاء/SPSS، علم الاجتماع، انحراف وجريمة)</div>'
-        '<p class="sl-sec-sub">اختر التخصص أو ابحث عن مرجع أو نظرية للحصول على التوثيق الجاهز وفق معايير APA 7.</p>'
+        '<div class="sl-sec-title">الفهرس المرجعي الموسّع لعلم الاجتماع والإحصاء والمنهجية (<span class="ltr">APA 7</span>)</div>'
+        '<p class="sl-sec-sub">اختر تخصصاً بنقرة واحدة أو ابحث باسم المؤلف أو العنوان أو النظرية للوصول السريع إلى التوثيق الجاهز.</p>'
         '</div></div>',
         unsafe_allow_html=True,
     )
 
     _, ref_col, _ = st.columns([0.05, 0.90, 0.05])
     with ref_col:
-        rf1, rf2 = st.columns([0.45, 0.55])
-        with rf1:
-            ref_fields = [
-                "جميع التخصصات",
-                "سوسيولوجيا الانحراف والجريمة",
-                "المنهجية ومناهج البحث العلمي",
-                "الإحصاء التطبيقي و SPSS",
-                "علم الاجتماع العام"
-            ]
-            selected_ref_field = st.selectbox("اختر التخصص:", ref_fields, key="home_ref_field")
-        with rf2:
-            ref_query = st.text_input("ابحث في المراجع (مؤلف، عنوان، موضوع):", placeholder="مثال: دوركايم، جنوح، بوحوش، SPSS...", key="home_ref_search").strip().lower()
+        btn_cols = st.columns(len(QUICK_CATEGORIES))
+        for idx, cat_name in enumerate(QUICK_CATEGORIES):
+            with btn_cols[idx]:
+                is_selected = st.session_state.rich_ref_cat == cat_name
+                btn_type = "primary" if is_selected else "secondary"
+                if st.button(cat_name, key=f"quick_cat_{idx}", type=btn_type, use_container_width=True):
+                    st.session_state.rich_ref_cat = cat_name
+                    st.rerun()
 
-        filtered_refs = []
-        for r_item in REFERENCES_LIST:
-            ok_f = (selected_ref_field == "جميع التخصصات") or (r_item["field"] == selected_ref_field)
+        f_left, f_right = st.columns([0.28, 0.72])
+        with f_left:
+            lang_filter = st.selectbox("اللغة:", ["الكل", "AR", "EN", "FR"], key="rich_ref_lang")
+        with f_right:
+            search_txt = st.text_input(
+                "بحث فوري في المراجع:",
+                placeholder="ابحث بمؤلف، كتاب، نظرية، أو أداة (مثال: دوركايم، الوصم، SPSS، كريسويل)...",
+                key="rich_ref_search",
+            ).strip().lower()
+
+        active_cat = st.session_state.rich_ref_cat
+        results = []
+        for item in RICH_REFERENCES_DB:
+            ok_cat = (active_cat == "الكل") or (item["field"] == active_cat)
+            ok_lang = (lang_filter == "الكل") or (item["lang"] == lang_filter)
             ok_q = (
-                not ref_query
-                or ref_query in r_item["title"].lower()
-                or ref_query in r_item["apa"].lower()
-                or ref_query in r_item["note"].lower()
+                not search_txt
+                or search_txt in item["title"].lower()
+                or search_txt in item["author_year"].lower()
+                or search_txt in item["benefit"].lower()
+                or search_txt in item["apa"].lower()
             )
-            if ok_f and ok_q:
-                filtered_refs.append(r_item)
+            if ok_cat and ok_lang and ok_q:
+                results.append(item)
 
-        if filtered_refs:
-            export_txt = "\n".join([f"{i+1}. {item['apa']}" for i, item in enumerate(filtered_refs)])
+        st.markdown(
+            f'<div style="font-size:12.5px; color:var(--text-muted); margin:8px 0;">'
+            f'عدد المراجع المتاحة وفق التصفية الحالية: <strong>{len(results)}</strong> مرجع</div>',
+            unsafe_allow_html=True,
+        )
+
+        if results:
+            txt_export = "\n".join([f"{i+1}. {r['apa']}" for i, r in enumerate(results)])
             st.download_button(
-                label=f"تحميل قائمة المراجع المعروضة ({len(filtered_refs)} مرجع) بصيغة APA 7 (.txt)",
-                data=export_txt,
-                file_name="SocioLab_References_APA7.txt",
+                label=f"تحميل المراجع الظاهرة ({len(results)}) بصيغة APA 7 (.txt)",
+                data=txt_export,
+                file_name="SocioLab_Rich_References_APA7.txt",
                 mime="text/plain",
                 use_container_width=True,
             )
+            st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
 
-        for r_item in filtered_refs:
-            is_latin_ref = r_item["apa"][0].isascii()
-            dir_cls_ref = "ltr-block" if is_latin_ref else "rtl"
-            border_c = "var(--mint-green)" if "انحراف" in r_item["field"] else (
-                "var(--sky-blue)" if "SPSS" in r_item["field"] else "var(--digital-indigo)"
+        for r in results:
+            is_latin = r["apa"][0].isascii()
+            dir_cls = "ltr-block" if is_latin else "rtl"
+            accent = (
+                "var(--mint-green)" if "انحراف" in r["field"]
+                else ("var(--sky-blue)" if "SPSS" in r["field"] else "var(--digital-indigo)")
             )
-            ref_card_html = (
-                f'<div class="sl-detail-box" style="padding:16px; margin-bottom:10px; border-right:4px solid {border_c};">'
-                f'<span class="sl-sec-tag" style="margin-bottom:4px;">{r_item["field"]}</span>'
-                f'<div style="font-size:15px; font-weight:800; color:var(--text); margin-bottom:6px;">{r_item["title"]}</div>'
-                f'<div class="sl-result-banner" style="margin-top:4px;">'
-                f'<div style="font-size:11px; font-weight:700; color:var(--sky-blue); margin-bottom:2px;">التوثيق (APA 7th):</div>'
-                f'<div class="{dir_cls_ref}" style="font-size:13px; font-weight:600;">{r_item["apa"]}</div>'
+            card = (
+                f'<div class="sl-detail-box" style="padding:15px; margin-bottom:10px; border-right:4px solid {accent};">'
+                f'<div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:5px;">'
+                f'<span class="sl-sec-tag">{r["field"]} • {r["lang"]}</span>'
+                f'<span style="font-size:12px; font-weight:700; color:var(--text-muted);">{r["author_year"]}</span>'
                 f'</div>'
-                f'<div style="font-size:12px; color:var(--text-muted); margin-top:6px;">• {r_item["note"]}</div>'
+                f'<div style="font-size:15px; font-weight:800; color:var(--text); margin-bottom:5px;">{r["title"]}</div>'
+                f'<div style="font-size:12.6px; color:var(--text-muted); margin-bottom:7px;">• <strong>أهميته للباحث:</strong> {r["benefit"]}</div>'
+                f'<div class="sl-result-banner" style="margin-top:4px; padding:10px 12px;">'
+                f'<div class="{dir_cls}" style="font-size:12.8px; font-weight:600;">{r["apa"]}</div>'
+                f'</div>'
                 f'</div>'
             )
-            st.markdown(ref_card_html, unsafe_allow_html=True)
+            st.markdown(card, unsafe_allow_html=True)
+
+        if not results:
+            st.info("لا توجد مراجع مطابقة للبحث الحالي؛ جرّبي اختيار «الكل» أو تقليل كلمات البحث.")
 
     # =================================================================
     # 08. WHY SOCIO LAB
@@ -1443,7 +1584,7 @@ elif st.session_state.current_view == "applied_lab":
         f'<div class="sl-sec-head" style="margin-bottom:22px;">'
         f'<div class="sl-sec-tag">بيئة العمل التطبيقية المتقدمة</div>'
         f'<div class="sl-sec-title">استوديو البحث الميداني والاحصائي (<span class="ltr">Applied Research Studio</span>)</div>'
-        f'<p class="sl-sec-sub">اجراء الاختبارات الاحصائية الفورية على ملفات البيانات، بناء الاستبيانات ودليل الترميز، تحليل المقابلات الكيفية، وصياغة فصل الاجراءات المنهجية.</p>'
+        f'<p class="sl-sec-sub">اجراء الاختبارات الاحصائية الفورية على ملفات البيانات، بناء الاستبيانات ودليل الترميز، وصياغة استمارات الدراسة.</p>'
         f'</div></div>'
     )
     st.markdown(lab_page_header, unsafe_allow_html=True)
@@ -1466,7 +1607,7 @@ elif st.session_state.current_view == "applied_lab":
         )
         if stat_file is not None:
             try:
-                if stat_file.name.endswith(".csv"):
+                if stat_file.name.lower().endswith(".csv"):
                     sdf = pd.read_csv(stat_file)
                 else:
                     sdf = pd.read_excel(stat_file)
